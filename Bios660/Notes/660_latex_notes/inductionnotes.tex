@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Induction Notes}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\begin{document}
+\begin{flushleft}
+\section{PMI}
+If $T$ is a subset of $\mathbb{N}$ such that:
+\begin{enumerate}
+\item $1\in T$
+\item $\forall \ k \in \mathbb{N}$, if $k\in T$, then
+$(k+1)\in T$, \\
+Then $T=\mathbb{N}$
+\end{enumerate}
+Use induction to prove statements in the form of 
+$(\forall \ n \in \mathbb{N})(P(n))$\medbreak
+Goal is to prove $T = \mathbb{N}$ \medbreak
+\begin{itemize}
+\item Basis Step: Prove $P(1)$
+\item Inductive Step: Prove $\forall \ k\in \mathbb{N}$ if
+$P(k)$ is true, then $P(k+1)$ is true.
+\item Conclude $P(n)$ is true $\forall \ n \in \mathbb{N}$
+\end{itemize}
+Start inductive step by assuming $P(k)$ is true.\\
+This is called the \textbf{inductive hypothesis}\medbreak
+The key is to discover how $P(k+1)$ is related to $P(k)$ for an arbitrary $k\in \mathbb{N}$
+\section{Induction Proof Example}
+
+\begin{align*}
+\text{Proof by induction:}&\\
+\forall \ n \in \mathbb{N} &\text{ let } P(n) \text{ be:}\\
+\sum_{j=1}^{n}j&=\dfrac{n(n+1)}{2}\\
+\textbf{Basis Step: } 1&=\dfrac{1(1+1)}{2}\\
+&= 1\\
+\text{Thus } &P(1) \text{ is true}\\
+\textbf{Inductive Step: } \text{Let } k&\in \mathbb{N} \text{ and assume }
+P(k) \text{is true:}\\
+\sum_{j=1}^{k}j&=\dfrac{k(k+1)}{2} \label{1}\tag{1}\\
+\text{We will prove } &P(k+1) \text{ is true:}\\
+\sum_{j=1}^{k+1}j&=\dfrac{(k+1)((k+1)+1)}{2}\\
+&=\dfrac{(k+1)(k+2)}{2}\label{2}\tag{2}\\
+\text{add } &(k+1) \text{ to both sides of } \eqref{1}\\
+\sum_{j=1}^{k}j +(k+1)&=\dfrac{k(k+1)}{2}+(k+1)\\
+&=\dfrac{(k+1)(k+2)}{2}\\
+&\text{Which is the same as } \eqref{2}\\
+&\text{Hence the inductive step has been established}\\
+ &\text{and by PMI we have proven that:}\\
+\forall \ n \in \mathbb{N} \ \sum_{j=1}^{n}j&=\frac{n(n+1)}{2}
+\end{align*}
+
+
+
+
+\end{flushleft}
+\end{document}

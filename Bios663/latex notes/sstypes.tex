@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+\section*{SS Types}
+$SS(AB | A, B) = SS(A, B, AB) – SS(A, B)$\\
+$SS(A | B, AB) = SS(A, B, AB) – SS(B, AB)$\\
+$SS(B | A, AB) = SS(A, B, AB) – SS(A, AB)$\\
+$SS(A | B) = SS(A, B) – SS(B)$\\
+$SS(B | A) = SS(A, B) – SS(A)$\\
+
+The notation shows the incremental differences in sums of squares\\  
+$SS(AB | A, B)$ represents the sum of squares for interaction after the main effects\\ 
+$SS(A | B)$ is the sum of squares for the A main effect after the B main effect and ignoring interactions\\
+
+The different types of sums of squares then arise depending on the stage of model reduction at which they are carried out.\\
+
+
+\section*{Type I}
+\textbf{Type I}: $SS(A)$ for A, $SS(B | A)$ for B,
+$SS(AB | B, A)$ for interaction AB\\
+Tests  ME of A, followed by the ME of B after the ME of A, followed by AB after the MEs. Not great with unbalanced data\\
+\section*{Type III}
+\textbf{Type III}: $SS(A | B, AB)$ for A, $SS(B | A, AB)$ for B\\
+Tests for ME after the other ME and interact. Good for signif interacts\\
+not great for ME\\
+\section*{Summary}
+Data balanced, the factors orthogonal: all types same\\
+Usually the hypothesis of interest is about the significance of one factor while controlling for the level of the other factors (Type II,III)\\
+\section*{Type II}
+Type II: $SS(A | B)$ for A, $SS(B | A)$ for B\\
+Tests for each ME after the other ME.\\
+no significant interaction.  test for interaction first $(SS(AB | A, B))$ and only if AB is not significant, continue with the analysis for main effects\\
+Computationally, this is equivalent to running a type I analysis with different orders of the factors, and taking the appropriate output\\
+
+\end{flushleft}
+\end{document}

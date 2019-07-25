@@ -1,0 +1,273 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 4}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+	\section*{Problem 1}
+	
+\begin{multline*}\\
+\text{Using the central limit theorem } \bar{X_1} \text{ and } \bar{X_2} \text{ are approximatley normally distributed }\\
+\bar{X_1} \sim N(\mu,\sigma^2/n)\\
+\bar{X_2} \sim N(\mu,\sigma^2/n)\\
+\text{Since } \bar{X_1} \text{ and } \bar{X_2} \text{ are independent:}\\
+\bar{X_1}-\bar{X_2}\sim N(\mu_1-\mu_2,\sigma^2_1+\sigma^2_2)\\
+\bar{X_1}-\bar{X_2}\sim N(0,2\sigma^2/n)\\
+\text{Let } Z=\dfrac{[\bar{X_1}-\bar{X_2}]\sqrt{n}}{\sqrt{2}\sigma}\\
+Z \sim N(0,1)\\
+\text{We want to find n such that:}\\
+P(|\bar{X_1}-\bar{X_2}|<\sigma/5)\approx .99\\ 
+P(|\bar{X_1}-\bar{X_2}|<\sigma/5)=P(-\sigma/5<\bar{X_1}-\bar{X_2}<\sigma/5)\\
+=P(\dfrac{-\sqrt{n}\sigma}{5\sqrt{2}\sigma}<Z<\dfrac{\sqrt{n}\sigma}{5\sqrt{2}\sigma})\\
+=P(\dfrac{-\sqrt{n}}{5\sqrt{2}}<Z<\dfrac{\sqrt{n}}{5\sqrt{2}})\\
+.99\approx P(\dfrac{-\sqrt{n}}{5\sqrt{2}}<Z<\dfrac{\sqrt{n}}{5\sqrt{2}})\\
+.99\approx P(Z<\dfrac{\sqrt{n}}{5\sqrt{2}})-P(Z>-\dfrac{\sqrt{n}}{5\sqrt{2}})\\
+.99\approx P(Z<\dfrac{\sqrt{n}}{5\sqrt{2}})-(1-P(Z<\dfrac{\sqrt{n}}{5\sqrt{2}}))\\
+.99\approx 2P(Z<\dfrac{\sqrt{n}}{5\sqrt{2}})-1\\
+P(Z<\dfrac{\sqrt{n}}{5\sqrt{2}})\approx .995\\
+qnorm(.995)=2.575829 \quad \text{(using R)}\\
+2.575829=\dfrac{\sqrt{n}}{5\sqrt{2}}\\
+n=[2.575829(5\sqrt{2})]^2=50*2.575829^2=331.7448\\
+n=332\\
+\end{multline*}
+
+	\section*{Problem 2}
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+\text{Given } X_n \overset{p}{\to} a\\
+\forall \ \epsilon>0 \quad \lim_{n\to \infty} P[|X_n-a|> \epsilon]=0\\
+\text{WTS: } Y_i=\sqrt{X_i} \text{ converges in probability}\\
+\text{That is:} \lim_{n\to \infty}P(|\sqrt{X_n}-\sqrt{a}>\epsilon)=0\\
+P(|\sqrt{X_n}-\sqrt{a}>\epsilon)
+=P(|\sqrt{X_n}-\sqrt{a}||\sqrt{X_n}+\sqrt{a}|>\epsilon|\sqrt{X_n}+\sqrt{a}|)\\
+=P(|X_n-a|> \epsilon|\sqrt{X_n}+\sqrt{a}|)\\
+\leq P(|X_n-a|> \epsilon\sqrt{a})\\
+P(|\sqrt{X_n}-\sqrt{a}>\epsilon)\leq P(|X_n-a|> \epsilon\sqrt{a})\\
+\text{Since } \forall \ \epsilon>0 \quad \lim_{n\to \infty} P[|X_n-a|> \epsilon]=0\\
+\text{and } \epsilon\leq \sqrt{a}\epsilon\\
+\text{We have }\lim_{n \to \infty}P(|X_n-a|> \epsilon\sqrt{a})=0\\
+\text{Which means }\lim_{n\to \infty} P(|\sqrt{X_n}-\sqrt{a}>\epsilon)\leq\lim_{n \to \infty}P(|X_n-a|> \epsilon\sqrt{a})=0\\
+\text{Thus }\lim_{n\to \infty} P(|\sqrt{X_n}-\sqrt{a}>\epsilon)= 0\\
+\text{Therefore } \sqrt{X_n} \overset{p}{\to} \sqrt{a}\\
+\end{multline*}
+\begin{multline*}
+\text{WTS: } Y_i^{'}=a/X_i \text{ converges in probability}\\
+\text{That is:} \lim_{n\to \infty}P(|a/X_n-1|\leq\epsilon)=1\\
+P(|a/X_n-1|\leq\epsilon)=P(-\epsilon\leq a/X_n-1\leq \epsilon)\\
+=P\left(\dfrac{1-\epsilon}{a}\leq 1/X_n\leq \dfrac{1+\epsilon}{a}\right)\\
+=P\left(\dfrac{a}{1+\epsilon}\leq X_n\leq \dfrac{a}{1-\epsilon}\right)\\
+=P\left(\dfrac{a+a\epsilon-a\epsilon}{1+\epsilon}\leq X_n\leq \dfrac{a-a\epsilon+a\epsilon}{1-\epsilon}\right)\\
+=P\left(\dfrac{a(1+\epsilon)-a\epsilon}{1+\epsilon}\leq X_n\leq \dfrac{a(1-\epsilon)+a\epsilon}{1-\epsilon}\right)\\
+=P\left(a-\dfrac{a\epsilon}{1+\epsilon}\leq X_n\leq a+\dfrac{a\epsilon}{1-\epsilon}\right)\\
+\geq P\left(a-\dfrac{a\epsilon}{1+\epsilon}\leq X_n\leq a+\dfrac{a\epsilon}{1+\epsilon}\right) \text{ Since } a+\dfrac{a\epsilon}{1+\epsilon}<a+\dfrac{a\epsilon}{1-\epsilon}\\
+=P\left(-\dfrac{a\epsilon}{1+\epsilon}\leq X_n-a\leq \dfrac{a\epsilon}{1+\epsilon}\right)\\
+=P\left(|X_n-a|\leq \dfrac{a\epsilon}{1+\epsilon} \right)\\
+P(|a/X_n-1|\leq\epsilon)\geq P\left(|X_n-a|\leq \dfrac{a\epsilon}{1+\epsilon} \right)\\
+\text{Since } \lim_{n\to \infty}P\left(|X_n-a|\leq \epsilon \right)=1\\
+\text{We have }\lim_{n\to \infty}P\left(|X_n-a|\leq \dfrac{a\epsilon}{1+\epsilon} \right)=1\\
+\text{Therefore } \lim_{n\to \infty}P(|a/X_n-1|\leq\epsilon)=1\\
+\text{Thus } a/X_n \overset{p}{\to} 1\\
+\end{multline*}
+	\item 
+\begin{multline*}\\
+\text{WTS: } \dfrac{\sigma}{S_n}\overset{p}{\to} 1\\
+\text{Using the result from the first part of a:}\\
+X_n\overset{p}{\to} a \text{ means that }
+\sqrt{X_n}\overset{p}{\to} \sqrt{a}\\
+S_n=\sqrt{S_n^2}\\
+\sqrt{S_n^2}\overset{p}{\to} \sqrt{\sigma^2}\\
+S_n\overset{p}{\to} \sigma\\
+\text{Using the result from the second part of a:}\\
+X_n\overset{p}{\to} a \text{ means that } a/X_n\overset{p}{\to} 1\\
+\text{Since } S_n\overset{p}{\to} \sigma\\
+\dfrac{\sigma}{S_n}\overset{p}{\to} 1\\
+\end{multline*}
+
+\end{enumerate}
+\pagebreak
+	\section*{Problem 3}
+	
+\begin{multline*}\\
+f_Y(y)=\theta \gamma^{\theta} y^{-(\theta+1)}\quad 0<\gamma<y<\infty, \ 2<\theta<\infty\\
+F_Y(y)=1-\left(\dfrac{\gamma}{y}\right)^{\theta}\\
+f_{Y_{(1)}}(y)=n(\theta \gamma^{\theta} y^{-(\theta+1)})\left[1-\left(1-\left(\dfrac{\gamma}{y}\right)^{\theta}\right)\right]^{n-1}\\
+f_{Y_{(1)}}(y)=n\theta\gamma^{\theta n}y^{-(\theta n+1)} \quad 0<\gamma<y<\infty, \ 2<\theta<\infty\\
+EY_{(1)}=\int_{\gamma}^{\infty}y(n\theta\gamma^{\theta n}y^{-(\theta n+1)}) \ dy\\
+=n\theta\gamma^{\theta n}\int_{\gamma}^{\infty}y^{-\theta n} \ dy\\
+=n\theta\gamma^{\theta n}\bigg|_{\gamma}^{\infty}\dfrac{1}{-\theta n+1}y^{-\theta n+1}\\
+=\dfrac{n\theta\gamma^{\theta n}}{-\theta n+1}(0-\gamma^{-\theta n +1})\\
+EY_{(1)}=\dfrac{-n\theta\gamma}{-\theta n+1}\\
+\lim_{n\to \infty}EY_{(1)}=\lim_{n\to \infty}\dfrac{-n\theta\gamma}{-\theta n+1}\\
+=\lim_{n\to \infty}\dfrac{-\theta\gamma}{-\theta +1/n}\\
+=\dfrac{-\theta\gamma}{-\theta+0}=\gamma\\
+\lim_{n\to \infty}EY_{(1)}=\gamma\\
+Var(Y_{(1)})=E(Y_{(1)}^2)-(EY_{(1)})^2\\
+E(Y_{(1)}^2)=\int_{\gamma}^{\infty}y^2(n\theta\gamma^{\theta n}y^{-(\theta n+1)}) \ dy\\
+=n\theta\gamma^{\theta n}\int_{\gamma}^{\infty}y^{-\theta n+1} \ dy\\
+=n\theta\gamma^{\theta n}\bigg|_{\gamma}^{\infty}\dfrac{1}{-\theta n+2}y^{-\theta n+2}\\
+=\dfrac{n\theta\gamma^{\theta n}}{-\theta n+2}(0-\gamma^{-\theta n +2})\\
+E(Y_{(1)}^2)=\dfrac{-n\theta\gamma^2}{-\theta n+2}\\
+\lim_{n\to \infty} Var(Y_{(1)})=\lim_{n\to \infty} E(Y_{(1)}^2)- \lim_{n\to \infty}(EY_{(1)})^2\\
+\lim_{n\to \infty}E(Y_{(1)}^2)=\lim_{n\to \infty}\dfrac{-n\theta\gamma^2}{-\theta n+2}\\
+=\lim_{n\to \infty}\dfrac{-\theta \gamma^2}{-\theta+(2/n)}\\
+=\dfrac{-\theta \gamma^2}{-\theta+0}=\gamma^2\\
+\lim_{n\to \infty} E(Y_{(1)}^2)=\gamma^2\\
+\lim_{n\to \infty} E(Y_{(1)})^2=\lim_{n\to \infty}\left(\dfrac{-n\theta\gamma}{-\theta n+1}\right)^2\\
+=\lim_{n\to \infty}\dfrac{n^2\theta^2\gamma^2}{\theta^2 n^2-2\theta^2n+1}\\
+=\lim_{n\to \infty}\dfrac{\theta^2\gamma^2}{\theta^2 -2\theta^2(1/n)+1/n^2}\\
+=\dfrac{\theta^2\gamma^2}{\theta^2-0+0}=\gamma^2\\
+\lim_{n\to \infty} E(Y_{(1)})^2=\gamma^2\\
+\lim_{n\to \infty} Var(Y_{(1)})=\gamma^2-\gamma^2=0\\
+\text{Thus } Y_{(1)} \text{ is a consistent estimator of } \gamma\\
+Y_{(1)}\overset{p}{\to}\gamma\\
+\end{multline*}
+	\section*{Problem 4}
+	
+\begin{enumerate}[(a)]
+	
+	\item 	
+\begin{multline*}\\
+X_1,\dots,X_n \text{are iid random variables } \sim Pois(\mu) \quad \mu>0\\
+E(X_i)=\mu \\
+\bar{X_n}=n^{-1}\sum_{i=1}^{n}X_i\\
+\sqrt{n}(\bar{X_n}-EX_1)\overset{d}{\to} N(0,\sigma^2)\\
+\text{Since the mean and the variance of poisson rv are equal:}\\
+\sigma^2=\mu \quad \sigma=\sqrt{\mu}\\
+\text{Since we have iid random variables, a finite mean and variance:}\\
+\dfrac{\sqrt{n}(\bar{X_n}-\mu)}{\sqrt{\mu}}\overset{d}{\to}N(0,1)\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+T_n=\sqrt{n}(\bar{X_n}-\mu)\\
+T_n\overset{d}{\to}N(0,\mu)\\
+\text{asymptotic variance } =\mu\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\text{Want to find } h(\bar{X_n}) \text{ such that } h(\bar{X_n}) T_n \overset{d}{\to} N(0,1)\\
+T_n=\sqrt{n}(\bar{X_n}-\mu)\overset{d}{\to} N(0,\mu)\\
+\dfrac{\sqrt{n}(\bar{X_n}-\mu)}{\sqrt{\mu}}\overset{d}{\to}N(0,1) \text{ (CLT)}\\
+\text{Since Xs are iid, } EX_i=\mu \text{, variance is finite:}\\
+\bar{X_n}\overset{p}{\to} \mu \text{ (WLLN)}\\
+\dfrac{\sqrt{\mu}}{\sqrt{\bar{X_n}}}\overset{p}{\to}1\\
+\dfrac{\sqrt{\mu}}{\sqrt{\bar{X_n}}}\dfrac{\sqrt{n}(\bar{X_n}-\mu)}{\sqrt{\mu}}\overset{d}{\to}N(0,1) \text{ (Slutsky's Thm)}\\
+\dfrac{\sqrt{n}(\bar{X_n}-\mu)}{\sqrt{\bar{\bar{X_n}}}}\overset{d}{\to}N(0,1)\\
+g(\bar{X_n})\overset{p}{\to}g(\mu)\\
+g(x)=\dfrac{1}{\sqrt{x}}\\
+h(\bar{X_n})=\dfrac{1}{\sqrt{\bar{X_n}}}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+95\% \text{ CI for } \mu:\\
+\text{Since }\dfrac{\bar{X}-\mu)}{\sqrt{\bar{X_n}}}\overset{d}{\to}N(0,1)\\
+.95\approx P\left(-1.96 <\dfrac{\sqrt{n}(\bar{X}-\mu)}{\sqrt{\bar{X_n}}}<1.96\right)\\
+=P\left(\bar{X}+\dfrac{1.96\sqrt{\bar{X_n}}}{\sqrt{n}}>\mu>\bar{X}-\dfrac{1.96\sqrt{\bar{X_n}}}{\sqrt{n}} \right)\\
+=P\left(\bar{X}-\dfrac{1.96\sqrt{\bar{X_n}}}{\sqrt{n}}<\mu<\bar{X}+\dfrac{1.96\sqrt{\bar{X_n}}}{\sqrt{n}} \right)\\
+\text{Since }\dfrac{\bar{X}-\mu)}{\sqrt{\mu}}\overset{d}{\to}N(0,1)\\
+\approx P\left(-1.96<\dfrac{\bar{X}-\mu)}{\sqrt{\mu}}<1.96\right)\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\sqrt{n}(g(\bar{X_n})-g(\mu))\overset{d}{\to}N(0,1)\\
+\sqrt{n}(g(\bar{X_n})-g(\mu))\overset{d}{\to}N(0,[g^{'}(\mu)]^2\mu)\\
+[g^{'}(\mu)]^2\mu=1\\
+[g^{'}(\mu)]^2=\dfrac{1}{\mu}\\
+g^{'}(\mu)=\dfrac{1}{\sqrt{\mu}}=\mu^{-1/2}\\
+g(\mu)=2\mu^{1/2}\\
+\end{multline*}
+
+\end{enumerate}
+
+	\section*{Problem 5}
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+X_1,\dots,X_n \sim N(\mu,1)\\
+U_n=\dfrac{1}{\sqrt{n}}\sum_{i=1}^{n}(X_i-\mu)\\
+\text{Want to find limiting distribution for } U_n\\
+\sqrt{n}(\bar{X_n}-\mu) \overset{d}{\to}N(0,1) \text{ (CLT)}\\
+=\sqrt{n}\left(\left[1/n\sum_{i=1}^{n}X_i\right]-\mu\right)\\
+=\dfrac{1}{\sqrt{n}}\left(\sum_{i=1}^{n}X_i\right)-\sqrt{n}\mu\\
+=\dfrac{1}{\sqrt{n}}\left(\sum_{i=1}^{n}(X_i-\mu)\right)=U_n\\
+\text{Thus } U_n \overset{d}{\to} N(0,1)\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+X_1,\dots,X_n\sim N(\mu,1)\\
+Var(X_i)=1\\
+V_n=\dfrac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2\\
+\text{WTS: } V_n \overset{p}{\to}1\\
+\dfrac{1}{n}\sum_{i=1}^{n}X_i\overset{p}{\to}E(X_1) \text{ (WLLN)}\\
+\dfrac{1}{n}\sum_{i=1}^{n}X_i^2\overset{p}{\to}E(X_i^2)\\
+\text{If } Y_i=X_i^2 \text{ then } \dfrac{1}{n}\sum_{i=1}^{n}Y_i \cp E(Y_i)=E(X_i^2) \\
+\text{Let } Y_i=X_i-\mu\\
+V_n=\dfrac{1}{n}\sum_{i=1}^{n}(X_i-\mu)^2=\dfrac{1}{n}\sum_{i=1}^{n}Y_i^2\overset{p}{\to}E(Y_i^2)=E[(X_1-\mu)^2]=Var(X_i)=1\\
+V_n \cp 1\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+W_n=U_n/V_n\\
+U_n\cd N(0,1)\\
+V_n\cp 1\\
+U_n/V_n \cd N(0,1)/1=N(0,1) \text{ (Slutsky's Thm)}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\sqrt{n}(\bar{X}^2-\mu^2)\cd ?\\
+\bar{X}=n^{-1}\sum_{i=1}^{n}X_i\\
+\sqrt{n}(\bar{X}-\mu) \cd N(0,1)\\
+\sqrt{n}(g(\bar{X_n})-g(\mu))\cd N(0,[g^{'}(\mu)]^2\sigma^2)\\
+g(\mu)=\mu^2\\
+g^{'}(\mu)=2\mu\\
+N(0,[g^{'}(\mu)]^2\sigma^2)=N(0,[2\mu]^2(1))=N(0,4\mu^2)\\
+\sqrt{n}(\bar{X}^2-\mu^2)\cd N(0,4\mu^2)\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\X_1,\dots,X_n \sim N(\mu,1)\\
+\bar{X}\sim N(\mu,1/n)\\
+\text{Exact } 95\% \text{ CI}\\
+.95=P\left(-1.96\leq\dfrac{\bar{X}-\mu}{\sqrt{1/n}}\leq 1.96 \right)\\
+=P\left(\bar{X}-1.96\dfrac{1}{\sqrt{n}}\leq \mu\leq \bar{X}+1.96\dfrac{1}{\sqrt{n}} \right)\\
+.95=P\left(L^2\leq \mu^2 \leq U^2 \right)\\
+=P\left( \left[ \bar{X}-1.96\dfrac{1}{\sqrt{n}}\right]^2\leq \mu^2 \leq \left[ \bar{X}+1.96\dfrac{1}{\sqrt{n}}\right]^2 \right)\\
+\end{multline*}	
+\end{enumerate}
+
+\end{flushleft}
+\end{document}

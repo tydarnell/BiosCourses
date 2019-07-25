@@ -1,0 +1,153 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{2017 Midterm 2}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ta}{\theta}
+\newcommand{\qe}{ \ ?\ }
+\newcommand{\dt}{\pderiv{}{\ta}}
+\newcommand{\lt}[1]{\log(f(#1|\ta))}
+\newcommand{\lx}{\lambda(x)}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+	\section*{Problem 1}
+	
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+X_1,\dots, X_{n_1} \sim N(\mu_1,\sigma^2)\\
+E(c\sum_{i=1}^{n_1-1}(X_{i+1}-X_i)^2)=\sg^2\\
+(X_{i+1}-X_i)\sim N(\mu_1-\mu_1,2\sigma^2)\\
+\text{Let } Z=\dfrac{(X_{i+1}-X_i)}{\sqrt{2}\sigma}\\
+Z\sim N(0,1) \quad Z^2\sim \chi^2_{1}\\
+\sum_{i=1}^{n_1-1}Z^2\sim \chi^2_{n_1-1}\\
+E(\sum Z^2)=n_1-1\\
+E(\sum_{i=1}^{n_1-1}(X_{i+1}-X_i)^2)=(n_1-1)2\sg^2\\
+\dfrac{1}{2(n_1-1)}E(\sum_{i=1}^{n_1-1}(X_{i+1}-X_i)^2)=\sg^2\\
+c=\dfrac{1}{2(n_1-1)}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+Y\sim N(\mu_2,\sg^2) \quad X\perp Y\\
+S_1^2=\dfrac{1}{n_1-1}\sumn(X_i-\bar{X})^2\quad S_2^2=\dfrac{1}{n_2-1}\sumn(Y_i-\bar{Y})^2\\
+S_p^2=aS_1^2+(1-a)S_2^2\\
+\text{WTS: } E(S_p^2)=\sg^2\\
+E(aS_1^2+(1-a)S_2^2)\\
+=\left(\dfrac{a}{n_1-1}\right)(n_1-1)\sg^2+\left(\dfrac{1-a}{n_2-1}\right)(n_2-1)\sg^2\\
+=\sg^2(a+1-a)=\sg^2\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\text{Since } (n-1)S^2/\sg^2 \sim \chi^2_{n-1}\\
+Var(\dfrac{n_1-1}{\sg^2}S_1^2)=2(n_1-1)\\
+Var(\dfrac{n_2-1}{\sg^2}S_2^2)=2(n_2-1)\\
+Var(S_1^2)=\dfrac{2(n_1-1)}{(n_1-1)^2}\sg^4=\dfrac{2\sg^2}{n_1-1}\\
+Var(S_2^2)=\dfrac{2\sg^2}{n_2-1}\\
+Var(S_p^2)=Var(aS_1^2+(1-a)S_2^2)\\
+=a^2Var(S_1^2)+(1-a)^2Var(S_2^2)+2a(1-a)Cov(S_1^2,S_2^2)\\
+=a^2\left(\dfrac{2\sg^2}{n_1-1}\right)+(1-a)^2\left(\dfrac{2\sg^2}{n_2-1}\right)+0\\
+=\sg^4\left[2\left(\dfrac{a^2}{n_1-1}+\dfrac{(1-a)^2}{n_2-1}\right)\right]\\
+Var(S_p^2)=\sigma^4g(a)\\
+g(a)=2\left(\dfrac{a^2}{n_1-1}+\dfrac{(1-a)^2}{n_2-1}\right)\\
+g^{\prime}(a)=2\left(\dfrac{2a}{n_1-1}-\dfrac{2(1-a)}{n_2-1}\right)=0\\
+4\left(\dfrac{a}{n_1-1}-\dfrac{(1-a)}{n_2-1}\right)=0\\
+\dfrac{a}{n_1-1}=\dfrac{1-a}{n_2-1}\\
+\dfrac{1-a}{a}=\dfrac{n_2-1}{n_1-1}\\
+a=\dfrac{n_1-1}{n_1+n_2-2}\\
+g^{''}(a)=4\left(\dfrac{1}{n_1-1}+\dfrac{1}{n_2-1}\right)>0\\
+\text{Thus } a=\dfrac{n_1-1}{n_1+n_2-2} \\
+\text{Let } P=\sumn(X_i-\bar{X})^2 \quad Q=\sumn(Y_i-\bar{Y})^2\\
+S_p^2=\dfrac{\dfrac{n_1-1}{n_1+n_2-2}}{n_1-1}P+\dfrac{\dfrac{n_2-1}{n_1+n_2-2}}{n_2-1}Q
+=\dfrac{1}{n_1+n_2-2}(P+Q)\\
+\end{multline*}	
+\begin{multline*}\\
+\text{Alternatively:}\\
+S_p^2=a\dfrac{1}{n_1-1}\sumn(X_i-\bar{X})^2+(1-a)\dfrac{1}{n_2-1}\sumn(Y_i-\bar{Y})^2\\\text{Let } P=\sumn(X_i-\bar{X})^2 \quad Q=\sumn(Y_i-\bar{Y})^2\\
+S_p^2=\dfrac{a}{n_1-1}P+\dfrac{1-a}{n_2-1}Q=\dfrac{1}{n_1+n_2-2}(P+Q)\\
+\text{We have the following two equations which are equal to each other:}\\
+1) \quad \dfrac{a}{n_1-1}=\dfrac{1}{n_1+n_2-2}\\
+2) \quad \dfrac{1-a}{n_2-1}=\dfrac{1}{n_1+n_2-2} \\
+\text{From } 1) \quad a=\dfrac{n_1-1}{n_1+n_2-2}\\
+\text{From } 2) \quad 1-a=\dfrac{n_2-1}{n_1+n_2-2}\\
+S_p^2=\dfrac{\dfrac{n_1-1}{n_1+n_2-2}}{n_1-1}P+\dfrac{\dfrac{n_2-1}{n_1+n_2-2}}{n_2-1}Q
+=\dfrac{1}{n_1+n_2-2}(P+Q)\\
+\end{multline*}
+
+\end{enumerate}
+\pagebreak5
+	\section*{Problem 2}
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+\tau(\ta)=e^{-\ta}\\
+L(\ta|x)=\prodn \left(\dfrac{1}{x_i!} \right) \ta^{\sumx}e^{-n\ta}\\
+\propto \ell(\ta|x)=\sumx \log(\ta)-n\ta\\
+\dll{\ta}=\dfrac{\sumx}{\ta}-n=0\\
+\mle=\bar{x}\\
+\dll{\ta^2}^2=\dfrac{-\sumx}{\ta^2}<0\\
+\text{Thus } \hth \text{ is the MLE}\\
+\text{By invariance property:}\\
+\hat{\tau(\ta)}_{MLE}=e^{-\mle}=e^{-\bar{x}}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\end{multline*}
+	
+\end{enumerate}
+
+
+\end{flushleft}
+\end{document}

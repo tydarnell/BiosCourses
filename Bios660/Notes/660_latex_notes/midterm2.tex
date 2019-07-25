@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Midterm 2 Notes}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\begin{document}
+\begin{flushleft}
+\textbf{Stochastic Ordering}\\
+X is stochastically greater than y if:\\
+$F_X(t)\leq F_Y(t) \ \forall \ t$\\
+$F_X(t)<F_Y(t) $ for some t\\
+equivalently:\\
+$P(X>t)\geq P(Y>t) \ \forall \ t$\\
+$P(X>t)> P(Y>t)$ for some t\medbreak
+\textbf{Median} m\\
+$P(X\leq m)\geq 1/2 \quad P(X\geq m)\geq 1/2$\\
+$\int_{-\infty}^{m}f(x)\dx=\int_{m}^{\infty}f(x)\dx=1/2$\medbreak
+\textbf{Symmetric} at point a\\
+$\forall \ \epsilon>0 \ f(a+\epsilon)=f(a-\epsilon)$\medbreak
+\textbf{Mode} a\\
+$f(x)$ is unimodal with mode a if $a\geq x \geq y$ then\\
+$f(a)\geq f(x)\geq f(y)$ and if $a\leq x \leq y$ then $f(a)\geq f(x)\geq f(y)$. \medbreak 
+\textbf{Geometric Series}\\
+$\sum_{n=1}^{\infty}ar^{n-1}$ $s=\dfrac{a_1}{1-r}$\\
+Finite $s=\dfrac{a_1(1-r^n)}{1-r}$\medbreak
+$\lim \limits_{n \to \infty} \left(1+\dfrac{a_n}{n}\right)^n=e^a$\medbreak
+$M_X(t)=E(e^{tx})=\sum_{n=0}^{\infty}\dfrac{t^n}{n!}E(X^n)$\medbreak
+$M_X(t)=\int_{-\infty}^{\infty}e^{tx}f(x)\dx$\medbreak
+$Y=g(x)$ monotone function
+\[f_Y(y)=\dfrac{d}{dy}F_Y(y)=\begin{cases}
+f_X(g^{-1}(y))\dfrac{d}{dy}g^{-1}(y) \quad \text{if g increasing}\\
+-f_X(g^{-1}(y))\dfrac{d}{dy}g^{-1}(y) \quad \text{if g decreasing}
+\end{cases}
+\]
+$\min \limits_{b} E(X-b)^2=E(X-EX)^2$\medbreak
+\textbf{Bernoulli} $p^x(1-p)^{1-x} \quad x=0,1$ \medbreak
+\textbf{Binomial} $\sum_{x=0}^{n}{n\choose x}p^x(1-p)^{n-x}$\medbreak
+\textbf{Poisson} $\dfrac{e^{-\lambda}\lambda^y}{y!}$\medbreak
+\textbf{Hypergeometric} $f_x(X)=\dfrac{{M\choose x}{N-M \choose k-x}}{{N\choose k}}$\medbreak
+
+\begin{tabular}{ l c r }
+Hypergeometric $\to$ & Binomial $\to$ & Poisson \\
+	N$\to \infty$, & $n\to \infty$, & $\lambda=np$ \\
+	$M\to \infty,$ & $p\to \infty$, &  \\
+	$M/N \to p$ & $np\to \lambda$ &
+\end{tabular}\medbreak
+\textbf{Geometric} $f(x)=p(1-p)^{x-1} \ x=1,2,\dots$\\
+$F(x)=1-(1-p)^x$\medbreak
+\textbf{Memoryless Property} Suppose $k>i$ then:\\
+$P(X>k|X>i)=P(X>k-i)$\medbreak
+\textbf{Negative Binomial} number of failures before $s^{th}$ success\\
+$f(x)={s+x-1 \choose x}p^s q^x \quad x=0,1,2,\dots$\\
+no closed form for cdf.\\
+$\lim \limits_{s \to \infty}$ we have poisson.\medbreak
+\text{Uniform} $U(a,b)$\\
+$f(y)=\dfrac{1}{b-a}\quad a\leq y\leq b$
+\[F(y)=\int_a^y \dfrac{1}{b-a} \dx = \begin{cases}
+0 \quad y<a\\
+\dfrac{y-a}{b-a} \quad a\leq y \leq b\\
+1 \quad y>b
+\end{cases}
+\]
+\textbf{Exponential} $X \sim exp(\lambda)$\\
+$f(y)=\lambda e^{-\lambda y} \quad y\geq 0$\\
+$F(y)=\int_{0}^{y}\lambda e^{-\lambda x} dx =1-e^{-\lambda y} \quad y\geq 0$\medbreak
+\textbf{Normal Distribution} $Y\sim N(\mu,\sigma^2)$\\
+$f(y)=\dfrac{1}{\sqrt{2\pi}\sigma}e^{-(y-\mu)^2/2\sigma^2} \quad -\infty <y< \infty$\\
+cdf no closed form\\
+ $\Phi(x)=F(X)=P(Y\leq x)$ for standard normal \medbreak
+\textbf{Standardization}\\
+$Y\sim N(u,\sigma^2)\iff Z=\dfrac{Y-\mu}{\sigma}\sim N(0,1)$\\
+\text{Shifting and scaling}\\
+$Z\sim N(0,1)\iff Y=\sigma Z+\mu \sim N(\mu,\sigma^2)$\medbreak
+\textbf{Gamma function}\\
+$\Gamma(a)=\int_{0}^{\infty}x^{a-1}e^{-x}\dx$\\
+if a is an integer, $\Gamma(a)=(a-1)!$\medbreak
+\textbf{Weibull}\\
+$f(y)=\dfrac{\beta}{\alpha}\left(\dfrac{y-v}{a}\right)^{\beta-1} \exp\left[-\left(\dfrac{y-v}{\alpha}\right)^{\beta} \right] \quad y\geq v$\\
+$F(y)=1-\exp\left[-\left(\dfrac{y-v}{\alpha}\right)^{\beta} \right] \quad y\geq v$\\
+Usual case $v=0$\\
+If $\beta=1$ we get exponential with parameter $\lambda=1/\alpha$\medbreak
+\textbf{Cauchy Distribution}\\
+$f(y)=\dfrac{1}{\pi}\dfrac{1}{1+(y-\mu)^2/\sigma^2} \quad -\infty <y<\infty$\\
+if $\mu=0, \ \sigma=1$ we have t-distribution with 1 degree of freedom.\\
+Moments of Cauchy are not defined, its quantiles are.\medbreak
+\textbf{Beta}\\
+$f(y)=\dfrac{y^{a-1}(1-y)^{b-1}}{B(a,b)} \quad 0\leq y \leq 1$\\
+Where $B(a,b)$ is the complete Beta function:\\
+$B(a,b)=\int_{0}^{1}x^{a-1}(1-x)^{b-1}\dx =\dfrac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$\\
+$\Gamma(a)$ is the complete gamma function\\
+If a and b are integers, $B(a,b)$ can be calculated in closed form.\medbreak
+\textbf{Location and Scale families}\\
+Let $f(x)$ be any pdf. Then the family of pdfs:\\
+$f_{\mu,\sigma}(x)=\dfrac{1}{\sigma}f\left(\dfrac{x-\mu}{\sigma} \right) \quad \mu \in \mathbb{R}, \ \sigma>0$\\
+is called a location-scale family\\
+If $\sigma=1$ we get a location family.\medbreak
+\textbf{Multinomial Probabilities}\\
+$P(F)=p_1 \quad P(PS)=p_2 \quad P(S)=p_3 \quad (p_1+p_2+p_3)=1$\\
+Suppose in sample size n: $s_1$=number of failures, $s_2$=number of partial successes, $s_3$= number of successes\\
+$P(s_1,s_2,s_3)=\dfrac{n!}{s_1! s_2! s_3!}p_1^{s_1}p_2^{s_2}p_3^{s_3}$\\
+Generalizing to k classes gives us:\\
+\textbf{Multinomial Distribution:}\\
+$P(s_1,s_2,\dots, s_k)=\dfrac{n!}{s_1!s_2!\dots s_k!}p_1^{s_1}p_2^{s_2} \cdots p_k^{s_k}$\\
+where $\sum_{i=1}^{k}s_i=n$ and $\sum_{i=1}^{k}p_i=1$\medbreak
+
+\end{flushleft}
+\end{document}

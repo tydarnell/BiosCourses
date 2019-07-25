@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Sup and Inf Notes}
+\begin{document}
+\begin{flushleft}
+\section{Supremum}
+\textbf{Bounded Above}: Let $S$ be a set of real numbers. If $\exists \ b$ such that $x\leq b \ \forall \ x \in S$, then $b$ is an \textbf{upper bound} for $S$. Then $S$ is \textbf{bounded above} by $b$. \medbreak
+\textbf{Supremum}(or least upper bound): Let $S$ be a set of real numbers bounded above. $b$ is a least upper bound for $S$ ($b=sup \ S$) if:
+\begin{itemize}
+\item $b$ is an upper bound for $S$
+\item No number less than $b$ is an upper bound for $S$
+\end{itemize}
+If $S$ has a \textbf{maximum element} then $max \ S= sup \ S$ \medbreak
+\section{The Completeness Axiom}
+\textbf{The Completeness Axiom}: Every nonempty set $S$ of real numbers which is bounded above has a sup; that is, there is a real number $b$ such that $b=sup \ S$.\medbreak
+It follows that every nonempty set of real numbers which is \textbf{bounded below} has an \textbf{infimum}. \medbreak
+\section{Some Properties of the Supremum}
+\textbf{Approximation property}: Let $S$ be a nonempty set of real numbers with a supremum, $b= sup \ S$. Then $\forall \ a<b \ \exists \ x \in S$ such that $a<x\leq b$. \medbreak
+\textbf{Additive Property}: Given nonempty subsets $A$ and $B$ of $R$, let $C$ denote the set:
+\[C=\left\{x+y:x\in A, y \in B \right\}
+\]
+If each of $A$ and $B$ has a supremum, then C has a supremum and:
+\[sup \ C= sup \ A + sup \ B
+\]
+\textbf{Comparison Property}: Given nonempty subsets $S$ and $T$ of $R$ such that $s \leq t \ \forall \ s \in S , t \in T$. If $T$ has a supremum then $S$ has a supremum and:
+\[sup \ S \leq sup \ T
+\]
+
+
+\end{flushleft}
+\end{document}

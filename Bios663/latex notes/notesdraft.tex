@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ta}{\theta}
+\newcommand{\qe}{ \ ?\ }
+\newcommand{\dt}{\pderiv{}{\ta}}
+\newcommand{\lt}[1]{\log(f(#1|\ta))}
+\newcommand{\lx}{\lambda(x)}
+\newcommand{\samp}{X_1,\dots,X_n \sim}
+\newcommand{\te}{\theta_1}
+\newcommand{\xm}{x_{(1)}}
+\newcommand{\sn}{(\sg^2)}
+\newcommand{\pow}{\B(\ta)}
+\newcommand{\hyp}[2]{H_0: #1 \text{ vs } H_1: #2}
+\newcommand{\pois}[2]{\dfrac{e^{-#1}{#1}^{#2}}{{#2}!}}
+\newcommand{\mlr}{\dfrac{f(x|\ta_2)}{f(x|\ta_1)}}
+\newcommand{\al}{\alpha}
+\newcommand{\bx}{\bar{x}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+Factors in an experiment may be considered fixed  or random\\
+use fixed effects to make inferences only about the particular k levels of the factor observed in the study\\
+ex: gender, treatment, or dose\\ 
+use random effects when these levels are a sample from a population of levels\\
+ex: subjects, observers, and clinic sites\\
+
+\end{flushleft}
+\end{document}

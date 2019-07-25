@@ -1,0 +1,252 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{2017 Midterm Practice}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n \to \infty}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+	\section*{Problem 1}
+	
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+f_X(x)=\dfrac{1}{\theta}e^{-x/\theta} \quad 0<x<\infty, \ 0<\theta<\infty\\
+U=\dfrac{X_1}{\sum_{i=1}^{n}X_i} \quad V=\sum_{i=1}^{n}X_i \quad Y_1=\sum_{i=2}^{n}X_i\\
+U=\dfrac{X_1}{X_1+Y_1} \quad V=X_1+Y_1\\
+X_1=UV \quad Y_1=V(1-U)\\
+J=\begin{bmatrix}
+v&-v\\
+u & 1-u
+\end{bmatrix}=|v(1-u)+uv|=|v|\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+f_X(x)=\dfrac{1}{\theta}e^{-x/\theta} \quad 0<x<\infty, \ 0<\theta<\infty\\
+f_{Y_1}(y)=\dfrac{1}{\Gamma(n-1)}\theta^{n-1}y^{n-2}e^{-y/\theta} \quad 0<y<\infty\\
+0<v<\infty \quad 0<u<1 \\
+f_{X_1,Y_1}(x,y)=\dfrac{1}{\Gamma(n-1)\theta^{n-1}}y^{n-2}e^{-y/\theta}\dfrac{1}{\theta}e^{-x/\theta}\\
+f_{X_1,Y_1}(x,y)=\dfrac{1}{\Gamma(n-1)\theta^{n}}y^{n-2}e^{-(x+y)/\theta}\\
+f_{U,V}(u,v)=f_{X_1,Y_1}(uv,v-uv)|v|=\dfrac{1}{\Gamma(n-1)\theta^{n}}{(v(1-u))}^{n-2}e^{-(uv+(v-uv))/\theta}|v|\\
+f_{U,V}(u,v)=\dfrac{1}{\Gamma(n-1)\theta^{n}}{(1-u)}^{n-2}v^{n-1}e^{-v/\theta} \quad 0<v<\infty, \ 0<u<1\\
+\end{multline*}
+\pagebreak
+	\item 
+\begin{multline*}\\
+f_{U,V}(u,v)=\dfrac{1}{\Gamma(n-1)\theta^{n}}{(1-u)}^{n-2}v^{n-1}e^{-v/\theta} \quad 0<v<\infty, \ 0<u<1\\
+f_{U,V}(u,v)=\left[\dfrac{1}{\Gamma(n)\theta^{n}}v^{n-1}e^{-v/\theta}\right]\left[\dfrac{\Gamma(n)}{\Gamma(n-1)}{(1-u)}^{n-2}\right]\\
+\text{Since } f_{U,V}(u,v) \text{ is factored into } f_U(u)f_V(v) \text{ U and V are independent}\\
+f_{U,V}(u,v)=f_U(u)f_V(v)\\
+f_V(v)=\dfrac{1}{\Gamma(n)\theta^{n}}v^{n-1}e^{-v/\theta} \quad 0<v<\infty\\
+V\sim gamma(n,\theta)\\
+f_U(u)=\dfrac{\Gamma([n-1]+1)}{\Gamma(n-1)}{(1-u)}^{([n-1]+1)} \quad 0<u<1\\
+U\sim beta(1,n-1)\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+T(X)=V=\sum_{i=1}^{n}X_i\\
+f(x|\theta)=\dfrac{1}{\theta}e^{-x/\theta} \quad 0<x<\infty, \ 0<\theta<\infty\\
+\text{V can be written as an exponential family in the form:}\\
+f(x|\theta)=h(x)c(\theta)\exp\left(w(\theta)t(x) \right)\\
+h(x)=I(0<x<\infty) \quad c(\theta)=1/\theta \quad w(\theta)=-1/\theta \quad t(x)=x\\
+\sum_{i=1}^{n}t_i(x_i)=\sum_{i=1}^{n}X_i\\
+\text{Thus } T(X)=\sum_{i=1}^{n}X_i \text{ is a complete and sufficient statistic for } \theta\\
+U=X_1/\sum_{i=1}^{n}X_i\\
+f_U(u)=\dfrac{\Gamma([n-1]+1)}{\Gamma(n-1)}{(1-u)}^{([n-1]+1)} \quad 0<u<1\\
+\text{U is independent from } \theta \text{ thus it does not depend on } \theta\\
+\text{Therefore U is an ancillary statistic of } \theta\\ 
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+E\{\delta(X_1)|\sum_{i=1}^{n}X_i=t \}=P(X_1>c|\sum_{i=1}^{n}X_i=t )\\
+=P\left(\dfrac{X_1}{\sum_{i=1}^{n}X_i}>\dfrac{c}{t}|\sum_{i=1}^{n}X_i=t \right)\\
+=P\left(U>\dfrac{c}{t}|V=t\right)\\
+\text{From part d we know that U is an ancillary statistic of } \theta\\
+\text{and V is complete and sufficient}\\
+\text{thus U and V are independent by Basu's Theorem giving us:}\\
+=P\left(U>\dfrac{c}{t}\right)\\
+=\int_{c/t}^{1}(n-1)(1-x)^{n-2} \ \dx\\
+=\bigg|_{c/t}^{1}\dfrac{-(n-1)}{(n-1)}(1-x)^{n-1}\\
+=(1-c/t)^{n-1}\\
+\end{multline*}
+\begin{multline*}\\
+E(X_1|\sum_{i=1}^{n}X_i=t)\\
+E\left(\dfrac{X_1}{\sum_{i=1}^{n}X_i}t|\sum_{i=1}^{n}X_i=t\right)\\
+=E(Ut|V=t)\\
+\text{Using Basu's theorem, U and V are independent}\\
+\text{Thus we have:}\\
+E(Ut|V=t)=E(Ut)=tE(U)\\
+E(U)=\dfrac{1}{1+n-1}=\dfrac{1}{n} \text{ Thus:}\\
+tE(U)=\dfrac{t}{n}\\
+\end{multline*}
+\end{enumerate}
+
+	\section*{Problem 2}
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+X_1,\dots, X_n \sim Bern(\theta_1) \quad 0<\theta_1<1\\
+Y_1,\dots, Y_n \sim Bern(\theta_2) \quad 0<\theta_2<1\\
+\bar{X}=\dfrac{1}{n}\sum_{i=1}^{n}X_i\\
+\bar{Y}=\dfrac{1}{n}\sum_{i=1}^{n}Y_i\\
+\text{Let } W_n=\sqrt{n}(\bar{X}-\theta_1)\\
+\text{Let } Z_n=\sqrt{n}(\bar{Y}-\theta_2)\\
+\text{Using CLT we have:}\\
+W_n\cd N(0,\theta_1(1-\theta_1))\\
+Z_n \cd N(0,\theta_2(1-\theta_2))\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\gamma_1=\dfrac{\theta_1}{1-\theta_1} \quad \gamma_2=\dfrac{\theta_2}{1-\theta_2}\\
+\log(\hat{\gamma_1})=\log\left(\dfrac{\bar{X}}{1-\bar{X}}\right) \quad \log(\hat{\gamma_2})=\log\left(\dfrac{\bar{Y}}{1-\bar{Y}}\right)\\
+\log(\gamma_1)=\log\left(\dfrac{\theta_1}{1-\theta_1}\right)=\log(\theta_1)-\log(1-\theta_1)\\
+\log(\gamma_2)=\log\left(\dfrac{\theta_2}{1-\theta_2}\right)=\log(\theta_2)-\log(1-\theta_2)\\
+\text{Delta Method:}\\
+\sqrt{n}(\bar{X}-\theta_1)\cd N(0,\theta_1(1-\theta_1))\\
+\sqrt{n}\left[\log\left(\dfrac{\bar{X}}{1-\bar{X}}\right)-\log\left(\dfrac{\theta_1}{1-\theta_1}\right)\right]\cd N(0,\{g^{'}(\theta_1)\}^2\theta_1(1-\theta_1))\\
+g(\theta_1)=\log\left(\dfrac{\theta_1}{1-\theta_1}\right)\\
+g^{'}(\theta_1)=\dfrac{1}{\theta_1}+\dfrac{1}{1-\theta_1}=\dfrac{1}{\theta_1(1-\theta_1)}\\
+\sqrt{n}\left[\log\left(\dfrac{\bar{X}}{1-\bar{X}}\right)-\log\left(\dfrac{\theta_1}{1-\theta_1}\right)\right]\cd N\left(0,\left[\dfrac{1}{\theta_1(1-\theta_1)}\right]^2 \theta_1(1-\theta_1)\right)\\
+\sqrt{n}[\log(\hat{\gamma_1})-\log(\gamma_1)]\cd N\left(0,\dfrac{1}{\theta_1(1-\theta_1)}\right)\\
+\sqrt{n}[\log(\hat{\gamma_2})-\log(\gamma_2)]\cd N\left(0,\dfrac{1}{\theta_2(1-\theta_2)}\right)\\
+\end{multline*}
+	\item 
+\begin{multline*}\\
+\text{WTS: } \sqrt{n}\{[\log(\hat{\gamma_1})-\log(\hat{\gamma_2})]-[\log(\gamma_1)-\log(\gamma_2)]\}\cd N(0,\sigma^2)\\
+\text{Given } X \bot Y\\
+OR=\dfrac{\theta_1/(1-\theta_1)}{\theta_2/(1-\theta_2)}\\
+\log(OR)=\log\left(\dfrac{\theta_1/(1-\theta_1)}{\theta_2/(1-\theta_2)}\right)\\
+=\log\left(\dfrac{\theta_1}{1-\theta_1}\right)-\log\left(\dfrac{\theta_2}{1-\theta_2}\right)\\
+=\log(\gamma_1)-\log(\gamma_2)\\
+\log\left(\dfrac{\hat{\gamma_1}}{\hat{\gamma_2}}\right)=\log(\hat{\gamma_1})-\log(\hat{\gamma_2})\\
+\sqrt{n}\{[\log(\hat{\gamma_1})-\log(\hat{\gamma_2})]-[\log(\gamma_1)-\log(\gamma_2)]\}\\
+=\sqrt{n}\{[\log(\hat{\gamma_1})-\log(\gamma_1)]-[\log(\hat{\gamma_2})-\log(\gamma_2)]\}\\
+\text{From part b we know:}\\
+\sqrt{n}[\log(\hat{\gamma_1})-\log(\gamma_1)]\cd N\left(0,\dfrac{1}{\theta_1(1-\theta_1)}\right)\\
+\sqrt{n}[\log(\hat{\gamma_2})-\log(\gamma_2)]\cd N\left(0,\dfrac{1}{\theta_2(1-\theta_2)}\right)\\
+\text{Since } X\bot Y\\
+\sqrt{n}\{[\log(\hat{\gamma_1})-\log(\gamma_1)]-[\log(\hat{\gamma_2})-\log(\gamma_2)]\}\cd N(0,\sigma^2)\\
+\sigma^2=\dfrac{1}{\theta_1(1-\theta_1)}+\dfrac{1}{\theta_2(1-\theta_2)}\\
+\text{The negative goes away because variance is squared:}\\
+X-Y=X+(-1)Y =N(0,\sigma^2)+N(0,(-1)^2 \sigma^2) =N(0,\sigma^2)+N(0,\sigma^2)\\
+\mu=0 \text{ for both and } 0-0=0\\
+\text{Thus we have } N(\mu_1-\mu_2,\sigma_1^2+\sigma_2^2)\\
+\end{multline*}
+	
+\end{enumerate}
+
+	\section*{Problem 3}
+	
+\begin{enumerate}[(a)]
+	\item 
+\begin{multline*}\\
+f_X(x)=1/\theta \quad 0<x<\theta\\
+F_X(x)=\dfrac{x}{\theta} \quad 0<x<\theta\\
+F_{X_{(n)}}(x)=P(X_{(n)}\leq x)=P(X_1\leq x,\dots,X_n\leq x)=\{F(x)\}^n\\
+F_{X_{(n)}}(x)=\{F(x)\}^n=\left(\dfrac{x}{\theta}\right)^n\\
+\text{Thus } P(X_{(n)}\leq x)=\left(\dfrac{x}{\theta}\right)^n\\
+\end{multline*} 
+
+\begin{multline*}\\
+P(|X_{(n)}-\theta|\leq \e)=P(-\e\leq X_{(n)}-\theta\leq \e)\\
+=P(-\e+\theta\leq X_{(n)}\leq \e+\theta)\\
+=P(-\e+\theta\leq X_{(n)}\leq \theta) \text{ since } x<\theta\\
+=F_{X_{(n)}}(\theta)-F_{X_{(n)}}(-\e+\theta)\\
+=(\theta/\theta)^n-\left(\dfrac{\theta-\e}{\theta}\right)^n\\
+=1-(1-\e/\theta)^n\\
+\end{multline*}
+
+\begin{multline*}\\
+\text{WTS: } X_{(n)}\cp \theta \text{ which is the same as } \lim_{n\to \infty} P(|X_{(n)}-\theta|<\e)=1\\
+\lim_{n\to \infty} P(|X_{(n)}-\theta|<\e)=\lim_{n\to \infty}1-(1-\e/\theta)^n\\
+ (1-\e/\theta)^{\infty}\to 0 \text{ giving us:}\\
+=1-0=1\\
+\text{Thus } X_{(n)}\cp \theta\\
+\end{multline*}
+\pagebreak
+	\item 
+\begin{multline*}\\
+\text{WTS: } Z_n=n(\theta -X_{(n)})\cd exp(\theta)\\
+\text{Using the fact that } \lim_{n\to \infty } (1-x/n)^n=e^{-x} \text{ for some } x\in (0,n)\\
+F_{X_{(n)}}(x)=\left(\dfrac{x}{\theta}\right)^n\\
+F_{Z_n}(z)=P(Z_n\leq z)\\
+=P(n(\theta-X_{(n)})\leq z)=P(\theta-X_{(n)}\leq z/n)\\
+=P(X_{(n)}\geq \theta-z/n)\\
+=1-P(X_{(n)}\leq \theta-z/n)\\
+=1-P(X_1\leq \theta-z/n,\dots,X_n\leq \theta-z/n)\\
+=1-P(X_1\leq \theta-z/n)\cdots P(X_n\leq \theta-z/n)\\
+=1-\{F(\theta-z/n)\}^n\\
+=1-\left(\dfrac{\theta-z/n}{\theta}\right)^n\\
+=1-\left(1-\dfrac{(z/\theta)}{n}\right)^n\\
+\text{Since } \lim_{n\to \infty } (1-x/n)^n=e^{-x} \text{ where } x=z/\theta \text{ we have:}\\
+\lim_{n\to \infty}1-\left(1-\dfrac{(z/\theta)}{n}\right)^n=1-e^{-(z/\theta)}\\
+\text{Which is } exp(\theta)\\
+\text{Thus } Z_n\cd exp(\theta)\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\text{WTS: } Y_n=n\{1-F_X(X_{(n)})\}\cd exp(1)=1-e^{-y}\\
+F_{Y_n}(y)=P(Y_n\leq y)\\
+=P(n(1-F_X(X_{(n)}))\leq y)\\
+=P(F_X(X_{(n)})\geq 1-y/n)\\
+=1-P(F_X(X_{(n)})\leq 1-y/n)\\
+=1-P(X_{(n)}\leq F_X^{-1}(1-y/n))\\
+=1-P(X_1\leq F_X^{-1}(1-y/n),\dots,X_n\leq F_X^{-1}(1-y/n))\\
+=1-P(F_X(X_1)\leq 1-y/n,\dots,F_X(X_n)\leq 1-y/n)\\
+=1-P(X_1/\theta\leq 1-y/n,\dots,X_n/\theta\leq 1-y/n)\\
+=1-P(X_1\leq \theta(1-y/n),\dots,X_n\leq \theta(1-y/n))\\
+1-\{P(X_1\leq \theta(1-y/n))\}^n\\
+=1-\{F_X(\theta(1-y/n))\}^n\\
+=1-\left(\dfrac{\theta(1-y/n)}{\theta}\right)^n\\
+=1-(1-y/n)^n\\
+\limn 1-(1-y/n)^n=1-e^{-y}\\
+\text{Thus } Y_n \cd exp(1)\\
+\end{multline*}
+\begin{multline*}
+\text{Alternatively: } Y_n=n(1-F_X(X_{(n)}))=n(1-X_{(n)}/\theta)\\
+F_{Y_n}(y)=P(Y_n\leq y)\\
+=P(n(1-X_{(n)}/\theta) \leq y)\\
+=P(X_{(n)} \geq \theta(1-y/n))\\
+=1-P(X_{(n)} \leq \theta(1-y/n))\\
+=1-P(X_1\leq \theta(1-y/n))\cdots P(X_n\leq \theta(1-y/n))\\
+1-\{F_{X}(\theta(1-y/n))\}^n\\
+=1-(1-y/n)^n\\
+\limn 1-(1-y/n)^n=1-e^{-y}\\
+\text{Thus } Y_n \cd exp(1)\\
+\end{multline*}	
+\end{enumerate}
+
+\end{flushleft}
+\end{document}

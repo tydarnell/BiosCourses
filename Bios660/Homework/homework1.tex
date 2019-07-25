@@ -1,0 +1,190 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 1}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\begin{document}
+\begin{flushleft}
+\chead{Problems 1-3}
+\section*{Problem 1}
+\subsection*{a}
+Each point in the sample space is the result of the coin toss for each of the four tosses. $S=\left\{X_1,X_2,X_3,X_4 \right\}$ where $X_i$ represents the outcome of the $ith$ toss, either H or T. There are 16 sample points, thus it is a finite sample space.
+\subsection*{b}
+$S=\left\{0,1,2,3,\dots \right\}$ Since the number of damaged leaves is an integer greater than or equal to 0. This is a countably infinite sample space.
+\subsection*{c}
+$S=\left\{t:t\geq 0 \right\}$ Where $t$ is the time in hours. This is an uncountably infinite sample space.
+\subsection*{d}
+$S=\left\{w:w>0 \right\}$ Where $w$ is the weight of the rate in the chosen measurement unit, possibly ounces or grams. There would reasonably be an upper bound on the weight of a 10 day old rat. This is an uncountably infinite sample space.
+\subsection*{e}
+$S=\left\{0/n,1/n,2/n,\dots \right\}$ where n is the total number of components. This is a countably infinite sample space.
+
+\section*{Problem 2}
+\subsection*{a}
+$S=\left\{{IC}_1,{IC}_2,\dots,{IC}_i \right\}$
+where I is either $(0,1)$ and C is either $(g,f,s)$.
+\subsection*{b}
+$A=\left\{0s,1s \right\}$
+\subsection*{c}
+$B=\left\{0g,0f,0s \right\}$
+\subsection*{d}
+$B^c\cup A=\left\{1g,1f,1s,0s \right\}$
+
+\section*{Problem 3}
+\subsection*{a}
+$A^c=\left\{x:0<x\leq .5 \right\}$
+\subsection*{b}
+$A^c=\left\{(x,y):x^2+y^2 \geq 2 ,\ |x|+|y|\leq 2 \right\}$
+\subsection*{c}
+$\left(\bigcap \limits_{n=1}^{\infty}B_n\right)^c=\bigcup\limits_{n=1}^{\infty}{B_n}^c$\medbreak
+${B_n}^c=\left\{x:x\notin (0,1/n) \right\}$\medbreak
+$\bigcup\limits_{n=1}^{\infty}\left\{x:x\notin (0,1/n) \right\}=\mathbb{R}$
+
+\pagebreak
+\chead{Problems 4-5}
+\section*{Problem 4}
+\begin{align*}
+\dashrightarrow\\
+\text{If } C&=A\Delta B \\
+&\text{Then we have four cases:}\\
+\textbf{Case 1: } w&\in A \cap B\\
+\text{Then } w&\notin A\Delta B \text{ so } w\notin C\\
+\text{Thus } w&\in B\Delta C\\
+\textbf{Case 2: } w&\in A \cap B^c\\
+\text{Then } w&\in A\Delta B \text{ so } w\in C\\
+\text{Thus } w&\in B\Delta C\\
+\textbf{Case 3: } w&\in A^c \cap B\\
+\text{Then } w&\in A\Delta B \text{ so } w\in C\\
+\text{Thus } w&\notin B\Delta C\\
+\textbf{Case 4: } w&\in A^c \cap B^c\\
+\text{Then } w&\notin A\Delta B \text{ so } w\notin C\\
+\text{Thus } w&\in B\Delta C\\
+\text{Conclude } A&=B\Delta C
+\end{align*}
+
+\begin{align*}
+\dashleftarrow\\
+\text{Suppose } A&=B\Delta C\\
+&\text{Then we have four cases:}\\
+\textbf{Case 1: } w&\in B \cap C\\
+\text{Then } w&\notin B \Delta C \text{ so } w\notin A\\
+\text{Thus } w&\in A\Delta B\\
+\textbf{Case 2: } w&\in B \cap C^c\\
+\text{Then } w&\in B \Delta C \text{ so } w\in A\\
+\text{Thus } w&\notin A\Delta B\\
+\textbf{Case 3: } w&\in B^c \cap C\\
+\text{Then } w&\in B \Delta C \text{ so } w\in A\\
+\text{Thus } w&\in A\Delta B\\
+\textbf{Case 4: } w&\in B^c \cap C^c\\
+\text{Then } w&\notin B \Delta C \text{ so } w\notin A\\
+\text{Thus } w&\notin A\Delta B\\
+\text{Conclude } C&=A\Delta B
+\end{align*}
+
+\section*{Problem 5}
+\subsection*{a}
+\begin{align*}
+\dashrightarrow\\
+\text{Suppose } x &\in (\cup_\alpha A_\alpha)^c\\
+\text{Then } x &\notin \cup_\alpha A_\alpha\\
+\text{That is } x &\notin A_\alpha \ \forall \ \alpha \in \Gamma\\
+\text{Thus } x &\in {A_\alpha}^c \ \forall \ \alpha \in \Gamma\\
+\text{Therefore } x &\in \cap_\alpha {A_\alpha}^c
+\end{align*}
+
+\begin{align*}
+\dashleftarrow\\
+\text{Suppose } x &\in \cap_\alpha {A_\alpha}^c\\
+\text{Then } x &\in {A_\alpha}^c \ \forall \ \alpha \in \Gamma\\
+\text{Thus } x &\notin A_\alpha \ \forall \ \alpha \in \Gamma\\
+\text{Implying } x &\notin \cup_\alpha A_\alpha\\
+\text{Therefore } x &\in (\cup_\alpha {A_\alpha})^c
+\end{align*}
+
+\subsection*{b}
+\begin{align*}
+\dashrightarrow\\
+\text{Suppose } x &\in (\cap_\alpha A_\alpha)^c\\
+\text{Then } x &\notin \cap_\alpha A_\alpha\\
+\text{That is } x &\notin A_\alpha \text{ for some } \alpha \in \Gamma\\
+\text{Thus } x &\in {A_\alpha}^c \text{ for some } \alpha \in \Gamma\\
+\text{Therefore } x &\in \cup_\alpha {A_\alpha}^c
+\end{align*}
+
+\begin{align*}
+\dashleftarrow\\
+\text{Suppose } x &\in \cup_\alpha {A_\alpha}^c\\
+\text{Then } x &\in {A_\alpha}^c \text{ for some } \alpha \in \Gamma\\
+\text{Thus } x&\notin A_\alpha \text{ for some } \alpha \in \Gamma\\
+\text{Implying } x &\notin \cap_\alpha A_\alpha\\
+\text{Therefore } x&\in (\cap_\alpha A_\alpha)^c
+\end{align*}
+
+\pagebreak
+\chead{Problems 6-7}
+\section*{Problem 6}
+\subsection*{a}
+\begin{align*}
+\text{Suppose } x &\in \limsup (A_n \cap B_n)\\
+\text{That is } x &\in \bigcap \limits_{n=1}^{\infty} \bigcup \limits_{k=n}^{\infty} (A_k \cap B_k)\\
+\text{Then } x &\in \bigcup \limits_{k=n}^{\infty} (A_k \cap B_k) \ \forall \ n\\
+\text{Therefore } x &\in \bigcup \limits_{k=n}^{\infty} A_k \ \forall \ n
+\text{ and } x \in \bigcup \limits_{k=n}^{\infty} B_k \ \forall \ n\\
+\text{Thus } x &\in \limsup A_n \text{ and } x \in \limsup B_n\\
+\text{Therefore } x &\in (\limsup A_n) \cap (\limsup B_n)
+\end{align*}
+
+\subsection*{b}
+\begin{align*}
+\dashrightarrow\\
+\text{Suppose } x &\in (\limsup A_n) \cup (\limsup B_n)\\
+\text{Then } x &\in \bigcup \limits_{k=n}^{\infty} A_k \ \forall \ n \text{ or }
+x \in \bigcup \limits_{k=n}^{\infty} B_k \ \forall \ n\\
+\text{This implies } x &\in \bigcup \limits_{k=n}^{\infty} (A_k \cup B_k) \ \forall \ n\\
+\text{Therefore } x &\in \limsup (A_n \cup B_n)
+\end{align*}
+
+\begin{align*}
+\dashleftarrow\\
+\text{Suppose } x &\in \limsup (A_n \cup  B_n)\\
+\text{Then } x &\in \bigcup \limits_{k=n}^{\infty} (A_k \cup B_k) \ \forall \ n\\
+\text{Thus } x &\in  \bigcup \limits_{k=n}^{\infty} A_k \ \forall \ n \text{ or } x \in  \bigcup \limits_{k=n}^{\infty} B_k \ \forall \ n\\
+\text{Which implies } x &\in \limsup A_n \text{ or } x\in \limsup B_n\\
+\text{Therefore }  x &\in (\limsup A_n) \cup (\limsup B_n)
+\end{align*}
+
+\section*{Problem 7}
+\begin{align*}
+\text{Suppose } x&\in \liminf A_n\\
+\text{That is } x&\in \bigcup \limits_{n=1}^{\infty} \bigcap \limits_{k=n}^{\infty} A_k\\
+\text{Then } \exists \ N \text{ such that } &x\in \bigcap \limits_{k=N}^{\infty} A_k\\
+\text{By definiton } x &\in \limsup A_n \iff x\in \bigcup \limits_{k=m}^{\infty} A_k \ \forall \ m \\
+\textbf{Case 1: } m&\geq N\\
+\text{Then } x\in A_m \text{ since } x& \in \bigcap \limits_{k=N}^{\infty} \subset A_m\\
+\text{Therefore } x&\in \bigcup \limits_{k=m}^{\infty} A_k\\
+\textbf{Case 2: } m&<N\\
+\text{Then } x\in A_N \text{ since } x& \in \bigcap \limits_{k=N}^{\infty} A_k
+\text{ and } A_N \subset \bigcup \limits_{k=m}^{\infty} A_m\\
+\text{Therefore } x&\in \bigcup \limits_{k=m}^{\infty} A_k\\
+\text{Since we have proven } x&\in \bigcup \limits_{k=m}^{\infty} A_k \ \forall \ m\\
+\text{Conclude } x &\in \limsup A_n 
+\end{align*}
+\end{flushleft}
+\end{document}

@@ -1,0 +1,314 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 5}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\begin{document}
+\begin{flushleft}
+\chead{Problems 1-5}
+\section*{Problem 1}
+\begin{enumerate}[(a)]
+\item $P(\text{Doubles})=\dfrac{1}{6}*\dfrac{1}{6}*6=\dfrac{1}{6}$
+\item $P(D) = \text{Doubles}=\dfrac{1}{6}$ \quad $P(A)=\text{Sum of 4 or less}=\dfrac{6}{36}=\dfrac{1}{6}$\medbreak
+$P(D|A)=\dfrac{P(A|D)P(D)}{P(A)}$\medbreak
+$P(D|A)=\dfrac{(1/3)*(1/6)}{(1/6)}=\dfrac{1}{3}$
+\item $P(\text{at least one 6})=1-P(\text{no 6's})=1-\dfrac{5}{6}*\dfrac{5}{6}=1-\dfrac{25}{36}=\dfrac{11}{36}$
+\item $P(B)=\text{Different numbers}=1-P(\text{Doubles}) =\dfrac{5}{6}$ \quad $P(A)=\text{At least one six}=\dfrac{11}{36}$\medbreak
+$P(A|B)= \dfrac{P(B|A)*P(A)}{P(B)}=\dfrac{(10/11)*(11/36)}{(5/6)}=\dfrac{1}{3}$
+\end{enumerate}
+
+\section*{Problem 2}
+The probability of drawing a white ball from jar 1 is $P(W_1)$. We can use the law of total probability to find the probability of drawing a white ball from the $k_{th}$ jar since we are either adding a black or white ball to every jar after the first 1.
+\begin{align*}
+P(W_1)&=\dfrac{m}{m+n}\\
+P(W_k)&=P(W_{k-1})P(W_k|W_{k-1})+P({W_{k-1}}^c)P(W_k|{W_{k-1}}^c)\\
+&=\dfrac{m}{m+n}\dfrac{m+1}{m+n+1}+\dfrac{n}{m+n}\dfrac{m}{m+n+1}\\
+&=\dfrac{m(m+1)+nm}{(m+n)(m+n+1)}\\
+&=\dfrac{m(m+n+1)}{(m+n)(m+n+1)}\\
+&=\dfrac{m}{m+n}\\
+&\text{Thus } P(W_1)=P(W_k)
+\end{align*}
+\pagebreak
+\section*{Problem 3}
+\begin{align*}
+\text{We want to show:}&\\
+P(A|B)=P(C|B)P(A|B\cap C)&+P(C^c|B)P(A|B \cap C^c)\\
+\text{Using the definition } &\text{of conditional probability:}\\
+P(C|B)&=\dfrac{P(C\cap B)}{P(B)}\\
+P(A|B\cap C)&=\dfrac{P(A\cap B\cap C)}{P(B\cap C)}\\
+P(C^c|B)&=\dfrac{P(C^c\cap B)}{P(B)}\\
+P(A|B\cap C^c)&=\dfrac{P(A\cap B\cap C^c)}{P(B\cap C^c)}\\
+\text{Putting this}&\text{ together we can write}\\
+P(C|B)P(A|B\cap C)&+P(C^c|B)P(A|B \cap C^c) \text{ as:}\\
+\dfrac{P(C\cap B)}{P(B)}\dfrac{P(A\cap B\cap C)}{P(B\cap C)}&+
+\dfrac{P(C^c\cap B)}{P(B)}\dfrac{P(A\cap B\cap C^c)}{P(B\cap C^c)}\\
+=\dfrac{P(A\cap B\cap C)}{P(B)}&+\dfrac{P(A\cap B\cap C^c)}{P(B)}\\
+=&\dfrac{P(A\cap B)}{P(B)}\\
+=&P(A|B)
+\end{align*}
+\section*{Problem 4}
+\begin{enumerate}[(a)]
+\item
+\begin{align*}
+\text{We want to prove: } &P(A\cap B^c)=P(A)P(B^c)\\
+\text{Given } P(A\cap B)&=P(A)+P(B)\\
+\text{We can write } &A \text{ as:}\\
+A=&(A\cap B)\cup (A\cap B^c)\\
+\text{Since the union is}&\text{ disjoint we can write:}\\
+P(A)&=P(A\cap B)+P(A\cap B^c)\\
+P(A)&=P(A)P(B)+P(A\cap B^c)\\
+P(A\cap B^c)&=P(A)-P(A)P(B)\\
+P(A\cap B^c)&=P(A)(1-P(B))\\
+P(A\cap B^c)&=P(A)P(B^c)\\
+\text{Therefore } A \text{ and } B^c & \text{ are independent}
+\end{align*}
+\item
+\begin{align*}
+\text{We want to prove: }& P(A^c\cap B^c)=P(A^c)P(B^c)\\
+\text{We can write } &B^c \text{ as:}\\
+B^c=&(B^c\cap A)\cup (B^c\cap A^c)\\
+\text{Since the union is}&\text{ disjoint we can write:}\\
+P(B^c)&=P(B^c\cap A)+P(B^c\cap A^c)\\
+\text{Using part a}&\text{ we can write:}\\
+P(B^c)&=P(A)P(B^c)+P(B^c\cap A^c)\\
+P(B^c\cap A^c)&=P(B^c)-P(A)P(B^c)\\
+P(B^c\cap A^c)&=P(B^c)(1-P(A))\\
+P(B^c\cap A^c)&=P(B^c)P(A^c)\\
+\text{Therefore } A^c \text{ and } B^c & \text{ are independent}
+\end{align*}
+\end{enumerate}
+\section*{Problem 5}
+\textbf{Game 1:} P(win)=P(tie)=(.4)(.5)\\
+P(loss)=(.6)\medbreak
+\textbf{Game 2:} P(win)=P(tie)=(.7)(.5)\\
+P(loss)=(.3)\medbreak
+\textbf{PMF:}\\
+$P(0)=(.6)(.3)=.18$\\
+$P(1)=(.4)(.5)(.3)+(.6)(.7)(.5)=.27$\\
+$P(2)=(.4)(.5)(.7)(.5)+(.4)(.5)(.3)+(.6)(.7)(.5)=.34$\\
+$P(3)=(.4)(.5)(.7)(.5)(2)=.14$\\
+$P(4)=(.4)(.5)(.7)(.5)=.07$
+\pagebreak
+\section*{Problem 6}
+\chead{Problems 6-10}
+\begin{enumerate}[(a)]
+\item
+P(Harry Wins)= $\sum_{1}^{10}(.3)^n$\medbreak $=(.3)+(.3)^2+.(3)^3+(.3)^4+(.3)^5+.(3)^6+(.3)^7+(.3)^8+.(3)^9+(.3)^{10}$\\
+$\approx 0.4285689$ \medbreak
+
+There is a .3 probability Harry wins the first game plus the probability the first game is drawn times .3 probability he wins the second and so on all the way to 10 games.
+\item
+$P(1)=.4+.3$\\
+$P(2)=(.3)(.4)+(.3)(.3)$\\
+$P(3)=.3^2(.4+.3)$\\
+$P(4)=.3^3(.4+.3)$\\
+$P(5)=.3^4(.4+.3)$\\
+$P(6)=.3^5(.4+.3)$\\
+$P(7)=.3^6(.4+.3)$\\
+$P(8)=.3^7(.4+.3)$\\
+$P(9)=.3^8(.4+.3)$\\
+$P(10)=.3^9(.4+.3)+.3^{10}$\\
+\end{enumerate}
+\section*{Problem 7}
+$P(M)=P(W)=.5$\\
+$P(M\cap C)=.05$\\
+$P(W \cap C)=.0025$\\
+$P(C|M)=\dfrac{P(C\cap M)}{P(M)}=.05/.5=.1$\\
+$P(C|W)=\dfrac{P(C\cap W)}{P(W)}=.0025/.5=.005$\\
+$P(C)=P(M)P(C|M)+P(W)P(C|W)=(.5)(.1)+(.5)(.005)=.0525$\medbreak
+$P(M|C)=\dfrac{P(C|M)P(M)}{P(C)}=(.1)(.5)/(.0525)=.952381$
+\section*{Problem 8}
+\begin{enumerate}[(a)]
+\item	
+$P(H)=1/5$\\
+$P(H\geq 2)=1-[P(H=0)+P(H=1)]$\\
+$P(H=0)=(4/5)^{10}$\\
+$P(H=1)=(4/5)^9(1/5)(10)$\\
+$P(H\geq 2)=1-[(4/5)^{10}+(4/5)^9(1/5)(10)]\approx .6241904$
+\item
+$P(H \geq 1)=1-P(H=0)\approx .8926258$\medbreak
+$P(H\geq 2|H \geq 1)=\dfrac{P(H\geq 2 \cap H \geq 1)}{P(H\geq 1)}$\medbreak
+$=\dfrac{P(H\geq 2)}{P(H \geq 1)}\approx.6992744$
+\end{enumerate}
+\section*{Problem 9}
+\begin{enumerate}[(a)]
+\item 
+We want to prove $P(B)=1 \Longrightarrow P(A|B)=P(A) \ \forall \ A$\\
+Assume $P(B)=1$\\
+By definition of conditional probability:\\ $P(A|B)=\dfrac{P(B|A)P(A)}{P(B)}$\\
+Then $P(A|B)=1(P(A))/1=P(A)$
+\item
+We want to prove $A \subset B \Longrightarrow P(B|A)=1 \text{ and } P(A|B)=P(A)/P(B)$\\
+Assume $A \subset B$\\
+Then $A\cap B=A$\\
+Thus $P(A\cap B)=P(A)$\\
+Since $P(A|B)=P(A\cap B)/P(B)$\\
+We have $P(A|B)=P(A)/P(B)$\\
+$P(B|A)=\dfrac{P(A|B)P(B)}{P(A)}=\dfrac{(P(A)/P(B))P(B)}{P(A)}=P(A)/1/P(A)=1$\\
+\item
+We want to prove $A \cap B=\emptyset \Longrightarrow P(A|A\cup B)=\dfrac{P(A)}{P(A)+P(B)}$\\
+Assume $A \cap B=\emptyset$\\
+This means $P(A\cap B)=0$ and $P(A\cup B)=P(A)+P(B)$\\
+From the definition of conditional probability we can write:\\ $P(A|A\cup B)=\dfrac{P(A\cap (A\cup B))}{P(A\cup B)}$\\
+Since $P(A\cap (A\cup B))=P(A)$  we have:\\
+$P(A|A\cup B)=\dfrac{P(A)}{P(A)+P(B)}$\\
+\item
+We want to prove $P(A\cap B \cap C)=P(A|B\cap C)P(B|C)P(C)$\\
+We can write the left side as $P(A\cap (B\cap C))$ since intersections are associative.\\
+ $P(A\cap (B\cap C))=P(B\cap C)P(A|B\cap C)$ By definition of conditional probability\\
+ Using the definition of conditional probability again to rewrite $P(B\cap C)$ we have:\\
+ $P(A|B\cap C)P(B|C)P(C)$\\
+ Therefore $P(A\cap B \cap C)=P(A|B\cap C)P(B|C)P(C)$
+\end{enumerate}
+\section*{Problem 10}
+\begin{enumerate}[(a)]
+\item
+We want to prove If $P(A)>0$ and $P(B)>0$ then if $A$ and $B$ are mutually exclusive, they cannot be independent, that is $P(A\cap B)\neq P(A)*P(B)$.\\
+Assume $P(A)>0$, $P(B)>0$ and $A\cap B=\emptyset$\\
+Since $P(A\cap B)=P(\emptyset)=0$\\
+Then $P(A\cap B)=0$\\
+Since $P(A)>0$ and $P(B)>0$ $P(A\cap B)$ cannot equal 0.\\
+This creates a contradiction, thus two events with positive probabilities that are mutually exclusive cannot be independent.
+\item 
+Given two independent events, where $P(A)>0$ and $P(B)>0$ we want to show $A$ and $B$ cannot be mutually exclusive, that is $A\cap B$ is nonempty.
+Since A and B are independent, and have probabilities greater than 0, $P(A\cap B)=P(A)P(B)>0$\\
+Thus the intersection cannot be empty since $P(A\cap B)\neq 0$\\
+Therefore $A$ and $B$ cannot be mutually exclusive.
+\end{enumerate}
+\pagebreak
+\section*{Problem 11}
+\chead{Problems 11-16}
+$P(Correct\geq 10|Guessing)=\sum_{k=10}^{20}{20\choose k}(1/4)^k(3/4)^{20-k}=.01386442$
+\section*{Problem 12}
+Given a sample space $S=\left\{s_1,\dots,s_n \right\}$\\
+with a probability function $P$, we define a random variable X with a range of $\chi=\left\{x_1,\dots x_m \right\}$\\
+$P_X$ is defined as an induced probability function on $\chi$ such that:\\
+$P_X(X=x_i)=P(\left\{s_j\in S:X(s_j)=x_i \right\})$\\
+We want to prove this a legitimate probability function that satisfies the Kolmogorov Axioms.\medbreak
+\textbf{Proof:}\\
+Since $X$ has a finite range, $X$ is finite.\\
+Therefore $\mathcal{B}$ is the set of all subsets of $\chi$.\\
+If $A \in B$ then $P_X(A)=P(\cup_{x_i\in A}\left\{s_j\in S:X(s_j)=x_i \right\})\geq 0$ since we know $P$ is a probability function.\\
+Thus Axiom 1 holds.\medbreak
+$P_X(\chi)=P(\cup_{i=1}^{m}\left\{\cup_{s_j \in S:X(s_j)=x_i} \right\})=P(S)=1$\\
+Therefore Axiom 2 holds.\medbreak
+If $A_1,A_2,\dots \in \mathcal{B}$ and pairwise disjoint then:\\
+\[P_X(\cup_{k=1}^{\infty}A_k)=P(\cup_{k=1}^{\infty}\left\{\cup_{\chi_i \in A_k}\left\{s_j\in S:X(s_j)=x_i \right\} \right\})\]
+\[=\sum_{k=1}^{\infty}P(\cup_{\chi_i \in A_k}\left\{s_j\in S:X(s_j)=x_i \right\})=\sum_{k=1}^{\infty}P_X(A_k)
+\]
+Thus the third Axioms holds.\\
+Therefore we have satisfied all three axioms and have defined a legitimate probability function.
+
+\section*{Problem 13} Functions a-d are continuous, so they are all right-continuous.
+\begin{enumerate}[(a)]
+\item
+$\lim_{x\to \infty} \tan^{-1}(x)=\dfrac{\pi}{2}$\\
+$\lim_{x\to -\infty} \tan^{-1}(x)=\dfrac{-\pi}{2}$\\
+Therefore $\lim_{x\to \infty}1/2 +(1/\pi)\tan^{-1}(x)=\dfrac{\pi}{2}\dfrac{1}{\pi}+1/2=1$\\
+$\lim_{x\to -\infty}1/2 +(1/\pi)\tan^{-1}(x)=\dfrac{-\pi}{2}\dfrac{1}{\pi}+1/2=0$\\
+\textbf{Nondecreasing:}\\
+$\deriv{1/2+1/\pi \tan^{-1}(x)}=\dfrac{1}{1+x^2}>0$\\
+Therefore the function satisfies all three properties and is a cdf.
+\item
+$\lim_{x\to \infty}(1+e^{-x})^{-1}=(1+0)^{-1}=1$\\
+$\lim_{x\to -\infty}(1+e^{-x})^{-1}=\dfrac{1}{1+\infty}=0$\\
+\textbf{Nondecreasing:}\\
+$\deriv{(1+e^{-x})^{-1}}=e^{-x}(1+e^{-x})^{-2}>0$\\
+Therefore the function satisfies all three properties and is a cdf.
+\item
+$\lim_{x\to \infty} e^{-e^{-x}}=e^0=1$\\
+$\lim_{x\to -\infty} e^{-e^{-x}}=e^{-\infty}=0$\\
+\textbf{Nondecreasing:}\\\
+$\deriv{e^{-e^{-x}}}=e^{-x}e^{-e^{-x}}>0$\\
+Therefore the function satisfies all three properties and is a cdf.
+\item
+$\lim_{x\to \infty}1-e^{-x}=1-0=1$\\
+$\lim_{x\to 0}1-e^{-x}=1-1=0$\\
+\textbf{Nondecreasing:}\\\
+$\deriv{1-e^{-x}}=e^{-x}>0$\\
+Therefore the function satisfies all three properties and is a cdf.
+\item
+\[F_Y(y)=\begin{cases}
+\dfrac{1-\epsilon}{1+e^{-y}} \quad \text{if } y<0\\
+\epsilon + \dfrac{(1-\epsilon)}{1+e^{-y}} \quad \text{if } y \geq 0
+\end{cases}
+\]
+Where $0<\epsilon<1$\medbreak
+$F_Y(y)$ is continuous except at $y=0$, where the limit=$F(0)$, thus right continuous.\\
+$\lim_{y\to \infty}F_Y(y)=\epsilon+\dfrac{1-\epsilon}{1+0}=1$\\
+$\lim_{y\to -\infty}F_Y(y)=\dfrac{1-\epsilon}{1+\infty}=0$\\
+\textbf{Nondecreasing:}\\\
+$\deriv{\dfrac{1-\epsilon}{1+e^{-y}}}=(1-\epsilon)(1+e^{-y})^{-2}e^{-y}>0$\\
+$\deriv{\epsilon+\dfrac{1-\epsilon}{1+e^{-y}}}=\epsilon+(1-\epsilon)(1+e^{-y})^{-2}e^{-y}>0$\\
+Therefore the function satisfies all three properties and is a cdf.
+\end{enumerate}
+\section*{Problem 14}
+\begin{enumerate}[(a)]
+\item
+$F_Y$ is continous over $[1,\infty)$ so it is right continuous.\\
+$\lim_{y\to 1}F_Y=1-1=0$\\
+$\lim_{y\to \infty}F_Y=1-1/\infty=1$\\
+\textbf{Nondecreasing:}\\\
+$\deriv{F_Y}=\dfrac{2}{y^3}>0$\\
+Therefore the function satisfies all three properties and is a cdf.
+\item
+PDF=$f_y(y)=\begin{cases}
+\dfrac{2}{y^3} \quad \text{if } y>1\\
+0 \quad \text{if } y\leq 1
+\end{cases}$
+\item 
+$z=10(y-1) \quad z/10+1=y$\\
+$F_Z(z)=P(Z\leq z)=P(Y\leq z/10+1)=F_Y((z/10)+1)$
+\[F_Z(z)=\begin{cases}
+0 \quad \text{if } z \leq 0\\
+1-\dfrac{1}{(z/10+1)^2} \quad \text{if } z>0
+\end{cases}
+\]
+\end{enumerate}
+\section*{Problem 15}
+\begin{enumerate}[(a)]
+\item
+$F(x)=c\int_{0}^{\pi/2}\sin(x)\dx=1$\\
+ $=c\big|_0^{\pi/2}-\cos(x)=c(0+1)=c$\\
+ $c=1$\\
+ $f(x)=\sin(x), 0<x<\pi/2$
+\item
+$F(x)=c\int_{-\infty}^{\infty}e^{-|x|}=1$\\
+Since the integral is symmetric we can write:\\
+$2c\int_{0}^{\infty}e^{-x}=1$\\
+$2c\big|_0^{\infty}-e^{-x}=2c(0+1)=2c$\\
+$2c=1 \quad c=1/2$\\
+$f(x)=(1/2)e^{-|x|}, -\infty<x<\infty$
+\end{enumerate}
+\section*{Problem 16}
+$P(V\leq 5)=P(T< 3)=\int_{0}^{3}\dfrac{1}{1.5}e^{-t/1.5}\ dt=\big|_0^3 -e^{-t/1.5}=-e^{-2}+1$\\
+$v\geq 6$\\
+$P(V\leq v)=P(2T\leq V)= P(T\leq v/2)$\\
+$=\int_{0}^{v/2}\dfrac{1}{1.5}e^{-t/1.5}\ dt=\big|_0^{v/2} -e^{-t/1.5}=-e^{-v/3}+1$\\
+\[F_V(v)=\begin{cases}
+0 \quad -\infty<v<0\\
+-e^{-2}+1 \quad 0\leq v<6\\
+-e^{-v/3}+1 \quad v\geq 6
+\end{cases}
+\]
+\end{flushleft}
+\end{document}

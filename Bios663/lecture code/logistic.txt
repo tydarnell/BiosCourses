@@ -1,0 +1,255 @@
+##sample R code for Fisher exact test
+dat<- matrix(c(1,1,17,1,0,122,0,1,31,0,0,109), 4, 3, byrow=T)
+colnames(dat)<- c("vitc", "cold", "count")
+
+##fisher exact test
+fisher.test(dat)
+
+
+##transform a matrix into a data frame for glm 
+dat<- data.frame(dat)
+
+##logistic regression
+flm<- glm(cold ~ vitc, family = binomial, data = dat, weights = count)
+summary(flm)
+
+
+/*sample SAS code for Fisher Exact test*/
+options ls=70;
+
+data ski;
+input vitc cold count;
+cards;
+1 1 17
+1 0 122
+0 1 31
+0 0 109
+;
+
+proc logistic descending;
+freq count;
+model cold=vitc;
+run;
+
+proc freq data = ski;
+  weight count;
+  tables cold*vitc / fisher chisq;
+  exact fisher or;
+run;
+
+
+
+                            The SAS System                           5
+                                         08:43 Tuesday, March 31, 2009
+
+                        The LOGISTIC Procedure
+
+                          Model Information
+
+            Data Set                      WORK.SKI
+            Response Variable             cold
+            Number of Response Levels     2
+            Frequency Variable            count
+            Model                         binary logit
+            Optimization Technique        Fisher's scoring
+
+
+               Number of Observations Read           4
+               Number of Observations Used           4
+               Sum of Frequencies Read             279
+               Sum of Frequencies Used             279
+
+
+                           Response Profile
+
+                  Ordered                      Total
+                    Value         cold     Frequency
+
+                        1            1            48
+                        2            0           231
+
+                    Probability modeled is cold=1.
+
+
+                       Model Convergence Status
+
+            Convergence criterion (GCONV=1E-8) satisfied.
+
+
+                         Model Fit Statistics
+
+                                             Intercept
+                              Intercept            and
+                Criterion          Only     Covariates
+
+                AIC             258.184        255.312
+                SC              261.815        262.575
+                -2 Log L        256.184        251.312
+
+
+                            The SAS System                           6
+                                         08:43 Tuesday, March 31, 2009
+
+                        The LOGISTIC Procedure
+
+               Testing Global Null Hypothesis: BETA=0
+
+       Test                 Chi-Square       DF     Pr > ChiSq
+
+       Likelihood Ratio         4.8717        1         0.0273
+       Score                    4.8114        1         0.0283
+       Wald                     4.6934        1         0.0303
+
+
+              Analysis of Maximum Likelihood Estimates
+
+                                Standard          Wald
+ Parameter    DF    Estimate       Error    Chi-Square    Pr > ChiSq
+
+ Intercept     1     -1.2574      0.2035       38.1575        <.0001
+ vitc          1     -0.7134      0.3293        4.6934        0.0303
+
+
+                         Odds Ratio Estimates
+
+                           Point          95% Wald
+              Effect    Estimate      Confidence Limits
+
+              vitc         0.490       0.257       0.934
+
+
+    Association of Predicted Probabilities and Observed Responses
+
+          Percent Concordant     34.1    Somers' D    0.174
+          Percent Discordant     16.7    Gamma        0.342
+          Percent Tied           49.2    Tau-a        0.050
+          Pairs                 11088    c            0.587
+                            The SAS System                           7
+                                         08:43 Tuesday, March 31, 2009
+
+                          The FREQ Procedure
+
+                        Table of cold by vitc
+
+                 cold      vitc
+
+                 Frequency‚
+                 Percent  ‚
+                 Row Pct  ‚
+                 Col Pct  ‚       0‚       1‚  Total
+                 ƒƒƒƒƒƒƒƒƒˆƒƒƒƒƒƒƒƒˆƒƒƒƒƒƒƒƒˆ
+                        0 ‚    109 ‚    122 ‚    231
+                          ‚  39.07 ‚  43.73 ‚  82.80
+                          ‚  47.19 ‚  52.81 ‚
+                          ‚  77.86 ‚  87.77 ‚
+                 ƒƒƒƒƒƒƒƒƒˆƒƒƒƒƒƒƒƒˆƒƒƒƒƒƒƒƒˆ
+                        1 ‚     31 ‚     17 ‚     48
+                          ‚  11.11 ‚   6.09 ‚  17.20
+                          ‚  64.58 ‚  35.42 ‚
+                          ‚  22.14 ‚  12.23 ‚
+                 ƒƒƒƒƒƒƒƒƒˆƒƒƒƒƒƒƒƒˆƒƒƒƒƒƒƒƒˆ
+                 Total         140      139      279
+                             50.18    49.82   100.00
+
+
+                 Statistics for Table of cold by vitc
+
+        Statistic                     DF       Value      Prob
+        ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ
+        Chi-Square                     1      4.8114    0.0283
+        Likelihood Ratio Chi-Square    1      4.8717    0.0273
+        Continuity Adj. Chi-Square     1      4.1407    0.0419
+        Mantel-Haenszel Chi-Square     1      4.7942    0.0286
+        Phi Coefficient                      -0.1313
+        Contingency Coefficient               0.1302
+        Cramer's V                           -0.1313
+
+
+                         Fisher's Exact Test
+                  ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ
+                  Cell (1,1) Frequency (F)       109
+                  Left-sided Pr <= F          0.0205
+                  Right-sided Pr >= F         0.9910
+
+                  Table Probability (P)       0.0115
+                  Two-sided Pr <= P           0.0385
+
+                          Sample Size = 279
+                            The SAS System                           8
+                                         08:43 Tuesday, March 31, 2009
+
+                          The FREQ Procedure
+
+                        Table of cold by vitc
+
+                 cold      vitc
+
+                 Frequency‚
+                 Percent  ‚
+                 Row Pct  ‚
+                 Col Pct  ‚       0‚       1‚  Total
+                 ƒƒƒƒƒƒƒƒƒˆƒƒƒƒƒƒƒƒˆƒƒƒƒƒƒƒƒˆ
+                        0 ‚    109 ‚    122 ‚    231
+                          ‚  39.07 ‚  43.73 ‚  82.80
+                          ‚  47.19 ‚  52.81 ‚
+                          ‚  77.86 ‚  87.77 ‚
+                 ƒƒƒƒƒƒƒƒƒˆƒƒƒƒƒƒƒƒˆƒƒƒƒƒƒƒƒˆ
+                        1 ‚     31 ‚     17 ‚     48
+                          ‚  11.11 ‚   6.09 ‚  17.20
+                          ‚  64.58 ‚  35.42 ‚
+                          ‚  22.14 ‚  12.23 ‚
+                 ƒƒƒƒƒƒƒƒƒˆƒƒƒƒƒƒƒƒˆƒƒƒƒƒƒƒƒˆ
+                 Total         140      139      279
+                             50.18    49.82   100.00
+
+
+                 Statistics for Table of cold by vitc
+
+        Statistic                     DF       Value      Prob
+        ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ
+        Chi-Square                     1      4.8114    0.0283
+        Likelihood Ratio Chi-Square    1      4.8717    0.0273
+        Continuity Adj. Chi-Square     1      4.1407    0.0419
+        Mantel-Haenszel Chi-Square     1      4.7942    0.0286
+        Phi Coefficient                      -0.1313
+        Contingency Coefficient               0.1302
+        Cramer's V                           -0.1313
+
+
+                         Fisher's Exact Test
+                  ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ
+                  Cell (1,1) Frequency (F)       109
+                  Left-sided Pr <= F          0.0205
+                  Right-sided Pr >= F         0.9910
+
+                  Table Probability (P)       0.0115
+                  Two-sided Pr <= P           0.0385
+                            The SAS System                           9
+                                         08:43 Tuesday, March 31, 2009
+
+                          The FREQ Procedure
+
+                 Statistics for Table of cold by vitc
+
+             Estimates of the Relative Risk (Row1/Row2)
+
+  Type of Study                   Value       95% Confidence Limits
+  ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ
+  Case-Control (Odds Ratio)      0.4900        0.2569        0.9343
+  Cohort (Col1 Risk)             0.7306        0.5690        0.9381
+  Cohort (Col2 Risk)             1.4912        0.9986        2.2268
+
+
+                   Odds Ratio (Case-Control Study)
+                 ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒ
+                 Odds Ratio                   0.4900
+
+                 Asymptotic Conf Limits
+                 95% Lower Conf Limit         0.2569
+                 95% Upper Conf Limit         0.9343
+
+                 Exact Conf Limits
+                 95% Lower Conf Limit         0.2407
+                 95% Upper Conf Limit         0.9740
+
+                          Sample Size = 279

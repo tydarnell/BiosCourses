@@ -1,0 +1,204 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{2016 Midterm Practice}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+	\section*{Problem 1}
+	
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+X_1,\dots,X_n \sim U(0,\theta)\\
+f_X(x)=\dfrac{1}{\theta} \quad 0<\theta<\infty\\
+X_{(1)},\dots, X_{(n)} \text{ are order statistics}\\
+Y_i=\dfrac{X_{i}}{X_{i+1}} \text{ for } i=1,\dots,n-1\\ Y_n=X_{(n)}\\
+Y_{1}=\dfrac{X_{(1)}}{X_{(2)}} \quad Y_{n-1}=\dfrac{X_{(n-1)}}{X_{(n)}}\\
+Y_n=X_{(n)}\\
+X_{(n)}=Y_n \quad X_{(n-1)}=Y_n Y_{n-1} \ \cdots \ X_1=Y_1Y_2\cdots Y_n\\
+X_{(i)}=\prod_{j=i}^{n}Y_j\\
+J=\begin{bmatrix}
+\dfrac{dx_1}{dy_1} & \dots & \dfrac{dx_1}{dy_n}\\
+\dfrac{dx_2}{dy_1} &\dots &\dots\\
+\dots &\dots &\dots\\
+\dfrac{dx_n}{dy_1} & \dots & \dfrac{dx_n}{dy_n}
+\end{bmatrix}\\
+=\begin{bmatrix}
+y_2\cdots y_n & \dots & y_1\cdots y_{n-1}\\
+0 & y_3\cdots y_n & y_2\cdots y_{n-1}\\
+\dots & \dots & \dots\\
+0 & \dots & 1
+\end{bmatrix}\\
+J \text{ is an upper triangular matrix thus its determinant is the product of its main diagonal}\\
+J=|y_2 y_3^2 \dots y_n^{n-1}|=y_2 y_3^2 \dots y_n^{n-1}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+f_{Y_1,\dots,Y_n}(y_1,\dots,y_n)=f_{X_{(1)},\dots,X_{(n)}}(\prod_{j=1}^{n}(y_j,\dots,y_n))|J|\\
+=\dfrac{n!}{\theta^n}(y_2 y_3^2 \dots y_n^{n-1})\\
+\text{This can be factored into functions of } y_i \text{ for } i=1,\dots,n\\
+\text{Thus the } Ys \text{ are mutually independent}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\text{Since there is no } y_1 \text{ term:}\\
+f_{Y_1}(y_1)=1 \quad 0<y_1<1\\
+f_{Y_i}(y_i)=iy_i^{i-1} \quad 0<y_i<1\\
+f_{Y_n}(y_n)=n\dfrac{y_n^{n-1}}{\theta^n}\\
+F_{Y_n}(y_n)=\dfrac{y_n^n}{\theta^n} \quad 0<y<\theta\\
+\text{Let } Z_n=Y_n/\theta\\
+F_Z(z)=P(Z\leq z)=P(Y_n\leq Z\theta)=F_y(z\theta)\\
+F_y(z\theta)=\dfrac{(z\theta)^n}{\theta^n}=z^n=F_Z(z)\\
+f_Z(z)=nz^{n-1} \quad 0<z<1\\
+Beta(n,1)= \dfrac{\Gamma(n+1)}{\Gamma(n)\Gamma(1)}z^{n-1}(1-z)^{1-1} \quad 0<z<1\\
+=\dfrac{n!}{n-1!}z^{n-1}=nz^{n-1}\\
+Z\sim Beta(n,1)\\
+\end{multline*}
+
+\end{enumerate}
+
+	\section*{Problem 2}
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+\bar{X}=\dfrac{1}{n}\sum_{i=1}^{n}X_i\\
+\bar{Y}=\dfrac{1}{n}\sum_{i=1}^{n}Y_i\\
+\text{Since } X_1,\dots,X_n \text{ and } Y_1,\dots,Y_n \text{ are random samples from } N(\mu,\sigma^2):\\
+\bar{X}\sim N(\mu,\sigma^2/n)\quad  \bar{Y}\sim N(\mu,\sigma^2/n)\\
+\bar{X}-\bar{Y} \sim N(\mu-\mu,\sigma^2/n+(-\sigma)^2/n)=N(0,2\sigma^2/n)\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\text{WTS: } \limn P(|\bar{X}-\bar{Y} |>\sigma)=0\\
+P(|\bar{X}-\bar{Y} |>\sigma)=1-P(|\bar{X}-\bar{Y} |\leq\sigma)\\
+=1-P(-\sigma\leq \bar{X}-\bar{Y}\leq \sigma)\\
+=1-P\left(\dfrac{-\sigma}{\sqrt{2}\sigma/\sqrt{n}}\leq \dfrac{\bar{X}-\bar{Y}}{\sqrt{2}\sigma/\sqrt{n}}\leq \dfrac{\sigma}{\sqrt{2}\sigma/\sqrt{n}}\right)\\
+1-P\left(-\sqrt{n/2}\leq \dfrac{\bar{X}-\bar{Y}}{\sqrt{2}\sigma/\sqrt{n}}\leq \sqrt{n/2}\right)\\
+=1-(\Phi(\sqrt{n/2})-\Phi(-\sqrt{n/2}))\\
+=1-\Phi(\sqrt{n/2})+\Phi(-\sqrt{n/2}))\\
+\limn 1-\Phi(\sqrt{n/2})+\Phi(-\sqrt{n/2})\\
+\limn \Phi(\sqrt{n/2})=\Phi(\infty) = 1 \quad \limn \Phi(-\sqrt{n/2})=\Phi(-\infty)=0\\
+=1-1+0=0\\
+\text{Thus }\limn P(|\bar{X}-\bar{Y} |>\sigma) = 0\\
+\end{multline*}
+
+\end{enumerate}
+
+	\section*{Problem 3}
+	
+\begin{enumerate}[(a)]
+	\item 
+\begin{multline*}\\
+X_1\sim pois(\lambda_1) \quad X_2\sim pois(\lambda_2)\\
+X_1 \bot X_2\\
+\text{WTS: } X_1|X_1+X_2 \sim bin(n,p) \text{ where}\\
+E(X_1|X_2+X_2=n)=\dfrac{n\lambda_1}{\lambda_1+\lambda_2}\\
+p=\dfrac{\lambda_1}{\lambda_1+\lambda_2}\\
+(X_1+X_2=n) \sim pois(n|\lm_1+\lm_2)\\
+= \dfrac{e^{-(\lm_1+\lm_2)}(\lm_1+\lm_2)^n}{n!}\\
+f_{X_1,X_2}(x_1,x_2)=\dfrac{e^{-(\lm_1+\lm_2)}\lm_1^{x_1}}{x_1!}\dfrac{\lm_2^{x_2}}{x_2!}\\
+P(X_1=x|X_1+X_2=n)=\dfrac{P(X_1=x,X_1+X_2=n)}{P(X_1+X_2=n)}\\
+=\dfrac{P(X_1=x)P(X_2=n-x)}{P(X_1+X_2=n)}\\
+=\dfrac{e^{-(\lm_1+\lm_2)}\lm_1^x\lm_2^{n-x}}{x!(n-x)!}/\dfrac{(\lambda_1+\lm_2)^n e^{-(\lm_1+\lm_2)}}{n!}\\
+={n\choose x}\dfrac{e^{-(\lm_1+\lm_2)}\lm_1^x\lm_2^{n-x}}{(\lambda_1+\lm_2)^n e^{-(\lm_1+\lm_2)}}\\
+={n\choose x}\dfrac{\lm_1^x\lm_2^{n-x}}{(\lambda_1+\lm_2)^n}\\
+={n\choose x}\dfrac{\lm_1^x\lm_2^{n-x}}{(\lambda_1+\lm_2)^n}\dfrac{(\lambda_1+\lm_2)^{n-x}}{(\lambda_1+\lm_2)^{n-x}}\\
+={n\choose x}\left(\dfrac{\lm_2}{\lm_1+\lm_2}\right)^{n-x}\left(\dfrac{\lm_1}{\lm_1+\lm_2}\right)^x\\
+\text{Which is } bin(n,\dfrac{\lambda_1}{\lm_1+\lm_2})\\
+\text{Thus } E(X_1|X_2+X_2=n)=\dfrac{n\lambda_1}{\lambda_1+\lambda_2}\\
+\end{multline*} 
+
+	\item                         
+\begin{multline*}\\ 
+\text{WTS: whether } T(X)=\sum_{i=1}^{2}X_i=X_1+X_2 \text{ is an SS for }\lm_1\\ 
+P(X=x,T(X)=t)=\dfrac{P(X=x,X_1+X_2=t)}{P(X_1+X_t}\\
+=\dfrac{P(X_1=x,X_2=x_2)}{P(X_1+X_2=t)}\\
+=\dfrac{\lm_1^{x_1}e^{-\lm_1}\lm_2^{x_2}e^{-\lm_2}}{x_1!x_2!}/\dfrac{(\lm_1+\lm_2)^t e^{-(\lm_1+\lm_2)}}{t!}\\
+=\dfrac{t!}{x_1!x_2!}\dfrac{\lm_1^{x_1}\lm_2^{x_2}}{(\lm_1+\lm_2)^t}\\
+\text{This includes } \lm_1\\
+\text{Thus } (X_1+X_2) \text{ not } \bot \lm_1\\
+X_1+X_2 \text{ not SS of } \lm_1\\
+\end{multline*}                
+
+\end{enumerate}
+
+	\section*{Problem 4}
+	
+\begin{enumerate}[(a)]
+	
+	\item 	
+\begin{multline*}\\
+f_X(x)=\dfrac{x^{\B-1}e^{-x}}{\Gamma(\B)} \quad x>0, \quad \B>1\\
+f_T(t|X=x)=\theta xe^{-\theta xt} \quad t>0, \quad \theta>0\\
+f_T(t)=\int_{0}^{\infty}f_{T,X}(t,x) \ \dx\\
+=\int_{0}^{\infty}f_{T}(t|X=x)f_X(x) \ \dx\\
+=\int_{0}^{\infty}\theta xe^{-\theta xt}\dfrac{x^{\B-1}e^{-x}}{\Gamma(\B)} \ \dx\\
+=\dfrac{\theta}{\Gamma(\B)}\int_{0}^{\infty} x^{\B}e^{-(\theta t+1)x} \ \dx\\
+\text{Want to get integral in the form of } gamma(\B+1,1/(\theta t+1))\\
+=\dfrac{\Gamma(\B+1)\theta}{\Gamma(\B)(\theta t+1)^{\B+1}}\int_{0}^{\infty}\dfrac{(\theta t+1)^{\B+1}}{\Gamma(\B+1)} x^{\B}e^{-(\theta t+1)x} \ \dx\\
+=\dfrac{\Gamma(\B+1)\theta}{\Gamma(\B)(\theta t+1)^{\B+1}}\\
+f_T(t)=\dfrac{\B\theta}{(\theta t+1)^{\B+1}}\\
+\end{multline*}
+	
+	\item 
+\begin{multline*}\\
+\text{WTS: } E(T)=\dfrac{1}{\theta(\B-1)}\\
+E(T)=E(E(T|X=x))\\
+E(T|X=x)=1/(\theta X) \text{ giving us:}\\
+=E(1/(\theta X))=\dfrac{1}{\theta}E(X^{-1})\\
+E(X^{-1})=\int_{0}^{\infty} x^{-1}f_X(x)\ \dx\\
+=\int_{0}^{\infty} \dfrac{x^{\B-2}e^{-x}}{\Gamma(\B)} \ \dx\\
+=\dfrac{\Gamma(\B-1)}{\Gamma(\B)}\int_{0}^{\infty} \dfrac{x^{\B-2}e^{-x}}{\Gamma(\B-1)} \ \dx\\
+=\dfrac{\Gamma(\B-1)}{\Gamma(\B)}\\
+=\dfrac{(\B-2)!}{(\B-1)!}\\
+E(T)=\dfrac{1}{\theta}E(X^{-1})=\dfrac{1}{\theta(\B-1)}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\text{Given } \B=2 \quad E(T)=\dfrac{1}{\theta(2-1)}=\dfrac{1}{\theta}\\
+\text{and } \sqrt{n}(\hat{\theta}-\theta)\cd N(0,2\theta^2) \quad T_n=\hat{\theta}\\
+\text{Using delta method: }
+\sqrt{n}\{g(T_n)-g(\theta)\}\cd N(0,\{g^{'}(\theta)\}^2 \sigma^2)\\
+g(\theta)=\dfrac{1}{\theta} \quad g^{'}(\theta)=-\theta^{-2}\\
+\sqrt{n}(1/\hat{\theta}-1/\theta)\cd N(0,\theta^{-4}2\theta^2)=N(0,2\theta^{-2})\\
+\sigma^2=2\theta^{-2}\\
+\end{multline*}
+
+\end{enumerate}
+
+\end{flushleft}
+\end{document}

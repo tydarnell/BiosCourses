@@ -1,0 +1,171 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 3}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\begin{document}
+\begin{flushleft}
+\chead{Problems 1-3}
+\section*{Problem 1}
+\subsection*{a}
+\begin{align*}
+\textbf{Proof } &\text{by contradiction}\\
+\text{Let } A \text{ be a countably}&\text{ infinite sample space}\\ A=\left\{A_1,A_2,\dots \right\}&=\bigcup_{i=1}^{\infty}P(A_i)\\
+\text{Suppose all outcomes}& \text{ are equally likely } P(A_i)=c>0\\
+(\text{If } c=0 \text{ then } P(A)&=\sum \limits_{i=1}^{\infty}0=0\neq1)\\ 
+\text{Then }P(A)=\bigcup_{i=1}^{\infty}P(A_i)&=\sum\limits_{i=1}^{\infty}P(A_i)\\
+&=\sum\limits_{i=1}^{\infty}c=\infty\\
+\text{This contradicts } &P(A)=1\\
+\text{Therefore all outcomes}& \text{ cannot be equally likely} 
+\end{align*}
+\subsection*{b}
+\begin{align*}
+\text{Let } A \text{ be a countably}&\text{ infinite sample space}\\
+\text{Where the probability of}&\text{ each point is given by } p_n\\
+\text{Where } p_n \text{ is an infinite geomtric series with common ratio }& r=1/2 \text{ and first term } p_1=1/2\\
+P(A)=\sum \limits_{n=1}^{\infty}p_n&=\sum \limits_{n=1}^{\infty}\frac{1}{2}^n\\
+\text{We can see as } n \to \infty \text{ the terms in } &p_n \text{ approach 0 but never reach it}\\
+\text{Since } |r|<1 &\text{ the series converges to:}\\ \frac{p_1}{(1-r)}&=\frac{1/2}{1-1/2}=1\\
+\text{Thus } p_n>0 \quad \forall \ n &\text{ and } P(A)=1\\
+\text{Therefore we have proven it is possible to have}& \text{ a countably infinite sample space}\\
+\text{where all points have}&\text{ positive probability} 
+\end{align*}
+\pagebreak
+\section*{Problem 2}
+\begin{enumerate}[(a)]
+\item $26^3=17576$
+\item $26+26^2+26^3=18278$
+\item $26+26^2+26^3+26^4=475254$
+\end{enumerate}
+\section*{Problem 3}
+\begin{enumerate}[(a)]
+\item $\dfrac{2!(n-1)(n-2)!}{n!}=\dfrac{2(n-1)!}{n!}=\dfrac{2}{n}$
+\item $\dfrac{3!(n-2)(n-3)!}{n!}=\dfrac{6(n-2)!}{n!}=\dfrac{6}{(n-1)(n)}=\dfrac{6}{n^2-n}$
+\end{enumerate}
+\pagebreak
+\section*{Problem 4}
+\chead{Problems 4-6}
+$\sum \limits_{i=1}^{20}(i-1)=\dfrac{19(20)}{2}=190$
+\section*{Problem 5}
+\[{10\choose 3}7!=604800
+\]
+\section*{Problem 6}
+\begin{enumerate}[(a)]
+\item $x_1+x_2+x_3+x_4=8$\\
+where $x_i$ is the number of blackboards at the $ith$ school\\
+The number of nonnegative integer solutions is:
+\[{8+4-1\choose 4-1}={11\choose 3}=165
+\]
+\item The number of positive integer solutions is:
+\[{8+-1\choose 4-1}={7\choose 3}=35
+\]
+\end{enumerate}
+\pagebreak
+\section*{Problem 7}
+\chead{Problems 7-9}
+\begin{enumerate}[(a)]
+\item considering the minimal investments we have \$9 thousand left to invest\\
+$(r_1+2)+(r_2+2)+(r_3+3)+(r_4+4)=20$\\
+$r_1+r_2+r_3+r_4=9$\\
+The number of nonnegative integer solutions is:
+\[{9+4-1\choose 4-1}={12\choose 3}=220
+\]
+\item If we do not invest in the first investment:\\
+$(r_2+2)+(r_3+3)+(r_4+4)=20$\\
+$r_2+r_3+r_4=11$\\
+The number of nonnegative solutions is:
+\[{11+3-1\choose 3-1}={13\choose 2}=78
+\]
+Which is the same as not investing in the second investment\\
+If we do not invest in the third investment:\\
+$(r_1+2)+(r_2+2)+(r_4+4)=20$\\
+$r_1+r_2+r_4=12$\\
+The number of nonnegative solutions is:
+\[{12+3-1\choose 3-1}={14\choose 2}=91
+\]
+If we do not invest in the fourth investment:\\
+$(r_1+2)+(r_2+2)+(r_3+3)=20$\\
+$r_1+r_2+r_3=13$\\
+The number of nonnegative solutions is:
+\[{13+3-1\choose 3-1}={15\choose 2}=105
+\]
+We know from part a that there are 220 ways to invest in all investments.\\2
+Adding them all up we get
+$78+78+91+105+220=572$ total investment strategies
+\end{enumerate}
+\pagebreak
+\section*{Problem 8}
+\allowdisplaybreaks
+\begin{align*}
+\text{We want to prove } (a+b)^n&=\sum \limits_{r=0}^{n}{n \choose r}a^r b^{n-r} \text{ for } n \in \mathbb{N}\\
+\textbf{Proof }&\text{by induction:}\\
+\forall \ n \in \mathbb{N} &\text{ let } P(n) \text{ be:}\\
+(a+b)^n&=\sum \limits_{r=0}^{n}{n \choose r}a^r b^{n-r}\\
+\textbf{Basis Step: }P(1)=(a+b)^1=&=\sum \limits_{r=0}^{1}{1 \choose r}a^r b^{1-r}\\
+a+b&={1\choose 0}(a^0b^{1-0})+{1\choose 1}(a^1b^{1-1})\\
+a+b&=a+b\\
+\text{Thus } &P(1) \text{ is true}\\
+\textbf{Inductive Step: } \text{Let } k&\in \mathbb{N} \text{ and assume }
+P(k) \text{ is true:}\\
+(a+b)^k&=\sum \limits_{r=0}^{k}{k \choose r}a^r b^{k-r} \label{1}\tag{1}\\
+\text{We will prove } &P(k+1) \text{ is true:}\\
+(a+b)^{k+1}&=\sum \limits_{r=0}^{k+1}{k+1 \choose r}a^r b^{k+1-r}\label{2}\tag{2}\\
+=\sum \limits_{r=1}^{k}{k+1 \choose r}a^r b^{k+1-r}+&{k+1 \choose k+1}a^{k+1}b^{k+1-(k+1)}+{k+1\choose 0} a^0b^{k+1-0}\\
+&=\left[\sum \limits_{r=1}^{k}{k+1 \choose r}a^r b^{k+1-r}\right]+a^{k+1}+b^{k+1} \label{3}\tag{3}\\
+\text{Multiply both sides of }& \eqref{1} \text{ by } (a+b)\\
+(a+b)^k(a+b)&=\left(\sum \limits_{r=0}^{k}{k \choose r}a^r b^{k-r}\right)(a+b)\\
+(a+b)^{k+1}&=\sum \limits_{r=0}^{k}{k \choose r}a^{r+1} b^{k-r}+\sum \limits_{r=0}^{k}{k \choose r}a^{r} b^{k-r+1} \label{4}\tag{4}\\
+\text{We will need to}& \text{ perform an index shift}\\
+\text{Define } i=r+1 &\text{ then } r=i-1\\
+\text{ We can rewrite}&\text{ the first term of the right side of } \eqref{4} \text{ as:}\\
+\sum \limits_{r=0}^{k}{k \choose r}a^{r+1} b^{k-r}&=\sum \limits_{i=1}^{k+1}{k\choose i-1}a^ib^{k-i+1}\\
+\text{Since } i \text{ is just a name}& \text{ we can replace } i \text{ by } r \text{ to get:}\\
+\sum \limits_{r=0}^{k}{k \choose r}a^{r+1} b^{k-r}&=\sum \limits_{r=1}^{k+1} {k\choose r-1}a^r b^{k-r+1}\\
+\text{Plugging this result into }& \eqref{2} \text{ we have}:\\
+(a+b)^{k+1}&=\sum \limits_{r=1}^{k+1}{k \choose r-1}a^{r} b^{k-r+1}+\sum \limits_{r=0}^{k}{k \choose r}a^{r} b^{k-r+1}\\
+={k \choose (k+1)-1}a^{k+1} b^{k+1-(k+1)}+\left[\sum \limits_{r=1}^{k}{k \choose r-1}a^{r} b^{k-r+1}\right]&+\left[\sum \limits_{r=1}^{k}{k \choose r}a^{r} b^{k-r+1}\right]+{k \choose 0}a^{0} b^{k-0+1}\\
+&=a^{k+1}+ \sum \limits_{r=1}^{k}\left[{k \choose r-1}+{k \choose r}\right]a^rb^{k-r+1}+b^{k+1}\\
+\text{We proved } {n+1 \choose r}&={n \choose r-1}+{n \choose r} \text{ in Problem 9}\\
+\text{Substituting} &\text{ this in we have:}\\
+&=\left[\sum \limits_{r=1}^{k}{k+1 \choose r}a^rb^{k-r+1}\right]+a^{k+1}+b^{k+1}\\
+\text{Which is the same as } & \eqref{3}\\
+\text{Therefore, since we know }& \eqref{3}=\eqref{2} \text{, the inductive step has been established}\\
+&\text{and by PMI we have proven that:}\\
+\forall \ n &\in \mathbb{N}\\
+(a+b)^n&=\sum \limits_{r=0}^{n}{n \choose r}a^r b^{n-r}
+\end{align*}
+\pagebreak
+\section*{Problem 9}
+\begin{align*}
+\text{We want to prove } { n\choose r-1}+{n \choose r}&={n+1 \choose r}\\
+{n \choose r-1}+{n \choose r}&=\dfrac{n!}{(n-r+1!)(r-1)!}+\dfrac{n!}{(n-r)!(r)!}\\
+&=n!\left(\dfrac{r}{(n+1-r)!(r)!}+\dfrac{n+1-r}{(n+1-r)!r!} \right)\\
+&=n!\left(\dfrac{r+(n+1-r)}{(n+1-r)!(r)!} \right)\\
+&=n!\left(\dfrac{(n+1)}{(n+1-r)!(r)!} \right)\\
+&=\dfrac{(n+1)!}{(n+1-r)!(r)!}\\
+&={n+1\choose r}\\
+\text{Therefore } {n \choose r-1}+{n \choose r}&={n+1 \choose r}
+\end{align*}
+
+
+\end{flushleft}
+\end{document}

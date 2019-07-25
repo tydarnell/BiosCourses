@@ -1,0 +1,108 @@
+---
+title: "662 Hw2"
+author: "Ty Darnell"
+date: "September 6, 2018"
+output: word_document
+---
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = F,message=F,comment="",warning=F)
+```
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(skimr)
+library(moderndive)
+sbpdat=read_table("HW2_SBP.txt",col_names = c("mi","sbp"))
+sbpdat$mi <- as.factor(sbpdat$mi)
+```
+
+#Problem 1
+##a)
+```{r,echo=F,message=F}
+ggplot(data=sbpdat)+geom_boxplot(aes(y=sbp))+coord_flip()+labs(title="Systolic Blood Pressure Boxplot",y="Systolic Blood Pressure")
+
+ggplot(data=sbpdat)+geom_histogram(aes(x=sbp,y=..density..,color="black",fill=sbp),show.legend = F)+labs(title="Systolic Blood Pressure Histogram",x="Systolic Blood Pressure")
+```
+
+##b)
+25th, 50th, 75th percentiles
+```{r,echo=F,message=F}
+c(quantile(sbpdat$sbp,.25,type=2), quantile(sbpdat$sbp,.50,type=2), quantile(sbpdat$sbp,.75,type=2))
+```
+
+##c)
+IQR
+```{r,echo=F,message=F}
+IQR(sbpdat$sbp)
+```
+
+##d)
+25th - 1.5 IQR, 75th + 1.5 IQR
+```{r,echo=F,message=F}
+c(107-1.5*23, 130+1.5*23)
+```
+
+Smallest, Largest Nonoutliers
+```{r}
+c(82,162)
+```
+
+From the boxplot there appears to be 5 outliers. However in the dataset there are six ouliers (as shown below). However two of the values for `sbp` are the same so they are overlapping and thus not visually apparent. Hence the boxplot does agree with the defintion from our notes.
+```{r}
+filter(sbpdat,!between(sbp,(107-1.5*23), (130+1.5*23)))
+```
+
+##e)
+
+```{r,echo=F,message=F}
+ggplot(data=sbpdat,aes(group=mi,y=sbp,color=mi))+geom_boxplot()+labs(title="Systolic Blood Pressure Boxplot",y="Systolic Blood Pressure")+coord_flip()+scale_colour_grey()
+```
+
+From the plot, blood pressures of the group who had an MI appears to be higher. The median of the MI group is almost equal to the 75th percentile of the group without MI.
+
+#Problem 2
+
+##a)
+Looking at the means and standard deviations, they appear to be very different. However looking an overlaid histogram of `iPGE` separated by `hypercalcemia` we see that there are two extreme outliers that are impacting the mean of the `hypercalcemia`= 1 group. Based on this, I do not think that there is enough evidence to conclude that the means of the two groups differ significantly.
+```{r}
+ pgedat=read_table2("HW2_PGE.txt",col_names=c("patient", "ipge", "ca", "hypercalcemia"))
+pgedat$hypercalcemia=as.factor(pgedat$hypercalcemia)
+pgedat%>%group_by(hypercalcemia) %>% summarise(mean(ipge),sd(ipge))
+
+nhyper=filter(pgedat,pgedat$hypercalcemia==0)
+hyper=filter(pgedat,pgedat$hypercalcemia==1)
+pged2=rbind(nhyper,hyper)
+
+ggplot(data=pged2,aes(x=ipge))+geom_histogram(data=nhyper,aes(fill="hypercalcemia=0"),alpha=.5,binwidth=50)+geom_histogram(data=hyper,aes(fill="hypercalcemia=1"),alpha=.5,binwidth=50)
+```
+
+##b)
+Since the correlation between `iPGe` and `ca` is .105 there does not appear to be a strong association between the two variables.
+```{r}
+get_correlation(data=pgedat,formula = ca~ipge)
+ggplot(data=pgedat,aes(y=ca,x=ipge))+geom_point(aes(color=hypercalcemia))+geom_smooth(method="lm")
+```
+
+##c)
+`patient` 11 has a `ca` value of 18 and an `iPGE` value of 60. This is the highest `ca` value by far and the lowest `iPGE` value by far. This appears to be an anomaly. After removing this point and replotting the data, there appears to be a stronger association between the two variables. The correlation between `iPGE` and `ca` become .486 which is much a stronger correlation than before but still does not suggest a strong association between the variables.
+
+```{r}
+filter(pgedat,ipge==60)
+remove=filter(pgedat,ipge!=60)
+ggplot(remove,aes(x=ipge,y=ca))+geom_point(aes(color=hypercalcemia))+geom_smooth(method="lm")
+get_correlation(remove,ca~ipge)
+lm(data=remove,ca~ipge)
+```
+
+Creating a linear model of the new data set and using the lm (shown below) to find a better `ca` value for `patient` 11, we obtain 9.761447+.005765*(60)=10.10735. Thus the new `ca` = 10.1
+```{r}
+lm(data=remove,ca~ipge)
+```
+
+##d)
+The new value of `ca` would cause `patient` 11 to be part of the `hypercalcemia` = 0 data subset instead of the `hypercalcemia` = 1 subset since the new value for `ca` <  10.5 which is the cutoff point for `hypercalcemia`.
+This would increase the mean of `iPGE` and decrease the standard deviation `iPGE` of the `hypercalcemia` = 1 subset. Also for the `hypercalcemia` = 0 subset the mean of `iPGE` would increase and the standard deviation would decrease. However the effect on the `hypercalcemia` = 1 subset would be greater since `iPGE` = 60 is a much more extreme outlier in that subset.
+
+```{r}
+
+```

@@ -1,0 +1,44 @@
+#R code for calculation correlation and partial correlations
+
+setwd("C:\\Users\\feizou\\Desktop\\Teaching\\Bios663-2019\\Spring2019\\lecture9")
+
+ozone.dat<- read.csv("ozone.csv")
+dim(ozone.dat)
+
+##pairwise correlations
+cor(ozone.dat[,-1])
+
+##load ppcor library for computing partial correlations
+##help manual of ppcor:  https://cran.r-project.org/web/packages/ppcor/ppcor.pdf
+library(ppcor)
+
+##pairwise partial correlations
+pcor(ozone.dat[,-1])
+
+##linear regression
+flm<- lm(personal~outdoor + home + time_out, data=ozone.dat)
+summary(flm)
+
+##residual plot
+plot(flm$fitted, flm$resid)
+abline(h=0)
+
+#histogram of the residuals
+hist(flm$resid)
+
+##scale the residuals to mean 0 and variance 1
+scaled.resid<- scale(flm$resid)
+
+##qqplot of scaled residuals
+qqnorm(scaled.resid)
+abline(0,1)
+
+##test normality of residuals
+shapiro.test(flm$resid)  #shapiro.test
+ks.test(scaled.resid, pnorm, 0, 1) #Kolmogorov-Smirnov test
+
+
+
+
+
+

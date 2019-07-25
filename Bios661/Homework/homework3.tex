@@ -1,0 +1,191 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 3}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+	\section*{Problem 1}
+	
+\begin{multline*}\\
+P(max(X_1,X_2)>m)=1-P(X_1\leq m,X_2\leq m)\\
+\text{Since the Xs are iid we have:}\\
+=1-P(X_1\leq m)P(X_2\leq m)\\
+=1-P(X_1\leq m)^2\\
+=1-(1/2)^2=3/4\\
+\text{Generalizing this result:}\\
+P(max(X_1,\dots,X_n)\leq m)=1-P(X_i\leq m, \  i=1,\dots,n)\\
+=1-P(X_1)P(X_2\leq m)\cdots P(X_n\leq m)\\
+=1-[P(X_1\leq m)]^n=1-(1/2)^n\\
+\end{multline*}
+
+
+	\section*{Problem 2}
+	
+\begin{multline*}\\
+f_X(x)=\dfrac{1}{\theta} \quad 0<x<\theta \quad F_X(x)=\dfrac{1}{\theta}x\\
+\text{Let } U=X_{(1)} \quad V=X_{(n)}\\
+f_{U,V}(u,v)=\dfrac{n!}{(1-1)!(n-1-1)!(n-n)!}\dfrac{1}{\theta^2}[\dfrac{1}{\theta}u]^{1-1}[\dfrac{1}{\theta}(u-v)]^{n-1-1}[1-\dfrac{1}{\theta}v]^{n-n}\\
+f_{U,V}(u,v)=\dfrac{n(n-1)}{\theta^n}(v-u)^{n-2} \quad 0<u<v<\theta\\
+\text{Let } Z=U/V \quad W=V\\
+\text{Then } U=ZW \quad V=W\\
+0<z<1 (\text{since } u<v) \quad 0<w<\theta\\
+J=\begin{bmatrix}
+w&0\\
+z& 1
+\end{bmatrix}=|w|\\
+f_{Z,W}(z,w)=\dfrac{n(n-1)}{\theta^n}(w-zw)^{n-2}|w|\\
+=\dfrac{n(n-1)}{\theta^n}w^{n-2}(1-z)^{n-2}w\\
+f_{Z,W}(z,w)=\dfrac{n(n-1)}{\theta^n}w^{n-1}(1-z)^{n-2} \quad 0<z<1, \ 0<w<\theta\\
+\text{Since } f_{ZW} \text{ can be factored into } (f_Z)(f_W) \text{ they are independent}\\
+\text{Thus } \dfrac{X_{(1)}}{X_{(n)}} \text{ and } X_{(n)} \text{ are independent random variables}\\
+\end{multline*}
+
+
+	\section*{Problem 3}
+	
+\begin{multline*}\\
+f_X(x)=\dfrac{a}{\theta^a}x^{a-1} \quad 0<x<\theta\\
+F_X(x)=\dfrac{1}{\theta^a}x^a \quad 0<x<\theta\\
+f_{X_{(1)},\dots,X_{(n)}}(u_1,\dots,u_n)=n!\prod_{i=1}^{n}\dfrac{a}{\theta^a}u_i^{a-1} \text{ for } u_1<\dots<u_n<\theta\\
+=\dfrac{n!a^n}{\theta^{an}}u_1^{a-1}\cdots u_n^{a-1} \text{ for } u_1<\dots<u_n<\theta\\
+\text{Let } Y_1=\dfrac{X_{(1)}}{X_{(2)}} \quad Y_2=\dfrac{X_{(2)}}{X_{(3)}}\\ \cdots \cdots\\
+Y_{n-1}=\dfrac{X_{(n-1)}}{X_{(n)}} \quad Y_n=X_{(n)}\\
+\text{Then } X_{(1)}=Y_1 Y_2\cdots Y_n \quad X_{(2)}=Y_2 \cdots Y_n\\
+\cdots \cdots\\
+X_{(n-1)}=Y_{n-1}Y_n \quad X_{(n)}=Y_{n}\\
+J=\begin{bmatrix} 
+\dfrac{d x_1}{d y_1} & \dots & \dots& \dfrac{d x_n}{d y_1}\\
+\vdots & \ddots & \ddots &\vdots  \\
+\dfrac{d x_1}{d y_n} &  \dots & \dots & \dfrac{d x_n}{d y_n} 
+\end{bmatrix}\\
+J \text{ is a lower triangular matrix, thus its determinant is the product of its diagonal values}\\
+\begin{bmatrix}
+y_2\cdots y_n & 0 & 0&0 \\
+y_1y_3\cdots y_n6 & y_3\cdots y_n &0 &0\\
+\vdots & \ddots & \ddots & 0 \\
+ & & & 
+\end{bmatrix}\\
+J=|y_2y_3^2\cdots y_n^{n-1}|\\
+f(y_1,\dots,y_n)=\dfrac{n!a^n}{\theta^{an}}(y_1\cdots y_n)^{a-1}(y_2\cdots y_n)^{a-1}\cdots (y_n)^{a-1}(y_2y_3^2\cdots y_n^{n-1})\\
+=\dfrac{n!a^n}{\theta^{an}}y_1^{a-1}y_2^{2a-1}\cdots y_n^{na-1} \quad 0<y_i<1 \quad i=1,\dots,n-1 \quad 0<y_n<\theta\\
+\text{Since the joint pdf can be factored, all of the y's are mutually independent}\\ 
+\text{The marginal distributions of } Y_1 \text{ is obtained by}\\
+\text{integrating out all the other ys and solving for the constant of integration}\\
+f_{Y_1}(y_1)=c_1y_1^{a-1} \quad 0<y_1<1\\
+\int_{0}^{1}c_1y_1^{a-1} \ dy_1=1\\
+=\dfrac{c_1}{a}\bigg|_{0}^{1}y_1^{a}=1\\
+=\dfrac{c_1}{a}=1\\
+c_1=a\\
+f_{Y_1}(y_1)=ay_1^{a-1} \quad 0<y_1<1\\
+\text{The result holds for } f_{Y_i}(y_1) \text{ for } i=1,2,\dots,n-1\\
+f_{Y_i}(y_i)=iay_i^{ia-1} \quad 0<y_i<1\\
+f_{Y_n}(y_n)=\dfrac{na}{\theta^{an}}y_n^{na-1}\quad 0<y_n<\theta\\
+\end{multline*}
+
+	\section*{Problem 4}
+	
+\begin{enumerate}[(a)]
+	\item 
+\begin{multline*}\\
+f_{X}(x)=\alpha_i e^{-\alpha_i x} \quad x>0 \ \alpha_i>0 \ i=1,\dots,n\\
+F_{X_{(1)}}(x)=P(X_{(1)}\leq x)\\
+=1-P(X_{(1)}\geq x)\\
+1-P(X_{1}\geq x)P(X_2\geq x)\cdots P(X_n\geq x)\\
+=1-e^{-\alpha_1 x}e^{-\alpha_2x}\cdots e^{\alpha_nx}\\
+F_{X_{(1)}}(x)=1-e^{-\left(\sum_{i=1}^{n}\alpha_i \right)x}\\
+f_{X_{(1)}}(x)=\left(\sum_{i=1}^{n}\alpha_i \right)e^{-\left(\sum_{i=1}^{n}\alpha_i \right)x}\\
+X_{(1)}\sim Exp \left(\sum_{i=1}^{n}\alpha_i\right)\\
+\end{multline*}
+	\item 
+\begin{multline*}\\
+f_{X_k}(x_k)=\alpha_k e^{-\alpha_k x}\\
+P(X_{(1)}=X_{k})=\int_{0}^{\infty}P(X_{(1)}=X_{k},X_k=x_k)\dx_k\\
+\int_{0}^{\infty}P(X_1>X_k,X_2>X_k,\dots,X_n>X_k,X_k=x_k)\dx_k\\
+\int_{0}^{\infty}P(X_1>X_k,X_2>X_k,\dots,X_n>X_k|X_k=x_k)f_{X_k}(x_k)\dx_k\\
+=\int_{0}^{\infty}\prod_{i=1}^{n}P(X_i>k)f_{X_k}(x)\dx \quad i\neq k\\
+=\int_{0}^{\infty}\prod_{i=1}^{n}e^{-\alpha _ix}\alpha_k e^{-\alpha_k x}\dx \quad i\neq k\\
+=\alpha_k\int_{0}^{\infty}e^{-\left(\sum_{i=1}^{n}\alpha_i\right)x} e^{-\alpha_k x}\dx \quad i\neq k\\
+=\alpha_k\int_{0}^{\infty}e^{-\left(\sum_{i=1}^{n}\alpha_i\right)x}\dx\\
+=\dfrac{a_k}{-\sum_{i=1}^{n}\alpha_i}\bigg|_{0}^{\infty}e^{-\left(\sum_{i=1}^{n}\alpha_i\right)x}\\
+\dfrac{a_k}{-\sum_{i=1}^{n}\alpha_i}(e^{-\infty}-1)\\
+P(X_{(1)}=X_k)=\dfrac{a_k}{\sum_{i=1}^{n}\alpha_i} \quad k\geq 1\\
+\end{multline*}
+
+\end{enumerate}
+
+	\section*{Problem 5}
+	
+\begin{enumerate}[(a)]
+	\item 
+\begin{multline*}\\
+X_{(1)}=min_iX_i \quad X_{(n)}=max_iX_i\\
+f_X(x)=1 \quad 0<x<1\\
+F_X(x)=x\\
+\text{Let } W=X_{(1)} \quad Z=X_{(n)}\\
+f_{X_{(1)},X_{(n)}}(w,z)=\dfrac{n!}{(n-2)!}w^{0}\{z-w\}^{n-2}{1-z}^{0}\\
+f_{X_{(1)},X_{(n)}}(w,z)4=n(n-1)(z-w)^{n-2} \quad 0<w<z<1\\
+U=W \quad V=1-Z\\
+W=U \quad Z=1-V\\
+v<1-u\\
+J=\begin{bmatrix}
+1&0\\
+0&-1
+\end{bmatrix}=|-1|=1\\
+f_{U,V}(u,v)=n(n-1)([1-v]-u)^{n-2}*1\\
+f_{U,V}(u,v)=n(n-1)(1-v-u)^{n-2} \quad 0<v<1-u<1\\
+\end{multline*}
+	\item 
+\begin{multline*}\\
+P(R>r,S>s)=P(nu>r,nv>s)\\
+=P(u>r/n,v>s/n)\\
+\text{Since } v<1-u \quad u<1-v\\
+\text{Thus } r/n<u<1-v \quad s/n<v<1-r/n\\
+=\int_{s/n}^{1-r/n}\int_{r/n}^{1-v}f_{UV}(uv)\ du \ dv\\
+=\int_{s/n}^{1-r/n}\int_{r/n}^{1-v}n(n-1)(1-v-u)^{n-2}\ du \ dv\\
+=\left(1-r/n-s/n\right)^n\\
+\end{multline*}
+	\item 
+\begin{multline*}\\
+\lim_{n\to \infty}P(R>r,S>s)=\lim_{n\to \infty}\left( 1-r/n-s/n\right)^n\\
+=\lim_{n\to \infty}\left( 1+-(r+s)/n\right)^n\\
+\text{Let } x=-(r+s)\\
+=\left(1+x/n\right)^n\\
+\text{Since } \lim_{n\to \infty}\left(1+x/n\right)^n=e^{x} \text{ we have:}\\
+=e^{-(r+s)}\\
+=e^{-r}e^{-s}\\
+\text{Thus } R \perp S\\
+\text{R and S are asymptotically independent}\\
+\end{multline*}
+	\item 
+\begin{multline*}\\
+\text{Since the asymptotic distributions of R and S are:}\\
+e^{-r} \text{ and } e^{-s}\\
+R\sim Exp(1) \quad S \sim Exp(1)\\
+\end{multline*}
+	
+\end{enumerate}
+
+\end{flushleft}
+\end{document}

@@ -1,0 +1,36 @@
+---
+title: "plotting"
+author: "Ty Darnell"
+date: "4/11/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,warning=F,message=F)
+```
+
+```{r}
+library(tidyverse)
+library(gridExtra)
+library(grid)
+
+
+data(mtcars)
+```
+
+```{r}
+ggplot(mtcars) +
+  aes(x = hp, y = mpg) +
+  geom_point() -> p1
+
+ggplot(mtcars) +
+  aes(x = factor(cyl), y = mpg) +
+  geom_boxplot() +
+  geom_smooth(aes(group = 1), se = FALSE) -> p2
+
+img=grid.arrange(p1, p2, ncol = 2)
+
+ggsave(filename = "img.png",plot=img,device = "png")
+
+```
+

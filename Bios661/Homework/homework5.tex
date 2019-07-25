@@ -1,0 +1,270 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 5}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\dfrac{\partial{#1}}{\partial{#2}}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\dll}[1]{\dfrac{\partial \ell({#1})}{\partial{#1}}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+	\section*{Problem 1}
+	
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+X_1,\dots,X_n \text{ is a random sample from population with pdf:}\\
+f(x|\theta)=\theta x^{\theta-1} \quad 0<x<1, \ \theta>0\\
+f(x_1,\dots,x_n|\theta)=\prod_{i=1}^{n}f(x_i|\theta)=\prod_{i=1}^{n}\theta {x_i}^{\theta-1}=\theta^n\left(\prod_{i=1}^{n} {x_i}\right)^{\theta-1}\\
+T(X)=\sum_{i=1}^{n}X_i\\
+g(T(X)|\theta)=\sum_{i=1}^{n}\theta {x_i}^{\theta-1}=n\theta \left(\sum_{i=1}^{n} {x_i}\right)^{\theta-1}\\
+\text{Since we cannot factor the joint pdf as: } g(T(X)|\theta)h(x)\\
+T(X)=\sum_{i=1}^{n}X_i \text{ is not an SS for } \theta\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+f(x|\theta)=\theta x^{\theta-1} \quad 0<x<1, \ \theta>0\\
+f(x_1,\dots,x_n|\theta)=\prod_{i=1}^{n}f(x_i|\theta)=\prod_{i=1}^{n}\theta {x_i}^{\theta-1}=\theta^n\left(\prod_{i=1}^{n} {x_i}\right)^{\theta-1}\\
+\text{Thus the joint pdf can be factored as an exponential family: }\\
+h(x)=\prod_{i=1}^{n}I(0<x_i<1) \quad
+c(\theta)=\theta^n \quad w_j(\theta)=\theta-1 \quad t_j(x)=\log\left(\prod_{i=1}^{n} {x_i}\right)\\ 
+\text{Thus } \log\left(\prod_{i=1}^{n} {x_i}\right) \text{ is a CSS for } \theta\\
+\text{Since any 1 to 1 function of a CSS is also a CSS:}\\
+\text{We have that } \prod_{i=1}^{n}X_i \text{ is a complete and sufficient statistic for } \theta\\
+\end{multline*}
+
+\end{enumerate}
+\pagebreak
+	\section*{Problem 2}
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+f(x|\alpha,\B)=\dfrac{1}{\Gamma(\alpha)\B^{\alpha}}x^{\alpha-1}e^{-x/\B} \quad 0\leq x<\infty \quad \alpha,\beta>0\\
+L(\B|x)=\prod_{i=1}^{n}\dfrac{1}{\Gamma(\alpha)\B^{\alpha}}{x_i}^{\alpha-1}e^{-x_i/\B}\\
+=\dfrac{1}{\Gamma(\alpha)^n\B^{n \alpha}}\left(\prod_{i=1}^{n}x_i\right)^{\alpha-1}e^{-(1/\B)\sum_{i=1}^{n}x_i}\\
+\log(L(\B|x))=-\log(\Gamma(\alpha))^n- n\alpha \log(\B)+(\alpha-1)\log\left(\prod_{i=1}^{n}x_i\right)-\dfrac{\sum_{i=1}^{n}x_i}{\B}\\
+\dll{\B}=-\dfrac{n\alpha}{\B}+\dfrac{\sum_{i=1}^{n}x_i}{\B^2}\\
+\text{Setting the partial derviative to 0 and solving for } \B:\\
+0=-\dfrac{n\alpha}{\B}+\dfrac{\sum_{i=1}^{n}x_i}{\B^2}\\
+\dfrac{n\alpha}{\B}=\dfrac{\sum_{i=1}^{n}x_i}{\B^2}\\
+\B(n\alpha)=\sum_{i=1}^{n}x_i\\
+\hat{\B}=\dfrac{\sum_{i=1}^{n}x_i}{na} \text{ (unique extrema)}\\
+\pderiv{^2\log(L)}{^2\B}=\dfrac{na}{\B^2}-\dfrac{2\sum_{i=1}^{n}x_i}{\B^3}\\
+\text{Plugging in } \hat{\B} \text{ for } \B:\\
+\dfrac{na}{\left[\dfrac{\sum_{i=1}^{n}x_i}{na}\right]^2}-\dfrac{2\sum_{i=1}^{n}x_i}{\left[\dfrac{\sum_{i=1}^{n}x_i}{na}\right]^3}\\
+=\dfrac{(na)^3}{\left[\sum_{i=1}^{n}x_i\right]^2}-\dfrac{2(na)^3}{\left[\sum_{i=1}^{n}x_i\right]^2}\\
+\text{Since } \pderiv{^2\log(L)}{^2\B}(\hat{\B})=-\dfrac{(na)^3}{\left[\sum_{i=1}^{n}x_i\right]^2}<0 \quad \hat{\B} \text{ is a maximum}\\
+\text{Since } \hat{\B} \text{ is a maximum and unique extrema, it is the global maximum}\\
+\text{Thus } \hat{\B} \text{ is the MLE}\\
+\end{multline*}
+
+\end{enumerate}
+
+	\section*{Problem 3}
+	
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+f(x|\theta)=\prod_{i=1}^{n}(\theta {x_i}^{-2})I(\theta \leq x_i<\infty)\\
+=\theta^n\left(\prod_{i=1}^{n} {x_i}^{-2}\right)I(\theta \leq x_i<\infty)\\
+\text{Using the factorization theorem and rewriting as: } f(x|\theta)=g(T(x)|\theta)h(x)\\
+\theta^n\left(\prod_{i=1}^{n} {x_i}^{-2}\right)I(\theta\leq x_{(1)}<\infty)\\
+T(X)=x_{(1)}\\
+g(T(x)|\theta)=\theta^nI(\theta\leq T(x)<\infty)\\
+h(x)=\left(\prod_{i=1}^{n} {x_i}^{-2}\right)\\
+\text{Thus by the factorization theorem } x_{(1)} \text{ is a sufficient statistic for } \theta\\
+\end{multline*}
+	
+	\item 
+\begin{multline*}\\
+L(\theta|x)=\prod_{i=1}^{n}(\theta {x_i}^{-2})I(\theta \leq x_i<\infty)\\
+\theta \leq x_i \text{ whichs means } \theta\leq x_{(1)} \text{ (the min)}\\
+=\theta^n\left(\prod_{i=1}^{n} {x_i}^{-2}\right)I(\theta \leq x_{(1)}<\infty)\\
+\propto \theta^n \text{ which is increasing for all } \theta\\
+L(\theta|x)=0 \text{ if } \theta>x_{(1)}\\
+\text{Thus } \theta=x_{(1)} \text{ maximizes } L(\theta|x)\\
+\hat{\theta}=x_{(1)}\\
+\end{multline*}
+\pagebreak	
+	\item 
+\begin{multline*}\\
+E(X)=\int_{\theta}^{\infty}x\theta x^{-2} \ \dx\\
+=\int_{\theta}^{\infty}\theta x^{-1} \ \dx\\
+=\bigg|_{\theta}^{\infty}\theta\log(x)\\
+=\theta\log(\infty)-\theta \log(\theta)=\infty\\
+E(X)=\infty\\
+\text{Therefore } \hat{\theta}_{MM} \text{ DNE}\\
+\end{multline*}
+	
+\end{enumerate}
+
+	\section*{Problem 4}
+	
+\begin{enumerate}[(a)]
+	
+	\item 	
+\begin{multline*}\\
+Y_x\sim N(x\mu,x^3\sigma^2) \quad x=1,2,\dots,n\\
+\sigma^2 \text{ known}\\
+\dfrac{1}{n}\sum_{x=1}^{n}Y_x=E\left(\dfrac{1}{n} \sum_{x=1}^{n}Y_x\right)\\
+=\dfrac{1}{n}\sum_{x=1}^{n}X_x\mu\\
+=\dfrac{\mu}{n}\dfrac{n(n+1)}{2}\\
+\dfrac{1}{n}\sum_{x=1}^{n}Y_x=\dfrac{\mu(n+1)}{2}\\
+\hat{\mu}_{1}=\dfrac{2}{n(n+1)}\sum_{x=1}^{n}Y_x\\
+\end{multline*}
+\pagebreak
+	\item 
+\begin{multline*}\\
+L(\mu|y)=\prod_{x=1}^{n}f(y_x|\mu)\\
+=\prod_{x=1}^{n}\dfrac{1}{\sqrt{2\pi x^3 \sigma^2}}\exp\left(-\dfrac{(y_x-x\mu)^2}{2x^3\sigma^2}\right)\\
+=\left(\dfrac{1}{\sqrt{2\pi x^3 \sigma^2}}\right)^n \exp\left(-\sum_{x=1}^{n}\dfrac{(y_x-x\mu)^2}{2x^3\sigma^2}\right)\\
+\propto \exp\left(-\sum_{x=1}^{n}\dfrac{(y_x-x\mu)^2}{2x^3\sigma^2}\right)\\
+\log(L)=-\sum_{x=1}^{n}\dfrac{(y_x-x\mu)^2}{2x^3\sigma^2}\\
+=\sum_{x=1}^{n}[(-y_x^2+2x\mu y_x-x^2\mu^2)/(2x^3\sigma^2)]\\
+=\dfrac{1}{2\sigma^2}\sum_{x=1}^{n}(-y_x^2/x^{-3}+2x^{-2}\mu y_x-\mu^2x^{-1})\\
+\propto \sum_{x=1}^{n}-y^2_x/x^{-3}+2\mu\sum_{x=1}^{n}x^{-2}y_x-\mu^2\sum_{x=1}^{n}x^{-1}\\
+\dll{\mu}=2\sum_{x=1}^{n}x^{-2}y_x-2\mu\sum_{x=1}^{n}x^{-1}=0\\
+\hat{\mu}_{2}=\dfrac{\sum_{x=1}^{n}x^{-2}y_x}{\sum_{x=1}^{n}x^{-1}}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\text{Since the sum of normal r.v.s times constants is normal:}\\
+\hat{\mu_1}, \hat{\mu_2} \text{ follow normal distributions}\\
+E(\hat{\mu_1})=\dfrac{2}{n(n+1)}E(\sum_{x=1}^{n}Y_x)\\
+=\dfrac{2}{n(n+1)}\sum_{x=1}^{n}\mu x\\
+=\dfrac{2}{n(n+1)}\dfrac{n(n+1)}{2}\mu=\mu\\
+E(\hat{\mu_1})=\mu \text{ (unbiased)}\\
+E(\hat{\mu_2})=E\left(\dfrac{\sum_{x=1}^{n}x^{-2}y_x}{\sum_{x=1}^{n}x^{-1}}\right)\\
+=\dfrac{\sum_{x=1}^{n}x^{-2}}{\sum_{x=1}^{n}x^{-1}}E(y_x)\\
+=\dfrac{\sum_{x=1}^{n}x^{-2}}{\sum_{x=1}^{n}x^{-1}}\mu\sum_{x=1}^{n}x\\
+=\dfrac{\sum_{x=1}^{n}x^{-1}}{\sum_{x=1}^{n}x^{-1}}\mu=\mu\\
+E(\hat{\mu_2})=\mu \text{ (unbiased)}\\
+Var(\hat{\mu_1})=Var\left(\dfrac{2}{n(n+1)}\sum_{x=1}^{n}Y_x\right)\\
+=\left(\dfrac{2}{n(n+1)}\right)^2 Var\left(\sum_{x=1}^{n}Y_x\right)\\
+=\left(\dfrac{2}{n(n+1)}\right)^2\sigma^2\sum_{x=1}^{n}x^3\\
+=\sigma^2\left(\dfrac{2}{n(n+1)}\right)^2\left(\dfrac{n(n+1)}{2}\right)^2=\sigma^2\\
+Var(\hat{\mu_1})=\sigma^2\\
+Var(\hat{\mu_2})=Var\left(\dfrac{\sum_{x=1}^{n}x^{-2}y_x}{\sum_{x=1}^{n}x^{-1}}\right)\\
+=\left(\dfrac{1}{\sum_{x=1}^{n}x^{-1}}\right)^2Var\left(\sum_{x=1}^{n}x^{-2}y_x\right)\\
+=\left(\dfrac{1}{\sum_{x=1}^{n}x^{-1}}\right)^2\left(\sum_{x=1}^{n}x^{-2}Var(y_x)\right)\\
+=\left(\dfrac{1}{\sum_{x=1}^{n}x^{-1}}\right)^2\left(\sum_{x=1}^{n}x^{-2}x^3\sigma^2\right)\\
+=\sigma^2\left(\dfrac{1}{\sum_{x=1}^{n}x^{-1}}\right)^2\left(\sum_{x=1}^{n}x\right)\\
+Var(\hat{\mu_2})=\dfrac{\sigma^2}{\sum_{x=1}^{n}x^{-1}}\\
+\hat{\mu_1} \sim N(\mu,\sigma^2)\\
+\hat{\mu_2} \sim N\left(\mu,\dfrac{\sigma^2}{\sum_{x=1}^{n}x^{-1}}\right)\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+Var(\hat{\mu_1})=\sigma^2\\
+Var(\hat{\mu_2})=\dfrac{\sigma^2}{\sum_{x=1}^{n}x^{-1}}\\
+\text{Since } \sum_{x=1}^{n}x^{-1}>1\\
+Var(\hat{\mu_1})>Var(\hat{\mu_2})\\
+\end{multline*}
+
+\end{enumerate}
+
+	\section*{Problem 5}
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+E(Y_1)=\theta x_1 \quad Var(Y_i)=\sigma^2\\
+xs \text{ are known nonzero constants}\\
+f(y_1,\dots, y_n|\theta,\sigma^2)=\prod_{i=1}^{n}f(x_i|\theta,\sigma^2)\\
+=\prod_{i=1}^{n}\dfrac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\dfrac{(y_i-\theta x_i)^2}{2\sigma^2}\right)\\
+=\left(\dfrac{1}{\sqrt{2\pi \sigma^2}}\right)^n \exp\left(-\dfrac{\sum_{i=1}^{n}(y_i-\theta x_i)^2}{2\sigma^2}\right)\\
+=g(T(y)|\theta)h(y)\\
+=\left(\dfrac{1}{\sqrt{2\pi \sigma^2}}\right)^n \exp\left(\dfrac{-\sum_{i=1}^{n}y_i^2+2\theta \sum_{i=1}^{n}x_iy_i-\theta^2\sum_{i=1}^{n}x_i^2}{2\sigma^2}\right)\\
+=\left(\dfrac{1}{\sqrt{2\pi \sigma^2}}\right)^n \exp\left(-\dfrac{\theta^2\sum_{i=1}^{n}x_i^2}{2\sigma^2}\right)\exp\left(-\dfrac{\sum_{i=1}^{n}y_i^2-2\theta \sum_{i=1}^{n}x_iy_i}{2\sigma^2}\right)\\
+T(y|\theta)=\exp\left(-\dfrac{\sum_{i=1}^{n}y_i^2-2\theta \sum_{i=1}^{n}x_iy_i}{2\sigma^2}\right)\\
+=\exp\left(-\dfrac{\sum_{i=1}^{n}y_i^2}{2\sigma^2}\right)+\exp\left(-\dfrac{\theta \sum_{i=1}^{n}x_iy_i}{\sigma^2}\right)\\
+T(y)=\left(\sum_{i=1}^{n}y_i^2,\sum_{i=1}^{n}x_iy_i\right)\\
+\text{Thus } T(y) \text{ is a sufficient statistic for } (\theta,\sigma^2)\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\sigma^2 \text{ is fixed}\\
+L(\theta)=\prod_{i=1}^{n}f(y_i|\theta)\\
+=\left(\dfrac{1}{\sqrt{2\pi \sigma^2}}\right)^n \exp\left(-\dfrac{\sum_{i=1}^{n}(y_i-\theta x_i)^2}{2\sigma^2}\right)\\
+\propto \exp\left(-\dfrac{\sum_{i=1}^{n}(y_i-\theta x_i)^2}{2\sigma^2}\right)\\
+\ell(\theta)=-\dfrac{\sum_{i=1}^{n}(y_i-\theta x_i)^2}{2\sigma^2}\\
+=\dfrac{-\sum_{i=1}^{n}y_i^2+2\theta \sum_{i=1}^{n}x_iy_i-\theta^2\sum_{i=1}^{n}x_i^2}{2\sigma^2}\\
+\dll{\theta}=\dfrac{ \sum_{i=1}^{n}x_iy_i-\theta\sum_{i=1}^{n}x_i^2}{\sigma^2}=0\\
+\theta\sum_{i=1}^{n}x_i^2=\sum_{i=1}^{n}x_iy_i\\
+\hat{\theta}=\dfrac{\sum_{i=1}^{n}x_iy_i}{\sum_{i=1}^{n}x_i^2}\\
+E(\hat{\theta})=E\left(\dfrac{\sum_{i=1}^{n}x_iy_i}{\sum_{i=1}^{n}x_i^2}\right)\\
+c_i=\dfrac{x_i}{\sum_{i=1}^{n}x_i^2}\\
+=\sum_{i=1}^{n}c_iE(y_i)\\
+=\sum_{i=1}^{n}\dfrac{x_i}{\sum_{i=1}^{n}x_i^2}\theta x_i\\
+=\theta \dfrac{\sum_{i=1}^{n}x_i^2}{\sum_{i=1}^{n}x_i^2}=\theta\\
+E(\hat{\theta})=\theta\\
+\text{Thus } \hat{\theta} \text{ is an unbiased estimator of } \theta\\
+\end{multline*}
+\pagebreak
+	\item 
+\begin{multline*}\\
+E(\hat{\theta})=\theta\\
+Var(\hat{\theta})=Var\left(\sum_{i=1}^{n}c_iy_i\right)\\
+=\sigma^2\sum_{i=1}^{n}c_i^2\\
+=\sigma^2\sum_{i=1}^{n}\left(\dfrac{x_i}{\sum_{i=1}^{n}x_i^2}\right)^2\\
+=\sigma^2\dfrac{\sum_{i=1}^{n}x_i^2}{\left(\sum_{i=1}^{n}x_i^2\right)^2}\\
+Var(\hat{\beta})=\dfrac{\sigma^2}{\sum_{i=1}^{n}x_i^2}\\
+\hat{\theta}\sim N\left(\theta,\dfrac{\sigma^2}{\sum_{i=1}^{n}x_i^2}\right)\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\theta \text{ is fixed, let } \eta=\sigma^2\\
+L(\eta)=\left(\dfrac{1}{2\pi\eta}\right)^{n/2}\exp\left(-\dfrac{Q(\theta)}{2\eta}\right)\\
+\ell(\eta)=(-n/2)\log(2\pi\eta)-\dfrac{Q(\theta)}{2\eta}\\
+\dll{\eta}=\dfrac{-n\pi}{2\pi\eta}+\dfrac{Q(\theta)}{2\eta^2}=0\\
+\dfrac{n}{2\eta}=\dfrac{Q(\theta)}{2\eta^2}\\
+2Q(\theta)(\eta)=2n(\eta^2)\\
+\hat{\eta}=\dfrac{Q(\theta)}{n}=\dfrac{1}{n}\sum_{i=1}^{n}(y_i-\theta x_i)^2\\
+\dfrac{\partial^2\ell(\hat{\eta})}{\eta^2}=\dfrac{n}{2\hat{\eta^2}}-\dfrac{Q(\theta)}{4\hat{\eta}^3}<0\\
+\text{Thus }\hat{\eta}=\dfrac{1}{n}\sum_{i=1}^{n}(y_i-\theta x_i)^2\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\hat{\theta}=\dfrac{\sum_{i=1}^{n}x_iy_i}{\sum_{i=1}^{n}x_i^2}\\
+\hat{\sigma_e^2}=\dfrac{1}{n}\sum_{i=1}^{n}(Y_i-\hat{\theta}x_i)^2\\
+\hat{\sigma_e^2}=\dfrac{1}{n}\sum_{i=1}^{n}(Y_i-\dfrac{\sum_{i=1}^{n}x_iy_i}{\sum_{i=1}^{n}x_i^2}x_i)^2\\
+\end{multline*}
+	
+\end{enumerate}
+
+\end{flushleft}
+\end{document}

@@ -1,0 +1,94 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{663 Homework 3}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+	\section*{Problem 1}
+	
+\begin{enumerate}[(a)]
+	
+	\item 	
+\begin{tabular}{l|l|l|l|l|l}
+	\hline
+	Source&DF  &Sum of Squares  & Mean Square  & F Value & $Pr>F$  \\
+	\hline
+	Model&1  &2624.670184  &2624.670184  &137.906162& $\approx 0$ \\
+	\hline
+	Error& 96 & 1827.099916  & 19.0322908 &  \\
+	\hline
+	Corrected Total&97  &4451.7701  &  & \\
+	\hline
+\end{tabular}
+\begin{multline*}\\
+MST=\dfrac{SSH}{DFH} \quad MSE=\dfrac{SSE}{DFE} \quad F=\dfrac{MSH}{MSE}\\
+Pr>F =1-pf(137.906162,1,96)=0 \quad \text{(using R)}\\
+\end{multline*}
+
+\item 
+The model assumptions are:\\
+Homogeneity of variance- every element of $\epsilon$ (error terms) has the same variance\\
+Independence- each element of $\epsilon$ is independent of all others\\
+Linearity- expected values of WGHT are linear function of the parameters. $E(y)=X\beta$\\
+Existence - $\epsilon_i$ has finite first and second moments.\\
+Gaussian errors- error terms are normally distributed. $\epsilon_i \sim N(0,\sigma_i^2)$\\
+
+\item 
+$H_0:\B_1=0$\\
+Since the p-value is approximately 0, reject the null hypothesis and conclude that average daily exercise time is a significant predictor of weight loss. \\
+
+\item 
+The analysis suggests that neither variable is significant since both of the p-values are greater than $\alpha=.05$\\
+This occurs in this added-last test because, after adjusting for running mileage, exercise time does not provide any additional useful information.\\ Running mileage and exercise time appear highly correlated.
+
+\end{enumerate}
+\pagebreak
+	\section*{Problem 3 b}
+	
+\begin{enumerate}[(i)]
+\item 
+\item $H_0: Residuals are normally distributed$\\
+$H_1: Residuals are not normally distributed$\\
+$\alpha=.05$\\
+p-value=$.242$\\
+Since p-value$>\alpha$ fail to reject $H_0$ thus there is not sufficient evidence to conclude residuals are not normally distributed. Therefore we have met the Gaussian assumption
+
+\item Based on the histogram, the studentized residuals appear normally distributed, centered around 0.
+
+\item Based on the plot of the studentized residuals vs the predicted values, there appears to be homoscedasticity, and the mean of the residuals appears constant.
+
+
+	
+\end{enumerate}
+
+
+\end{flushleft}
+\end{document}

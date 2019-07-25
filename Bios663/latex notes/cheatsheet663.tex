@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+\begin{multline*}\\
+\hb=(X^{'}X)^{-1}X^{'}y\\
+\hat{Var}=\hat{\sg^2}(X^{-1}X)^{-1} \text{ Use MSE for } \hat{\sg^2} \text{, use the diagonal of the matrix}\\
+se=\sqrt{\hat{Var}}\\
+MS*=SS*/DF*\\
+F=MST/MSE\\
+df_{total}=n-1\\
+H=X(X^{'}X)^{-1}X^{'} \quad Hy=\hat{y}\\
+t-value=\hb/se\\
+M=C(X^{'}X)^{-1}C^{'}\\
+F(df_1,df_2)\\
+F-Test=\dfrac{(\hth-\theta_0)^{'}M^{-1}(\hth-\theta_0)/2}{\hat{\sg^2}}\\
+95\% CI \quad \hth\pm 1.96\sqrt{MSE(M)}\\
+\text{point estimate}\pm \text{(distribution stat)}\sqrt{se(\hth)}\\
+\end{multline*}
+
+
+\end{flushleft}
+\end{document}

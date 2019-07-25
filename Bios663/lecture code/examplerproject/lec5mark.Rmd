@@ -1,0 +1,48 @@
+---
+title: "lec5"
+author: "Ty Darnell"
+date: "April 2, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(pracma)
+library(matlib)
+library(knitr)
+library(data.table)
+
+ozone=fread("ozone.txt")
+
+```
+
+```{r}
+n=nrow(ozone)
+x=model.matrix(~outdoor+home+time_out,data=ozone)
+y=ozone$personal
+bhat=solve(t(x)%*%x)%*%t(x)%*%y
+yhat=x%*%bhat
+ehat=y-yhat
+p=ncol(x)
+df=n-p
+sse=t(y)%*%y-t(bhat)%*%t(x)%*%y
+mse=sse/df
+covb=solve(t(x)%*%x)*as.numeric(mse)
+cov2=as.matrix(as_data_frame(covb))
+```
+
+```{r}
+c=matrix(c(0,1,-1,0,0,0,1,-1),2,4,T)
+m=c%*%solve(t(x)%*%x)%*%t(c)
+that=c%*%bhat
+ssh=t(that)%*%solve(m)%*%that
+fobs=(ssh/nrow(that))/mse
+p=1-pf(fobs,2,60)
+```
+
+

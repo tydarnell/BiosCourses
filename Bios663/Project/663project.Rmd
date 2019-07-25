@@ -1,0 +1,36 @@
+---
+title: "663 Project"
+author: "Ty Darnell"
+date: "4/11/2019"
+output:
+  prettydoc::html_pretty:
+     theme: cayman
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+```{r,echo=F}
+library(knitr)
+library(tidyverse)
+library(data.table)
+```
+
+```{r}
+fb=fread('fb.txt')
+```
+
+
+```{r}
+fb1=fb%>%mutate(ot=ot1=="ot"|day1=="ot")
+fb1=fb1%>%mutate(day2=day1%in% c("M","N","H","S"))
+fb1=fb1%>%mutate(day=case_when(day2==T~as.character(day1),day2==F~as.character("D")))
+fb=fb1%>%select(-c(day2,day1,ot1))
+```
+
+
+```{r}
+write_csv(x = fb,col_names = T,"fb.csv")
+```
+

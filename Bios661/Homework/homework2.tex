@@ -1,0 +1,180 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 2}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+\section*{Problem 1}
+\begin{multline*}\\
+X_1,X_2,X_3 \sim exp(\lambda)\\
+Y\sim max(X_1,X_2,X_3)\\
+P(Y\leq y)=P(max(x_1,x_2,x_3)\leq y)\\
+=P(X_1\leq y\text{ and } X_2\leq y\text{ and } X_3 \leq y)\\
+\text{Since the components are independent:}\\
+=P(X_1\leq y)P(X_2\leq y)P(X_2\leq y)\\
+\text{Each components probability is:}\\
+P(X\leq y)=\int_{0}^{y}\lambda e^{-\lambda x}\dx= 1-e^{-\lambda y} \quad 0 < y<\infty \quad \lambda > 0\\
+P(Y\leq y)=(1-e^{-\lambda y})^3 \quad 0 < y<\infty\\
+f_y(y)=\begin{cases}
+3(1-e^{-\lambda y})^2 e^{-\lambda y}  \quad y> 0\\
+0 \quad \text{otherwise}
+\end{cases}\\
+\end{multline*}
+\section*{Problem 2}
+\begin{multline*}\\
+\text{Want to find } g(S^2) \text{ such that } E[g(S^2)]=\sigma\\ \text{Let }g(S^2)=c\sqrt{S^2} \text{ then:}\\
+E[(c\sqrt{S^2})]=E\left(c\sqrt{S^2}\sqrt{\dfrac{\sigma^2}{n-1}}\sqrt{\dfrac{n-1}{\sigma^2}}\right)\\
+=c\sqrt{\dfrac{\sigma^2}{n-1}}E\left(\sqrt{\dfrac{S^2(n-1)}{\sigma^2}}\right)\\
+\text{ Let } Z = \dfrac{S^2(n-1)}{\sigma^2}\\
+Z \sim \chi^2_{n-1}\\
+\text{Use transformation } Y=\sqrt{Z}\\
+Y=\sqrt{\dfrac{S^2(n-1)}{\sigma^2}}\\
+Z=Y^2 \quad \dfrac{dy}{dz}=2y\\
+f_Y(y)=f_Z(g^{-1}(z))\bigg|\dfrac{dx}{dy}\bigg|\\
+=\dfrac{1}{2^{(n-1)/2}\Gamma((n-1)/2)}(y^2)^{((n-1)/2-1)}e^{-y^2/2}|2y|\\
+f_Y(y)=\dfrac{2}{2^{(n-1)/2}\Gamma((n-1)/2)}y^{n-2}e^{-y^2/2}\\
+E[(c\sqrt{S^2})]=c\sqrt{\dfrac{\sigma^2}{n-1}}\int_{0}^{\infty}2y \dfrac{1}{2^{(n-1)/2}\Gamma((n-1)/2)}y^{n-2}e^{-y^2/2} \ dy\\
+=c\sqrt{\dfrac{\sigma^2}{n-1}}\int_{0}^{\infty} \dfrac{1}{2^{(n-1)/2}\Gamma((n-1)/2)}y^{n-2}e^{-y^2/2} (2y) \ dy\\
+\text{Let } w=y^2 \quad dw=2y \ dy \quad y=w^{1/2}\\
+=c\sqrt{\dfrac{\sigma^2}{n-1}}\int_{0}^{\infty} \dfrac{1}{2^{(n-1)/2}\Gamma((n-1)/2)}w^{n/2-1}e^{-w/2} \ dw\\
+=c\dfrac{\sqrt{2}\Gamma(n/2)}{\Gamma((n-1)/2)}\sqrt{\dfrac{\sigma^2}{n-1}}\int_{0}^{\infty} \dfrac{1}{2^{n/2}\Gamma(n/2)}w^{n/2-1}e^{-w/2} \ dw\\
+E[(c\sqrt{S^2})]=\sigma=c\dfrac{\sqrt{2}\Gamma(n/2)}{\Gamma((n-1)/2)}\sqrt{\dfrac{\sigma^2}{n-1}}\\
+c=\sigma*1/\left(\dfrac{\sqrt{2}\Gamma(n/2)}{\Gamma((n-1)/2)}\sqrt{\dfrac{\sigma^2}{n-1}}\right)\\
+c=\dfrac{\sqrt{n-1}\Gamma((n-1)/2)}{\sqrt{2}\Gamma(n/2)}\\
+\end{multline*}
+\section*{Problem 3}
+\begin{multline*}\\
+P(Z>z)=\sum_{x=1}^{\infty}P(Z>z|x)P(X=x)\\
+=\sum_{x=1}^{\infty}P(U_1>z,\dots,U_x>z|x)P(X=x)\\
+\text{Since } U_i \text{ are independent:}\\
+=\sum_{x=1}^{\infty}\prod_{i=1}^{x}P(U_i>z)P(X=x)\\
+=\sum_{x=1}^{\infty}P(U_i>z)^xP(X=x)\\
+=\sum_{x=1}^{\infty}(1-z)^x\dfrac{1}{x!(e-1)}\\
+=\dfrac{1}{e-1}\sum_{x=1}^{\infty}\dfrac{(1-z)^x}{x!}\\
+\text{Since } \sum_{x=1}^{\infty}z^x/x!=e^{z}-1\\
+\sum_{x=1}^{\infty}(1-z)^x/x!=e^{1-z}-1\\
+\text{Thus we have:}\\
+=\dfrac{e^{1-z}-1}{e-1} \quad 0<z<1\\
+\end{multline*}
+\section*{Problem 4}
+\begin{enumerate}[(a)]
+\item
+\begin{multline*}\\
+T|V=v\sim \dfrac{U}{\sqrt{v/p}}\sim N(0,p/v)\\
+f_{T|V=v}(t)=\dfrac{\sqrt{v}}{\sqrt{2p\pi}}e^{\left(\dfrac{-t^2v}{2p}\right)}\\
+f_{T,V}(t,v)=f_{T|V}(t)f_V(v)\\
+f_{T,V}(t,v)=\dfrac{\sqrt{v}}{\sqrt{2p\pi}}e^{\left(\dfrac{-t^2v}{2p}\right)}\dfrac{1}{\Gamma(p/2)2^{p/2}}v^{p/2-1}e^{-v/2}\\
+f_{T,V}(t,v)=\dfrac{1}{\Gamma(p/2)\sqrt{p\pi}2^{(p-1)/2}}e^{\left(-v/2(1+t^2/p)\right)}v^{(p-1)/2}\\
+f_T(t)=\int_{0}^{\infty}f_{T,V}(t,v)\ dv\\
+\dfrac{1}{\Gamma(p/2)\sqrt{p\pi}2^{(p-1)/2}}\int_0^{\infty}e^{\left(-v/2(1+t^2/p)\right)}v^{(p-1)/2}\ dv\\
+\text{Let } z=v/2(1+t^2/p) \quad dz= 1/2(1+t^2/p) \ dv \text{ then } v=\dfrac{2z}{1+t^2/p}\\
+f_T(t)=\dfrac{2^{(p-1)/2+1}}{\sqrt{p\pi}}\dfrac{(1+t^2/p)^{-[(p-1)/2+1]}}{\Gamma(p/2)2^{(p+1)/2}}\int_{0}^{\infty}e^{-z}z^{(p-1)/2} \ dz\\
+=\dfrac{(1+t^2/p)^{-(p+1)/2}}{\Gamma(p/2)\sqrt{p\pi}}\int_{0}^{\infty}e^{-z}z^{(p+1)/2-1} \ dz\\
+f_T(t)=\dfrac{\Gamma((p+1)/2)}{\Gamma(p/2)\sqrt{p\pi}}(1+t^2/p)^{-(p+1)/2}\\
+\text{Which is the t-distribution with p degrees of freedom}\\ 
+\end{multline*}
+\item 
+\begin{multline*}\\
+E(T)=E\left(\dfrac{U}{\sqrt{V/p}}\right)\\
+=E\left(E\left(\dfrac{U}{\sqrt{V/p}}|V=v\right)\right)\\
+=E\left(\dfrac{1}{\sqrt{v/p}}E(U)\right)\\
+=E\left(\sqrt{\dfrac{p}{v}}*0\right)=0\\
+E(T)=0\\
+Var(T)=E\left(Var\left(\dfrac{U}{\sqrt{V/p}}|V=v\right)\right)+Var\left(E\left(\dfrac{U}{\sqrt{V/p}}|V=v\right)\right)\\
+=E\left(\dfrac{p}{V}Var(U)\right)+0\\
+=E\left(\dfrac{p}{V}*1\right)\\=pE(1/V)\\
+Var(T)=pE(v^{-1})=p\int_{0}^{\infty}v^{-1}\dfrac{1}{\Gamma(p/2)2^{p/2}}v^{p/2-1}e^{-v/2} \ dv\\
+=p\int_{0}^{\infty}\dfrac{1}{\Gamma(p/2)2^{p/2}}v^{(p/2-1)-1}e^{-v/2} \ dv\\
+=p\dfrac{\Gamma(p/2-1)2^{p/2-1}}{\Gamma(p/2)2^{p/2}}\int_{0}^{\infty}\dfrac{1}{\Gamma(p/2-1)2^{p/2-1}}v^{(p/2-1)-1}e^{-v/2} \ dv\\
+Var(T)=p\dfrac{\Gamma(p/2-1)2^{p/2-1}}{\Gamma(p/2)2^{p/2}}\\
+=\dfrac{p}{2}\dfrac{\Gamma(p/2-1)}{\Gamma(p/2)}\\
+\text{Since } p/2-1 \text{ and } p/2 \text{ are whole numbers we have:}\\
+=\dfrac{p}{2}\dfrac{(p/2-1)!}{(p/2-1)!}\\
+=\dfrac{p}{2(p/2-1)}=\dfrac{p}{p-2}\\
+Var(T)=\dfrac{p}{p-2}\\
+\end{multline*}
+\item 
+\begin{multline*}\\
+U\sim N(0,1) \quad V \sim \chi_p^2 \\
+f_{UV}(u,v)=f_U(u)f_V(v)=\dfrac{1}{\sqrt{2\pi}}e^{-u^2/2}\dfrac{1}{\Gamma(p/2)2^{p/2}}v^{p/2-1}e^{-v/2}\\
+\text{Let } T=\dfrac{U}{\sqrt{V/p}} \quad W=V\\
+V=W \quad U=T\sqrt{W/p}\\
+J=\begin{bmatrix}
+\sqrt{w/p} & \dfrac{-t}{2\sqrt{pw}}\\
+0 & 1\\
+\end{bmatrix}=|\sqrt{w/p}|\\
+f_{TW}(t,w)=f_{UV}(t\sqrt{w/p},w)(\sqrt{w/p})\\
+=\dfrac{1}{\sqrt{2\pi}}e^{-(t\sqrt{w/p})^2/2}\dfrac{1}{\Gamma(p/2)2^{p/2}}w^{p/2-1}e^{-w/2}(\sqrt{w/p})\\
+=\dfrac{1}{\sqrt{2\pi}}e^{-\left(\dfrac{t^2w}{2p}\right)}\dfrac{1}{\Gamma(p/2)2^{p/2}}w^{(p-1)/2}e^{-w/2}(1/\sqrt{p})\\
+f_T(t)=\int_{0}^{\infty}f_{TW} \ dw\\
+=\dfrac{1}{\sqrt{2p\pi}}\dfrac{1}{\Gamma(p/2)2^{p/2}}\int_{0}^{\infty}e^{(-w/2)\left(t^2/p+1\right)}w^{(p-1)/2} \ dw\\
+\text{Let } z=(1+t^2/p)(w/2) \quad dz=1/2(1+t^2/p) \ dw \text{ Then } w=\dfrac{2z}{1+t^2/p}\\
+f_T(t)=\dfrac{2^{(p-1)/2+1}}{\sqrt{p\pi}}\dfrac{(1+t^2/p)^{-[(p-1)/2+1]}}{\Gamma(p/2)2^{(p+1)/2}}\int_{0}^{\infty}e^{-z}z^{(p-1)/2} \ dz\\
+=\dfrac{(1+t^2/p)^{-(p+1)/2}}{\Gamma(p/2)\sqrt{p\pi}}\int_{0}^{\infty}e^{-z}z^{(p+1)/2-1} \ dz\\
+f_T(t)=\dfrac{\Gamma((p+1)/2)}{\Gamma(p/2)\sqrt{p\pi}}(1+t^2/p)^{-(p+1)/2}\\
+\text{Which is the t-distribution with p degrees of freedom}\\ 
+\end{multline*}
+\end{enumerate}
+\section*{Problem 5}
+\begin{enumerate}[(a)]
+\item 
+\begin{multline*}\\
+U\sim min(X_1,X_2)\\
+P(U\geq t)=P(min(x_1,x_2)\geq t)\\
+\pi_0(t)=P(X_1\geq t, X_2 \geq t)\\
+\text{Since } X_i \text{ are independent:}\\
+=P(X_1\geq t)P(X_2\geq t)\\
+\text{Each probability is:}\\
+P(X\geq t)=1-\int_{0}^{t}\alpha e^{-\alpha x} \dx\\
+=1+\bigg|_0^t e^{-\alpha x}=e^{-\alpha t}\\
+\pi_0(t)=1-F_U(t)=e^{(-\alpha t)^2}=e^{-2\alpha t} \quad t\geq 0\\
+\pi_0(t) \text{ is the probability that both organs are still functioning at time t}\\
+\end{multline*}
+\item 
+\begin{multline*}\\
+1-f_U(u)=\dfrac{d}{du}1-e^{-2\alpha u}=2\alpha e^{-2\alpha u}\\
+f_{UV}(u,v)=f_V(V|U=u)f_U(u)\\
+f_{UV}(u,v)=\beta e^{-\beta(v-u)}(2\alpha)e^{-2\alpha u}\\
+=2\alpha \beta e^{-\beta v}e^{-(2a-\beta)u}\\
+\pi_1(t)=P(U\leq t,V\geq t)=\int_{0}^{t}\int_{t}^{\infty}f_{UV}(u,v)\ dv \ du \\
+=\int_{0}^{t}\int_{t}^{\infty}2\alpha \beta e^{-\beta v}e^{-(2a-\beta)u}\ dv \ du \\
+=2\alpha \beta \int_{0}^{t}\bigg|_{t}^{\infty} \dfrac{-1}{\beta}e^{-\beta v}e^{-(2a-\beta)u} \ du \\
+=2\alpha \int_{0}^{t} e^{-\beta t}e^{-(2a-\beta)u} \ du \\
+=2\alpha \dfrac{-1}{2\alpha-\beta}\bigg|_{0}^{t} e^{-\beta t}e^{-(2a-\beta)u} \\
+= \dfrac{2\alpha}{\beta-2\alpha} e^{-\beta t}(e^{-(2a-\beta)t}-1) \\
+\pi_1(t)= \dfrac{2\alpha}{\beta-2\alpha} (e^{-2at}-e^{-\beta t}) \quad t\geq 0 \\
+\text{Which is the probability that exactly one kidney is functioning at time t}\\
+\end{multline*}
+\item 
+\begin{multline*}\\
+f_V(t)=f_T(t)\\
+f_V(t)=\int_{0}^{t}f_{UV}(u,v) \ du\\
+=\int_{0}^{t}2\alpha \beta e^{-\beta t}e^{-(2a-\beta)u} \ du\\
+=\bigg|_{0}^{t}\dfrac{2\alpha \beta}{\beta-2\alpha} e^{-\beta t}e^{-(2a-\beta)u}\\
+=\dfrac{2\alpha \beta}{\beta-2\alpha}e^{-\beta t}(e^{-(2a-\beta)t}-1)\\
+f_T(t)=f_V(t)=\dfrac{2\alpha \beta}{\beta-2\alpha}(e^{-2at}-e^{-\beta t})\quad t\geq 0\\
+\end{multline*}
+\end{enumerate}
+\end{flushleft}
+\end{document}

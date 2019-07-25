@@ -1,0 +1,275 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 8}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}#1} }
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ta}{\theta}
+\newcommand{\qe}{ \ ?\ }
+\newcommand{\dt}{\pderiv{}{\ta}}
+\newcommand{\dtt}{\pderiv{^2}{\ta^2}}
+\newcommand{\lt}[1]{\log(f(#1|\ta))}
+\newcommand{\lx}{\lambda(x)}
+\newcommand{\dtau}{\left(\dfrac{d\tau(\ta)}{d \ta}\right)^2}
+\newcommand{\samp}{X_1,\dots,X_n \sim}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+	\section*{Problem 1}
+	
+\begin{multline*}\\
+X_1,\dots,X_n \sim Bern(p)\\
+L(p|x)=\prodn p^{x_1}(1-p)^{1-x_i}\\
+=p^{\sumx}(1-p)^{\sumn (1-x_i)}\\
+\ell(p|x)=\sumx \log(p)+(n-\sumx)\log(1-p)\\
+\dll{p}=\dfrac{\sumx}{p}-\dfrac{n-\sumx}{1-p}=0\\
+\dfrac{1-p}{p}=\dfrac{n-\sumx}{\sumx}\\
+\dfrac{1}{p}-1=\dfrac{n}{\sumx}-1\\
+\hat{p}_{MLE}=\sumx/n=\bar{x}\\
+\dll{p^2}=-\left(\dfrac{\sumx}{p^2}+\dfrac{n-\sumx}{(1-p)^2}\right)<0\\
+\text{Thus } \hat{p} \text{ is the MLE}\\
+\log(f(x_1))=x\log(p)+(1-x)\log(1-p)\\
+\dfrac{\partial}{\partial p}\log(f(x_1))=\dfrac{x}{p}-\dfrac{1-x}{1-p}\\
+\dfrac{\partial^2}{\partial p^2}\log(f(x_1))=-\left(\dfrac{x}{p^2}+\dfrac{1-x}{(1-p)^2}\right)\\
+nE[-\dfrac{\partial^2}{\partial p^2}\log(f(x_1))]=nE\left(\dfrac{x}{p^2}+\dfrac{1-x}{(1-p)^2}\right)\\
+=n\left(\dfrac{p}{p^2}+\dfrac{1-p}{(1-p)^2}\right)\\
+=n(\dfrac{1}{p}+\dfrac{1}{1-p})=\dfrac{n}{p(1-p)}\\
+CRLB=1/\dfrac{n}{p(1-p)}=\dfrac{p(1-p)}{n}\\
+Var(\hat{p}_{MLE})=Var(\bar{X})=\dfrac{p(1-p)}{n}\\
+Var(\hat{p}_{MLE})=CRLB\\
+ \text{Thus } \bar{X} \text{ attains the CRLB and is therefore the UMVUE of p}\\
+\end{multline*}
+
+	\section*{Problem 2}
+	
+\begin{multline*}\\
+X_1,\dots,X_n \sim N(\ta,1)\\
+L(\ta|x)=\prodn(2\pi)^{-1/2}\exp\left(-\dfrac{(x_i-\ta)^2}{2}\right)\\
+=(2\pi )^{-n/2}\exp\left(-\dfrac{(\sumn x_i-n\ta)^2}{2}\right)\\
+\ell(\ta|x)=(-n/2)\log(2\pi )-\dfrac{(\sumn x_i-n\ta)^2}{2}\\
+\propto -\dfrac{(\sumn x_i-n\ta)^2}{2}=(-1/2)\left[(\sumx)^2+n^2\ta^2-2n\ta\sumx \right]\\
+\dll{\ta}=-n^2\ta+n\sumx=0\\
+\ta=\dfrac{n\sumx}{n^2}\\
+\mle=\bar{x}\\
+\dll{\ta^2}=-n^2<0\\
+\text{Thus } \hth \text{ is the MLE}\\
+\tau(\ta)=\ta^2\\
+\text{By invariance property: } \hat{\tau(\ta)}_{MLE}=\tau(\hth_{MLE})=(\hth_{MLE})^2=\bar{x}^2\\
+\hth^2_{MLE}=\bar{x}^2\\
+E(\bar{X}^2)=Var(\bar{X})+E(\bar{X})^2=1/n+\ta^2 \text{ (biased)}\\
+\ta^{2*}=\bar{X}^2-\dfrac{1}{n} \text{ (unbiased)}\\
+\sumx \text{ is a CSS for } \ta\\
+\ta^{2*} \text{ is an unbiased estimator and a function of } \sumx\\
+\text{Thus } \ta^{2*} \text{ is the UMVUE by Lehmann-Sheffe Theorem}\\
+\log(f(x_1|\ta))=(-1/2)[\log(2\pi)+(x-\ta)^2]\\
+\dt \lt{x_1}=x-\ta\\
+\dtt \lt{x_1}=-1\\
+nE(-\dtt \lt{x_1})=n\\
+\dtau=4\ta^2\\
+CRLB=\dfrac{4\ta^2}{n}\\
+Var(\ta^{2*})=Var(\bar{X}^2-1/n)=Var(\bar{X}^2)=E(\bar{X}^4)-E(\bar{X}^2)^2=E(\bar{X}^4)-(1/n+\ta^2)^2\\
+\text{Using Steins Lemma:}\\
+E(\bar{X}^4)=E[\bar{X}^3(\bar{X}-\ta+\ta)]=E[\bar{X}^3(\bar{X}-\ta)]+\ta E(\bar{X}^3)\\
+E[\bar{X}^3(\bar{X}-\ta)]=\sigma^2E(3\bar{X}^2)=(3/n)(1/n+\ta^2)\\
+\ta E(\bar{X}^3)=\ta E(\bar{X}^2-\ta+\ta)= \ta E(\bar{X^2}(\bar{X}-\ta)+\ta\bar{X}^2)=2\ta\sg^2E(\bar{X})+\ta^2 E(\bar{X}^2)\\
+=(2/n)\ta^2+\ta^2(1/n+\ta^2)=\ta^2(3/n+\ta^2)\\
+Var(\ta^{2*})=(3/n)(1/n+\ta^2)+\ta^2(3/n+\ta^2)-(1/n+\ta^2)^2\\
+=(1/n+\ta^2)(3/n-1/n-\ta^2)+\ta^2(3/n+\ta^2)\\
+=(1/n+\ta^2)(2/n-\ta^2)+\ta^2(3/n+\ta^2)\\
+=2/n^2-\ta^4+(1/n)\ta^2+(3/n)\ta^2+\ta^4\\
+Var(\ta^{2*})=\dfrac{2}{n^2}+\dfrac{4\ta^2}{n}\\
+\dfrac{2}{n^2}+\dfrac{4\ta^2}{n}> \dfrac{4\ta^2}{n}\\
+\text{Thus the variance of the UMVUE is greater than the CRLB}\\
+\end{multline*}
+
+	\section*{Problem 3}
+	
+\begin{enumerate}[(a)]
+	\item 
+\begin{multline*}\\
+\samp Pareto(v,\ta)\\
+E(X_i)=\dfrac{\ta v}{\ta-1} \quad Var(X_i)=\dfrac{\ta v^2}{(\ta+1)^2(\ta-2)}\\
+f(x|\ta,v)=\dfrac{\ta v^\ta}{x^{\ta+1}}I[v,\infty)(x)\\
+L(\ta,v|x)=\prodn \dfrac{\ta v^\ta}{x_i^{\ta+1}}I[v,\infty)(x_i)\\
+\ell(\ta,v|x)=\sumn [\log(\ta)+\ta\log(v)-(\ta+1)\log(x_i)], v\leq x_{(1)}\\
+\ell(\ta,v|x)=n\log(\ta)+n\ta\log(v)-(\ta+1)\sumn \log(x_i), v\leq x_{(1)}\\
+\text{Where } x_{(1)}=\min_i(x_i)\\
+\text{For all } \ta \text{ this is an increasing function of v, } v\leq x_{(1)}\\
+\text{Thus } \hat{v}_{MLE}=x_{(1)}\\
+\text{Fixing v:}\\
+\ell(\ta,x_{(1)}|x)=n\log(\ta)+n\ta\log(x_{(1)})-(\ta+1)\sumn \log(x_i)\\
+\dll{\ta}=\dfrac{n}{\ta}+n\log(x_{(1)})-\sumn \log(x_i)=0\\
+1/\ta+\log(X_{(1)})=\dfrac{\log\left(\prod x_i\right)}{n}\\
+1/\ta=\dfrac{\log\left(\prod x_i\right)-n\log(x_{(1)})}{n}\\
+\ta=\dfrac{n}{\log\left(\prod x_i\right)-n\log(x_{(1)})}\\
+\mle=\dfrac{n}{\log\left(\dfrac{\prodn}{{x_{(1)}}^n}\right)}=\dfrac{n}{T}\\
+\text{Where } T=\log\left(\dfrac{\prodn}{[\min_i(x_i)]^n}\right)\\
+\dll{\ta^2}^2=-\dfrac{n}{\ta^2}<0\\
+\text{Thus } \hth \text{ is the MLE of } \ta\\ 
+\end{multline*}
+	
+	\item 
+\begin{multline*}\\
+L(\ta,x_{(1)}|x)=\prodn \dfrac{\ta {x_{(1)}}^\ta}{x_i^{\ta+1}}=\dfrac{\ta^n {x_{(1)}}^{n\ta}}{(\prodn x_i)^{\ta+1}}\\
+H_0:\ta=1, v\text{ unknown} \quad H_1:\ta\neq 1, v\text{ unknown}\\
+\lx=\dfrac{L(\ta=1,v=x_{(1)})}{L(\ta=n/T,v=x_{(1)})}\\
+=\dfrac{1^n {x_{(1)}}^{n}}{(\prodn x_i)^{2}}/\dfrac{(n/T)^n {x_{(1)}}^{n^2/T}}{(\prodn x_i)^{n/T+1}}\\
+=\dfrac{{x_{(1)}}^{n}}{(\prodn x_i)^{2}}*\dfrac{(\prodn x_i)^{n/T+1}}{(n/T)^n {x_{(1)}}^{n^2/T}}\\
+=x_{(1)}^{n-n^2/T}(\prodn x_i)^{n/T-1}(T/n)^n\\
+=\dfrac{(\prodn x_i)^{n/T-1}}{x_{(1)^n}^{n/T-1}}(T/n)^n\\
+\text{Since } e^T=\dfrac{\prodn x_i}{x_{(1)}^n}:\\
+\lx=(e^{T})^{n/T-1}(T/n)^n=e^{-T+n}(T/n)^n\\
+R=\{x:\lx\leq c \}=\{x:e^{-T+n}(T/n)^n\leq c\}\\
+\text{Since } \lx \text{ is in the form of } e^{-T}T^n, \lx \text{ is concave}\\
+\text{Which means the rejection region is equivalent to:}\\ 
+\{x:T\leq c_1^* \text{ or } T\geq c_2^*\}\\
+\end{multline*}
+
+	
+\end{enumerate}
+
+	\section*{Problem 4}
+	
+\begin{enumerate}[(a)]
+	
+	\item 	
+\begin{multline*}\\
+Y_1,\dots, Y_n \sim Pois(\ta x_i) \quad \ta>0\\
+L(\ta|y)=\prodn \dfrac{e^{-\ta x_i}(\ta x_i)^{y_i}}{y_i!}\\
+\ell(\ta|y)=\sumn \left(-\ta x_i+y_i\log(\ta) +y_i\log(x_i)-\log(y_i!)\right)\\
+=-\ta\sumx+\sumn y_i\log(\ta)+\sumn y_i\log(x_i) -\sumn \log(y_i!)\\
+\dll{\ta}=-\sumx+\dfrac{\sumn y_i}{\ta}=0\\
+\sumx=\dfrac{\sumn y_i}{\ta}\\
+\mle=\dfrac{\sumn y_i}{\sumx}\\
+\dll{\ta^2}^2=-\dfrac{\sumn y_i}{\ta^2}<0\\
+\text{Thus } \hth \text{ is the MLE}\\
+E(\hth)=\dfrac{1}{\sumx}E(\sumn y_i)=\dfrac{1}{\sumx}\sumn E(y_i)=\dfrac{\ta\sumx}{\sumx}=\ta \text{ (unbiased)}\\
+Var(\hth)=\dfrac{1}{(\sumx)^2}\sumn Var(y_i)=\dfrac{\ta \sumx}{(\sumx)^2}=\dfrac{\ta}{\sumx}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\mle=\dfrac{\sumn y_i}{\sumx}\\
+\text{Since } E(\mle)=\ta:\\
+\mle \text{ is an unbiased estimator and a function of } \sumn y_i \text{ and a postive constant}\\
+\sumn y_i \text{ is a CSS by exponential family}\\
+\text{Thus } \mle \text{ is the UMVUE by Lehmann-Sheffe Theorem}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\dt\lt{\bm{x}}=-\sumx+\dfrac{\sumn y_i}{\ta}\\
+E(\dt\lt{\bm{x}}^2)=E([-\sumx+\dfrac{\sumn y_i}{\ta}]^2)\\
+=E\left((\sumx)^2+\dfrac{(\sumn y_i)^2}{\ta^2}-\dfrac{2\sumx \sumn y_i}{\ta}\right)\\
+=(\sumx)^2+\dfrac{E[(\sumn y_i)^2]}{\ta^2}-\dfrac{2\sumx E[\sumn y_i]}{\ta}\\
+E[(\sumn y_i)^2]=Var(\sumn y_i)+E(\sumn y_i)^2=\ta\sumx+\ta^2(\sumx)^2\\
+E(\dt\lt{\bm{x}}^2)=(\sumx)^2+\dfrac{\ta\sumx+\ta^2(\sumx)^2}{\ta^2}-\dfrac{2\sumx \ta\sumx}{\ta}\\
+=(\sumx)^2+\dfrac{\sumx}{\ta}+(\sumx)^2-2(\sumx)^2\\
+E(\dt\lt{\bm{x}}^2)=\dfrac{\sumx}{\ta}\\
+CRLB=1/\dfrac{\sumx}{\ta}=\dfrac{\ta}{\sumx}\\
+\dfrac{\ta}{\sumx}=\dfrac{\ta}{\sumx}\\
+\text{Thus the variance of } \hth \text{ achieves the CRLB}\\
+\end{multline*}
+
+
+\end{enumerate}
+
+	\section*{Problem 5}
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+f(x|\ta)=e^{-(x-\ta)}, I(x\geq \ta)\\
+L(\ta|x)=\exp\left(-\sumx+n\ta\right), \ta\leq x_{(1)}\\
+\ell(\ta|x)=-\sumx+n\ta, \ta\leq x_{(1)}\\
+\text{This is an increasing function of } \ta \text{ for } \ta \leq  x_{(1)}\\
+\text{Thus } \hth = x_{(1)} \text{ maximizes the function}\\
+\mle=x_{(1)}\\
+H_0:\ta=\ta_0 \quad H_1:\ta\neq \ta_0\\
+\text{If } x_{(1)} < \ta_0, \ L(\ta)=0, \text{ thus reject } H_0\\
+\lx=\dfrac{L(\ta_0)}{L(\hth)}=\dfrac{\exp\left(-\sumx+n\ta_0\right),I(x_{(1)}\geq \ta_0)}{\exp\left(-\sumx+nx_{(1)}\right)}\\
+\lx=\exp\left(-n(x_{(1)}-\ta_0) \right),I(x_{(1)}\geq \ta_0)\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\text{WTS: } R=\{x:\lx \leq c \}\text{ and }R^*=\{x:x_{(1)}\geq c^* \text{ or } x_{(1)}<\ta_0 \} \text{ are equivalent}\\
+H_0:\ta=\ta_0 \quad H_1:\ta\neq \ta_0\\
+R=\{x:\lx \leq c \}=\{x:\exp(-n(x_{(1)}-\ta_0))\leq c \text{ or } x_{(1)}<\ta_0 \}\\
+=\{x:x_{(1)}-\ta_0 \geq -\log(c)/n  \text{ or } x_{(1)}<\ta_0\}=\{x:x_{(1)} \geq \ta_0-\log(c)/n  \text{ or } x_{1}<\ta_0\}\\
+c^*=\ta_0-\log(c)/n\\
+R^*=\{x:x_{(1)}\geq c^* \text{ or } x_{(1)}<\ta_0 \} \text{ Thus }R \text{ and } R^* \text{ are equivalent}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\alpha=\sup_{\ta \in \Theta}P(\bm{X}\in R^*|H_0)\\
+\alpha=P(\lx\leq c|\ta=\ta_0)\\
+=P(x_{(1)}\geq c^*  \text{ or } x_{(1)}<\ta_0|\ta=\ta_0)\\
+=P(x_{(1)}\geq c^*|\ta=\ta_0)+P(x_{(1)}<\ta_0|\ta=\ta_0)\\
+P(x_{1}<\ta_0|\ta=\ta_0)=0\\
+\alpha=P(x_{(1)}\geq c^*|\ta=\ta_0)\\
+F(x|\ta)=\int_{\ta}^{x} e^{-(t-\ta)} dt=1-e^{-(x-\ta)}\\
+f_{x_{(1)}}(x)=\dfrac{n!}{(n-1)!}e^{-(x-\ta)}[e^{-(x-\ta)}]^{n-1}\\
+=ne^{-n(x-\ta)}, x>\ta\\
+\alpha=P(x_{(1)}\geq c^*|\ta=\ta_0)\\
+=\int_{c^*}^{\infty}ne^{-n(x-\ta_0)} \dx=\bigg|_{c^*}^{\infty}-e^{-n(x-\ta_0)}\\
+\alpha=e^{-n(c^*-\ta_0)}\\
+\dfrac{\log(\alpha)}{-n}=c^*-\ta_0\\
+c^*=-\dfrac{\log(\alpha)}{n}+\ta_0\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+R^*=\{x:x_{(1)}\geq \ta_0-\dfrac{\log(\alpha)}{n} \text{ or } x_{(1)}<\ta_0 \}\\
+\B(\ta)=P\left(x_{(1)}\geq \ta_0-\dfrac{\log(\alpha)}{n} \text{ or } x_{(1)}<\ta_0|\ta \in \Theta\right)\\
+P\left(x_{(1)}\geq \ta_0-\dfrac{\log(\alpha)}{n} |\ta\geq \ta_0\right)+P(x_{(1)}\leq \ta_0|\ta\geq \ta_0)\\
+=P\left(x_{(1)}\geq \ta_0-\dfrac{\log(\alpha)}{n} |\ta\geq \ta_0\right)+0\\
+=\exp\left(-n(\ta_0-\log(\alpha)/n-\ta)\right) \text{ (increasing function of } \ta)\\
+\exp\left(-n(\ta_0-\log(\alpha)/n-\ta)\right)+P(x_{(1)}\leq \ta_0|\ta<\ta_0)\\
+=\exp\left(-n(\ta_0-\log(\alpha)/n-\ta)\right)+1-\exp\left(-n(\ta_0-\ta)\right)\\
+=-\exp\left(-n(\ta_0-\ta)\right)(1-\alpha)+1 \text{ (decreasing function of } \ta)\\
+\end{multline*}
+	
+\end{enumerate}
+
+\end{flushleft}
+\end{document}

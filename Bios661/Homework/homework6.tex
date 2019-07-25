@@ -1,0 +1,253 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 6}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\dll}[1]{\dfrac{\partial\ell({#1})}{\partial{#1}}}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+	\section*{Problem 1}
+	
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+E(X^2)=Var(X)+[E(X)]^2=\sigma^2+\mu^2=\sigma^2+0\\
+E(X^2)=\sg^2\\
+\text{Thus } E(X^2) \text{ is an unbiased estimator of } \sg^2\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+L(\sigma|x)= \dfrac{1}{\sqrt{2\pi}\sigma}\exp\left(\dfrac{-x^2}{2\sigma^2} \right)\\
+\ell(\sigma|x)=(-1/2)\log(2\pi)-\log(\sigma)-\dfrac{x^2}{2\sigma^2}\\
+\propto -\log(\sigma)-\dfrac{x^2}{2\sigma^2}\\
+\dll{\sg}=\dfrac{-1}{\sigma}+\dfrac{x^2}{\sigma^3}=0\\
+\sigma^2=x^2\\
+\hat{\sigma}=\sqrt{x^2}=|x|\\
+\dll{\sigma^2}=\dfrac{1}{\sigma^2}-\dfrac{3x^2}{\sg^4}\\
+\dll{\sigma^2}(\hat{\sg})=\dfrac{1}{|x|^2}-\dfrac{3x^2}{|x|^4}=\dfrac{1}{x^2}-\dfrac{3}{x^2}=\dfrac{-2}{x^2}<0\\
+\text{Therefore } \hat{\sg} \text{ is the MLE}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+M_1=0 \quad M_2=\sigma^2\\
+E(X^2)=\sigma^2=\dfrac{1}{n}\sum_{i=1}^{1} X_i^2=X^2\\
+\sigma^2=X^2\\
+\sqrt{\sg^2}=\sqrt{X^2}\\
+\hat{\sg}=|X|\\
+\end{multline*}
+
+\end{enumerate}
+
+	\section*{Problem 2}
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+L(\theta=0|x)=\prodn 1=1 \quad 0<x_i<1\\
+L(\theta=1|x)=\prodn (1/2)x_i^{-1/2}=(1/2)^n\prodn x_i^{-1/2} \quad 0<x_i<1\\
+MLE=0 \text{ if }  L(\theta=0|x)\geq L(\theta=1|x) \\
+\text{Which is the same as } 1\geq (1/2)^n\prodn x_i^{-1/2}\\
+MLE=1 \text{ if } L(\theta=0|x)< L(\theta=1|x) \\
+\text{Which is the same as } 1<(1/2)^n\prodn x_i^{-1/2}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\text{Given } n=10 \quad \sumn \log(x_i)=-10.7\\
+L(1|x)=(1/2)^{10}\prod_{i=1}^{10} x_i^{-1/2}\\
+=(1/2)^{10}\exp\left(\sum_{i=1}^{10}\log(x_i^{-1/2})\right) \text{ since } \prodn a_n=\exp\left(\sumn \log(a_n)\right)\\
+=(1/2)^{10}\exp\left((-1/2)\sum_{i=1}^{10}\log(x_i)\right)\\
+=(1/2)^{10}\exp[(-1/2)(-10.7)]\\
+=\dfrac{1}{1024}e^{5.35}\approx.20567\\
+L(1|x)\approx .20567 \quad 0<x_i<1\\
+L(0|x)=1 \quad 0<x_i<1\\
+\text{Since } 1>.20567 \text{ the MLE of } \theta=0\\
+\end{multline*}
+
+\end{enumerate}
+
+	\section*{Problem 3}
+	
+\begin{enumerate}[(a)]
+	\item 
+\begin{multline*}\\
+X_1,\dots,X_n \sim\\
+P(X_i\leq x|\alpha,\B)=\begin{cases}
+0  & x<0\\
+(x/\B)^{\alpha}  & 0\leq x\leq\B\\
+1  & x>\B
+\end{cases}\\
+\alpha,\B>0\\
+L(\alpha,\B|x)=f(x|\theta)=\prodn \dfrac{\alpha}{\B^{\alpha}}(x_i)^{\alpha-1} \ I[0,\B](x_i)\\
+=\left(\dfrac{\alpha}{\B^\alpha}\right)^n\left(\prodn x_i\right)^{\alpha-1} I(x_{(n)}<\B)I(x_{(1)}>0)\\
+f(\bm{x}|\theta)=g(T(\bm{x})|\theta)h(\bm{x}) \text{ where}\\
+h(\bm{x})= I(x_{(1)}>0)\\ g(T(\bm{x})|\theta)=\left(\dfrac{\alpha}{\B^\alpha}\right)^n\left(\prodn x_i\right)^{\alpha-1} I(x_{(n)}<\B)\\
+T(\bm{x})=\prodn x_i, x_{(n)}\\
+\text{Thus by the factorization theorem, } \prodn x_i, x_{(n)} \text{ are sufficient}\\
+\end{multline*}
+	
+	\item 
+\begin{multline*}\\
+L(\alpha,\B|x)=\left(\dfrac{\alpha}{\B^\alpha}\right)^n\left(\prodn x_i\right)^{\alpha-1}\\
+\text{Fixing } \alpha L(\alpha,\B|x)=0 \text{ if } \B<x_{(n)}\\
+L(\alpha,\B|x) \text{ is a decreasing function of } \B \text{ if } \B\geq x_{(n)}\\
+\text{Therefore } \hat{\B}=x_{(n)} \text{ is the MLE of } \B\\
+\ell(\alpha,\B|x)=\log\left( \left(\dfrac{\alpha}{\B^\alpha}\right)^n\left(\prodn x_i\right)^{\alpha-1} \right)\\
+=n\log\alpha-\alpha n \log(\B)+(\alpha-1)\sumn \log(x_i)\\
+\dll{\alpha}=\dfrac{n}{\alpha}-n \log(\B)+\sumn \log(x_i)=0\\
+\text{Plug in } \hat{\B}=x_{(n)}\\
+\dfrac{n}{\alpha}=n \log(x_{(n)})-\sumn \log(x_i)\\
+\hat{\alpha}=\dfrac{n}{n \log(x_{(n)})-\sumn \log(x_i)}\\
+\hat{\alpha}=\left[\dfrac{n \log(x_{(n)})-\sumn \log(x_i)}{n}\right]^{-1}\\
+\hat{\alpha}=\left[\dfrac{1}{n}\sumn (\log(x_{(n)})-\log(x_i))\right]^{-1}\\
+\dll{\alpha^2}=\dfrac{n}{\alpha}-n \log(x_{(n)})+\sumn \log(x_i)\\
+=\dfrac{-n}{\alpha^2}<0\\
+\text{Thus } \hat{\alpha} \text{ is the MLE}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\hb_{MLE} =X_{(n)}=25\\
+\sumn \log(x_i)=40.81287\\
+\hat{\alpha}_{MLE}=\dfrac{13}{13\log(25)-40.81287}=12.59055\\
+\end{multline*}
+	
+\end{enumerate}
+\pagebreak
+	\section*{Problem 4}
+	
+\begin{enumerate}[(a)]
+	
+	\item 	
+\begin{multline*}\\
+f_y(y)=\dfrac{1}{\lm}e^{-y/\lm} \quad f_z(z)=\dfrac{1}{\mu}e^{-z/\mu}\\
+\text{Since } Y\perp Z \text{ we can solve for the MLE individually}\\
+L(\lambda|x)=\prodn \dfrac{1}{\lambda}e^{-y_i/\lm}=(1/\lambda)^n e^{-(1/\lm)\sumn y_i}\\
+\ell(\lm|x)=-n\log(\lm)-(1/\lm)\sumn y_i\\
+\dll{\lm}=\dfrac{-n}{\lm}+\dfrac{1}{\lm^2}\sumn y_i=0\\
+\dfrac{n}{\lm}=\dfrac{1}{\lm^2}\sumn y_i=0\\
+\hat{\lm}=\dfrac{1}{n}\sumn y_i=\bar{Y}\\
+\dll{\lm^2}(\hat{\lm})=\dfrac{n}{(\dfrac{1}{n}\sumn y_i)^2}+\dfrac{-2}{(\dfrac{1}{n}\sumn y_i)^3}\sumn y_i=\dfrac{n}{(\dfrac{1}{n}\sumn y_i)^2}+\dfrac{-2n}{(\dfrac{1}{n}\sumn y_i)^2}\\
+=\dfrac{-n}{(\dfrac{1}{n}\sumn y_i)^2}<0\\
+\text{Thus } \hat{\lm} \text{ is the MLE}\\
+\text{Same for } \hat{\mu}_{MLE} \text{ thus:}\\
+\hat{\lm}_{MLE}=\bar{Y}\quad \hat{\mu}_{MLE}=\bar{Z}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+X_i=\min(Y_i,Z_i) \\
+\delta_i=\begin{cases}
+1\text{, if } X_i=Y_i\\
+0\text{, if } X_i=Z_i
+\end{cases}\\
+f_{X,\delta}(x,\delta)=\left(\dfrac{1}{\lm}\right)^{\delta}\left(\dfrac{1}{\mu}\right)^{1-\delta}e^{-\left(\dfrac{1}{\lm}+\dfrac{1}{\mu}\right)x}\\
+L(\lm,\mu|x,\delta)=\prodn \left(\dfrac{1}{\lm}\right)^{\delta_i}\left(\dfrac{1}{\mu}\right)^{1-\delta_i}e^{-\left(\dfrac{1}{\lm}+\dfrac{1}{\mu}\right)x_i}\\
+=\left(\dfrac{1}{\lm}\right)^{\sumn\delta_i}\left(\dfrac{1}{\mu}\right)^{n-\sumn \delta_i}e^{-\left(\dfrac{1}{\lm}+\dfrac{1}{\mu}\right)\sumn x_i}\\
+\ell(\lm,\mu|x,\delta)=-\sumn\delta_i \log(\lambda)-(n-\sumn \delta_i)\log(\mu)-\left(\dfrac{1}{\lm}+\dfrac{1}{\mu}\right)\sumn x_i\\
+\pderiv{\ell(\lm,\mu)}{\lm}=-\dfrac{1}{\lm}\sumn\delta_i +\dfrac{1}{\lm^2} \sumn x_i=0\\
+\dfrac{1}{\lm}\sumn\delta_i=\dfrac{1}{\lm^2} \sumn x_i\\
+\hat{\lm}= \dfrac{\sumn x_i}{\sumn\delta_i}\\
+\pderiv{\ell^2(\lm,\mu)}{\lm^2}(\hat{\lm})=\dfrac{1}{\left[\dfrac{\sumn x_i}{\sumn\delta_i}\right]^2}\sumn\delta_i +\dfrac{-2}{\left[\dfrac{\sumn x_i}{\sumn\delta_i}\right]^3} \sumn x_i\\
+=\dfrac{\left(\sumn\delta_i\right)^3}{\left(\sumn x_i\right)^2}-2\dfrac{\left(\sumn\delta_i\right)^3}{\left(\sumn x_i\right)^2}=-\dfrac{\left(\sumn\delta_i\right)^3}{\left(\sumn x_i\right)^2}<0\\
+\text{Thus } \hat{\lm} \text{ is the MLE}\\
+\pderiv{\ell(\lm,\mu)}{\mu}=-(n-\sumn \delta_i)\dfrac{1}{\mu}+\dfrac{1}{\mu^2}\sumn x_i=0\\
+(n-\sumn \delta_i)\dfrac{1}{\mu}=\dfrac{1}{\mu^2}\sumn x_i\\
+\hat{\mu}=\dfrac{\sumn x_i}{n-\sumn \delta_i}\\
+\pderiv{\ell^2(\lm,\mu)}{\mu^2}(\hat{\mu})=(n-\sumn \delta_i)\left(\dfrac{n-\sumn \delta_i}{\sumn x_i}\right)^2-2\left(\dfrac{n-\sumn \delta_i}{\sumn x_i}\right)^3\sumn x_i\\
+=\dfrac{\left(n-\sumn \delta_i\right)^3}{\left(\sumn x_i\right)^2}-2\dfrac{\left(n-\sumn \delta_i\right)^3}{\left(\sumn x_i\right)^2}=-\dfrac{\left(n-\sumn \delta_i\right)^3}{\left(\sumn x_i\right)^2}<0\\
+\text{Thus } \hat{\mu} \text{ is the MLE}\\
+\end{multline*}
+
+\end{enumerate}
+\pagebreak
+	\section*{Problem 5}
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+X_1,\dots,X_n \sim N(\mu_1) \quad \mu \text{ unknown}\\
+Y_1,\dots,Y_n \text{ where } Y_i=I(X_i>0)\\
+Y_i=\begin{cases}
+1 \text{ if } X_i>0\\
+0 \text{ if } X_i<0\\
+\end{cases}\\
+Y_i\sim Ber(P(Y_i=1))\\
+\text{Let } \tau=P(Y_i=1)=P(X_i>0)\\
+Y_i\sim Ber(\tau)\\
+L(\tau|y)=\prodn \tau^{y_i}(1-\tau)^{1-y_i}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+L(\tau|y)=\prodn \tau^{y_i}(1-\tau)^{1-y_i}\\
+=\tau^{\sumn y_i}(1-\tau)^{\sumn 1- y_i}\\
+\ell(\tau|y)=\sumn y_i \log(\tau)+(\sumn (1-y_i))\log(1-\tau)\\
+\dll{\tau}=\dfrac{\sumn y_i}{\tau}-\dfrac{\sumn (1-y_i)}{1-\tau}=0\\
+\dfrac{\sumn y_i}{\tau}=\dfrac{\sumn (1-y_i)}{1-\tau}\\
+\dfrac{1-\tau}{\tau}=\dfrac{\sumn(1-y_i)}{\sumn y_i}\\
+\dfrac{1}{\tau}=\dfrac{\sumn(1-y_i)}{\sumn y_i}+1\\
+\hat{\tau}=\dfrac{\sumn y_i}{\sumn(1-y_i)+\sumn y_i}\\
+=\dfrac{\sumn y_i}{n-\sumn(y_i)+\sumn y_i}\\
+\hat{\tau}=\dfrac{1}{n}\sumn{y_i}=\bar{Y}\\
+\dll{\tau^2}=\dfrac{-\sumn y_i}{\tau^2}-\dfrac{n-\sumn y_i}{(1-\tau)^2}\\
+\text{Plugging in } \hat{\tau}=\bar{y}\\
+=-\left(\dfrac{n\bar{y}}{\bar{y}^2}+\dfrac{n(1-\bar{y})}{(1-\bar{y})^2} \right)\\
+=-n\left(\dfrac{1}{\bar{y}}+\dfrac{1}{1-\bar{y}}\right)<0\\
+\text{Since the term inside the parenthesis is positive because } \bar{y}\leq1\\
+\text{Thus } \hat{\tau} \text{ is the MLE}\\
+\end{multline*}
+
+\item 
+\begin{multline*}\\
+\tau=P(Y_i=1)=P(X_i>0)\\
+\tau=P\left(\dfrac{X_i-\mu}{\sqrt{1}}>\dfrac{0-\mu}{\sqrt{1}}\right)\sim N(0,1)\\
+\tau=1-\Phi(-\mu)\\
+\mu=-\Phi^{-1}(1-\tau)\\
+\hat{\mu}_{MLE}=-\Phi^{-1}(1-\hat{\tau}_{MLE})=-\Phi^{-1}(1-\bar{Y})\\
+\end{multline*}
+
+\end{enumerate}
+
+
+\end{flushleft}
+\end{document}

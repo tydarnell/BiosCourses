@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ta}{\theta}
+\newcommand{\qe}{ \ ?\ }
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+If X less than full rank $(r<p)$ then collinearity exists among the columns of X\\
+$X_{n\times p} = X_{*,(n\times r)}V^{\prime}_{+,(r \times p)}$\\
+Suppose we have less than full rank model:\\
+$y_{n\times 1}=X_{n\times p}\B_{p\times 1}+\epsilon_{n\times 1}$\\
+Define $X_{*,(n\times r)}V_{+,(p\times r)}$
+with $\B_{*,(r\times 1)}$\\ Then equivalent full rank model:\\
+$y_{n\times 1}=X_{*,(n\times r)}\B_{*,(r\times 1)}+\epsilon_{n\times 1}$ with $\hat{\B_*}=(X^{\prime}_*X_*)^{-1}X_*^{\prime}y$\\
+Many possible choices for $V_+$ such as the set of eigenvectors of $X^{\prime}X$ corresponding to non-zero eigenvalues.\\
+\end{flushleft}
+\end{document}

@@ -1,0 +1,210 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 1}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+\section*{Problem 1}
+\begin{enumerate}[(a)]
+\item
+\begin{multline*}
+\text{Using } X,Y \text{ for } X_1,X_2\\
+\text{Given } X, \ Y \sim n(0,1)\\
+\text{We will first find } X-Y\\
+\text{Let } U=X+Y \quad V=X-Y\\
+f_{XY}(x,y)=\dfrac{1}{2\pi}e^{-x^2/2}e^{-y^2/2}\\
+X=\dfrac{U+V}{2} \quad Y=\dfrac{U-V}{2}\\
+\text{Since this solution is unique we have a one-to-one transformation}\\
+J=|-1/2|\\
+f_{UV}(u,v)=\dfrac{1}{2\pi}e^{-\left(\dfrac{u+v}{2}\right)^2/2}e^{-\left(\dfrac{u-v}{2}\right)^2/2}(1/2)\\
+f_{UV}(u,v)=\left(\dfrac{1}{\sqrt{2\pi}\sqrt{2}}e^{-u^2/4}\right)\left(\dfrac{1}{\sqrt{2\pi}\sqrt{2}}e^{-v^2/4}\right)\\
+f_{UV} \text{ can be factored into functions of U and V, they are independent}\\
+f_V(v)=\dfrac{1}{\sqrt{2\pi}\sqrt{2}}e^{-v^2/4}\\
+X-Y \sim n(0,2)\\
+=\dfrac{1}{\sqrt{2\pi}\sqrt{2}}e^{-(x-y)/4}\\
+\dfrac{X-Y}{\sqrt{2}} \sim n(0,1)\\
+\text{Let } Z=\dfrac{X-Y}{\sqrt{2}}\\
+\text{Using the transformation } W=Z^2\\
+g(z)=z^2 \text{ is monotone on } (-\infty,0) \text{ and }
+(0,\infty)\\
+g_1(z)=z^2 \quad g_1^{-1}(w)=-\sqrt{w}\\
+g_2(z)=z^2 \quad g_2^{-1}(w)=\sqrt{w}\\
+f_W(w)=\dfrac{1}{\sqrt{2\pi}}e^{-(-\sqrt{w})^2/2}\bigg|-\dfrac{1}{2\sqrt{w}}\bigg|+\dfrac{1}{\sqrt{2\pi}}e^{-(\sqrt{w})^2/2}\bigg|\dfrac{1}{2\sqrt{w}}\bigg|\\
+f_W(w)=\dfrac{1}{\sqrt{2\pi}}\dfrac{1}{\sqrt{w}}e^{-w/2} \quad 0<w<\infty\\
+\text{Thus } W\sim \chi_1^2\\
+\end{multline*}
+\item 
+\begin{multline*}
+\text{Let } U=\dfrac{X_1}{X_1+X_2} \quad V=X_1+X_2\\
+X_1=UV \quad X_2=V-UV\\
+J=\begin{bmatrix}
+v & u\\
+-v & 1-u\\
+\end{bmatrix} =|v|\\
+f_{X_1X_2}(x_1,x_2)=\dfrac{1}{\Gamma(\alpha_1)}x_1^{\alpha_1-1}e^{-x_1}\dfrac{1}{\Gamma(\alpha_2)}x_2^{\alpha_2-1}e^{-x_2}\\
+u \in (0,1) \quad v \in (0,\infty)\\
+f_{UV}(uv)=\dfrac{1}{\Gamma(\alpha_1)}{(uv)}^{\alpha_1-1}e^{-uv}\dfrac{1}{\Gamma(\alpha_2)}{[v(1-u)]}^{\alpha_2-1}e^{-v(1-u)}(v)\\
+f_U(u)=u^{\alpha_1-1}(1-u)^{\alpha_2-1}\dfrac{1}{\Gamma(\alpha_1)\Gamma(\alpha_2)}\int_{0}^{\infty}v^{\alpha_1+\alpha_2-1}e^{-v} \ dv\\
+f_U(u)=u^{\alpha_1-1}(1-u)^{\alpha_2-1}\dfrac{\Gamma(\alpha_1+\alpha_2)}{\Gamma(\alpha_1)\Gamma(\alpha_2)}\\
+\dfrac{X_1}{X_1+X_2}=U\sim beta(\alpha_1,\alpha_2) \quad U \in (0,1)\\
+\dfrac{X_2}{X_1+X_2}=1-U\sim beta(\alpha_2,\alpha_1) \quad 1-U \in (0,1)\\
+\text{Since the beta distribution has reflection symmetry}\\
+\end{multline*}
+\end{enumerate}
+\section*{Problem 2}
+\begin{enumerate}[(a)]
+\item
+\begin{multline*}
+f_{X,Y}(x,y)=\dfrac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1}\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha+\beta)\Gamma(\gamma)}y^{\alpha+\beta-1}(1-y)^{\gamma-1}\\
+0<x<1 \quad 0<y<1\\
+U=XY \quad V=Y\\
+X=U/V \quad Y=V\\
+J=1/v\\
+f_{U,V}(u,v)=\dfrac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha+\beta)\Gamma(\gamma)}(u/v)^{\alpha-1}(1-u/v)^{\beta-1}v^{\alpha+\beta-1}(1-v)^{\gamma-1}(1/v)\\
+0<u<v<1\\
+f_U(u)=\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha-1}\int_{u}^{1}v^{\beta-1}(1-v)^{\gamma-1}((v-u)/v)^{\beta-1} \ dv\\
+f_U(u)=\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha-1}\int_{u}^{1}(1-v)^{\gamma-1}(v-u)^{\beta-1} \ dv\\
+\text{Let } w=\dfrac{v-u}{1-u} \quad \text{Then } dw=\dfrac{1}{1-u} \ dv \text{ and } 1-w=\dfrac{1-v}{1-u}\\
+f_U(u)=\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha-1}(1-u)^{\beta}(1-u)^{\gamma-1}\int_{0}^{1}(1-w)^{\gamma-1}(w)^{\beta-1} \ dw\\
+\dfrac{\Gamma(\beta)\Gamma(\gamma)}{\Gamma(\beta+\gamma)}\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha-1}(1-u)^{\beta+\gamma-1} \ 0<u<1\\
+\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta+\gamma)}u^{\alpha-1}(1-u)^{\beta+\gamma-1} \ 0<u<1\\
+U\sim beta(\alpha,\beta+\gamma)\\
+\end{multline*}
+\item
+\begin{multline*}
+f_{X,Y}(x,y)=\dfrac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}x^{\alpha-1}(1-x)^{\beta-1}\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha+\beta)\Gamma(\gamma)}y^{\alpha+\beta-1}(1-y)^{\gamma-1}\\
+0<x<1 \quad 0<y<1\\
+U=XY \quad V=X/Y\\
+X=\sqrt{UV} \quad Y=\sqrt{\dfrac{U}{V}}\\
+J=|-(1/2)v^{-1}|\\
+f_{U,V}(u,v)=\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}(\sqrt{uv})^{\alpha-1}(1-\sqrt{uv})^{\beta-1}{\sqrt{\dfrac{u}{v}}}^{\alpha+\beta-1}{\left(1-\sqrt{\dfrac{u}{v}}\right)}^{\gamma-1}\dfrac{1}{2v}\\
+0<u<v<1/u \quad 0<u<1\\
+f_U(u)=\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha-1}(1-u)^{\beta+\gamma-1}\int_{u}^{1/u}\left(\dfrac{\sqrt{u/v}-u}{1-u}\right)^{\beta-1}\left(\dfrac{1-\sqrt{u/v}}{1-u}\right)^{\gamma-1}\dfrac{\sqrt{u/v}}{2v(1-u)} \ dv\\
+\text{Let } z=\dfrac{\sqrt{u/v}-u}{1-u} \ dz=\dfrac{-\sqrt{u/v}}{2v(1-u)}\ dv \text{ and } 1-z=\dfrac{1-\sqrt{u/v}}{1-u}\\
+f_U(u)=\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha-1}(1-u)^{\beta+\gamma-1}\int_{0}^{1}z^{\beta-1}(1-z)^{\gamma-1} \ dz\\
+f_U(u)=\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta)\Gamma(\gamma)}u^{\alpha-1}(1-u)^{\beta+\gamma-1}\dfrac{\Gamma(\beta)\Gamma(\gamma)}{\Gamma(\beta+\gamma)}\\
+f_U(u)=\dfrac{\Gamma(\alpha+\beta+\gamma)}{\Gamma(\alpha)\Gamma(\beta+\gamma)}u^{\alpha-1}(1-u)^{\beta+\gamma-1}\quad 0<u<1\\
+U\sim beta(\alpha,\beta+\gamma)\\
+\end{multline*}
+\end{enumerate}
+\section*{Problem 3}
+\begin{enumerate}[(a)]
+\item 
+\begin{multline*}
+Z=X-Y \quad W=Y\\
+X=Z+W \quad Y=W\\
+f_{Z,W}(z,w)=f_{XY}(z+w,w)=f_X(z+w)f_Y(w)\\
+J=1\\
+f_Z(z)=\int_{-\infty}^{\infty}f_X(z+w)f_Y(w)\ dw\\
+\end{multline*}
+\item
+\begin{multline*}
+Z=XY \quad W=X\\
+X=W \quad Y=Z/W\\
+f_{Z,W}(z,w)=f_{XY}(w,z/w)(1/w)=f_X(w)f_Y(z/w)(1/w)\\
+J=1/w\\
+f_Z(z)=\int_{-\infty}^{\infty}f_X(w)f_Y(z/w)(1/w)\ dw\\
+\end{multline*}
+\item
+\begin{multline*}
+Z=X/Y \quad W=X\\
+X=W \quad Y=W/Z\\
+J=|-w/z^2|\\
+f_{Z,W}(z,w)=f_X(w)f_Y(w/z)(w/z^2)\\
+f_Z(z)=\int_{-\infty}^{\infty}f_X(w)f_Y(w/z)(w/z^2)\ dw\\
+\end{multline*}
+\end{enumerate}
+\section*{Problem 4}
+\begin{enumerate}[(a)]
+\item 
+$\mathcal{S}=\{(x_1,x_2):0<x_1,x_2<1 \}$\\
+\medbreak
+\item 
+$\mathcal{T}=\{(y_1,y_2):y_2<y_1, y_2<2-y_1, y_2>y_1-2, y_2>-y_1 \}$\\
+\medbreak
+\item 
+\begin{multline*}\\
+Y_1=X_1+X_2 \quad Y_2=X_1-X_2\\
+X_1=\dfrac{Y_1+Y_2}{2} \quad X_2=\dfrac{Y_1-Y_2}{2}\\
+J=\begin{bmatrix}
+1/2 & 1/2\\
+1/2 & -1/2
+\end{bmatrix}=|-1/2|=1/2\\
+f_{Y_1Y_2}(y_1,y_2)=f_{X_1X_2}(\dfrac{y_1+y_2}{2},\dfrac{y_1-y_2}{2})(1/2)=1/2\\
+f_{Y_1Y_2}(y_1,y_2)=\begin{cases} 1/2 \quad (y_1,y_2)\in \mathcal{T}\\
+0 \quad \text{otherwise}
+\end{cases}
+\end{multline*}
+\item 
+\begin{multline*}
+\\
+f_{y_1}(y_1)=\int f_{y_1,y_2}(y_1,y_2) \ dy_2\\
+\text{for } 0<y_1<1: \int_{-y_1}^{y_1}1/2 \ dy_2= \bigg|_{-y_1}^{y_1}(1/2)y_2=y_1\\
+\text{for } 1\leq y_1 <2: \int_{y_1-2}^{2-y_1}1/2 \ dy_1=\bigg|_{y_1-2}^{2-y_1}(1/2)y_2=2-y_1\\
+f_{y_1}(y_1)=\begin{cases}
+y_1 \quad 0< y_1<1\\
+2-y_1 \quad 1\leq y_1< 2\\
+0 \quad \text{otherwise}\\
+\end{cases}\\
+f_{y_2}(y_2)=\int f_{y_1,y_2}(y_1,y_2) \ dy_1\\
+\text{for } 0\leq y_2<1: \int_{y_2}^{2-y_2}1/2 \ dy_1= \bigg|_{y_2}^{2-y_2}(1/2)y_1=1-y_2\\
+\text{for } -1< y_2 <0: \int_{-y_2}^{2+y_2}1/2 \ dy_1=\bigg|_{-y_2}^{2+y_2}(1/2)y_1=1+y_2\\
+f_{y_2}(y_2)=\begin{cases}
+1-y_2 \quad 0\leq y_2<1\\
+1+y_2 \quad -1< y_2< 0\\
+0 \quad \text{otherwise}\\
+\end{cases}\\
+\end{multline*}
+\end{enumerate}
+\section*{Problem 5}
+\begin{enumerate}[(a)]
+\item 
+\begin{multline*}
+Y_1=X_1/X_2 \quad Y_2=X_2\\
+-\infty <x_1,x_2<\infty\\
+X_1=Y_1Y_2 \quad X_2=Y_2\\
+-\infty<y_2<\infty\\
+J=\begin{bmatrix}
+Y_2 & 0\\
+Y_1 & 1
+\end{bmatrix}=|Y_2|\\
+\end{multline*}
+\item
+\begin{multline*}
+f_{X_1X_2}(x_1,x_2)=\dfrac{1}{2\pi}e^{-\left(\dfrac{x_1^2+x_2^2}{2}\right)}\\
+f_{Y_1Y_2}(y_1,y_2)=f_{X_1X_2}(y_1y_2,y_2)=\dfrac{1}{2\pi}e^{-\left(\dfrac{(y_1y_2)^2+(y_2)^2}{2}\right)}y_2\\
+f_{Y_1Y_2}(y_1,y_2)=\dfrac{1}{2\pi}e^{-\left(\dfrac{y_1^2y_2^2+y_2^2}{2}\right)}y_2\\
+-\infty<y_1,y_2<\infty\\
+\end{multline*}
+\item 
+\begin{multline*}
+f_{y_1}=\dfrac{2}{2\pi}\int_{0}^{\infty}e^{-\left(\dfrac{y_2^2(1+y_1^2)}{2}\right)}(y_2) \ dy_2\\
+\text{Let } u=\dfrac{y_2^2(1+y_1^2)}{2} \text{ then } du= y_2(1+y_1^2)\\
+f_{y_1}=\dfrac{1}{\pi}\dfrac{1}{1+y_1^2}\int_{0}^{\infty}e^{-u} \ du\\
+f_{y_1}=\dfrac{1}{\pi}\dfrac{1}{1+y_1^2} \quad -\infty<y_1<\infty\\
+Y_1\sim cauchy(0,1)\\
+\end{multline*}
+\end{enumerate}
+\end{flushleft}
+\end{document}

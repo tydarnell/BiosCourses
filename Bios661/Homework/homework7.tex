@@ -1,0 +1,347 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 7}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2} }
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ule}{\hat{\mu}_{MLE}}
+\newcommand{\uh}{\hat{\mu}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+	\section*{Problem 1}
+	
+\begin{multline*}\\
+\text{Since the } Xs\sim U(0,\theta)\\
+E(X)=\dfrac{\theta}{2} \text{ and } Var(X)=\dfrac{\theta^2}{12}\\
+E(X)=\dfrac{\theta}{2} \quad M=\bar{X}\\
+\theta/2=\bar{X}\\
+\hth_{MM}=2\bar{X}\\
+E(\hth_{MM})=E(2\bar{X})=2E(X)=\theta \text{ (unbiased estimator)}\\
+Var(\hth_{MM})=Var(2\bar{X})=4Var(\bar{X})=\dfrac{4\theta^2/12}{n}=\dfrac{\theta^2}{3n}\\
+L(\theta|x)=\prodn \dfrac{1}{\theta}I(0\leq x_i\leq \theta)\\
+L(\theta|x)=\theta^{-n} I(0\leq x_{(n)}\leq \theta)\\
+\text{For } \theta\geq x_{(n)}, \text{ the likelihood funciton is decreasing and thus is maximized at } \hth=X_{(n)}\\
+\hth_{MLE}=X_{(n)}\\
+f_{X_{(n)}}=\dfrac{nx^{n-1}}{\theta^n}\quad 0\leq x\leq \theta\\
+E(\hth_{MLE})=\dfrac{n}{\theta^n}\int_{0}^{\theta}x^n=\dfrac{\theta^{n+1}}{\theta^n}\dfrac{n}{n+1}=\dfrac{\theta n}{n+1}\text{ (biased estimator)}\\
+E(\hth_{MLE}^2)=\dfrac{n}{\theta^n}\int_{0}^{\infty}x^{n+1}=\dfrac{\theta^2 n}{n+2}\\
+Var(\hth_{MLE})=E(\hth_{MLE}^2)-[E(\hth_{MLE})]^2=\dfrac{\theta^2 n}{n+2}-\left(\dfrac{\theta n}{n+1}\right)^2=\dfrac{n\theta^2}{(n+1)^2(n+2)}\\
+Var(\hth_{MM})>Var(\hth_{MLE})\\
+\hth_{MM} \text{ is an unbiased estimator but its variance is larger than } \hth_{MLE}\\
+\hth_{MLE} \text{ is a biased estimator}\\
+MSE(\mm)=Var(\mm)+bias(\mm)^2=\dfrac{\theta^2}{3n}+0^2=\dfrac{\theta^2}{3n}\\
+bias(\mle)=\dfrac{\theta n}{n+1}-\theta=\theta\left(\dfrac{n}{n+1}-1\right)=\dfrac{-\theta}{n+1}\\
+bias^2(\mle)=\dfrac{\theta^2}{(n+1)^2}\\
+MSE(\mle)=\dfrac{n\theta^2}{(n+1)^2(n+2)}+\dfrac{\theta^2}{(n+1)^2}=\dfrac{n\theta^2+(n+2)\theta^2}{(n+1)^2(n+2)}\\
+=\dfrac{\theta^2(2n+2)}{(n+1)^2(n+2)}=\dfrac{2\theta^2}{(n+1)(n+2)}\\
+MSE(\mle)=\dfrac{2\theta^2}{n^2+3n+2} \quad MSE(\mm)=\dfrac{\theta^2}{3n}\\
+\text{Comparing the two MSE, the MSE of } \mle
+\text{ gets smaller as n gets larger}\\
+\text{For large n, } \mle \text{ is preferrable}\\
+\text{ For smaller n, } \mm \text{ is preferable since the bias is quite large for } \mle\\
+\text{ and } \mm \text{ is unbiased.}\\
+\end{multline*}
+
+	\section*{Problem 2}
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+X_1,\dots,X_n \sim Bern(\theta) \quad 0\leq \theta \leq 1/2\\
+E(X)=\theta M=\bar{X}\\
+\hat{\theta}_{MM}=\bar{X}\\
+L(\theta|x)=\prodn \theta^{x_i}(1-\theta)^{1-x_i}\\
+=\theta^{\sumn x_i}(1-\theta)^{n-\sumn x_i}\\
+\ell(\theta|x)=\sumn x_i\log(\theta)+(n-\sumn x_i)\log(1-\theta)\\
+\dll{\theta}=\dfrac{\sumn x_i}{\theta}-\dfrac{n-\sumn x_i}{1-\theta}=0\\
+\dfrac{\sumn x_i}{\theta}=\dfrac{n-\sumn x_i}{1-\theta}\\
+\dfrac{1-\theta}{\theta}=\dfrac{n-\sumn x_i}{\sumn x_i}\\
+\dfrac{1}{\theta}-1=\dfrac{n}{\sumn x_i}-1\\
+\hth=\dfrac{\sumx}{n}=\bar{X}\\
+\dll{\theta^2}=-\left[\dfrac{\sumn x_i}{\theta^2}+\dfrac{n-\sumn x_i}{(1-\theta)^2}\right]<0\\
+\text{Since } 0\leq \theta \leq 1/2:\\
+\text{When } \bar{X}\leq 1/2, \mle=\bar{X} \text{ since } \bar{X} \text{ is the overall maximum}\\
+\text{When } \bar{X}>1/2, L(\theta|x) \text{ is an increasing function of } \theta \text{ on the interval } [0,1/2]\\
+\text{and is therefore maximized by the upper bound of } \theta, \ 1/2\\
+\text{Thus when } \bar{X}\leq 1/2, \ \mle=\bar{X} \text{ when } \bar{X}>1/2, \ \mle=1/2\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+E(\bar{X})=(1/n)E(\sumx)=n/nE(X_1)=\theta \text{ (unbiased)}\\
+bias(\bar{X})=0\\
+Var(\sumx/n)=n/n^2Var(X_1)=\dfrac{\theta(1-\theta)}{n}\\
+MSE(\mm)=Var(\mm)+bias(\mm)^2\\
+=\dfrac{\theta(1-\theta)}{n}+0^2\\
+MSE(\mm)=\dfrac{\theta(1-\theta)}{n}\\
+MSE(\mle)=E[(\mle-\theta)^2]\\
+\text{Let } y=\sumx\\
+E[g(x)]=\sum g(x)f_X(x)\\
+E[(\mle-\theta)^2]=\sum_{y=0}^{n}(\mle-\theta)^2{n\choose y}\theta^{y}(1-\theta)^{n-y}\\
+MSE(\mle)=\sum_{y=0}^{k} \left(\dfrac{y}{n}-\theta \right)^2{n\choose y}\theta^{y}(1-\theta)^{n-y}+\sum_{y=k+1}^{n} (1/2-\theta)^2{n\choose y}\theta^{y}(1-\theta)^{n-y}\\
+\text{where } k=\begin{cases}
+n/2 &\text{if n is even}\\
+(n-1)/2 &\text{if n is odd}\\
+\end{cases}\\
+\end{multline*}
+
+\pagebreak
+	\item 
+\begin{multline*}\\
+\text{ Defining y and k the same way as in the previous part:}\\
+MSE(\mm)=E(\bar{X}-\theta)^2=\sum_{y=0}^{k} \left(\dfrac{y}{n}-\theta \right)^2{n\choose y}\theta^{y}(1-\theta)^{n-y}\\
+MSE(\mm)-MSE(\mle)=\\
+\sum_{y=0}^{n} \left(\dfrac{y}{n}-\theta \right)^2{n\choose y}\theta^{y}(1-\theta)^{n-y}-\sum_{y=0}^{k} \left(\dfrac{y}{n}-\theta \right)^2{n\choose y}\theta^{y}(1-\theta)^{n-y}-\sum_{y=k+1}^{n} (1/2-\theta)^2{n\choose y}\theta^{y}(1-\theta)^{n-y}\\
+=\sum_{y=k+1}^{n}[(\dfrac{y}{n}-\theta)^2-(1/2-\theta)^2]{n \choose y}\theta^y(1-\theta)^{n-y}\\
+=\sum_{k+1}^{n}\left(\dfrac{y}{n}+1/2-2\theta\right)\left(\dfrac{y}{n}-1/2\right){n\choose y}\theta^y(1-\theta)^{n-y}\\
+\text{Thus } MSE(\mle)<MSE(\mm) \text{ for all } \theta \in (0,1/2]\\
+\end{multline*}
+	
+\end{enumerate}
+
+	\section*{Problem 3}
+	
+\begin{enumerate}[(a)]
+	\item 
+\begin{multline*}\\
+Y_i=\B x_i+\epsilon_i \text{ xs are fixed constants, } \epsilon_i\sim N(0,\sigma^2)\\
+\epsilon_i=Y_i-\B x_i\\
+L(\B,\sigma^2|\bm{y})=\prodn (2\pi\sigma^2)^{-1/2}\exp\left(-\dfrac{1}{2\sigma^2}(y_i-\B x_i)^2\right)\\
+=(2\pi\sigma^2)^{-n/2}\exp\left(-\dfrac{1}{2\sigma^2}\sumn(y_i-\B x_i)^2\right)\\
+=(2\pi\sigma^2)^{-n/2}\exp\left(-\dfrac{1}{2\sigma^2}\sumn(y_i^2-2\B y_ix_i+\B^2x_i^2)\right)\\
+\text{Writing } L(\B,\sigma^2|\bm{y}) \text{ in the form of }f(\bm{y}|\theta)=g(T(\bm{y})|\theta)h(\bm{y}):\\
+=(2\pi\sigma^2)^{-n/2}\exp\left(-\dfrac{\B^2\sumn x_i^2}{2\sigma^2}\right)\exp\left(-\dfrac{1}{2\sigma^2}\sumn y_i^2 +\dfrac{\B}{\sigma^2}\sumn y_ix_i\right)\\
+\text{where } h(\bm{y})=1 \text { and}\\ g(T(\bm{y})|\theta)=(2\pi\sigma^2)^{-n/2}\exp\left(-\dfrac{\B^2\sumn x_i^2}{2\sigma^2}\right)\exp\left(-\dfrac{1}{2\sigma^2}\sumn y_i^2 +\dfrac{\B}{\sigma^2}\sumn y_ix_i\right)\\
+T_1(y)=\sumn Y_i^2 \quad T_2(y)=\sumn x_iY_i\\
+\text{Thus } (\sumn Y_i^2,\sumn x_iY_i) \text{ is an SS for } (\B,\sigma^2)\\
+\end{multline*}
+	
+	\item 
+\begin{multline*}\\
+L(\B,\sigma^2|\bm{y})=(2\pi\sigma^2)^{-n/2}\exp\left(-\dfrac{\B^2\sumn x_i^2}{2\sigma^2}\right)\exp\left(-\dfrac{1}{2\sigma^2}\sumn y_i^2 +\dfrac{\B}{\sigma^2}\sumn y_ix_i\right)\\
+\ell(\B,\sigma^2|\bm{y})=-\dfrac{n}{2}\log(2\pi)-\dfrac{n}{2}\log(\sigma^2)-\dfrac{\B^2}{2\sigma^2}\sumn x_i^2-\dfrac{1}{2\sigma^2}\sumn y_i^2 +\dfrac{\B}{\sigma^2}\sumn y_ix_i\\
+\text{Fixing } \sigma^2:\\
+\dll{\B}=-\dfrac{\B}{\sigma^2}\sumn x_i^2+\dfrac{1}{\sigma^2}\sumn y_ix_i=0\\
+\dfrac{\B}{\sigma^2}\sumn x_i^2=\dfrac{1}{\sigma^2}\sumn y_ix_i\\
+\hb=\dfrac{\sumn y_ix_i}{\sumn x_i^2} \quad(\hb \text{ does not depend on } \sg^2)\\
+\dll{\B^2}=-\dfrac{1}{\sg^2}\sumn x_i^2<0 \quad \text{thus } \hb \text{ is a maximum}\\
+\text{Thus }\hb \text{ is the MLE}\\
+E(\hb)=E\left(\dfrac{\sumn y_ix_i}{\sumn x_i^2}\right)=\dfrac{\sumn x_i E(Y_i)}{\sumn x_i^2}=\dfrac{\sumx \B x_i}{\sumn x_i^2}=\B\\
+\text{Therefore } \hb \text{ is unbiased}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+E(\hb)=\B\\
+\text{Let } c_i=\dfrac{x_i}{\sum x_j^2} \text{ (constants)}\\
+\hb=\sumn c_i Y_i\\
+Var(\hb)=Var(\sumn c_i Y_i)=\sumn c_i^2 Var(Y_i)=\sumn \left(c_i^2\right) \sigma^2\\
+=\sumn\left(\dfrac{x_i}{\sum x_j^2}\right)^2 \sigma^2=\dfrac{\sumn x_i^2}{\left(\sum x_j^2\right)^2}\sg^2=\dfrac{\sg^2}{\sumn x_i^2}\\
+Var(\hb)=\dfrac{\sg^2}{\sumn x_i^2}\\
+\text{Since a linear combination of independent normal r.v.s is normally distributed:}\\
+\hb \sim N\left(\B,\dfrac{\sg^2}{\sumn x_i^2}\right)\\
+\end{multline*}
+	
+\end{enumerate}
+
+	\section*{Problem 4}
+	
+\begin{enumerate}[(a)]
+	
+	\item 	
+\begin{multline*}\\
+X_1,\dots,X_n\sim Pois(\mu) \quad u\in \{1,2\}\\
+W=\sumn X_i \quad V=(1+3n)W-W^2-2n^2\\
+E(V|\mu=1)=(1+3n)E(W|\mu=1)-E(W^2|\mu=1)-2n^2\\
+E(W)=n\mu\\
+E(W^2)=Var(W)+[E(W)]^2=n\mu+(n\mu)^2\\
+E(V|\mu=1)=(1+3n)(1n)-(1n+(1n))^2)-2n^2\\
+=n+3n^2-n-n^2-2n^2=0\\
+E(V|\mu=1)=0\\
+E(V|\mu=2)=(1+3n)(2n)-(2n+(2n)^2)-2n^2\\
+=2n+6n^2-2n-4n^2-2n^2=0\\
+E(V|\mu=2)=0\\
+\end{multline*}
+
+\pagebreak
+	\item 
+\begin{multline*}\\
+f(x_i|\mu)=\prodn f(x_i|\mu)=\prodn \dfrac{u^{x_i}e^{-\mu}}{x_i!}\\
+=\left(\prodn \dfrac{1}{x_i!}\right) \mu^{\sumx}e^{-n\mu}\\
+\text{Writing } f(x_i|\mu) \text{ in the form of:}\\
+h(x)c(\mu)\exp\left(\sum_{j=1}^{k}w_j(\theta)t_j(x)\right)\\
+=\left(\prodn \dfrac{1}{x_i!}\right)e^{-n\mu}\exp\left(\log(\mu)\sumx\right)\\
+\text{Where } h(x)=\prodn \dfrac{1}{x_i!}\quad
+c(\mu)=e^{-n\mu}\quad t(x)=\sumx \quad w(\mu)=\log(\mu)\\
+\text{Thus } W=\sumn X_i \text{ is a minimal sufficient statistic}\\
+\text{Let } g(W)=V\\
+\text{Then from part a we have: } E(g(W))=0\\
+\text{Since } g(W)=V \text{ is not always equal to zero, W is not complete}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\text{MLE of } \mu=\{1,2\}\\
+\ule = 1 \text{ or } \ule=2\\
+\ule=\begin{cases}
+1 \text{ if } L(\mu=1|x)>L(\mu=2|x)\\
+2 \text{ if } L(\mu=1|x)\leq L(\mu=2|x)
+\end{cases}\\
+L(\mu|x)=\prodn f(x_i|\mu)\\
+=\prodn \dfrac{u^{x_i}e^{-\mu}}{x_i!}\\
+=\left(\prodn \dfrac{1}{x_i!}\right) \mu^{\sumx}e^{-n\mu}\\
+L(\mu=1|x)=\left(\prodn \dfrac{1}{x_i!}\right)e^{-n}\\
+L(\mu=2|x)=\left(\prodn \dfrac{1}{x_i!}\right)2^{\sumx}e^{-2n}\\
+e^{-n}\stackrel{?}{=} 2^{\sumx}e^{-2n}\\
+e^n\stackrel{?}{=}2^{\sumx}\\
+n\neq \sumx log(2)\\
+\text{Thus the MLE is unique}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+\ell(\mu=1|x)=-n\\
+\ell(\mu=2|x)=\sumx\log(2)-2n\\
+E(\hat{\mu}|\mu=1)=P(\uh=1)+2P(\uh=2)\\
+P(\uh=1)=P(L(\mu=1|x)>L(\mu=2|x))\\
+=P(\ell(\mu=1|x)>\ell(\mu=2|x))\\
+=P(-n>\sumx\log(2)-2n)\\
+=P(n>\sumx\log(2))\\
+=P\left(\sumx <\dfrac{n}{\log(2)}\right)\\ \text{Since } \sumx \sim Pois(n\mu)=Pois(3)\\
+=ppois(lambda = 3,q = 3/log(2))\approx .815 \text{ (using R)}\\
+E(\hat{\mu}|\mu=1)=P(\uh=1)+2P(\uh=2)=.815+2*.185=1.185\\
+Var(\uh|\mu=1)=E(\uh-1.185)^2=(1-1.185)^2P(\uh=1)+(2-1.185)^2P(\uh=2)\\
+=(1-1.185)^2*.815+(2-1.185)^2*(1-.815)\approx .151\\
+E(\hat{\mu}|\mu=2)=P(\uh=1)+2P(\uh=2)\\
+P(\uh=2)=P(\ell(\mu=2|x)>\ell(\mu=1|x))\\
+=P\left(\sumx >\dfrac{3}{\log(2)}\right)\\
+\text{Since } \sumx \sim Pois(n\mu)=Pois(6)\\
+=ppois(lambda=6,q=3/log(2))\approx .285\\
+E(\uh|\mu=2)=.285+2*(1-.285)=1.715\\
+Var(\uh|\mu=2)=E(\uh-1.715)^2=(1-1.715)^2P(\uh=1)+(2-1.715)^2P(\uh=2)\\
+=(1-1.715)^2*(1-.715)+(2-1.715)^2*(.715)\approx .204\\
+\end{multline*}
+
+\end{enumerate}
+
+	\section*{Problem 5}
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+f(x_i|\theta)=(2\pi\theta)^{-1/2}e^{-\dfrac{(x_i-\theta)^2}{2\theta}}\\
+\log(x_i|\theta)=(-1/2)\log(2\pi)-(1/2)\log(\theta)-\dfrac{1}{2\theta}\left( x_i-\theta\right)^2\\
+=(-1/2)\log(2\pi)-(1/2)\log(\theta)-\dfrac{1}{2\theta} x_i^2+x_i-\dfrac{\theta}{2}\\
+\pderiv{}{\theta}\log(x_i|\theta)=-\dfrac{1}{2\theta}+\dfrac{1}{2\theta^2} x_i^2-\dfrac{1}{2}\\
+\pderiv{}{\theta^2}\log(x_i|\theta)=\dfrac{1}{2\theta^2}-\dfrac{1}{\theta^3} x_i^2=-\dfrac{1}{\theta^2}\left(\dfrac{x_i^2}{\theta}-\dfrac{1}{2}\right)\\
+nE\left[\dfrac{1}{\theta^2}\left(\dfrac{x_i^2}{\theta}-\dfrac{1}{2}\right)\right]\\
+=\dfrac{n}{\theta^2}\left(\dfrac{E(x_i^2)}{\theta}-\dfrac{1}{2}\right)\\
+=\dfrac{n}{\theta^2}\left(\dfrac{\theta+\theta^2}{\theta}-\dfrac{1}{2}\right)\\
+=\dfrac{n(2\theta+1)}{2\theta^2}\\
+CRLB=1/\dfrac{n(2\theta+1)}{2\theta^2}=\dfrac{2\theta^2}{n(2\theta+1)}\\
+\end{multline*}
+\pagebreak
+	\item 
+\begin{multline*}\\
+L(\theta|x)=\prodn(2\pi\theta)^{-1/2}e^{-\dfrac{(x_i-\theta)^2}{2\theta}}\\
+\ell(\theta|x)=(-n/2)\log(2\pi)-(n/2)\log(\theta)-\dfrac{1}{2\theta}\sumn\left( x_i-\theta\right)^2\\
+=(-n/2)\log(2\pi)-(n/2)\log(\theta)-\dfrac{1}{2\theta}\sumn x_i^2+\sumx-\dfrac{n\theta}{2}\\
+\dll{\theta}=-\dfrac{n}{2\theta}+\dfrac{1}{2\theta^2} \sumn x_i^2-\dfrac{n}{2}\\
+\text{let } t(x)=\dfrac{1}{n}\sumn x_i^2\\
+\dll{\theta}=\dfrac{n}{2\theta^2}\left(t(x)-(\theta^2+\theta)\right)=0\\
+\dfrac{n}{2\theta^2}t(x)=(\theta^2+\theta)\dfrac{n}{2\theta^2}\\
+\theta^2+\theta=t(x)\\
+\mle=(1/2)[(4t(x)+1)^{1/2}-1]\\
+\end{multline*}
+	\item 
+\begin{multline*}\\
+\text{Estimate } \theta \text{ with:} \begin{cases}
+\bar{X}=\dfrac{1}{n}\sumx\\
+S^2=\dfrac{1}{n-1}\sumn(x_i-\bar{x})^2\\
+\end{cases}\\
+Var(\bar{X})=\sigma^2/n=\theta/n\\
+Var(\chi^2_{n-1})=2(n-1)\\
+Var\left(\dfrac{n-1}{\sigma^2}S^2\right)=Var(\chi^2_{n-1})\\
+=\dfrac{(n-1)^2}{\sigma^4}Var(S^2)=2(n-1)\\
+Var(S^2)=\dfrac{2(n-1)\sigma^4}{(n-1)^2}=\dfrac{2\sigma^4}{n-1}=\dfrac{2\theta^2}{n-1}\\
+Var(\bar{X})<Var(S^2) \text{ when } \dfrac{\theta}{n}<\dfrac{2\theta^2}{n-1}\\
+Var(\bar{X})>Var(S^2) \text{ when } \dfrac{\theta}{n}>\dfrac{2\theta^2}{n-1}\\
+\dfrac{1}{n}<\dfrac{2\theta}{n-1}\\
+\theta>\dfrac{n-1}{2n}\\
+\text{Thus when } \theta > \dfrac{n-1}{2n} \ Var(S^2) \text{ is smaller}\\
+\text{When } \theta < \dfrac{n-1}{2n} \ Var(\bar{X}) \text{ is smaller}\\
+\text{Therefore one estimate is not uniformly better than the other}\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+T(X)=(1/n)\sumn X_i^2\\
+E\left((1/n)\sumn X_i^2\right)=\theta+\theta^2\\
+E(T(X))=\theta^2+\theta=\tau(\theta)\\
+\text{Thus for } \tau(\theta)=\theta^2+\theta, \ T(X) \text{ is an unbiased estimator}\\ 
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+X\sim N(\theta,\theta)\\
+\text{Let } Y=\dfrac{X_i \theta}{\sqrt{\theta}}\sim N(0,1)\\
+X_i=\sqrt{\theta}Y+\theta\\
+X_i^2=(\sqrt{\theta}Y+\theta)^2=\theta Y^2+2\theta\sqrt{\theta}Y+\theta^2\\
+Y^2\sim \chi^2_{1}\\
+Var(X_i^2)=Var(\theta Y^2+2\theta\sqrt{\theta}Y+\theta^2)\\
+=\theta^2(2)+4\theta^3(1)+0\\
+Var(X_i^2)=2\theta^2+4\theta^3\\
+\dfrac{1}{n^2}\sumn Var(X_i^2)=\dfrac{n}{n^2}(2\theta^2+4\theta^3)=\dfrac{2\theta^2+4\theta^3}{n}\\
+\dfrac{1}{n^2}\sumn Var(X_i^2)=Var\left(\dfrac{1}{n}\sumn X_i^2\right)=\dfrac{2\theta^2+4\theta^3}{n}\\ 
+\text{Thus } Var(T(X))=\dfrac{2\theta^2(2\theta+1)}{n}\\
+CRLB=\dfrac{\left(\dfrac{\partial(\theta^2+\theta)}{\partial \theta} \right)^2}{nE[(\pderiv{^2}{\theta^2}\log f(x|\theta))]}\\
+=\dfrac{(1+2\theta)^2}{nE[(\pderiv{^2}{\theta^2}\log f(x|\theta))]}\\
+\text{From part a we have: } nE[(\pderiv{^2}{\theta^2}\log f(x|\theta))^2]= \dfrac{n(2\theta+1)}{2\theta^2}\\
+CRLB=\dfrac{(1+2\theta)^2}{\left(\dfrac{n(2\theta+1)}{2\theta^2}\right)}\\
+CRLB=\dfrac{2\theta^2(2\theta+1)}{n}\\
+\text{Thus } T(X) \text{ has the smallest variance among unbiased estimators of } \tau(\theta)\\
+\end{multline*}
+	
+\end{enumerate}
+
+\end{flushleft}
+\end{document}

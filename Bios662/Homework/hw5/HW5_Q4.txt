@@ -1,0 +1,40 @@
+data Table6_12;
+  input Smoking $1-6 CupsCoffee $8-10 MIcase $12-14 count;
+cards;
+Never  GE5 Yes 7
+Never  LT5 Yes 55
+Never  GE5 No  31
+Never  LT5 No  269
+Former GE5 Yes 7
+Former LT5 Yes 20
+Former GE5 No  18
+Former LT5 No  112
+1-14   GE5 Yes 7
+1-14   LT5 Yes 33
+1-14   GE5 No  24
+1-14   LT5 No  114
+15-24  GE5 Yes 40
+15-24  LT5 Yes 88
+15-24  GE5 No  45
+15-24  LT5 No  172
+25-34  GE5 Yes 34
+25-34  LT5 Yes 50
+25-34  GE5 No  24
+25-34  LT5 No  55
+35-44  GE5 Yes 27
+35-44  LT5 Yes 55
+35-44  GE5 No  24
+35-44  LT5 No  58
+45+    GE5 Yes 30
+45+    LT5 Yes 34
+45+    GE5 No  17
+45+    LT5 No  17
+;
+
+
+
+Table6_12<-array(c(7,55,31,269,7,20,18,112,7,33,24,114,40,88,45,172,
+   34,50,24,55,27,55,24,58,30,34,17,17),
+      dim=c(2,2,7),
+      dimnames=list(CupsCoffee=c("GE5","LT5"),MIcase=c("Yes","No"),
+         Smoking=c("Never","Former","1-14","15-24","25-34","35-44","45+")))

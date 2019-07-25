@@ -1,0 +1,227 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 12}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+\section*{Problem 1}
+WTS: For any r.v. X, if $g(x)$ is a convex function, then: $Eg(X)\geq g(EX)$\\
+Let $g(x)$ be a convex function\\
+Suppose $l(x)=a+bx$ is a line tangent to $g(x)$ at $x=EX$\\
+Since g is convex, it lies above the line $l(x)$\\
+Which means $g(x)>l(x) \ \forall x$ except at $x=EX$\\
+Thus $E(g(x))\geq E(l(x))=E(a+bX)=a+bE(X)=l(E(X))=g(E(X))$\\
+Then $Eg(X)>g(EX)$ unless $P(X=EX)=1$\\
+\section*{Problem 2}
+\begin{enumerate}[(a)]
+\item 
+\begin{align*}
+f_{XY}(x,y)&=\left(2\pi \sigma_X \sigma_Y \sqrt{1-\rho^2} \right)^{-1}\\
+&*\exp{\left\{-\dfrac{1}{2(1-\rho^2)}\left[\left(\dfrac{x-\mu_X}{\sigma_X} \right)^2- 2\rho \left(\dfrac{x-\mu_X}{\sigma_X} \right)\left(\dfrac{y-\mu_Y}{\sigma_Y} \right)+\left(\dfrac{y-\mu_Y}{\sigma_Y} \right)^2 \right] \right\}}\\
+f_X(x)&=\int_{-\infty}^{\infty}f_{XY}(x,y) \ dy\\
+\text{Let } z&=\dfrac{y-\mu_Y}{\sigma_Y} \quad dy=\sigma_Y dz \quad v=\dfrac{x-\mu_X}{\sigma_X}\\
+f_X(x)&=\int_{-\infty}^{\infty}\dfrac{1}{2\pi \sigma_X \sigma_Y \sqrt{1-\rho^2}}\exp{\left\{-\dfrac{1}{2(1-\rho^2)}\left[v^2-2\rho vz+z^2  \right] \right\}}\sigma_Y \ dz\\
+&=\dfrac{\exp{ \left(-\dfrac{v^2}{2(1-\rho^2)}\right)}}{2\pi \sigma_X \sqrt{1-\rho^2}}\int_{-\infty}^{\infty}\exp{\left\{-\dfrac{1}{2(1-\rho^2)}\left[-2\rho vz+z^2  \right] \right\}} \ dz\\
+&=\dfrac{\exp{ \left(-\dfrac{v^2}{2(1-\rho^2)}\right)}}{2\pi \sigma_X \sqrt{1-\rho^2}}\int_{-\infty}^{\infty}\exp{\left\{-\dfrac{1}{2(1-\rho^2)}\left[-2\rho vz+z^2+\rho^2v^2-\rho^2v^2  \right] \right\}} \ dz\\
+&=\dfrac{\exp{ \left(-\dfrac{v^2}{2(1-\rho^2)}\right)}}{2\pi \sigma_X \sqrt{1-\rho^2}}\int_{-\infty}^{\infty}\exp{\left\{-\dfrac{1}{2(1-\rho^2)}\left[(z-\rho v)^2-\rho^2 v^2 \right] \right\}} \ dz\\
+&=\dfrac{\exp{ \left(-\dfrac{v^2}{2(1-\rho^2)}\right)}\exp{ \left(\dfrac{-\rho^2 v^2}{2(1-\rho^2)}\right)}}{2\pi \sigma_X \sqrt{1-\rho^2}}\int_{-\infty}^{\infty}\exp{\left\{-\dfrac{1}{2(1-\rho^2)}(z-\rho v)^2 \right\}} \ dz\\
+&=\dfrac{e^{-v^2/2}}{2\pi \sigma_X \sqrt{1-\rho^2}}\int_{-\infty}^{\infty}\exp{\left\{-\dfrac{1}{2(1-\rho^2)}(z-\rho v)^2 \right\}} \ dz\\
+&\text{Since the integrand is the } N(\rho v,1-\rho^2) \text{ we have:}\\
+f_X(x)&=\dfrac{e^{-v^2/2}}{2\pi \sigma_X \sqrt{1-\rho^2}}\sqrt{2\pi}\sqrt{1-\rho^2}\\
+&=\dfrac{e^{-v^2/2}}{\sqrt{2\pi} \sigma_X }\\
+f_X(x)&=\dfrac{1}{\sqrt{2\pi}\sigma_X}\exp{\left(-\dfrac{(x-\mu_X)^2}{2\sigma_X^2}\right)}\\
+&\text{Which is the } N(\mu_X,\sigma^2_X) \text{ pdf}
+\end{align*}
+\item 
+\begin{multline*}
+\text{WTS: } f(Y|X)(y|x)=\dfrac{1}{\sqrt{2\pi}\sqrt{1-\rho^2}\sigma_Y}e^{\dfrac{-[y-\mu_Y-(\rho\sigma_Y /\sigma_X)(x-\mu_X)]^2}{2\sigma^2_Y(1-\rho^2)}}\\
+f(Y|X)(y|x)=\dfrac{f_{XY}(x,y)}{f_X(x)}\\
+=\dfrac{\dfrac{1}{2\pi \sigma_X \sigma_Y \sqrt{1-\rho^2}}
+	\exp{\left\{-\dfrac{1}{2(1-\rho^2)}\left[\left(\dfrac{x-\mu_X}{\sigma_X} \right)^2- 2\rho \left(\dfrac{x-\mu_X}{\sigma_X} \right)\left(\dfrac{y-\mu_Y}{\sigma_Y} \right)+\left(\dfrac{y-\mu_Y}{\sigma_Y} \right)^2 \right] \right\}}}{\dfrac{1}{\sqrt{2\pi}\sigma_X}\exp{\left(-\dfrac{(x-\mu_X)^2}{2\sigma_X^2}\right)}}\\
+=\dfrac{\exp{\left\{-\dfrac{1}{2(1-\rho^2)}\left[\left(\dfrac{x-\mu_X}{\sigma_X} \right)^2- 2\rho \left(\dfrac{x-\mu_X}{\sigma_X} \right)\left(\dfrac{y-\mu_Y}{\sigma_Y} \right)+\left(\dfrac{y-\mu_Y}{\sigma_Y} \right)^2 \right] \right\}}}{\sqrt{2\pi}\sigma_Y \sqrt{1-\rho^2}\exp{\left(-\dfrac{(x-\mu_X)^2}{2\sigma_X^2}\right)}}\\
+=\dfrac{1}{\sqrt{2\pi}\sigma_Y \sqrt{1-\rho^2}}e^{\left\{-\dfrac{1}{2(1-\rho^2)}\left[\left(\dfrac{x-\mu_X}{\sigma_X} \right)^2- 2\rho \left(\dfrac{x-\mu_X}{\sigma_X} \right)\left(\dfrac{y-\mu_Y}{\sigma_Y} \right)+\left(\dfrac{y-\mu_Y}{\sigma_Y} \right)^2 \right]+\dfrac{(x-\mu_X)^2}{2\sigma_X^2} \right\}}\\
+=\dfrac{1}{\sqrt{2\pi}\sigma_Y \sqrt{1-\rho^2}}e^{\left\{-\dfrac{1}{2(1-\rho^2)}\left[\left(\dfrac{x-\mu_X}{\sigma_X} \right)^2-(1-p^2)\dfrac{(x-\mu_X)^2}{\sigma_X^2}- 2\rho \left(\dfrac{x-\mu_X}{\sigma_X} \right)\left(\dfrac{y-\mu_Y}{\sigma_Y} \right)+\left(\dfrac{y-\mu_Y}{\sigma_Y} \right)^2 \right] \right\}}\\
+=\dfrac{1}{\sqrt{2\pi}\sigma_Y \sqrt{1-\rho^2}}e^{\left\{-\dfrac{1}{2(1-\rho^2)}\left[\rho^2\left(\dfrac{x-\mu_X}{\sigma_X} \right)^2- 2\rho \left(\dfrac{x-\mu_X}{\sigma_X} \right)\left(\dfrac{y-\mu_Y}{\sigma_Y} \right)+\left(\dfrac{y-\mu_Y}{\sigma_Y} \right)^2 \right] \right\}}\\
+=\dfrac{1}{\sqrt{2\pi}\sigma_Y \sqrt{1-\rho^2}}e^{\left\{-\dfrac{1}{2(1-\rho^2)}\left[ \left(\dfrac{y-\mu_Y}{\sigma_Y} \right)-\rho\left(\dfrac{x-\mu_X}{\sigma_X} \right) \right]^2 \right\}}\\
+=\dfrac{1}{\sqrt{2\pi}\sigma_Y \sqrt{1-\rho^2}}e^{\left\{-\dfrac{1}{2\sigma^2_Y(1-\rho^2)}\left[y-\mu_Y-(\rho\sigma_Y /\sigma_X)(x-\mu_X) \right]^2 \right\}}\\
+\text{Which is the pdf of } N[\mu_Y+\rho(\sigma_Y/\sigma_X)(x-\mu_X),\sigma^2_Y(1-\rho^2)]
+\end{multline*}
+\item 
+\begin{multline*}
+E(a_X+b_Y)=aEX+bEY=a\mu_X+b\mu_Y\\
+Var(a_X+b_Y)=a^2Var(X)+b^2Var(Y)+2abCov(X,Y)\\
+=a^2\sigma_X^2+b^2\sigma^2_Y+2ab\rho\sigma_X\sigma_Y\\
+\text{Starting with the standard bivariate normal pdf we have :}\\
+f_{XY}(x,y)=\dfrac{1}{2\pi\sqrt{1-\rho^2}}\exp{\left[\dfrac{x^2-2\rho xy+y^2}{2(1-\rho^2)}\right]}\\
+\text{Let } U=aX+bY \quad V=Y\\
+\text{Then } X=(1/a)(U-bV) \quad Y=V\\
+J=\begin{bmatrix}
+1/a & -b/a \\
+0 & 1
+\end{bmatrix}=1/a\\
+f_{UV}(u,v)=\dfrac{1}{2a\pi\sqrt{1-\rho^2}}\exp{\left[-\dfrac{[(1/a)(u-bv)]^2-2\rho (1/a)(u-bv)v+v^2}{2(1-\rho^2)}\right]}\\
+=\dfrac{1}{2a\pi\sqrt{1-\rho^2}}e^{-\dfrac{1}{2(1-\rho^2)}\left[\dfrac{u^2-2bvu+b^2v^2-2\rho auv+2\rho abv^2+a^2v^2}{a^2}\right]}\\
+=\dfrac{1}{2a\pi\sqrt{1-\rho^2}}e^{-\dfrac{1}{2(1-\rho^2)}\left[\dfrac{u^2-2uv(b+\rho a)+v^2(b^2+2\rho ab+a^2)}{a^2}\right]}\\
+=\dfrac{1}{2a\pi\sqrt{1-\rho^2}}e^{-\dfrac{1}{2(1-\rho^2)}\left[\dfrac{b^2+2\rho ab+a^2}{a^2}\left[\dfrac{u^2}{b^2+2\rho ab+a^2}-2uv\dfrac{(b+\rho a)}{b^2+2\rho ab+a^2}+v^2\right] \right]}\\
+\text{Which is the joint bivariate normal pdf since:}\\
+\mu_U=\mu_V=0 \quad \sigma_u^2=b^2+2\rho ab+a^2, \sigma^2_V=1\\
+\rho_{UV}=\dfrac{Cov(U,V)}{\sigma_U\sigma_V}=E((U-\mu_u)(V-\mu_v))=E(UV)=E(aXY+bY^2)\\
+Cov(U,V)=E((U-\mu_u)(V-\mu_v))=E(UV)=E(aXY+bY^2)=a\rho+b\\
+\rho_{UV}=\dfrac{a\rho+b}{\sqrt{a^2+b^2+2ab\rho}}\\
+1-\rho_{UV}^2=1-\left(\dfrac{a\rho+b}{\sqrt{a^2+b^2+2ab\rho}}\right)^2\\
+=1-\dfrac{a^2\rho^2+b^2+2ab\rho}{a^2+b^2+2ab\rho}\\
+=\dfrac{(1-p^2)a^2}{a^2+b^2+2ab\rho}=\dfrac{(1-p^2)a^2}{\sigma^2_U}\\
+\text{define } \rho_{UV}=\rho^*\\
+\text{Then } a\sqrt{1-\rho^2}=\sigma_U\sqrt{1-p^{*2}}\\
+\text{Remembering } \sigma_V^2=1 \text{ we have:}\\
+f_{UV}(u,v)=\dfrac{1}{2\sigma_U \sigma_V\pi\sqrt{1-\rho^{*2}}}e^{-\dfrac{1}{2(1-p^{*2})}\left[\dfrac{u^2}{\sigma_U^2}-2\rho^{*}\dfrac{uv}{\sigma_U\sigma_V}+\dfrac{v^2}{\sigma_V^2} \right]}\\
+\text{Which is the bivarate normal pdf}\\
+\text{From part a we know  that the marginal distribution of U is } N(\mu_u,\sigma^2_u)\\
+\text{Which means that the distribution of aX+bY} \text{ is } N(a\mu_x+b\mu_Y,a^2\sigma^2_X+b^2\sigma^2_Y+2ab\rho\sigma_X\sigma_Y)\\
+\text{Based on the mean and variance we calculated at the beginning of the problem}\\
+\end{multline*}
+\end{enumerate}
+\section*{Problem 3}
+\begin{enumerate}[(a)]
+\item
+\begin{multline*}
+\psi_{X,Y}(t,u)=e^{2t+3u+t^2+atu+2u^2}\\
+\text{Let } J=X+2Y \quad K=2X-Y\\
+M_{J,K}(l,m)=E(e^{lJ+mK})=E(e^{l(X+2Y)+m(2X-Y)})\\
+=E(e^{lX+2lY+2mX-mY})\\
+=E(e^{(l+2m)X+(2l-m)Y})\\
+=M_{X,Y}(l+2m,2l-m)\\
+=e^{2l+4m+8l-3m+(l+2m)^2+a(l+2m)(2l-m)+2(2l-m)^2}\\
+=e^{8l+m+l^2+4ml+4m^2+8l^2+2m^2-8lm+2al^2+3alm-2am^2}\\
+=e^{8l+m+9l^2+6m^2-4ml+2al^2+3alm-2am^2}\\
+M_{X+2Y}(l,0)=e^{8l+9l^2+2al^2}\\
+M_{2X-Y}(0,m)=e^{m+6m^2-2am^2}\\
+M_{X+2Y}(l)M_{2X-Y}(m)=e^{8l+9l^2+2al^2}e^{m+6m^2-2am^2}\\
+=e^{8l+9l^2+2al^2+m+6m^2-2am^2}\\
+\text{If independent: } M_{X+2Y,2X-Y}(l,m)=M_{X+2Y}(l)M_{2X-Y}(m)\\
+e^{8l+9l^2+2al^2+m+6m^2-2am^2}=e^{8l+m+9l^2+6m^2-4ml+2al^2+3alm-2am^2}\\
+0=3alm-4ml\\
+0=(3a-4)ml \quad 3a-4=0\\
+a=4/3\\
+\end{multline*}
+\item 
+\begin{multline*}
+\text{Let } Z=(2X-Y)-(X+2Y)\\
+P(X+2Y<2X-Y)=P(Z>0)=P(X-3Y>0)\\
+M_Z(\theta)=M_{X-3Y}(\theta)=M_{X,Y}(\theta,-3\theta)\\
+=e^{2\theta-9\theta+\theta^2+(4/3)(-3\theta^2)+18\theta^2}\\
+=e^{-7\theta+15\theta^2}\\
+\text{This is in the form of the mgf of the normal distribution}\\
+e^{\mu t+(1/2)\sigma^2t^2}\\
+\text{Plugging in } \mu=-7 \quad \sigma^2=30 \text{ we have:}\\
+e^{-7\theta+(1/2)30\theta^2}=e^{-7\theta+15\theta^2}\\ 
+\text{Thus } Z\sim N(-7,30)\\
+P(Z>0)= 1-pnorm(q=0,mean = -7,sd=sqrt(30))=.1006 \quad \text{(using R)}\\
+\end{multline*}
+\end{enumerate}
+\section*{Problem 4}
+\begin{enumerate}[(a)]
+\item
+\begin{multline*}
+X_1, X_2 \sim N(0,1) \text{ and independent}\\
+f_{X_1X_2}(x_1,x_2)=f_{X_1}(x_1)f_{X_2}(x_2)=\dfrac{1}{2\pi}e^{-x_1^2/2}e^{-x_2^2/2}\\
+Y_1=X_1-3X_2+2\\
+Y_2=2X_1-X_2-1\\
+\text{Then } X_1=(-1/5)Y_1+(3/5)Y_2+1=g_1(y_1,y_2)\\
+X_2=(-2/5)Y_1+(1/5)Y_2+1=g_2(y_1,y_2)\\
+J=\begin{bmatrix}
+-1/5 & 3/5\\
+-2/5 & 1/5
+\end{bmatrix}=1/5\\
+=f_{X_1X_2}(g_1(y_1,y_2),g_2(y_1,y_2))|J|\\
+=\dfrac{1}{2\pi}e^{(-1/2)((-1/5)y_1+(3/5)y_2+1)^2}e^{(-1/2)((-2/5)y_1+(1/5)y_2+1)^2}(1/5)\\
+=\dfrac{1}{10\pi}e^{(-1/2)\left[(-1/5)y_1+(3/5)y_2+1)^2+(-2/5)y_1+(1/5)y_2+1)^2\right]}\\
+f_{\boldsymbol{Y}}(y_1,y_2)=\dfrac{1}{10\pi}e^{(-1/10)[y_1^2+2y_1y_2-6y_1+2y_2^2+8y_2+10]}\\
+\end{multline*}
+\item
+\begin{multline*}
+f_{Y_2}(y_2)=\int_{-\infty}^{\infty}f_{\boldsymbol{Y}}(y_1,y_2) \ dy_1\\
+=\dfrac{1}{10\pi}\int_{-\infty}^{\infty}e^{(-1/10)[y_1^2+2y_1y_2-6y_1+2y_2^2+8y_2+10]} \ dy_1\\
+=\dfrac{1}{10\pi}\sqrt{10\pi}e^{-(1/10)(y_2+1)^2}\\
+f_{Y_2}(y_2)=\dfrac{1}{\sqrt{10\pi}}e^{-(1/10)(y_2+1)^2}\\
+f_{Y_1|Y_2}=\dfrac{f_{Y_1Y_2}}{f_{Y_2}}\\
+=\dfrac{1}{10\pi}e^{(-1/10)[y_1^2+2y_1y_2-6y_1+2y_2^2+8y_2+10]}/\left[\dfrac{1}{\sqrt{10\pi}}e^{-(1/10)(y_2+1)^2}\right]\\
+=\dfrac{1}{\sqrt{10\pi}}e^{(-1/10)[y_1^2+2y_1y_2-6y_1+2y_2^2+8y_2+10]}e^{(1/10)(y_2+1)^2}\\
+=\dfrac{1}{\sqrt{10\pi}}e^{-(1/10)[y_1^2+2y_1y_2-6y_1+2y_2^2+8y_2+10-y_2^2-2y_2-1]}\\
+f_{Y_1|Y_2}=\dfrac{1}{\sqrt{10\pi}}e^{-(1/10)[y_1^2+2y_1y_2-6y_1+y_2^2+6y_2+9]}\\
+\end{multline*}
+\end{enumerate}
+\section*{Problem 5}
+\begin{multline*}
+\text{Let } f_x(x)=\dfrac{1}{\theta}\\
+\text{Then } F_X(x)=\int_{0}^{x}\dfrac{1}{\theta}\ \dx=\dfrac{x}{\theta} \quad 0<x<\theta\\
+\text{Let } Y=X_{(n)}, \ Z=X_{(1)}\\
+\text{Then using theorem 5.4.6:}\\
+f_{Z,Y}(z,y)=\dfrac{n!}{0!(n-2)!0!}\dfrac{1}{\theta}\dfrac{1}{\theta}\left(\dfrac{z}{\theta}\right)^0\left(\dfrac{y-z}{\theta}\right)^{n-2}\left(1-\dfrac{y}{\theta}\right)^0\\
+=n(n-1)\dfrac{1}{\theta^2}\left(\dfrac{1}{\theta}(y-z)\right)^{n-2}\\
+=n(n-1)\dfrac{1}{\theta^2}\dfrac{1}{\theta^{n-2}}(y-z)^{n-2}\\
+f_{Z,Y}(z,y)=\dfrac{n(n-1)}{\theta^n}(y-z)^{n-2} \quad 0<z<y<\theta\\
+\text{Let } W=Z/Y \quad Q=Y\\
+\text{Then } Y=Q \quad Z=WQ\\
+|J|=\begin{bmatrix}
+1 & 0 \\
+w & q
+\end{bmatrix}=q\\
+\text{Thus we have: }\\
+f_{W,Q}(w,q)=\dfrac{n(n-1)}{\theta^n}(q-wq)^{n-2}(q)\\
+=\dfrac{n(n-1)}{\theta^n}(q(1-w))^{n-2}(q)\\
+=\dfrac{n(n-1)}{\theta^n}(1-w)^{n-2}q^{n-2}(q)\\
+f_{W,Q}(w,q)=\dfrac{n(n-1)}{\theta^n}(1-w)^{n-2}q^{n-1} \quad 0<w<1, \ 0<q<\theta\\
+f_{W,Q}(w,q)=g(w)h(q)=\left[\dfrac{n(n-1)}{\theta^n}(1-w)^{n-2}\right]\left[q^{n-1}\right]\\
+\text{Since } f_{W,Q}(w,q) \text{ can be factored into functions of w and q, W and Q are independent}\\
+\text{and since } W=\dfrac{X_{(1)}}{X_{(n)}}, \quad  Q=X_{(n)}\\
+\text{Thus } \dfrac{X_{(1)}}{X_{(n)}} \text{ and } X_{(n)} \text{ are independent random variables}\\
+\end{multline*}
+\section*{Problem 6}
+\begin{multline*}
+\text{Assume } X_1 \text{ and } X_2 \text{ are iid } geom(p) \text{ random variables}\\
+\text{WTS: } X_{(1)} \text{ and } X_{(2)}-X_{(1)} \text{ are independent}\\
+\text{Let the PMFs of } X_1 \text{ and } X_2 \text{ be:}\\
+f_X(x)=(1-p)^{x-1}p\\
+\text{Then } F_X(x)=1-(1-p)^x\\
+\text{Let } Y=X_{(1)} \quad Z=X_{(2)}\\
+f_{Y,Z}(y,z)=\dfrac{n!}{(1-1)!(2-1-1)!(n-2)!}p(1-p)^{y-1}p(1-p)^{z-1}\\
+*[1-(1-p)^y]^{1-1}[(1-(1-p)^z)-(1-(1-p)^y)]^{2-1-1}[1-(1-(1-p)^z)]^{n-2}\\
+=\dfrac{n!}{(n-2)!}p(1-p)^{y-1}p(1-p)^{z-1}[(1-p)^z]^{n-2}\\
+f_{Y,Z}(y,z)=n(n-1)p^2(1-p)^{z(n-1)+y-2}\\
+\text{Let } V=Z-U \quad U=Y\\
+\text{Then } Z=V+U \quad Y=U\\
+|J|=\begin{bmatrix}
+1&1\\
+0&1
+\end{bmatrix}=1\\
+f_{U,V}(u,v)=n(n-1)p^2(1-p)^{(v+u)(n-1)+u-2}\\
+=n(n-1)p^2(1-p)^{vn-v+un-2}\\
+f_{U,V}(u,v)=g(u)h(v)=[n(n-1)p^2(1-p)^{vn-v}][(1-p)^{un-2}]\\
+\text{Since } f_{U,V}(u,v) \text{ can be factored into functions of u and v, U and V are independent}\\
+\text{and since } U=X_{(1)}, \quad  V=X_{(2)}-X_{(1)}\\
+\text{Thus }  X_{(1)} \text{ and } X_{(2)}-X_{(1)} \text{ are independent}\\
+\end{multline*}
+\end{flushleft}
+\end{document}

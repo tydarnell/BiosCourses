@@ -1,0 +1,196 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 8}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\begin{document}
+\begin{flushleft}
+\chead{Problems 1-5}
+\section*{Problem 1}
+Let $X \sim N(\mu,\sigma^2)$\\
+Then $X=\sigma(z)+\mu$\\
+From theorem 4.8 we know:\\
+$\phi_{aX+b}(t)=e^{ibt}\phi_X(at)$\\
+The characteristic function standard normal distribution $Z\sim N(0,1)$ is:\\
+$\phi_Z(t)=e^{-t^2/2}$\\
+Plugging in $a=\sigma$ and $b=\mu$ into theorem 4.8 we have:\medbreak
+$\phi_X(t)=\phi_{\sigma Z+\mu}(t)=e^{i\mu t}\phi_Z(\sigma t)$\\
+$\phi_X(t)=e^{i\mu t}e^{-(\sigma t)^2/2}=e^{i\mu t-\sigma ^2 t^2/2}$
+\section*{Problem 2}
+\begin{align*}
+p_X(k)&=\begin{cases}
+e^{-\lambda}\lambda^k/k! \quad& k=0,1,2,\dots\\
+0 \quad& \text{otherwise}\\
+\end{cases}\\
+&\text{We can write:}\\
+\dfrac{P(X=k)}{P(X=k-1)}&=\dfrac{\lambda}{k}\\
+p_X &\text{ is increasing monotonically for } \dfrac{\lambda}{k}>1\\
+p_X &\text{ is decreasing monotonically for } \dfrac{\lambda}{k}<1\\
+\text{Let } i&= \text{the largest integer value not exceding } \lambda\\
+\text{Thus } p_x& \text{ is increasing for } k=0,1,\dots, i\\
+\text{and } p_x& \text{ is decreasing for } k=i+1,i+2,\dots\\ 
+\text{Since }& p_X(i)\geq p_X(k) \ \forall \ k \text{ in the support of X} \\
+p_X &\text{ has a maximum at } k=i\\
+&\text{Since the Poisson distribution is unimodal, i is also the mode} 
+\end{align*}
+\section*{Problem 3}
+A car must pass at t=4 seconds so that the pedestrian does not start crossing before 4 seconds and no cars can pass at t=5,6,7 seconds in order for the pedestrian to only have to wait 4 seconds before crossing.\\
+Thus we have: $p(1-p)^3$\\
+Looking at the first 3 seconds, at least one car must pass during the period so the pedestrian does not start crossing immediately.\\
+The probability of this is: $1-(1-p)^3$\\
+Multiplying the two probabilities together we have:\\
+$(1-(1-p)^3)p(1-p)^3$\\
+\section*{Problem 4}
+The probability of a success is .8 if the new and old drugs are equally effective. Assuming all trials are independent we can use the binomial distribution
+\begin{align*}
+P(X\geq 85)&=\sum_{85}^{100}{100 \choose k}.8^k .2^{100-k} = .1285055\\
+\end{align*}
+Since the probability of observing 85 or more success is almost $13\%$, this is not that unlikely so we cannot conclude the new drug is more effective.
+\pagebreak
+\section*{Problem 7}
+\chead{Problems 6-10}
+\begin{enumerate}[(a)]
+	\item
+	There are ${N\choose 4}$ ways to select 4 packets of cocaine over ${N+M \choose 4}$ total ways to select 4 packets.
+	The probability of selecting 4 packets of cocaine is $\dfrac{{N\choose 4}}{{N+M \choose 4}}$\\
+	There are ${M\choose 2}$ ways to select 2 non cocaine packets after selecting 4 cocaine packets over ${N+M-4 \choose 2}$ total ways to select 2 packets after having already selected 4 packets.\\
+	The probability of selecting 2 non cocaine packets is $\dfrac{{M\choose 2}}{{N+M-4 \choose 2}}$\\
+	Thus the probability the defendant is innocent equals the above probabilities multiplied together.\\
+	\[P(\text{Defendent Innocent})=\dfrac{{N\choose 4}{M \choose 2}}{{N+M\choose 4}{N+M-4 \choose 2}}
+	\]
+	\item 
+	Since $M=496-N$ we have:
+	\begin{align*}
+	\dfrac{{N\choose 4}{496-N \choose 2}}{{496\choose 4}{492 \choose 2}}& \quad N=4,\dots,496\\
+	\dfrac{P_{N+1}}{P_N}&=\dfrac{{N+1\choose 4}{496-N-1 \choose 2}}{{N\choose 4}{496-N \choose 2}}\\
+	&=\dfrac{(N+1)}{(N-3)}\dfrac{(494-N)}{(496-N)}\\
+	\text{Plugging in } N&=331 \text{ we have }:\\
+	\dfrac{(331+1)(494-331)}{(331-3)(496-331)}&\approx 1.00547>1\\
+	\text{Plugging in } N&=332 \text{ we have }:\\
+	\dfrac{(332+1)(494-332)}{(332-3)(496-332)}&\approx .9998<1\\
+	\text{Thus } N&=331 \text{ is a maximum }\\
+	\text{Plugging in } N&=331 \text{ into the the original equation we get:}\\
+	\dfrac{{331\choose 4}{496-331 \choose 2}}{{496\choose 4}{492 \choose 2}}& = .02208168\approx .022\\
+	\end{align*}
+	The maximum innocence probability is .022 and this is attained at N=331 
+\end{enumerate}	
+\section*{Problem 9}
+\begin{align*}
+&\text{WTS: Limiting } r \to \infty, \ p \to 1, \ r(1-p) \to \lambda\\
+&\text{In the Negative Binomial mgf: } M(t)=\left(\dfrac{p}{1-(1-p)e^t}\right)^r\\
+&\text{We have the Poisson mgf: } M(t)=e^{\lambda(e^t-1)}\\
+\text{Let } a&=r(1-p) \text{ then we have:}\\
+M(t)&=\left(\dfrac{1-a/r}{1-(a/r)e^t}\right)^r\\
+&=\left(\dfrac{1-(a/r)e^t+(a/r)e^t-(a/r)}{1-(a/r)e^t}\right)^r\\
+&=\left(\dfrac{(1-(a/r)e^t)+(a/r)(e^t-1)}{1-(a/r)e^t}\right)^r\\
+&=\left(\dfrac{r(1-(a/r)e^t)+a(e^t-1)}{r(1-(a/r)e^t)}\right)^r\\
+&=\left(1+\dfrac{a(e^t-1)}{r(1-(a/r)e^t)}\right)^r\\
+&=\left(1+\dfrac{\dfrac{a(e^t-1)}{{1-(a/r)e^t}}}{r}\right)^r\\
+\text{Let } a_n&=\dfrac{a(e^t-1)}{{1-(a/r)e^t}}\\
+&\text{applying the limits:}\\
+&a_n \text{ goes to } \dfrac{\lambda(e^t-1)}{1-(1-1)e^t}\\ 
+&=\lambda(e^t-1)\\
+&\text{And since we know from Lemma(2.3.14) that:}\\
+\lim \limits_{n\to \infty}& (1+\dfrac{a_n}{n})^n=e^a\\
+\text{where } a_n& \text{ is a sequence where  } \lim \limits_{n\to \infty}a_n=a\\
+&\left(1+\dfrac{a_n}{r}\right)^r \text{ goes to } 
+e^{\lambda(e^t-1)}\\
+&\text{ Which is the Poisson mgf}\\
+&\text{Thus the Negative Binomial mgf converges to the Poisson mgf}
+\end{align*}
+\section*{Problem 10}
+\begin{enumerate}[(a)]
+\item
+\begin{align*}
+\text{WTS: } \Gamma(a+1)&=a \Gamma(a)\\
+\Gamma(a+1)&=\int_{0}^{\infty}t^ae^{-t} \ dt\\
+&=\bigg|_{0}^{\infty}-t^a e^{-t}+a\int_{0}^{\infty}t^{a-1}e^{-t} \ dt\\
+\text{since } \Gamma(a)&=\int_{0}^{\infty}t^{a-1}e^{-t} \ dt \text{ we have:}\\
+&=0+a\Gamma(a) =a\Gamma(a)
+\end{align*}
+\item 
+\begin{align*}
+ \Gamma(1/2)&=\int_{0}^{\infty}t^{1/2-1}e^{-t} \ dt=\int_{0}^{\infty}t^{-1/2}e^{-t}\\
+\text{doing a change of variables where } u&=\sqrt{2t}, \ t=u^2/2, \ du= t^{-1/2}/\sqrt{2} \text{ we have:}\\
+&\int_{0}^{\infty}\sqrt{2}e^{-u^2/2} \ du\\
+&\text{from (3.3.14) we know:}\\
+\int_{0}^{\infty}e^{-u^2/2} \ du&=\sqrt{\pi/2} \text{ so we have:}\\
+&\sqrt{\pi/2}\sqrt{2}=\sqrt{\pi}
+\end{align*} 
+\end{enumerate}
+\pagebreak
+\section*{Problem 11}
+\chead{Problems 11-15}
+Let $X\sim binom(1000,1/6)$\\
+Using the normal approximation to the binomial\\
+$p=1/6 \quad n=1000 \quad \mu =np=1000*1/6=500/3$\\
+$\sigma=\sqrt{(500/3)(5/6)}=\sqrt{1250}/3$\\
+then we have $Y\sim normal(500/3,\sqrt{1250}/3)$\\
+$P(150 \leq Y\leq 200)=P(Y\leq 200)-P(Y\leq 150)$\\
+$=P(Z \leq (200+.5-500/3)/\sqrt{1250}/3)-P(Z \leq (150-.5-500/3)/\sqrt{1250}/3)$\\
+$=\Phi(2.87)-\Phi(-1.46)=\Phi(2.87)-1+\Phi(-1.46)=.9258$\\
+\section*{Problem 12}
+Let k by the number of years old the radio is\\
+$P(X>8+k|X>k)=P(X>8)$ \\
+by the memoryless property of the exponential distribution\medbreak
+$P(X>8)=\int_{8}^{\infty}(1/8)e^{-(1/8)x}\dx$\\
+$=\bigg|_{0}^{\infty}-e^{-(1/8)x}=e^{-1}$
+
+\section*{Problem 13}
+\begin{align*}
+M_X(t)&=E(e^{tx})=\int_{0}^{\infty}e^{tx}\lambda e^{-\lambda x} \dx\\
+&=\lambda\int_{0}^{\infty}e^{-(\lambda-t)x} \dx\\
+&=\dfrac{-\lambda}{\lambda-t}\bigg|_{0}^{\infty} \text{for } t<\lambda\\
+M_X(t)&=\dfrac{\lambda}{\lambda-t} \text{ for } t<\lambda\\
+M_X(t)&=\sum_{k=0}^{\infty}\dfrac{t^k}{k!}E(X^k)\\
+\text{Letting } E(X^k)&=\dfrac{k!}{\lambda^k} \text{ we have:}\\
+M_X(t)&=\sum_{k=0}^{\infty}\dfrac{t^k}{k!}\dfrac{k!}{\lambda^k}\\
+&=\sum_{k=0}^{\infty}\dfrac{t^k}{\lambda^k}=\dfrac{\lambda}{\lambda-t} \text{ by sum of infinite geometric series}\\
+\text{Thus } E(X^k)&=\dfrac{k!}{\lambda^k}
+\end{align*}
+\section*{Problem 14}
+\begin{align*}
+\text{WTS: If } X &\sim exp(\lambda), \ cX\sim exp(\lambda/c) \ c>0\\
+f_X(x)&=\lambda e^{-\lambda x} \ x\geq 0\\
+P(X\leq x)&=F(x)=1-e^{-\lambda x} \ x\geq 0\\
+\text{Let } Y&=cX\\
+\text{Then } P(Y\leq y)&=P(cX\leq y)=P(X \leq y/c)=F_X(y/c)=1-e^{-\lambda y/c}\\
+f_Y(y)&=\dfrac{d}{dy} 1-e^{-\lambda y/c}=\dfrac{\lambda}{c}e^{-\lambda y/c} \ y\geq 0\\
+\text{Thus } cX &\sim exp(\lambda/c)
+\end{align*}
+\section*{Problem 15}
+\begin{align*}
+F(s)&=1-\exp(-(\dfrac{s-v}{\alpha})^{\beta}) \quad s \geq v=0\\
+1-F(s)&=\exp(-(\dfrac{s-0}{\alpha})^{\beta})\\
+\log(1-F(s))&=\log(\exp(-(\dfrac{s}{\alpha})^{\beta}))=(-\dfrac{s}{\alpha})^{\beta}\\
+\log(1-F(s))^{-1}&=-(\dfrac{s}{\alpha})^{-\beta}\\
+\log(\log(1-F(s))^{-1})&=\log(-(\dfrac{s}{\alpha})^{-\beta})\\
+&=-\beta \log(-(\dfrac{s}{\alpha}))\\
+&=\beta\log(s)-\beta\log(\alpha)\\
+\text{Plotting this against } &\log(s) \text{ we have a linear function}\\
+P(s\leq \alpha)&=1-\exp(-(\dfrac{\alpha}{\alpha})^{\beta})\\
+&=1-\exp(-(1)^{\beta})=1-\exp(-1)\\
+&=.6321206
+\end{align*}
+
+\end{flushleft}
+\end{document}

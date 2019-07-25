@@ -1,0 +1,88 @@
+---
+title: "661"
+author: "Ty Darnell"
+date: "4/11/2019"
+output:
+  prettydoc::html_pretty:
+     theme: cayman
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,warning=F,message=F)
+```
+
+```{r,echo=F}
+library(tidyverse)
+library(ggfortify)
+```
+
+```{r,echo=F}
+za <- qnorm(.95)  
+p <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) 
+n1 <- function(x) pnorm(sqrt(1)*x- za )
+n4 <- function(x) pnorm(sqrt(4)*x- za )
+n16 <- function(x) pnorm(sqrt(16)*x- za )
+n64 <- function(x) pnorm(sqrt(64)*x- za )
+n100 <- function(x) pnorm(sqrt(100)*x- za )
+power1=p +
+    stat_function(
+          fun= n1,color="blue"
+          ) +
+    stat_function(
+          fun = n4,color="black"
+          ) +
+    stat_function(
+          fun = n16,color="red"
+          ) +
+   stat_function(
+          fun = n64,color="green"
+          ) +
+   stat_function(
+          fun = n100,color="orange"
+          )+
+    scale_x_continuous(limits = c(0, 1))+xlab(expression(theta))+ylab("Power")
+power1
+```
+
+```{r}
+p <- ggplot(data = data.frame(x = 0), mapping = aes(x = x)) 
+za2=qnorm(.975)
+za3=qnorm(1-.975)
+n1 <- function(x) pnorm(sqrt(1)*x- za2 )+1-pnorm(sqrt(1)*x- za3 )
+n4 <- function(x) pnorm(sqrt(4)*x- za2 )+1-pnorm(sqrt(14)*x- za3 )
+n16 <- function(x) pnorm(sqrt(16)*x- za2 )+1-pnorm(sqrt(16)*x- za3 )
+n64 <- function(x) pnorm(sqrt(64)*x- za2 )+1-pnorm(sqrt(64)*x- za3 )
+n100 <- function(x) pnorm(sqrt(100)*x- za2 )+1-pnorm(sqrt(100)*x- za3 )
+power2=p +
+    stat_function(
+          fun= n1,color="blue"
+          ) +
+    stat_function(
+          fun = n4,color="black"
+          ) +
+    stat_function(
+          fun = n16,color="red"
+          ) +
+   stat_function(
+          fun = n64,color="green"
+          ) +
+   stat_function(
+          fun = n100,color="orange"
+          )+
+    scale_x_continuous(limits = c(-1, 1))+xlab(expression(theta))+ylab("Power")
+power2
+```
+
+```{r}
+powerfun <- function(n,a){
+  function(x) {
+    pnorm(sqrt(n)*x- qnorm(1-a))}
+  }
+```
+
+```{r}
+plotpower=function(f){
+ p = ggplot(data = data.frame(x = 0), mapping = aes(x = x)) 
+p+stat_function(fun= f,color="blue")+scale_x_continuous(limits = c(0, 1))+xlab(expression(theta))+ylab("Power")}
+```
+

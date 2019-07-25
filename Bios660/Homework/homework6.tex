@@ -1,0 +1,433 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 6}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\yderiv}[1]{\frac{\mathrm{d}}{\mathrm{d}y} (#1)}
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\begin{document}
+\begin{flushleft}
+\chead{Problems 1-5}
+\section*{Problem 1}
+\begin{align*}
+p_K(k)=\begin{cases}
+\dfrac{1}{2n+1} \quad &\text{for k } \in \{-n,-n+1,\dots,n\}\\
+0 \quad &\text{otherwise}
+\end{cases}
+\end{align*}
+
+\begin{align*}
+p_{|K|}(|k|)=\begin{cases}
+\dfrac{2}{2n+1} \quad &\text{for } |k| \in \{1,\dots,n\}\\
+\dfrac{1}{2n+1} \quad &\text{for } |k|=0 \\
+0 \quad &\text{otherwise}
+\end{cases}
+\end{align*}
+$X=a^{|K|} \quad a>0$\\
+$Y=\log(X)=|K|\log(a)$\\
+PMF of Y:
+\begin{align*}
+p_Y(y)=\begin{cases}
+\dfrac{2}{2n+1} \quad &\text{for y } \in  \{\log(a),2\log(a),\dots,n\log(a) \}\\
+\dfrac{1}{2n+1} \quad &\text{if } y=0\\
+0 \quad &\text{otherwise}
+\end{cases}
+\end{align*}
+\section*{Problem 2}
+\begin{enumerate}[(a)]
+\item
+$\sum_{x=-3}^3=x^2/a=1$\\
+$\sum_{x=-3}^3=x^2=a$\\
+$a=2(1^2+2^2+3^2)=28$\\
+$a=28$\medbreak
+$E[X]=\sum_{x=-3}^{3}x^3/28$\\
+$=(1/28)[(-1)^3+(-2)^3+(-3)^3+0+1^3+2^3+3^3]=0$\\
+$E[X]=0$
+\item
+\begin{align*}
+Z&=(X-E[X])^2\\
+&=X^2-(2X)E[X]+(E[X])^2\\
+&=X^2-2X(0)+0^2\\
+Z&=X^2\\
+p_Z(z)&=\begin{cases}
+(2z)/28 \quad \text{if } z=1,4,9\\
+z/28 \quad \text{if } z=0\\
+\end{cases}
+\end{align*}
+\item 
+\begin{align*}
+E[X^2]&=\sum_{z:P(z)>0} p_Z(z)*z\\
+&=(1/14)1+(4/14)4+(9/14)9+(0/28)0\\
+&=1/14+16/14+81/14\\
+E[X^2]&=7\\
+Var(X)&=E[X^2]-(E[X])^2\\
+&=7-0^2\\
+Var(X)&=7
+\end{align*}
+\item
+\begin{align*}
+Var(x)&=\sum_{x=-3}^{3}(x-E[X])^2p_X(x)\\
+&=\sum_{x=-3}^{3}(x-0)^2p_X(x)\\
+&=\sum_{x=-3}^{3}x^2p_X(x)\\
+&=[9(9/28)+4(4/28)+1(1/28)]*2+0\\
+Var(X)&=7
+\end{align*}
+\end{enumerate}
+\section*{Problem 3}
+There are $a+b-1$ values:$\{2^a,a^{a+1},\dots,2^b\}$\medbreak
+$E[X]=\dfrac{\sum_{k=a}^{b}2^k}{b-a+1}$\medbreak
+We have a geometric series where r=2, n=a-b+1, $a_1=2^a$ \medbreak
+$\sum_{k=a}^{b}2^k=2^a\dfrac{1-2^{b-a+1}}{1-2}=2^{b-1}-2^a$\\
+$E[X]=\dfrac{2^{b+1}-2^a}{b-a+1}$\medbreak
+$Var(X)=E[X^2]-(E[X])^2$\\
+$E[X^2]=\dfrac{\sum_{k=a}^{b}(2^2)^k}{b-a+1}$\medbreak
+$E[X^2]=\dfrac{4^{b+1}-4^a}{3(b-a+1)}$\medbreak
+$Var(X)=\dfrac{4^{b+1}-4^a}{3(b-a+1)}-\left[\dfrac{2^{b-1}-2^a}{b-a+1}\right]^2$
+\section*{Problem 4}
+Let $X$ be a random variable where $X \sim Geom(p)$\\
+This is the distribution of candy bars eaten till the first success (getting the golden ticket)
+
+\begin{align*}
+f_X&=pq^{x-1}\\
+E[X]&=\sum_{x=1}^{\infty}x*pq^{x-1}\\
+&=\sum_{x=1}^{\infty}p\dfrac{d}{dq}(q^x)\\
+&=p\dfrac{d}{dq}\sum_{x=1}^{\infty}q^x \quad \text{since the series converges uniformly}\\
+&=p\dfrac{d}{dq}(\dfrac{1}{1-q}-1)\\
+&=p\dfrac{1}{(1-q)^2}=\dfrac{1}{p}\\
+E[X]&=\dfrac{1}{p}
+\end{align*}
+
+\begin{align*}
+E[X^2]&=\sum_{x=1}^{\infty}x^2q^{x-1}p\\
+&=\sum_{x=1}^{\infty}((x-1)+1)^2q^{x-1}p\\
+\text{since } ((x-1)+1)^2&=(x-1)^2+2(x-1)+1 \text{ we have:}\\
+&=\sum_{x=1}^{\infty}(x-1)^2 q^{x-1}p+\sum_{x=1}^{\infty}2(x-1) q^{x-1}p+\sum_{x=1}^{\infty}q^{x-1}p\\
+&=\sum_{x=1}^{\infty}(x-1)^2q^{x-1}p+[2\sum_{x=1}^{\infty}(x-1)q^{x-1}p]+1\\
+\text{let } i&=x-1\\
+&=\sum_{i=0}^{\infty}i^2q^{i}p+[2\sum_{i=0}^{\infty}iq^{i}p]+1\\
+\text{since i is just a letter}&\text{ we can replace it with x}\\
+&=[\sum_{x=1}^{\infty}x^2q^{x}p+0]+[2\sum_{x=1}^{\infty}xq^{x}p+0]+1\\
+&=q\sum_{x=1}^{\infty}x^2q^{x-1}p+[2q\sum_{x=1}^{\infty}xq^{x-1}p]+1\\
+&=qE[X^2]+2qE[X]+1\\
+\text{Since } E[X]&=\dfrac{1}{p}\\
+E[X^2]&=qE[X^2]+(2q)\dfrac{1}{p}+1\\
+(1-q)E[X^2]&=\dfrac{2q}{p}+1\\
+E[X^2]&=\dfrac{2q+p}{p^2}=\dfrac{q+1}{p^2}\\
+Var(X)&=\dfrac{q+1}{p^2}-\dfrac{1}{p^2}\\
+Var(X)&=\dfrac{q}{p^2}=\dfrac{1-p}{p^2}\\
+\end{align*}
+\pagebreak
+\section*{Problem 5}
+Let $X$ be a random variable where $X \sim Geom(1/2)$\\
+This is the distribution of coin tosses until the first success (getting a tails)\\
+$P\{X=n\}=p_X(n)=(1-p)^{n-1}p=p^n=(1/2)^n$\\
+Payout=$Y=2^n$\\
+$P\{Y=n\}=P\{X=n\}$\\
+Thus Y has the same PMF as X\\
+$E[Y]$ is the expected payout\\
+$E[Y]=\sum_{n=1}^{\infty}y \ p_Y(n)$ \\ $E[Y]=\sum_{n=1}^{\infty}2^n(1/2)^n=\sum_{n=1}^{\infty}1
+=\infty$\\
+$E[Y]=\infty$\\
+Even though the expected payout is infinite there is a very good chance of losing all of your money. Because of this I would not be willing to risk very much. I would be willing to pay \$4 to play since the expected number of tosses is 2.
+\pagebreak
+\section*{Problem 6}
+\chead{Problems 6-10}
+\begin{enumerate}[(a)]
+\item
+\begin{align*}
+Y&=X^2 \quad X=\sqrt{Y}\\
+f_X(x)&=1 \quad \text{for } 0<x<1\\
+f_Y(y)&=f_x(g^{-1}(y))\left|\yderiv{g^{-1}(y)} \right| \quad y \in \mathcal{Y}\\
+f_Y(y)&=(1)|(1/2)y^{-1/2}|\\
+f_Y(y)&=\dfrac{1}{2\sqrt{y}} \quad 0<y<1
+\end{align*}
+\item
+\begin{align*}
+f_X(x)&=\dfrac{(n+m+1)!}{n!m!}x^n(1-x)^m \quad 0<x<1\\
+Y&=g(X)=-\log(X)\\
+x&=e^{-y} \quad g^{-1}(y)=e^{-y}\\
+-\log(0)&=\infty \quad -log(1)=0\\
+0<&y<\infty\\
+f_Y(y)&=\begin{cases}
+f_X(g^{-1}(y))\left|\yderiv{g^{-1}(y)}\right|& \quad y \in \mathcal{Y}\\
+0& \quad \text{otherwise}\\
+\end{cases}\\
+f_Y(y)&=\begin{cases}
+f_X(e^{-y})\left|\yderiv{e^{-y}}\right|& \quad \quad 0<y<\infty\\
+0& \quad \text{otherwise}\\
+\end{cases}\\
+f_Y(y)&=\dfrac{(n+m+1)!}{n!m!}e^{-ny}(1-e^{-y})^{m}(e^{-y})\\
+f_Y(y)&=\dfrac{(n+m+1)!}{n!m!}e^{-y(n+1)}(1-e^{-y})^{m} \quad 0<y<\infty\\
+\end{align*}
+\item 
+\begin{align*}
+Y&=g(X)=e^x\\
+x&=log(y) \quad g^{-1}(y)=\log(y)\\
+f_X(x)&=\dfrac{1}{\sigma^2}xe^{-(x/\sigma)^2/2} \quad 0<x<\infty\\
+e^0&=1 \quad e^{\infty}=\infty\\
+1<&y<\infty\\
+f_Y(y)&=\begin{cases}
+f_X(\log(y))\left|\yderiv{\log(y)}\right|& \quad 1<y<\infty\\
+0& \quad \text{otherwise}\\
+\end{cases}\\
+f_Y(y)&=\dfrac{1}{\sigma^2}\log(y)e^{-(\log(y)/\sigma)^2/2}(1/y) \quad 1<y<\infty\\
+\end{align*}
+\end{enumerate}
+
+\section*{Problem 7}
+\begin{enumerate}[(a)]
+\item 
+Using theorem 2.1.8 we have:
+\begin{align*}
+A_0,A_1,A_2 &\text{ of } \chi\\
+A_0&=\{0\} \quad A_1=(-\infty,0) \quad A_2=(0,\infty)\\
+P(X \in A_0)&=0\\
+g_1(x)&=|x|^3=-x^3 \text{ on } A_1 \quad g_2(x)=|x|^3=x^3 \text{ on } A_2\\
+f_X(x)&=(1/2)e^{-|x|} \quad -\infty<x<\infty\\
+Y&=g_i(X)\\
+g_1^{-1}(X)&=-Y^{1/3}\\
+g_2^{-1}(X)&=Y^{1/3}\\
+f_Y(y)&=\sum_{i=1}^{k}f_X(g_i^{-1}(y))\left|\yderiv{g_i^{-1}(y)}\right| \quad y \in \mathcal{Y}\\
+f_Y(y)&=2*f_X(y^{1/3})\left|\yderiv{y^{1/3}}\right| \quad 0<y<\infty\\
+f_Y(y)&=2*(1/2)e^{-y^{1/3}}((1/3)y^{-2/3}) \quad 0<y<\infty\\
+f_Y(y)&=(1/3)e^{-y^{1/3}}(y^{-2/3}) \quad 0<y<\infty\\
+\int_{0}^{\infty}(1/3)e^{-y^{1/3}}(y^{-2/3}) dy&=\bigg|_{0}^{\infty} e^{-y^{1/3}}=0+1=1
+\end{align*}
+\item
+\begin{align*}
+A_0,A_1,A_2 &\text{ of } \chi\\
+A_0&=\{0\} \quad A_1=(-1,0) \quad A_2 = (0,1)\\
+P(X \in A_0)&=0\\
+Y&=g_i(X)\\
+g_1(x)&=1-X^2 \text{ on } A_1\\
+g_1^{-1}(x)&=-\sqrt{1-Y}\\
+g_2(x)&=1-X^2 \text{ on } A_2\\
+g_2^{-1}(x)&=\sqrt{1-Y}\\
+f_X(x)&=(3/8)(x+1)^2 \quad -1<x<1\\
+f_Y(y)&=\sum_{i=1}^{k}f_X(g_i^{-1}(y))\left|\yderiv{g_i^{-1}(y)}\right| \quad y \in \mathcal{Y}\\
+f_Y(y)&=(3/8)(\sqrt{1-y}+1)^2(1/2)(1-y)^{-1/2}\\
+&+(3/8)(-\sqrt{1-y}+1)^2(1/2)(1-y)^{-1/2}\\
+f_Y(y)&=(3/8)[(1-y)^{1/2}+(1-y)^{-1/2}] \quad 0<y<1\\
+\int_{0}^{1}(3/8)[(1-y)^{1/2}+(1-y)^{-1/2}] dy
+&=\bigg|_{0}^{1}(1/4)(1-y)^{1/2}(y-4)=0-(1/4*-4)=1
+\end{align*}
+\item
+\begin{align*}
+A_0,A_1,A_2 &\text{ of } \chi\\
+A_0&=\{0\} \quad A_1=(-1,0) \quad A_2 = (0,1)\\
+f_X(x)&=(3/8)(x+1)^2 \quad -1<x<1\\
+Y&=1-X^2 \text{ if } X\leq 0
+\quad Y=1-X \text{ if } X>0\\
+Y&=g_i(X)\\
+g_1(x)&=1-X^2 \text{ on } A_1\\
+g_1^{-1}(x)&=-\sqrt{1-Y}\\
+g_2(x)&=1-X \text{ on } A_2\\
+g_2^{-1}(x)&=1-Y\\
+f_Y(y)&=\sum_{i=1}^{k}f_X(g_i^{-1}(y))\left|\yderiv{g_i^{-1}(y)}\right| \quad y \in \mathcal{Y}\\
+f_Y(y)&=(3/8)(1-y+1)^2(1)\\
+&+(3/8)(-\sqrt{1-y}+1)^2(1/2)(1-y)^{-1/2}\\
+f_Y(y)&=(3/8)(2-y)^2+(3/16)(1-(1-y)^{1/2})^2(1-y)^{-1/2} \quad 0<y<1\\
+&\int_{0}^{1}(3/8)(2-y)^2+(3/16)(1-(1-y)^{1/2})^2(1-y)^{-1/2} dy\\
+&=(3/16)\int_0^{1}6-8y+2y^2+(1-y)^{1/2}+(1-y)^{-1/2} dy\\
+&=(3/16)\bigg|_0^1 6y-4y^2+(2/3)y^3-(2/3)(1-y)^{3/2}-(1-y)^{1/2}=1
+\end{align*}
+\end{enumerate}
+\section*{Problem 8}
+Define $Y=F_X(X)$, which means Y is uniformly distributed on $(0,1)$
+\begin{align*}
+f(x)&=\begin{cases}
+\dfrac{x-1}{2} \quad &1<x<3\\
+0 \quad &\text{otherwise}
+\end{cases}\\
+\int_{1}^{x}\dfrac{x-1}{2}&=(1/4)(x-1)^2\\
+u(x)&=F_X(x)=\begin{cases}
+0 \quad &x\leq 1\\
+(1/4)(x-1)^2 \quad &1<x<3\\
+1 \quad &x\geq 3
+\end{cases}
+\end{align*}
+\section*{Problem 9}
+Since part a and b are equivalent we will prove part b which means part a is true.
+\begin{align*}
+\text{Given: } &X \text{ is a discrete random variable with } cdf \ F_X(x) \text{ and } Y =F_X(X)\\
+\text{WTS: }& F_Y(y)\leq y \ \forall \ 0<y<1\\
+F_Y(y)&<y \text{ for some } 0<y<1\\
+\text{Proof: }&\\
+\text{Let } A_Y&=\{x:F_X(x)\leq y\}\\
+\text{Then } F_Y(y)&=P(Y\leq y)=P(F_X(x)\leq y)=P(x \in A_y)\\
+\text{Thus }\lim_{\uparrow x} F_X(x)&<\lim_{\downarrow x} F_X(x)\\
+\text{Therefore} P(x\in A_y)&=\lim_{\uparrow x}F_X(x)\\
+\text{Thus } &F_Y(y)\leq y \ \forall \ 0<y<1\\
+\text{and } F_Y(y)&<y \text{ for some } 0<y<1\\
+\end{align*}
+\section*{Problem 10}
+\begin{enumerate}[(a)]
+\item 
+\begin{align*}
+\int_{0}^{\infty}(1-F_X(x))\dx &=\int_{0}^{\infty}P(X>x)\dx\\
+\text{Since }  P(X>x)&= \int_{x}^{\infty}f_X(y) \ dy\\
+\int_{0}^{\infty}P(X>x)\dx&=\int_{0}^{\infty}\int_{x}^{\infty}f_X(y) \ dy \dx\\
+&=\int_{0}^{\infty}\int_{0}^{y}\dx f_X(y) dy\\
+&=\int_{0}^{\infty}(y-0)f_X(y)dy\\
+&=\int_{0}^{\infty}yf_X(y)dy\\
+&=E[X]
+\end{align*}
+\item 
+\begin{align*}
+\text{Since } 1-F_X(k)&=\sum_{k+1}^{\infty}f_X(k)\\
+\text{Then }
+\sum_{k=0}^{\infty}(1-F_X(k))&=\sum_{k=0}^{\infty}\left[\sum_{k+1}^{\infty}f_X(k)\right]\\
+&=\bigg(f_x(1)+f_x(2)+\dots\bigg)+\bigg(f_x(2)+f_x(3)+\dots\bigg)+\bigg(\dots \bigg)\\
+&=0+1f_x(1)+2f_x(2)+3f_x(3)+\dots\\
+&=\sum_{k=0}^{\infty}kf_x(k)=E[X]
+\end{align*}
+\end{enumerate}
+\pagebreak
+\section{Problem 11}
+\chead{Problems 11-14}
+\begin{enumerate}[(a)]
+\item
+\begin{align*}
+\int_{0}^{m}3x^2&=\int_{m}^{1}3x^2=1/2\\
+\bigg |_{0}^m x^3&=\bigg |_{m}^1 x^3=1/2\\
+m^3&=1-m^3=1/2\\
+m&=2^{-1/3}=0.7937005
+\end{align*}
+\item 
+\begin{align*}
+\int_{-\infty}^{m}\dfrac{1}{\pi(1+x^2)}&=\int_{m}^{\infty}\dfrac{1}{\pi(1+x^2)}=1/2\\
+(1/\pi)\bigg |_{-\infty}^{m}\arctan(x)&= (1/\pi)\bigg|_{m}^{\infty}\arctan(x)=1/2\\
+(1/\pi) (\arctan(m)+\pi/2)&=(1/\pi)(\pi/2-\arctan(m))=1/2\\
+\arctan(m)&=-\arctan(m)=0\\
+m&=\tan(0)=-\tan(0)=0\\
+m&=0
+\end{align*}
+\end{enumerate}
+\section*{Problem 12}
+\begin{align*}
+\text{WTS: If X is a continuous random variable: }&  \min_{a}E|X-a|=E|X-m|\\
+\text{We know } E[g(X)]&=\int_{-\infty}^{\infty}g(x)f_X(x)dx\\
+E|X-a|&=\int_{-\infty}^{\infty}|x-a|f(x)dx\\
+&=\int_{-\infty}^{a}-(x-a)f(x)\dx +\int_{a}^{\infty}(x-a)f(x)\dx\\
+&\text{Setting the first derivative equal to 0 we have:}\\
+\dfrac{d}{da}E|X-a|&=\int_{-\infty}^{a}f(x)\dx-\int_{a}^{\infty}f(x)\dx=0\\
+\text{The solution is: } \int_{-\infty}^{a}f(x)\dx&=\int_{a}^{\infty}f(x)\dx=1/2\\
+&\text{Which means a=m is the median by definition}\\
+&\text{taking the second derivative we have: }\\
+&\dfrac{d}{da}\left[\int_{-\infty}^{a}f(x)\dx-\int_{a}^{\infty}f(x)\dx\right]\\
+&=\dfrac{d}{da}\left[\bigg|_{-\infty}^{a}F(X)-\bigg|_{a}^{\infty}F(X)\right]\\
+&=\dfrac{d}{da}\left[F(a)-F(-\infty)-F(\infty)+F(a)\right]\\
+&=2f(a)>0\\
+\text{Thus } E|X-m|& \text{ is a minimum by the second derivative test}\\
+\text{Therefore } &\min_{a}E|X-a|=E|X-m|
+\end{align*}
+\section*{Problem 13}
+\begin{enumerate}[(a)]
+\item
+The uniform distribution pdf $U(0,1)$ is symmetric about $a=1/2$\\
+Standard Normal pdf is symmetric about $a=0$\\
+The Cauchy distribution pdf is symmetric about $a=0$
+\item
+\begin{align*}
+\text{Let } X &\sim f(x) \text{ be symmetric at point } a \\
+\text{That is } \forall \ \epsilon &>0, f(a+\epsilon)=f(a-\epsilon)\\
+\text{WTS } &\text{a is the median:}\\ \int_{-\infty}^{a}f(x)\dx&=\int_{a}^{\infty}f(x)\dx=1/2\\
+\textbf{Proof:}\text{ Let } \epsilon&=x-a \text{ Then:}\\
+\int_{a}^{\infty}f(x)\dx&=\int_{0}^{\infty}f(a+\epsilon) d\epsilon\\
+=\int_{0}^{\infty}f(a-\epsilon)d\epsilon&=\int_{-\infty}^{a}f(x)\dx\text{ (letting } x=a-\epsilon)\\
+\text{Thus } \int_{a}^{\infty}f(x)\dx&=\int_{-\infty}^{a}f(x)\dx\\
+\text{We know } \int_{-\infty}^{a}f(x)\dx+\int_{a}^{\infty}f(x)\dx&=\int_{-\infty}^{\infty}f(x)\dx=1\\
+\text{Therefore } \int_{-\infty}^{a}f(x)\dx&=\int_{a}^{\infty}f(x)\dx=1/2\\
+\text{Thus }a&=median
+\end{align*}
+\item 
+\begin{align*}
+\text{Given } X&\sim f(x) \text{ and symmetric and } E[X] \text{ exists}\\
+\text{Show } E[X]&=a\\
+E[X]-a&=E[X-a]\\
+&=\int_{-\infty}^{\infty}(x-a)f(x)\dx\\
+\text{From part b we know a}&\text{ is the median therefore:}\\
+&=\int_{-\infty}^{a}(x-a)f(x)\dx+\int_{a}^{\infty}(x-a)f(x)\dx\\
+\text{making the change of variables } \epsilon&=a-x \text{ for the first integral and } \epsilon=x-a \text{ for the second.}\\
+&=\int_{0}^{\infty} -\epsilon f(a-\epsilon) d\epsilon + \int_{0}^{\infty} \epsilon f(a+\epsilon) d\epsilon\\
+\text{Since } f(x) \text{ is symmetric } f(a+e)&=f(a-e) \forall \ \epsilon > 0\\
+\text{Thus we have: }& -\int_{0}^{\infty} \epsilon f(a-\epsilon) d\epsilon + \int_{0}^{\infty} \epsilon f(a-\epsilon) d\epsilon=0\\
+\text{Therefore } E[X]-a&=E[X-a]\\
+\text{Which means } E[X]&=a
+\end{align*}
+\item
+\begin{align*}
+\text{Let } f(x)&=e^{-x}, \ x\geq 0\\
+\text{WTS: For } a>\epsilon>0 \ &  f(a+\epsilon)\neq f(a-\epsilon)\\
+\text{Since } x\geq& 0 \text{ we only need to consider positive a}\\
+f(a-\epsilon)&=e^{-(a-\epsilon)}=e^{-a+\epsilon}\\
+f(a+\epsilon)&=e^{-(a+\epsilon)}=e^{-a-\epsilon}\\
+f(a-\epsilon)&>f(a+\epsilon)\\
+\text{Thus } f(x) \text{ is not symmetric about } a>0\\
+\end{align*}
+\item
+\begin{align*}
+f(x)&=e^{-x}, \ x\geq 0\\
+\text{WTS: } median&< E[X]\\
+\int_{0}^{m}e^{-x}&=\int_{m}^{\infty}=1/2\\
+\bigg|_{0}^{m}-e^{-x}&=\bigg|_{m}^{\infty}-e^{-x}=1/2\\
+-e^{-m}+e^0&=-e^{-\infty}+e^{-m}=1/2\\
+-e^{-m}+1&=e^{-m}=1/2
+log(e^{-m})&=log(1/2)\\
+m=-log(1/2)&=log(2)\\
+f(x)&=(1/\lambda)e^{-x/ \lambda}, \ \lambda=1\\
+E[X]&=\int_{0}^{\infty}e{-x/\lambda} \dx=\lambda=1\\
+log(2)&<1 \\
+\text{Therefore } median&<E[X]
+\end{align*}
+\end{enumerate}
+\section*{Problem 14}
+\begin{enumerate}[(a)]
+\item
+The standard normal distribution is unimodal and has a unique mode, 0. 
+\item 
+The standard uniform distribution $U(0,1)$ is unimodal and does not have a unique mode since every value in the interval is part of the mode.
+\item 
+Given $f(x)$ is symmetric at point a and unimodal\\
+WTS: a is the mode\\
+Two Cases:\\
+\textbf{Case 1:} Mode=b is unique\\
+Let a be the point of symmetry, $b=mode$\\
+Assume $a\neq b, \ a=b+\epsilon, \epsilon>0$ that is a is not the mode\\
+By definition of a mode, $f(b)>f(b+\epsilon)\geq f(b+2\epsilon)$\\
+Which means $f(a-\epsilon)>f(a)\geq f(a+\epsilon)$\\
+This contradicts $f(x)$ being symmetric\\
+Therefore a is the mode.\\
+\textbf{Case 2:} Mode is not unique, b is a mode\\
+That is, there exists an interval $(x_1,x_2)$ where $f(x)$ has the same value in the whole interval.\\
+Assume $a \notin (x_1,x_2), \ a=(b+\epsilon), \epsilon>0$, that is a is not a mode\\
+Since b is a mode, $f(b)>f(b+\epsilon)\geq f(b+2\epsilon)$\\
+Which means $f(a)-\epsilon)>f(a)\geq f(a+\epsilon)$
+Which contradicts $f(x)$ being symmetric.\\
+Thus a is a mode.
+\item
+Given $f(x)=e^{-x}, \ x\geq 0$\\
+WTS: $f(x)$ is unimodal\\
+$f(x)$ is decreasing for $x\geq 0$\\
+Thus for $0\leq x_1 \leq x_2$, $f(0)\geq f(x_1)\geq f(x_2)$\\
+Therefore $f(x)$ is unimodal with mode $a=0$
+\end{enumerate}
+\end{flushleft}
+\end{document}

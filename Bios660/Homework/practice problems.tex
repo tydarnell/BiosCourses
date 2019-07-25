@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Practice Problems}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+\section*{Problem 4.63}
+\begin{multline*}
+EZ=0\\
+Z=g(X)=\log(X)\\
+\text{Since } g(X) \text{ is concave:}\\
+E(g(X))\leq g(EX)\\
+0\leq g(EX)\\
+0\leq \log(EX)\\
+e^0\leq e^{\log{EX}}\\
+1\leq EX\\
+EX > 1 \text{ unless for every line } a+bx \text{ that is tangent to } g(X) \text{ at } x=EX, \ P(g(X)=a+bX)=1\\
+\log(x) \text{ is linear on an interval only if the interval is a single point}\\ 
+\text{Thus } EX>1 \text{ unless } P(X=EX)=1\\
+\end{multline*}
+\begin{multline*}
+Z=\log(X)\\
+EZ=0\\
+X=e^Z\\
+g(z)=e^z\\
+\text{Since } e^z \text{ is convex}:\\
+EX=E(g(Z))\geq g(EZ)\\
+EX\geq g(0)=e^0=1\\
+E(X)\geq 1\\
+E(X)=1 \text{ iff there is an interval I with } P(Z\in I)=1 \text{ and } g(z) \text{ is linear on I}\\
+e^z \text{ is only linear on an interval if the interval is a single point}\\
+\text{Thus } E(X)>1 \text{ unless } P(Z=EZ=0)=1\\
+\end{multline*}
+\section*{Problem 4.64}
+\begin{enumerate}[(a)]
+\item
+\begin{multline*}
+|a+b|^2=(a+b)(a+b)=a^2+2ab+b^2\\
+(|a|+|b|)^2= |a|^2+2|ab|+|b|^2\\
+a^2+2ab+b^2\leq |a|^2+2|ab|+|b|^2\\
+|a+b|^2\leq (|a|+|b|)^2\\
+\sqrt{|a+b|^2}\leq \sqrt{(|a|+|b|)^2}\\
+|a+b|\leq |a|+|b|\\
+\end{multline*}
+\item 
+\begin{multline*}
+\text{WTS: } E|X+Y|\leq E|X|+E|Y|\\
+|X+Y|\leq |X|+|Y| \quad \text{plugging X and Y into the triangle inequality}\\
+E|X+Y|\leq E[|X|+|Y|] \quad \text{taking the expectation of both sides}\\
+E|X+Y|\leq E|X|+E|Y| \quad \text{by linearity of expectation}\\
+\end{multline*}
+\end{enumerate}
+\section*{Problem 4.65}
+\begin{multline*}
+\text{WTS: } E(XY)\leq EXEY \text{ if X is nondecreasing, Y is nonincreasing}\\
+Cov(X,Y)=E(XY)-EXEY\leq 0 \text{ since there is negative correlation between X and Y (or no correlation)}\\
+\text{Thus } E(XY)\leq EXEY\\
+\text{If X and Y are both nonincreasing or nondecreasing}:\\
+\text{There is positive correlation (or no correlation)}\\
+Cov(X,Y)=E(XY)-EXEY\geq 0\\
+\text{Thus } E(XY)\geq EXEY\\
+\end{multline*}
+
+\end{flushleft}
+\end{document}

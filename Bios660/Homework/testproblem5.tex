@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\begin{document}
+\begin{flushleft}
+\section{Problem 5}
+Suppose $P(A \cup B) = P(A \cap B)$\\
+We can write $P(A)=P(A\cap B)+P(A \cap B^c)$\\
+and $P(B)=P(A \cap B)+P(A^c \cap B)$\\
+Then \[P(A)+P(B)=2P(A\cap B)+P(A \cap B^c)+P(A^c\cap B) \label{1} \tag{1}\]\\
+By definition $P(A \cup B) = P(A)+P(B)-P(A \cap B)$\\
+Since $P(A \cup B)=P(A \cap B)$ we have:\\
+\[P(A)+P(B)=2P(A \cap B) \label{2} \tag{2}\]\\
+Combining \eqref{1} and \eqref{2} we have:\\
+$2P(A \cap B)=2P(A \cap B)+P(A\cap B^c)+P(A^c \cap B)$\\
+Thus $P(A \cap B^c)+P(A^c\cap B)=0$\\
+Since probability is nonnegative\\
+$P(A\cap B^c)=0$ and\\
+$P(A^c \cap B)=0$\\
+Thus $P(A)=P(B)$
+
+
+
+
+\end{flushleft}
+\end{document}

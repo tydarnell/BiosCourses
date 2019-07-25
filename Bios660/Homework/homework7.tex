@@ -1,0 +1,195 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Homework 7}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\begin{document}
+\begin{flushleft}
+\chead{Problems 1-3}
+\section*{Problem 1}
+\begin{align*}
+E(X^n)&=c \quad \forall \ n\geq 1\\
+M_X(t)&=\sum_{n=0}^{\infty}\dfrac{t^n}{n!}c=ce^{t}\\
+M_X(0)&=1\text{ by defintion, so we need to find a constant k that satisfys this equation}\\
+M_X(0)&=ce^{0}+k=1\\
+k&=1-c\\
+\text{Thus } M_X(t)&=ce^{t}+1-c\\
+\text{Which }& \text{is the same as the mgf of the Bernoulli distribution with parameter c}
+\end{align*}
+\section*{Problem 2}
+
+\begin{align*}
+E[X^n]&=\dfrac{2^n}{n+1}  \text{ for } n \geq 1\\
+M_X(t)&=\sum_{n=0}^{\infty}\dfrac{t^n}{n!}\dfrac{2^n}{n+1}=\sum_{n=0}^{\infty}\dfrac{(2t)^n}{(n+1)!}=\dfrac{e^{2t}-1}{2t}\\
+\text{Since }& M_X(t) \text{ is undefined for } t=0 \text{ and } M_X(0) \text{ must equal 1, we define the mgf as:}\\ 
+M_X(t)=& 
+\begin{cases}
+\dfrac{e^{2t}-1}{2t} \quad &\text{for } t \neq 0\\
+1 \quad &\text{for } t=0 
+\end{cases}
+\end{align*}
+This is the same as the mgf for the Uniform (0,2) distribution.
+\section*{Problem 3}
+\begin{enumerate}[(a)]
+\item 
+\begin{align*}
+\text{Given } f_X(x)&=f_X(-x) \ \forall \ x\\
+ \text{WTS: } X &\text{ and } -X \text{ are identically distributed}\\
+\int_{-\infty}^{\infty}f_X(x) \dx&=\int_{-\infty}^{\infty}f_X(-x) \dx\\
+\text{Thus } F_X(x)&=F_X(-x) \ \forall x\\
+\text{Since the CDFs are equal, } & \text{X and -X are identically distributed}
+\end{align*}
+\item 
+\begin{align*}
+\text{Given } f_X(x)&=f_X(-x) \ \forall \ x\\
+\text{WTS: } M_X(t)& \forall \ \epsilon >0 \ M_X(0+\epsilon)=M_X(0-\epsilon)\\
+M_X(0+\epsilon)&=\int_{-\infty}^{\infty}e^{(0+\epsilon)x}f_X(x)\dx\\
+&=\int_{-\infty}^{0}e^{\epsilon x}f_X(x)\dx+\int_{0}^{\infty}e^{\epsilon x}f_X(x)\dx\\
+&=\int_{0}^{\infty}e^{\epsilon(-x)}f_X(-x)\dx +\int_{-\infty}^{0}e^{\epsilon(-x)}f_X(-x)\dx\\
+&=\int_{-\infty}^{\infty}e^{\epsilon (-x)}f_X(x)\dx\\
+&=\int_{-\infty}^{\infty}e^{(0-\epsilon) x}f_X(x) \dx=M_X(0-\epsilon)\\
+\text{Thus } M_X(t)& \text{is symmetric about } 0
+\end{align*}
+\end{enumerate}
+\pagebreak
+\section*{Problem 4}
+\chead{Problems 4-6}
+A distribution does not exist because:\\
+$M_X(0)=\dfrac{0}{1-0}=0$\\
+But $M_X(0)=1$ always by definition.
+\section*{Problem 5}
+\begin{align*}
+EX&=\dfrac{d}{dt}S(t)\bigg|_{t=0}=\dfrac{d}{dt} log(M_X(t))\bigg|_{t=0}=\dfrac{\dfrac{d}{dt}M_X(t)}{M_X(t)}\bigg|_{t=0}\\
+\text{Since } &M_X(0)=1 \text{ always and }
+\dfrac{d}{dt}M_X(t)=EX \text{ we have:}\\
+\dfrac{\dfrac{d}{dt}M_X(t)}{M_X(t)}\bigg|_{t=0}&=\dfrac{EX}{1}=EX\\
+Var(X)&=\dfrac{d^2}{{dt}^2}S(t)\bigg|_{t=0}=\dfrac{d}{dt}\dfrac{M^{'}_X(t)}{M_X(t)}\bigg|_{t=0}=\dfrac{M^{''}_X(t)M_X(t)-M^{'}_X(t)^2}{M_X(t)^2}\bigg|_{t=0}\\
+&=\dfrac{E[X^2]*1-E[X]^2}{1^2}=E[X^2]-E[X]^2=Var(X)
+\end{align*}
+\section*{Problem 6}
+\begin{enumerate}[(a)]
+\item
+\begin{align*}
+M_X(t)&=\sum_{x=0}^{\infty}\dfrac{e^{-\lambda}\lambda^x}{x!}e^{tx}=e^{-\lambda}\sum_{x=0}^{\infty}\dfrac{(\lambda e^t)^x}{x!}\\
+\text{Since } \sum_{x=0}^{\infty}\dfrac{\lambda^x}{x!}&=e^{\lambda} \text{ we have:}\\
+e^{-\lambda}\sum_{x=0}^{\infty}\dfrac{(\lambda e^t)^x}{x!}&=e^{-\lambda}e^{\lambda e^t}=e^{\lambda(e^t-1)}\\
+E(X)&=\dfrac{d}{dt}e^{\lambda(e^t-1)}\bigg|_{t=0}=e^{-\lambda}\lambda e^{\lambda e^t+t}\bigg|_{t=0}=\lambda e^{-\lambda}e^{\lambda}=\lambda\\
+E(X^2)&=\dfrac{d}{dt} e^{-\lambda}\lambda e^{\lambda e^t+t}\bigg|_{t=0}=e^{-\lambda}\lambda(\lambda e^t +1) e^{\lambda e^t+t}\bigg|_{t=0}\\
+&=e^{-\lambda}\lambda (\lambda+1) e^{\lambda}=\lambda(\lambda+1)\\
+Var(X)&=E(X^2)-E(X)^2=\lambda(\lambda+1)-\lambda^2=\lambda
+\end{align*}
+\item
+\begin{align*}
+M_X(t)&=\sum_{x=0}^{\infty}e^{tx}p(1-p)^x=p \sum_{x=0}^{\infty}(e^t(1-p))^x\\
+&=\dfrac{p}{pe^t-e^t+1}=\dfrac{p}{1-(1-p)e^t}\\
+E(X)&=\dfrac{d}{dt}\dfrac{p}{1-(1-p)e^t}\bigg|_{t=0}=\dfrac{p(1-p)e^t}{(1-(1-p)e^t)^2}\bigg|_{t=0}\\
+E(X)&=\dfrac{p(1-p)}{p^2}=\dfrac{1-p}{p}\\
+E(X^2)&=\dfrac{d}{dt}\dfrac{p(1-p)e^t}{(1-(1-p)e^t)^2}\bigg|_{t=0}\\ \\
+&=\dfrac{2p(1-p)^2e^{2x}}{(1-(1-p)e^x)^3}+\dfrac{p(1-p)e^x}{(1-(1-p)e^x)^2}\bigg|_{t=0}\\
+&=\dfrac{2(1-p)^2+p(1-p)}{p^2}\\
+Var(X)&=\dfrac{2(1-p)^2+p(1-p)}{p^2}-(\dfrac{1-p}{p})^2=\dfrac{(1-p)^2+p(1-p)}{p^2}=\dfrac{1-p}{p^2}
+\end{align*}
+\item
+\begin{align*}
+M_X(t)&=\dfrac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{\infty}e^{-(x-\mu)^2/2\sigma^2}\dx\\
+&=\dfrac{1}{\sqrt{2\pi}\sigma}\int_{-\infty}^{\infty}e^{-(x^2-2x\mu-2\sigma^2tx+\mu^2)/2\sigma^2}\dx\\
+M_X(t)&=e^{\mu t +\sigma^2t^2/2}\\
+E(X)&=\dfrac{d}{dt}e^{\mu t +\sigma^2t^2/2}\bigg|_{t=0}=e^{\mu t +\sigma^2t^2/2}(\mu+\sigma^2 t/2)\bigg|_{t=0}\\
+E(X)&=e^0(\mu+0)=\mu\\
+E(X^2)&=\dfrac{d}{dt}e^{\mu t +\sigma^2t^2/2}(\mu+\sigma^2 t/2)\bigg|_{t=0}=e^{\mu t +\sigma^2t^2/2}(\mu+\sigma^2t)^2+ \sigma^2e^{\mu t+\sigma^2t/2}\bigg|_{t=0}\\
+E(X^2)&=e^0(\mu)^2+\sigma^2e^0=\mu^2+\sigma^2\\
+Var(X)&=\mu^2+\sigma^2-\mu^2=\sigma^2
+\end{align*}
+\end{enumerate}
+\pagebreak
+\section*{Problem 7}
+\chead{Problems 7-9}
+\begin{align*}
+\text{Let } f(x)&=\dfrac{1}{x}\\
+g(x)&=M_X(t)\\
+\text{on the interval }& (0,\infty), \ g(x)\geq f(x)\\
+\text{Using the comparision test we can show } &f(x) \text{ diverges, thus } g(x) \text{ must also diverge}\\
+\int_{0}^{\infty}\dfrac{1}{x}&=\log(x)\bigg|_{0}^{\infty} \text{ diverges}\\
+\text{Thus }& M_X(t) \text{ also diverges}\\
+\text{Therefore }& M_X(t) \text{ does not exist} 
+\end{align*}
+\section*{Problem 8}
+\begin{enumerate}[(a)]
+\item
+\begin{align*}
+M_X(t)&=\sum_{x=0}^{\infty}e^{tx}{r+x-1 \choose x}p^r(1-p)^x\\
+&=\dfrac{p^r}{(r-1)!}\sum_{x=0}^{\infty}\dfrac{(r+x-1)!e^{tx}(1-p)^x}{x!}\\
+M_X(t)&=\dfrac{p^r}{(r-1)!}(r-1)!(1-(1-p)e^t)^{-r}=\left(\dfrac{p}{1-(1-p)e^t}\right)^{r}\\
+M_X(t)&=\left(\dfrac{p}{1-(1-p)e^t}\right)^{r}
+\end{align*}
+\item
+\begin{align*}
+M_Y(t)&=E(e^{tY})=E(e^{2ptX})=M_X(2pt)\\
+&=\left(\dfrac{p}{1-(1-p)e^{2pt}}\right) ^r\\
+&\text{Using L'Hospital's Rule to find the limit as p goes to 0}\\
+&\lim \limits_{p \to 0} \left(\dfrac{\dfrac{d}{dp}p}{\dfrac{d}{dp}1-(1-p)e^{2pt}}\right)^{r}\\
+&=\lim \limits_{p \to 0} (\dfrac{1}{e^{2pt}(2(p-1)t+1)})^r\\
+&=(\dfrac{1}{1-2t})^r
+\end{align*}
+\end{enumerate}
+\section*{Problem 9}
+\begin{enumerate}[(a)]
+\item
+\begin{align*}
+P(X=x)&=\begin{cases}
+p^x(q)^{1-x} &\quad x=0,1\\
+0 &\quad \text{otherwise}
+\end{cases}\\
+\phi_X(t)&=E(e^{itx})=\sum_{x=0}^{1} e^{itx}p_X(x)\\
+&=e^{it*1}p_X(1)+e^{it*0}*p_X(0)\\
+&=pe^{it}+q
+\end{align*}
+\item 
+\begin{align*}
+P(X=x)&=\begin{cases}
+{n \choose x}p^xq^{n-x}& \quad x=0,1,\dots,n\\
+0 & \quad \text{otherwise} 
+\end{cases}\\
+\phi_X(t)&=E(e^{itx})=\sum_{x=0}^{n}e^{itx}{n \choose x}p^xq^{n-x}\\
+&=\sum_{x=0}^{n}{n \choose x}(e^{it}p)^x q^{n-x}\\
+&\text{Using the binomial theorem we have :}\\
+&(pe^{it}+q)^n
+\end{align*}
+\item
+\begin{align*}
+P(X=x)&=\begin{cases}
+p(q)^{x} &\quad x=0,1,2,\dots\\
+0 &\quad \text{otherwise}
+\end{cases}\\
+\phi_X(t)&=E(e^{itx})=\sum_{x=0}^{\infty}e^{itx}p(q)^{x}\\
+&=p\sum_{x=0}^{\infty}(qe^{it})^x=\dfrac{p}{1-qe^{it}}
+\end{align*}
+\item
+\begin{align*}
+P(X=x)&=\dfrac{e^{-\lambda} \lambda^{x}}{x!}\\
+\phi_X(t)&=E(e^{itx})=\sum_{x=0}^{\infty}e^{itx}\dfrac{e^{-\lambda} \lambda^{x}}{x!}\\
+&=e^{-\lambda}\sum_{x=0}^{\infty}\dfrac{(\lambda e^{it})^x}{x!}=e^{-\lambda}e^{\lambda e^{it}}=e^{\lambda e^{it}-\lambda}\\
+&=e^{\lambda (e^{it}-1)}
+\end{align*}
+\end{enumerate}
+\end{flushleft}
+\end{document}

@@ -1,0 +1,208 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{663 Homework 1}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+	\section*{Problem 1}
+\begin{enumerate}[(a)]
+	\item 
+\begin{multline*}
+\text{Reduced row echelon form of } \boldsymbol{A}=\begin{bmatrix}
+1&0&2\\
+0&1&-1\\
+0&0&0\\
+0&0&0
+\end{bmatrix}\\
+\text{Looking at the reduced row echelon form of A we can see columns 1 and 2 have pivots,}\\
+\text{thus they are linearly independent from the rest.}\\
+\text{The third column does not have a pivot so it is linearly dependent.}\\
+\text{Reduced row echelon form of } \boldsymbol{B}=\begin{bmatrix}
+1&0&0\\
+0&1&0\\
+0&0&1\\
+0&0&0
+\end{bmatrix}\\
+\text{Since every column in the row reduced form of B has a pivot, the columns are linearly independent}\\
+\end{multline*}
+	\item 
+\begin{multline*}
+|\boldsymbol{A}-\lambda\boldsymbol{I}|=\bigg|\begin{bmatrix}
+2-\lambda & 1\\
+2 & 4-\lambda
+\end{bmatrix}\bigg|=0\\
+\lambda^2-\lambda+6=0\\
+\text{eigenvalues } \lambda = 4.732 \text{ and } \lambda = 1.268\\
+\lambda = 4.732 \text{ normalized eigenvector }=(-.3437,-.9391)^{'}\\
+\lambda = 1.268 \text{ normalized eigenvector }=(-.8069,.5907)^{'}\\
+\end{multline*}
+
+\end{enumerate}
+
+	\section*{Problem 2}
+\begin{enumerate}[(a)]
+	\item 
+\begin{multline*}\\
+\text{Let } Y=AX\\
+A=\begin{bmatrix}
+3&0&0\\
+0&1&0\\
+0&0&1
+\end{bmatrix}\\
+X\sim N(0,\Sigma)\\
+Y\sim N(\mu^*,\Sigma^*)\\
+\mu^*=A\mu=0\\
+\Sigma^*=A\sigma A^{'}\\
+=\begin{bmatrix}
+3&1&1
+\end{bmatrix}
+\begin{bmatrix}
+2&0&.6\\
+0&2&.5\\
+.6&.5&1
+\end{bmatrix}
+\begin{bmatrix}
+3\\
+1\\
+1
+\end{bmatrix}=25.6\\
+Y\sim N(0,25.6)\\
+\end{multline*}
+	\item 
+\begin{multline*}\\
+\text{Partition } \mu \text{ as} \begin{bmatrix}
+\mu_1\\
+\mu_2\\
+\end{bmatrix}\\
+\mu =\begin{bmatrix}
+0\\
+0
+\end{bmatrix}\\
+\mu^*=\mu_1+\Sigma_{12}\Sigma_{22}^{-1}(x_3-\mu_2)\\
+=0+\begin{bmatrix}
+.6\\
+.5
+\end{bmatrix}
+\begin{bmatrix}
+1
+\end{bmatrix}(3-0)\\
+\mu^*=\begin{bmatrix}
+1.8\\
+1.5
+\end{bmatrix}\\
+\text{Partition } \Sigma \text{ as} \begin{bmatrix}
+\Sigma_{11} & \Sigma_{12}\\
+\Sigma_{21} & \Sigma_{22}
+\end{bmatrix}\\
+\Sigma=\left[\begin{array}{cc|c}
+2 & 0 &.6 \\ 
+0 & 2 &.5\\
+\hline
+.6 & .5&1
+\end{array}\right]\\
+\Sigma^*=\Sigma_{11}-\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}\\
+=\begin{bmatrix}
+2&0\\
+0&2
+\end{bmatrix}-\begin{bmatrix}
+.6\\
+.5
+\end{bmatrix}\begin{bmatrix}
+1
+\end{bmatrix}\begin{bmatrix}
+.6&.5
+\end{bmatrix}\\
+\Sigma^*=\begin{bmatrix}
+1.64 & -.3\\
+-.3 & 1.75
+\end{bmatrix}\\
+(x_1,x_2|x_3=3)\sim N(\mu^*,\Sigma^*)\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+cov(ax+by,cw+dv)=ac \ cov(x,w)+ ad \ cov(x,v)+ bc \ cov(y,w)+ bd \ cov(y,v)\\
+cov((x_1+2x_2),3x_2+x_3)\\
+=3cov(x_1,x_2)+cov(x_1,x_3)+6cov(x_2,x_2)+2cov(x_2,x_3)\\
+=3(0)+.6+6(2)+2(.5)\\
+=13.6\\
+\end{multline*}
+	
+\end{enumerate}
+
+	\section*{Problem 3}
+\begin{multline*}\\
+\mu^*=E(Y)=E(a_1x_1+a_2x_2+\dots a_kx_k)\\
+=a_1E(x_1)+\dots +a_kE(x_k)\\
+\mu^*=\sum_{i=1}^{k}a_i\mu_i\\
+\Sigma^*=Var(Y)=Var(a_1x_1+a_2x_2+\dots a_kx_k)\\
+=a_1^2Var(x_1)+\dots +a_k^2Var(x_k)+2\left(\sum_{j>i}^{k}\sum_{i=1}^{k-1}a_ia_j(\Sigma_{i,j})\right)\\
+\Sigma^*=\sum_{i=1}^{k}a_i^2\sigma_i^2+2\sum_{j>i}^{k}\sum_{i=1}^{k-1}a_ia_j(\Sigma_{i,j})\\
+Y\sim N(\mu^*,\Sigma^*)\\
+\end{multline*}
+
+	\section*{Problem 4}
+\begin{enumerate}[(a)]
+	\item 
+\begin{multline*}\\
+y=X\beta+\epsilon\\
+E(y)=X\beta\\
+E(\hat{\beta_w})=E[(X^{'}V^{-1}X)^{-1}X^{'}V^{-1}y]\\
+\text{Since } V \text{ is a matrix of constants and X is given we have:}\\ 
+=(X^{'}V^{-1}X)^{-1}X^{'}V^{-1}E(y)\\
+=(X^{'}V^{-1}X)^{-1}X^{'}V^{-1}X\beta\\
+=X^{-1}(V^{-1})^{-1}X^{'-1}X^{'}V^{-1}X\beta\\
+=X^{-1}VIV^{-1}X\beta\\
+=X^{-1}IX\beta\\
+=I\beta\\
+E(\hat{\beta_w})=\beta\\
+\end{multline*}
+	\item 
+\begin{multline*}\\
+cov(y)=cov(X\beta+\epsilon)=cov(\epsilon)=\sigma^2V\\
+cov(\hat{\beta}_w)=cov[(X^{'}V^{-1}X)^{-1}X^{'}V^{-1}y]\\
+=[(X^{'}V^{-1}X)^{-1}X^{'}V^{-1}]cov(y)[(X^{'}V^{-1}X)^{-1}X^{'}V^{-1}]^{'}\\
+=X^{-1}(V^{-1})^{-1}X^{'-1}X^{'}V^{-1}\sigma^2V[X^{-1}(V^{-1})^{-1}X^{'-1}X^{'}V^{-1}]^{'}\\
+=\sigma^2X^{-1}VX^{'-1}X^{'}V^{-1}VV^{-1'}XX^{-1}V^{'}X^{-1'}\\
+=\sigma^2X^{-1}VIIV^{-1'}IV^{'}X^{-1'}\\
+=\sigma^2X^{-1}VV^{-1'}V^{'}X^{-1'}\\
+=\sigma^2X^{-1}VX^{-1'}\\
+cov(\hat{\beta}_w)=\sigma^2(X^{'}V^{-1}X)^{-1}\\
+\end{multline*}
+	\item 
+\begin{multline*}\\
+\text{Assuming normality of residuals:}\\
+\hat{\beta_w}\sim N(\beta,\sigma^2(X^{'}V^{-1}X)^{-1})\\
+\end{multline*}
+	\item 
+\begin{multline*}\\
+\text{With this choice of V, you are dividing by the sample size}\\
+\text{which gives you the variance of the distribution}\\
+\end{multline*}
+
+\end{enumerate}
+
+\end{flushleft}
+\end{document}
