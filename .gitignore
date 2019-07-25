@@ -6,3 +6,5 @@
 *.Rproj.user
 *.Rhistory
 *.Rproj
+*/makefile2graph
+*/p2_abstracts
