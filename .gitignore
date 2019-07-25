@@ -3,4 +3,6 @@
 *.gz
 *.log
 *.toc
-*.txt
+*.Rproj.user
+*.Rhistory
+*.Rproj
