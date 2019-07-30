@@ -1,0 +1,143 @@
+---
+title: "Appendix"
+author: "Ty Darnell"
+output:
+  prettydoc::html_pretty:
+     theme: cayman
+     df_print: kable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+library(tidyverse)
+library(knitr)
+library(readxl)
+```
+
+
+```{r}
+etable=function(exposure,disease){
+  t=table(exposure,disease)[2:1,2:1]
+  rownames(t)=c('E+','E-')
+  colnames(t)=c('D+','D-')
+  kable(t)
+}
+
+riskratio=function(a,b,c,d){
+  e=a/(a+b)
+  f=c/(c+d)
+  c(e,f,e/f)
+}
+
+ciriskr=function(ecases,enoncases,uecases,uenoncases){
+  a=ecases
+  b=enoncases
+  c=uecases
+  d=uenoncases
+  e=a/(a+b)
+  f=c/(c+d)
+  rr=e/f
+  z=c(-1.96,1.96)
+  se=sqrt(1/a-1/(a+b)+
+            1/c-1/(c+d))
+  ci=exp(log(rr)+z*se)
+  c("Risk Ratio"=rr,"95 CI"=ci)
+}
+
+rateratio=function(cases,noncases,pyrcases,pyrnoncases){
+  a=cases
+  b=noncases
+  p=pyrcases
+  q=pyrnoncases
+  (a/p)/(b/q)
+}
+
+cirater=function(cases,noncases,pyrcases,pyrnoncases){
+  a=cases
+  b=noncases
+  p=pyrcases
+  q=pyrnoncases
+  rr=(a/p)/(b/q)
+  se=sqrt(1/a+1/b)
+  z=c(-1.96,1.96)
+  ci=exp(log(rr)+z*se)
+  c("Rate Ratio"=rr,"95 CI"=ci)
+}
+
+cioddsr=function(ecases,enoncases,uecases,uenoncases){
+  a=ecases
+  b=enoncases
+  c=uecases
+  d=uenoncases
+  or=(a/c)*(d/b)
+  se=sqrt(1/a+1/b+1/c+1/d)
+  z=c(-1.96,1.96)
+  ci=exp(log(or)+z*se)
+  c("Odds Ratio"=or,"95 CI"=ci)
+}
+```
+
+
+```{r}
+dat = read_excel("cohort.xlsx")
+```
+
+
+```{r}
+dat=dat%>%select(-c(...17,...18  ))
+dat2=dat%>%select(c(CANCER,VIRUS,PERSONDAYS,LTF))
+dat2=dat2%>%mutate(personyrs=PERSONDAYS/365)
+```
+
+```{r}
+taba=table(dat$VIRUS,dat$CANCER)[2:1,2:1]
+x=c("Exposed","Unexposed")
+y=c("Cancer","No Cancer")
+row.names(taba)=x
+colnames(taba)=y
+kable(taba)
+dat2%>%filter(VIRUS==1)%>%summarise(pyrs=sum(personyrs))
+dat2%>%filter(VIRUS==0)%>%summarise(pyrs=sum(personyrs))
+```
+
+```{r}
+dat3=dat2%>%filter(LTF==0)
+length(dat3$LTF)
+tabb=table(dat3$VIRUS,dat3$CANCER)[2:1,2:1]
+row.names(tabb)=x
+colnames(tabb)=y
+kable(tabb)
+dat3%>%filter(VIRUS==1)%>%summarise(pyrs=sum(personyrs))
+dat3%>%filter(VIRUS==0)%>%summarise(pyrs=sum(personyrs))
+```
+
+
+```{r}
+dat4=dat2%>%filter(CANCER==1)
+py=dat4%>%group_by(VIRUS)%>%summarise(pyr=sum(personyrs))
+ra=as.table(matrix(c(33,264,24,183),2,2,T))
+rn=c("Exposed","Unexposed")
+cn=c("Cases","Pyears")
+rownames(ra)=rn
+colnames(ra)=cn
+kable(ra)
+```
+
+```{r}
+cc <- read_excel("casecontrol.xlsx")
+```
+
+```{r}
+ctab=etable(cc$VIRUS,cc$CANCER)
+ctab
+or=cioddsr(32,25,10,33)
+taba
+24/717
+```
+
+```{r}
+men=cc%>%filter(SEX==0)
+women=cc%>%filter(SEX==1)
+etable()
+```
+

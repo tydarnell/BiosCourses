@@ -1,0 +1,80 @@
+---
+title: "Screentime"
+output:
+  prettydoc::html_pretty:
+     theme: cayman
+     df_print: kable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+```{r,echo=F}
+library(data.table)
+library(tidyverse)
+library(modelr)
+library(knitr)
+library(matlib)
+library(ggfortify)
+library(linmod)
+library(RColorBrewer)
+library(cowplot)
+library(vcd)
+library(viridis)
+```
+
+
+```{r,echo=F}
+dat=fread("cleandata.csv")
+dat=as_tibble(dat)
+```
+
+
+```{r}
+dat2=dat%>%select(c(race,sex,Screen_Time_Status,Health_Status))
+dat2=dat2%>%mutate_all(factor)
+```
+
+
+```{r}
+dat3=dat%>%mutate(race=case_when(race=="Asian or Pacific Islander"~"Asian",race=="Black or African American"~"Black",race=="Hispanic or Latino"~"Latinx",TRUE ~as.character(race)))
+dat3=dat3%>%mutate_at(vars(grad,race,sex,married,credit_hours,iphone,Screen_Time_Status,Health_Status), factor)
+```
+
+
+```{r}
+a=ggplot(dat3,aes(x=race))+geom_bar(color="black",aes(fill=sex))+ggtitle("Breakdown of Respondents by Race and Sex")
+```
+
+
+
+```{r}
+d=ggplot(dat3,aes(y=Health_Score,fill=Screen_Time_Status))+geom_boxplot()+ scale_fill_brewer(palette="Spectral")+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())+ylab("Health Score")+labs(fill="Screen Time Status")+ggtitle("Distribution of Health Scores by Screen Time Status")
+```
+
+
+```{r}
+
+fourfold(xtabs(Health_Status~Screen_Time_Status+grad, data = dat))
+```
+
+```{r}
+dat5=dat%>%filter(sex!="Other")%>%mutate(sex=factor(sex))
+fourfold(xtabs(Health_Status~Screen_Time_Status+sex, data = dat5))
+```
+
+```{r}
+e=ggplot(dat3,aes(y=Health_Score,x=Screen_Time_Status,fill=Screen_Time_Status))+geom_violin()+ scale_fill_brewer(palette="Spectral")+
+theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())+ylab("Health Score")+labs(fill="Screen Time Status")+ggtitle("Distribution of Health Scores by Screen Time Status")
+```
+
+```{r}
+f=ggplot(dat3,aes(x=Health_Status))+geom_bar(color="black",aes(fill=Health_Status))+xlab("Heath Status")+theme(legend.title = element_blank())
+```
+

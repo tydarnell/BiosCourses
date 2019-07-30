@@ -1,0 +1,326 @@
+---
+  title: "BIOS 611 HW10 Model basics (Chapters 23 and 24)"
+  author: "Ty Darnell"
+  date: "`r format(Sys.time(), '%m/%d/%Y')`"
+  output: html_document
+---
+```{r include=FALSE}
+  library(tidyverse)
+  library(modelr)
+  library(glmnet)
+library(ggfortify)
+```
+
+
+  This homework is due at 6 pm on Monday, December 3.  
+
+  This set of exercise is largely taken from R for Data Science by Garrett Grolemund and Hadley Wickham.  
+
+# Exercise 1
+
+1.  One downside of the linear model is that it is sensitive to unusual values
+    because the distance incorporates a squared term. Fit a linear model to 
+    the simulated data below, and visualise the results. Rerun a few times to
+    generate different simulated datasets. What do you notice about the model? 
+    
+    ```{r}
+    set.seed(1)
+    sim1a <- tibble(
+      x = rep(1:10, each = 3),
+      y = x * 1.5 + 6 + rt(length(x), df = 2)
+    )
+    ```
+
+    Answer: 
+
+    ```{r}
+simt <- function(i) {
+  tibble(
+    x = rep(1:10, each = 3),
+    y = x * 1.5 + 6 + rt(length(x), df = 2),
+    .id = i
+  )
+}
+for (i in 1:12) {
+sim1a <- tibble(
+      x = rep(1:10, each = 3),
+      y = x * 1.5 + 6 + rt(length(x), df = 2)
+    )
+print(coef(lm(y~x,sim1a)))
+}
+sims <- map_df(1:12, simt)
+
+
+ggplot(sims, aes(x = x, y = y)) +
+  geom_point() +
+  geom_smooth(method = "lm",se=F, colour = "red") +
+  facet_wrap(~ .id, ncol = 4)    
+```
+
+The slope and the intercept of the models are fairly different through out the simulations.
+
+2.  There are multiple ways to get the MSE (mean squared error. i.e. 
+    $\sum_{i=1}^{n} \frac {(y_i - \hat{y}_i)^2}{n - p}$ where $n$ is the sample  
+    size, $p$ is the number of covariates plus 1). from an `lm` object.  
+    Illustrate three different ways of getting the MSE from the following object.  
+    
+    ```{r}
+    sim1_mod <- lm(y~x, data = modelr::sim1)
+    ```
+    
+    Hint: 1) using `predict()`,   
+          2) extracting `residual`,   
+          3) using `summary()` to get some quantity related to MSE.  
+          If you are not sure what the object contains, use `str()`.  
+
+    Answer: 
+
+    ```{r}
+(predict(sim1_mod,se.fit = T)$residual.scale)^2
+sum(sim1_mod$residuals^2)/28
+summary(sim1_mod)$sigma^2
+    ```
+
+# Exercise 2
+
+1.  Instead of using `lm()` to fit a straight line, you can use `loess()`
+    to fit a smooth curve. Repeat the process of model fitting, 
+    grid generation, predictions, and visualisation on `modelr::sim1` using 
+    `loess()` instead of `lm()`. How does the result compare to 
+    `geom_smooth()`?
+    
+    Answer: 
+
+    ```{r}
+sim1l = loess(y ~ x, data = sim1)
+
+grid <- sim1 %>% 
+  data_grid(x)
+
+#add predictions
+grid <- grid %>% 
+  add_predictions(sim1l)
+
+ggplot(sim1, aes(x)) +
+  geom_point(aes(y = y)) +
+  geom_line(aes(y = pred), data = grid, colour = "red", size = 1)
+
+sim1 <- sim1 %>%
+  add_residuals(sim1l)
+
+#plot resid against x
+ggplot(sim1, aes(x, resid)) + 
+  geom_ref_line(h = 0) +
+  geom_point()
+
+#compare to geom_smooth
+ggplot(sim1,aes(x=x,y=y))+
+  geom_point()+
+  geom_smooth()
+    ```
+
+Geom_smooth uses loess by default to fit the curve. This explains why the results are the same
+
+2.  What does `geom_ref_line()` do? What package does it come from?
+    Why is displaying a reference line in plots showing residuals
+    useful and important?
+    
+    Answer: `geom_ref_line()` comes from `modelr`, it adds a reference line to a ggplot. 0 is an important reference line on a residual plot. We want to see how far above or below the actual value the predicted value is.
+
+    ```{r}
+
+    ```
+    
+3.  In high-dimensional settings, some extension to linear models have been   
+    developed to control the effect of noise variables. LASSO, ridge regression, 
+    and elastic nets are such examples. Fit usual linear model,
+    LASSO, and ridge regression using `mtcars` data: i.e. `lm(mpg ~ ., mtcars)`
+    for usual linear model. Use `glmnet::glmnet()` with
+    `alpha = 1` for LASSO and `alpha = 0` for ridge regression.  
+    To find the best amount of penalty (`lambda`), usually cross validation is 
+    done, but here, simply put `lambda = 0.6`.  
+    What is the main difference bewteen LASSO and ridge regression? (Look
+    at their coefficients using `coef()` function. Keyword: sparsity)
+    
+    Answer: 
+
+    ```{r}
+lmmod=lm(mpg~.,mtcars)
+lasso <- glmnet(as.matrix(mtcars[-1]), mtcars$mpg, alpha=1)
+ridge <- glmnet(as.matrix(mtcars[-1]), mtcars$mpg, alpha=0)
+autoplot(lasso)
+autoplot(ridge)
+lassocv <- cv.glmnet(as.matrix(mtcars[-1]), mtcars$mpg, alpha=1)
+ridgecv <- cv.glmnet(as.matrix(mtcars[-1]), mtcars$mpg, alpha=0)
+autoplot(lassocv, color = 'blue')
+autoplot(ridgecv, color = 'red')
+    ```
+  
+Creating lasso and ridge regression models with $\lambda=.6$
+
+```{r}
+lasso2 <- glmnet(as.matrix(mtcars[-1]), mtcars$mpg, alpha=1,lambda=.6)
+ridge2 <- glmnet(as.matrix(mtcars[-1]), mtcars$mpg, alpha=0,lambda=.6)
+coef(lasso2)
+coef(ridge2)
+```
+
+    
+# Exercise 3
+
+
+1.  Write a model formula in `lm()` in R that represents the following formula:  
+    $E[y|x_1, x_2] = \beta_0 + \beta_1x_1 + \beta_2x_1^2 + \beta_3x_1x_2 + \beta_4e^{x_1}$.  
+    Note: Beware that there is no main effect term for $x_2$.  
+    Use the following data (`dat`).  
+    
+    ```{r}
+    set.seed(1)
+    dat <- data_frame(x1 = rnorm(30), x2 = rnorm(30), y = x1*(x1-x2) - exp(x1)/3 + rnorm(30))
+    ```
+    
+    
+    Answer:
+    
+    ```{r}
+modw <- lm(y~x1*x2-x2+I(x1^2)+exp(x1),dat)
+summary(modw)
+    ```
+
+2.  Suppose for some reason, you do not want to include an intercept term in your
+    linear model.  e.g. $E[y|x_1] = \beta_1x_1$.
+    
+    A. How would you remove the intercept in `lm()`? Write a code for such a model
+    (Use the same dataset (`dat`)). 
+    
+    Answer:  
+    
+    ```{r}
+lm(y~x1-1,dat)
+    ```
+
+    
+    B. Compare and contrast models with and without the intercept term using  
+       `modelr::sim1`.  Plot the predicted values for comaparison.  
+     
+    Answer:  
+    
+    ```{r}
+mod1=lm(y~x,sim1)
+mod1a=lm(y~x-1,sim1)
+sim1 %>%
+  data_grid(x) %>%
+  spread_predictions(mod1, mod1a)
+    ```
+  
+  The results are different, creating a model with an intercept and one without an intercept
+  
+    C. Repeat part B using data `modelr::sim2`.
+    
+    Answer:  
+    
+    ```{r}
+mod2=lm(y~x,sim2)
+mod2a=lm(y~x-1,sim2)
+sim2 %>%
+  data_grid(x) %>%
+  spread_predictions(mod2, mod2a)
+    ```
+
+Modeling with and without an intercept produces the same results.
+
+# Exercise 4
+
+1.  Using the data `daily` given below, do the following.  
+    Create a new variable that splits the `wday` variable into terms, but only
+    for Saturdays, i.e. it should have `Thurs`, `Fri`, but `Sat-summer`, 
+    `Sat-spring`, `Sat-fall`. How does this model (`lm()` with `n` as the outcome) 
+    compare with the model with every combination of `wday` and `term`?
+    
+    ```{r}
+    term <- function(date) {
+      cut(date, breaks = lubridate::ymd(20130101, 20130605, 20130825, 20140101),
+          labels = c("spring", "summer", "fall"))
+      }
+    daily <- nycflights13::flights %>% 
+      mutate(date = lubridate::make_date(year, month, day)) %>% 
+      group_by(date) %>% 
+      summarise(n = n()) %>% 
+      mutate(wday = lubridate::wday(date, label = TRUE),
+             term = term(date))
+    ```
+    
+    Answer: 
+
+    ```{r}
+    daily <- daily %>%
+  mutate(wday2 =
+         case_when(wday == "Sat" & term == "summer" ~ "Sat-summer",
+                   wday == "Sat" & term == "fall" ~ "Sat-fall",
+                   wday == "Sat" & term == "spring" ~ "Sat-spring",
+                   TRUE ~ as.character(wday)))
+    moddaily <- lm(n ~ wday2, data = daily)
+    ```
+
+2.  Create a new `wday` variable that combines the day of week, term 
+    (for Saturdays), and public holidays. What do the residuals of 
+    that model look like?
+
+    Answer: 
+
+    ```{r}
+
+    ```
+
+3.  What happens if you fit a day of week effect that varies by month 
+    (i.e. `n ~ wday * month`)? Why is this not very helpful? 
+
+    Answer: It only has a a few observations for each month, weekday combination, this does not lead to good estimates.
+
+    ```{r}
+    daily <- mutate(daily, month = lubridate::month(date))
+lm(n ~ wday * month, data = daily)
+    ```
+
+4.  What would you expect the model `n ~ wday + ns(date, 5)` to look like?
+    Knowing what you know about the data, why would you expect it to be
+    not particularly effective?
+
+    Answer: 
+
+    ```{r}
+
+    ```
+
+5.  It's a little frustrating that Sunday and Saturday are on separate ends
+    of the plot. Write a small function to set the levels of the 
+    factor so that the week starts on Monday.
+
+    Answer: 
+
+    ```{r}
+
+    ```
+
+
+# Exercise 5 `caret`
+
+1.  Using the `iris` dataset, find which machine learning algorithm gives
+    the best prediction accuracy for predicting `Species` among `knn`, 
+    `rf` (randomForest), and `nnet` (neuralnet).  
+    
+    Show a) how you partition the data (training and test sets), b) how you
+    train the models, and c) how you evaluate the models.  
+    
+    Fix the seed number within each chunk as needed for replication.  
+    You do not have to customize the tuning parameters (i.e. use the default set).  
+    Standardize the dataset before training using `preProcess()` or 
+    `train(..., preProcess = ...)`.  
+
+     
+    Answer: 
+
+    ```{r}
+
+    ```
+            

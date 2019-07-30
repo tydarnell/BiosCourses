@@ -1,0 +1,48 @@
+---
+title: "parallel_programming"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Parallel Package
+
+First let's look at an example using just lapply
+```{r}
+func1 <- function(x, base, exponent){
+  return(c(x^2,x^3, base^exponent))
+}
+n <- 1e6
+a <- runif(n, -100, 100)
+b <- runif(n, -50, 50)
+c <- runif(n, -10, 10)
+
+system.time(result1 <- lapply(1:n, function(x){func1(a[x],b[x],c[x])})
+            )
+```
+
+'parallel' package should have been installed by default if you have a recent version of R.  
+
+For linux user, 'mcLapply' which is a parallel version of lapply.
+For other platform, 'parLapply' can be used. But it is slightly more complicated.
+```{r}
+library(parallel)
+
+```
+
+
+```{r}
+#For Window, linux, Mac platform
+physical.cores <- detectCores(logical = FALSE)
+cl <- makeCluster(physical.cores)
+clusterExport(cl, c('func1', 'a', 'b', 'c'))
+system.time(result3 <- parLapply(cl, 1:n, function(x){func1(a[x],b[x],c[x])})
+            )
+stopCluster(cl)
+```
+Note that for MAC/Linux when using parLapply, we might not need `clusterExport(cl, c('func1', 'a', 'b', 'c'))` if we use `cl <- makeCluster(physical.cores, type="FORK")`  
+
+For installing packages on each node in the cluster, use the following function `clusterCall(cl, function() library(some_package)`. Or if you want to set up each node in some way use `clusterEvalQ`
+

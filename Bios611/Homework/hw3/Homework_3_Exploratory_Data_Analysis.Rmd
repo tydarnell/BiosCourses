@@ -1,0 +1,391 @@
+---
+  title: "BIOS 611 HW3 Exploratory Analysis, tibbles, and data import (Chapters 7, 10, and 11.2)"
+  author: "Ty Darnell"
+  date: "`r format(Sys.time(), '%m/%d/%Y')`"
+  output: html_document
+---
+
+  This homework is due `Monday September 17th by 6pm`.  
+  Both `.Rmd` and `.html` files should be submitted.  
+  (This set of exercise is mostly taken from R for Data Science by Garrett Grolemund and Hadley Wickham.)
+  
+    ```{r, include = FALSE}
+    library(tidyverse)
+    library(nycflights13)
+    library(ggstance)
+    ```
+
+
+# Exercise 1
+
+1.  Explore the distribution of `price`. Do you discover anything unusual
+    or surprising? (Hint: Carefully think about the `binwidth` and make sure
+    you try a wide range of values.)
+
+    Answer: There are no diamonds with a price of $1500. Also a large amount of diamonds are priced around $750. This seems fairly cheap for a diamond so this is a little surprising.
+
+    ```{r}
+    diamonds %>%
+  ggplot(aes(x=price))+geom_histogram(binwidth=30)
+    diamonds%>%filter(price<2000)%>%
+       ggplot(aes(x=price))+geom_histogram(binwidth=75)
+ 
+    ```
+
+2.  Compare and contrast `coord_cartesian()` vs `xlim()` or `ylim()` when
+    zooming in on a histogram.
+    
+    Answer: ylim allows you to zoom in on different values of count and xlim allows you to zoom in on particular values of the distribution of the xvar.
+
+    ```{r}
+    diamonds %>%
+  ggplot(aes(x=price))+geom_histogram(binwidth=30)+coord_cartesian(ylim=c(0,50))
+diamonds %>%
+  ggplot(aes(x=price))+geom_histogram(binwidth=30)+coord_cartesian(xlim=c(0,500))
+    ```
+
+# Exercise 2
+
+    
+1.  There are several ways of getting complete data (i.e. ignoring the incomplete cases). 
+    Using each of the following functions, try to get complete data.
+    
+    Answer:
+
+    ```{r}
+    # Use this dataset
+    data.a = data.frame(no = 1:5, abc = letters[1:5], ABC = LETTERS[11:15], rand = rnorm(5))
+    data.a[3,3] <- data.a[2,1] <- NA
+    data.a
+    
+    # A. na.omit
+    na.omit(data.a)
+    
+    # B. complete.cases
+data.a%>%filter(complete.cases(data.a))
+    
+    ```
+
+2.  What does `na.rm = TRUE` do in `mean()` and `sum()`?
+
+    Answer: It removes the missing values for the summary statistic. If you take the mean or sum of something with na values it returns na unless na.rm=T is set.
+
+    ```{r}
+    
+    ```
+
+
+3.  We want to see if there is a pattern of delay according to the scheduled departure time.
+    Criticize the following graph. (If you cannot notice the problem, go back to the example in
+    the note and see why they used `mutate` function. Note only a small sample was used for
+    convenience.)
+    
+    ```{r}
+    set.seed(1)
+    newdata = sample_n(nycflights13::flights, 1000)
+    newdata %>% ggplot(aes(sched_dep_time, dep_delay)) + geom_point()
+    ```
+
+    Answer: They did not create a variable for the cancelled flights. Since those are the na values, they are not taken into account. Because of this we do not see cancelled flights which could conceivably be related to the time of day.
+    
+
+# Exercise 3
+
+1.  Use what you've learned to improve the visualisation of the departure times
+    of cancelled vs. non-cancelled flights. (Hint: normalize them.)
+
+    Answer: 
+
+    ```{r}
+flights %>%
+  mutate(
+    cancelled = is.na(dep_time),
+    sched_hour = sched_dep_time %/% 100,
+    sched_min = sched_dep_time %% 100,
+    sched_dep_time = sched_hour + sched_min / 60
+  )%>%
+  ggplot(aes(x=sched_dep_time,y=..density..)) +
+    geom_freqpoly(aes(color = cancelled), binwidth = 1/4)
+
+    ```
+
+2.  What variable in the diamonds dataset is most important for predicting
+    the price of a diamond? How is that variable correlated with cut?
+    Why does the combination of those two relationships lead to lower quality
+    diamonds being more expensive?
+
+    Answer: The graph shows a strong positive correlation between carat and price. Carat appears to be the most important predictor of price.
+    Looking at the second graph, a lot of ideal cuts have a small carat value. This helps explain why many ideal cut diamonds have a low price.
+
+    ```{r}
+    ggplot(data=diamonds,aes(x=carat,y=price))+geom_point()
+    ggplot(data=diamonds,aes(x=carat,y=..density..))+geom_freqpoly(aes(color=cut))
+    ```
+
+3.  Install the ggstance package, and create a horizontal boxplot. (Use `geom_boxploth()`.)
+    How does this compare to using `coord_flip()` in terms of syntax?
+    
+    Answer: The syntax is similar except for having to switch the x and y values.
+
+    ```{r}
+    ggplot(diamonds,aes(x=price,y=cut))+geom_boxploth()
+    ggplot(diamonds,aes(x=cut,y=price))+geom_boxplot()+coord_flip()
+    ```
+
+
+# Exercise 4
+
+1.  How could you rescale the count dataset (`diamonds %>% count(color, cut)`) 
+    to more clearly show the distribution of cut within colour, or colour within cut?
+
+    Answer: 
+
+    ```{r}
+    diamonds %>% count(color, cut)%>%group_by(color)%>%mutate(proportion=n/sum(n))%>%ggplot(aes(x=color,y=cut))+geom_tile(aes(fill=proportion))
+    ```
+
+2.  Use `geom_tile()` together with dplyr to explore how average flight
+    delays vary by destination and month of year.  (Hint: Summarize the data first.)
+    What makes the plot difficult to read? How could you improve it (an open question)?
+
+    Answer: There are a lot of destinations which makes the scale on the y-axis unreadable. You could group the destinations by another variable to make it more readable.
+
+    ```{r}
+    # nycflights13::flights
+    flights%>%group_by(month,dest)%>%summarise(mean_delay=mean(dep_delay,na.rm=T))%>%ggplot(aes(x=factor(month),y=dest,fill=mean_delay))+geom_tile()
+    
+    ```
+
+3.  Why is it slightly better to use `aes(x = color, y = cut)` rather
+    than `aes(x = cut, y = color)` in the following example (an open question)?
+
+    ```{r}
+    diamonds %>% 
+      count(color, cut) %>%  
+      ggplot(mapping = aes(x = color, y = cut)) +
+        geom_tile(mapping = aes(fill = n))
+    ```
+
+    Answer: You typically want the categorical variable with the longer labels on the y axis so they are less likely to overlap.
+
+# Exercise 5
+
+1.  Instead of summarising the conditional distribution with a boxplot, you
+    could use a frequency polygon. What do you need to consider when using
+    `cut_width()` vs `cut_number()`? How does that impact a visualisation of
+    the 2d distribution of `carat` and `price`?
+
+    Answer: `cut_width` divides the variable into bins of the width specified. With `cut_number` you specifiy the amount of bins you want and it divides the data into an approximately equal amount of points into each of the bins.
+    So you need to consider the binwidth with `cut_width` and the number of bins with `cut_number`. You usually dont need as many bins for a frequency polygon as you need for a boxplot. The frequency polygon is overlaid so it makes it easy to compare the distributions of each of the subsets of the data.
+
+    ```{r}
+    diamonds%>% ggplot(aes(x=price))+geom_freqpoly(aes(color=cut_number(carat,5)))+ylab("Carat")
+
+    ```
+
+2.  Visualise the distribution of carat, partitioned by price. (Hint: consider a boxplot)
+
+    Answer: 
+
+    ```{r}
+    diamonds%>% ggplot(aes(y=carat))+geom_boxplot(aes(x=cut_width(price,2000,boundary=0)))+coord_flip()+xlab("Price")
+
+    ```
+
+3.  How does the price distribution of very large diamonds compare to small 
+    diamonds? Is it as you expect, or does it surprise you?
+    (Hint: Assuming you want to do a linear regression, is there any violation?)
+    
+    Answer: The smallest diamonds are the most variable in price. The larger the carat, the less variable the price is. This would make the results of the linear regression model less accurate. It would be better to do a lm for subgroups of carat with price.
+
+    ```{r}
+    diamonds%>% ggplot(aes(x=price))+geom_freqpoly(aes(color=cut_number(carat,5)))+ylab("Carat")
+    diamonds%>%ggplot(aes(x=carat,y=price))+geom_point()+geom_smooth(aes(color=cut_number(carat,5)), method="lm")
+    ```
+
+4.  Combine two of the techniques you've learned to visualise the 
+    joint distribution of cut, carat, and price.
+
+    Answer: 
+
+    ```{r}
+    ggplot(diamonds,aes(x=carat,y=price))+geom_point(aes(color=cut))+geom_smooth(method="lm",se=F)+facet_wrap(~cut)
+
+    ```
+
+5. Two dimensional plots reveal outliers that are not visible in one 
+   dimensional plots. For example, some points in the plot below have an 
+   unusual combination of `x` and `y` values, which makes the points outliers 
+   even though their `x` and `y` values appear normal when examined separately.
+  
+    ```{r, dev = "png"}
+    ggplot(data = diamonds) +
+      geom_point(mapping = aes(x = x, y = y)) +
+      coord_cartesian(xlim = c(4, 11), ylim = c(4, 11))
+    ```
+    
+    Why is a scatterplot a better display than a binned plot for this case?
+
+    Answer: Its the combination of their x and y values that make them an outlier. A scatterplot creates points consisting of (x,y) therefore it is taking into account both x and y at the same time which illuminates combinations of x and y that are outliers.
+
+    ```{r}
+
+    ```
+
+
+# Exercise 6
+
+1.  Compare and contrast the following operations on a `data.frame` and 
+    equivalent tibble. What is different? Why might the default data frame
+    behaviours cause you frustration?
+    
+    ```{r, eval = FALSE}
+    df <- data.frame(abc = 1, xyz = "a")
+    df$x
+    df[, "xyz"]
+    df[, c("abc", "xyz")]
+    ```
+
+    Answer: The default data.frame treats "a" as a factor with one level. A tibble treats it as a character variable as was likely intended by using quotes. Also using the $ operator with a data.frame will partially match, potentially choosing a different column than you intended if there are multiple columns that satisfy the partial match. Tibbles are stricter about subsetting and always return a tibble.
+
+    ```{r}
+
+    ```
+
+2.  If you have the name of a variable stored in an object, e.g. `var <- "mpg"`,
+    how can you extract the reference variable from a tibble?
+    For example, you simply could have done `mtcars$mpg`. But later on if you 
+    want to extract other variables as well, say `cyl`, which is given as an object
+    `var`, you don't want to manually put the variable names by typing `mtcars$cyl`.
+    How would you do this without explicitly writing `"mpg"` or `"cyl"`?
+
+    Answer: You can use double brackets. newdata[[var]]
+
+    ```{r}
+    newdata <- as.tibble(mtcars)
+    var <- "mpg"
+    
+    newdata[[var]]
+
+    ```
+
+3.  Practice referring to non-syntactic names in the following data frame by:
+  
+    ```{r}
+    newdata = tibble(`1` = rnorm(1:5), `2` = `1` + runif(5))
+    ```
+
+    1.  Extracting the variable called `1`.
+
+    Answer: 
+
+    ```{r}
+    newdata$`1`
+
+    ```
+
+    2.  Plotting a scatterplot of `1` vs `2`.
+
+    Answer: 
+
+    ```{r}
+    ggplot(newdata,aes(x=`2`,y=`1`))+geom_point()
+
+    ```
+
+    3.  Creating a new column called `3` which is `2` divided by `1`.
+        
+    Answer: 
+
+    ```{r}
+    newdata1 <- newdata%>%mutate(`3`=`2`/`1`)
+
+    ```
+
+    4.  Renaming the columns to `one`, `two` and `three`. 
+
+    Answer: 
+
+    ```{r}
+    newdata1%>%rename(one=`1`,two=`2`,three=`3`
+                      )
+
+    ```
+
+4.  What does `tibble::enframe()` do? When might you use it?  
+    (How can you simply generate a tibble of two vectors (1 2 3 ... 26, a b c ... z)?)
+
+    Answer: It converts named vectors to a tibble with names and values. You could use it when you need key value pairs, such as a dictionary.
+
+    ```{r}
+    enframe(letters[1:26])
+
+    ```
+
+
+# Exercise 7
+
+1.  What function would you use to read a file where fields were separated with  
+    "|"?
+    
+    Answer: `read_delim(file,delim="|")`
+
+    ```{r}
+    
+
+    ```
+
+2.  If you want to read a file from the third line, how would you code using `read_csv()` or
+    `read_tsv()`?
+    
+    Answer: `read_csv(file,skip=2)`
+
+    ```{r}
+
+    ```
+
+
+3.  Sometimes strings in a CSV file contain commas. To prevent them from
+    causing problems they need to be surrounded by a quoting character, like
+    `"` or `'`. By convention, `read_csv()` assumes that the quoting
+    character will be `"`, and if you want to change it you'll need to
+    use `read_delim()` instead. What arguments do you need to specify
+    to read the following text into a data frame?
+    (Hint: Sometimes special characters act as a wild card. e.g. `.` represents
+    any charaters, `*` stands for repetition, and so on. So,
+    in order for R to recognize special characters as they are not as a wild card, 
+    we need to put a back-slash `\` in front of the character.
+    e.g. `\.` does not mean everything, but it means `.`)
+    
+    ```{r, eval = FALSE}
+    "x,y\n1,'a,b'"
+    ```
+    
+    Answer: Two ways to read the data: read_delim or read_csv
+  
+
+    ```{r}
+    x="x,y\n1,'a,b'"
+    read_delim(x,delim=",",quote="'")
+    read_csv(x,quote="'")
+
+    ```
+
+4.  Identify what is wrong with each of the following inline CSV files. 
+    What happens when you run the code?
+    
+    ```{r, eval = FALSE}
+    read_csv("a,b\n1,2,3\n4,5,6")
+    read_csv("a,b,c\n1,2\n1,2,3,4")
+    read_csv("a,b\n\"1")
+    ```
+
+    Answer:
+    1) There are two columns created and 3 values assigned to each line so it drops the third value of each line.
+    2) The line break causes column c row 1 to not have a value, thus the NA. Thus 4 is never read into the tibble.
+    3)The opening quote in front of 1 is dropped because it is not closed, and a is treated as an integer.
+
+    ```{r}
+
+
+    ```

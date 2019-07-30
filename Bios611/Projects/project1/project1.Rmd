@@ -1,0 +1,185 @@
+---
+title: "Project1"
+author: "Ty Darnell"
+date: "September 12, 2018"
+output: html_document
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = F,message=F,comment="",warning=F)
+```
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(magrittr)
+data(PlantGrowth)
+plantgrowth <- as_tibble(PlantGrowth)
+data(USArrests)
+usarrests <- as_tibble(USArrests)
+data(diamonds)
+data(mtcars)
+mtcars1 <- as_tibble(mtcars)
+```
+## Dataset 1
+# `PlantGrowth`
+Results from an experiment to compare yields (as measured by dried weight of plants) obtained under a control and two different treatment conditions.
+There are `r nrow(PlantGrowth)` observations
+
+```{r}
+ggplot(plantgrowth,aes(y=weight,color=group))+geom_boxplot()
+```
+
+
+
+```{r}
+ plantgrowth%>%group_by(group)%>%summarise(weight_mean=mean(weight))
+```
+
+Looking at the boxplots, you can see that the treatment2 group of plants have higher weights than the other groups. Treatment two lower weights than the control group. A reasonable hypothesis based on this data is that treatment 2 increases plant weight while treatment 1 decreases plant weight as compared to the control group.
+Looking at the mean plant weight by group, treatment 1 has the lowest mean even with the two outliers included in the data. Removing these outliers and creating a new table gives us the following:
+
+```{r}
+plantgrowth %>% filter(!(group=="trt1" & weight> 5))%>% group_by(group)%>%summarise(weight_mean=mean(weight))
+
+plantgrowth%>% filter(!(group=="trt1" & weight> 5))%>% ggplot(aes(y=weight,color=group))+geom_boxplot()
+```
+
+After removing the two outliers from treatment 1, there is an even bigger difference between the trt1 group mean and the ctrl group mean. There is also a bigger differnce between the medians of the two groups.
+
+It would be helpful to know what treatment 1 and treatment 2 are. This would provide a better idea as to the link between plant `weight` and the treament. Also it would be helpful to know what type of plants are being experimented on. Without this information it is difficult to draw meaningful conclusions.
+
+##Dataset 2
+# `USArrests`
+The graph is based on data from Statistical Abstracts of the United States 1975.
+Statistics in arrests per 100,000 residents for assault, murder, and rape in each of the 50 US states in 1973. Also given is the percent of the population living in urban areas.
+
+```{r}
+usarrests2 <- usarrests%>%mutate(urbanpop_cat=cut(UrbanPop,breaks = 3,labels=c("low","med","high")))
+ggplot(data=usarrests2,aes(x=UrbanPop,y=Murder))+geom_point(aes(color=urbanpop_cat))+geom_smooth(method="lm",se=F)
+```
+
+```{r}
+   usarrests2%>%group_by(urbanpop_cat)%>%summarise(murder_mean=mean(Murder))
+  
+```
+Looking at the graph there does not appear to be much of a correlation between Urban Population percent and murder arrests. However breaking `UrbanPop` into 3 roughly equally sized categories of "high", "med" and "low" we can see that there is a difference in their means, with the high `UrbanPop` percentages having a slightly higher mean rate of murder arrests.
+
+```{r}
+usarrests2%<>%mutate(Total_Arrests=Murder+Assault+Rape)
+usarrests2%>%ggplot(aes(x=UrbanPop,y=Total_Arrests))+geom_point(aes(color=urbanpop_cat))+geom_smooth(method="lm",se=F)
+
+usarrests2%>%group_by(urbanpop_cat)%>%summarise(arrests_mean=mean(Total_Arrests))
+```
+
+Combining all the arrest types (assault,murder,rape) we can see there is more of an association between urban population percentage and `Total Arrests`.
+
+The mean of total arrests for the high `UrbanPop` group is much larger than either of the other two groups. The mean for the med group is smaller than the mean for the low group which is interesting. A good next step to further investigate this would be to look at overall population of the states as well as the number of police per 100,000 citizens and compare this to `Total_Arrests`.
+
+##Dataset 3
+# `Diamonds`
+A dataset containing the prices and other attributes of almost 54,000 diamonds. The figure compares the distribution of price by the quality of the cut of the diamond.
+```{r,include=F}
+#get geom_flatviolin
+source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+#create raincloud theme
+# code adapted from: https://orchid00.github.io/tidy_raincloudplot
+raincloud_theme <- theme(
+  text = element_text(size = 10),
+  axis.title.x = element_text(size = 16),
+  axis.title.y = element_text(size = 16),
+  axis.text = element_text(size = 14),
+  axis.text.x = element_text(angle = 45, vjust = 0.5),
+  legend.title = element_text(size = 16),
+  legend.text = element_text(size = 16),
+  legend.position = "right",
+  plot.title = element_text(lineheight = .8, face = "bold", size = 16),
+  panel.border = element_blank(),
+  panel.grid.minor = element_blank(),
+  panel.grid.major = element_blank(),
+  axis.line.x = element_line(colour = "black", size = 0.5, linetype = "solid"),
+  axis.line.y = element_line(colour = "black", size = 0.5, linetype = "solid"))
+
+
+#raincloud function
+#modifed code from: https://orchid00.github.io/tidy_raincloudplot
+rain_cloud <- function(Data, X,Y,xlab="X",ylab="Y") {
+  ggplot(data = Data, 
+         aes_string(x = X, y = Y, fill = X)) +
+    geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .8) +
+    geom_point(aes_string(y = Y, color = X), 
+               position = position_jitter(width = .15), size = .5, alpha = 0.8) +
+    geom_boxplot(width = .1, outlier.shape = NA, alpha = 0.5) +
+    expand_limits(x = 5.25) +
+    guides(fill = FALSE) +
+    guides(color = FALSE) +
+    labs(x=xlab,y=ylab) +
+    scale_color_brewer(palette = "Spectral") +
+    scale_fill_brewer(palette = "Spectral") +
+    coord_flip() + # flip or not
+    theme_bw() +
+    raincloud_theme
+}
+```
+##Rain Cloud Plot of `Diamonds`
+
+```{r}
+rain_cloud(diamonds,"cut","price","cut","price")
+```
+
+It is interesting that a large number of the diamonds with "ideal" cuts have lower prices. In order to shed some light on this I looked at the mean weight of the diamond `carat` grouped by `cut`.
+
+```{r}
+diamonds%>%group_by(cut)%>%summarise(mean_carat_bycut=mean(carat))%>%print(n=Inf)
+```
+
+Looking at the mean of `carat` by cut you can see that the "ideal" cut diamonds have a lower average `carat` which would help explain why there are a lot of higher quality `cut` diamonds that are cheaper.
+
+```{r}
+ggplot(diamonds,aes(x=carat,y=price))+geom_point()+geom_smooth(method="lm",se=F)
+
+ggplot(diamonds,aes(x=carat,y=price))+geom_point(aes(color=cut))+geom_smooth(method="lm",se=F)+facet_wrap(~cut)
+```
+
+Looking at `price` versus `carat` it appears there is a somewhat strong positive correlation which makes sense that bigger diamonds would be more expensive.
+
+Looking at the faceted plot there is a positive correlation between `price` and `carat` for each `cut` of diamond. From this it seems likely that `carat` is a better predictor of`price` than `cut`.
+
+As a next step it would be interesting to look at data for lab created diamods of similar `cut` and `carat` and compare the `price` to natural diamonds.
+
+##Dataset 4
+#`mtcars`
+
+The data is from the 1974 Motor Trend US magazine, and comprises fuel consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models).
+
+
+```{r}
+ggplot(mtcars1,aes(y=hp))+geom_boxplot(outlier.size=2,outlier.colour="red")+coord_flip()+geom_text(aes(x=.03,y=325, label="Maserati Bora"))+labs(title="Boxplot of horsepower")
+```
+
+Looking at the boxplot of `hp`, it is clear that Maserati Bora is an outlier.
+
+```{r}
+mtcars1 <- mtcars%>%mutate(carname=rownames(mtcars))
+mtcars1%<>%mutate(hpclass=cut(hp,breaks=c(0,100,200,300,340),labels = c("low","med","high","Maserati Bora")))
+ggplot(mtcars1,aes(x=hp,y=mpg,color=hpclass))+geom_point()+geom_smooth(method="lm",se=F)+labs(title="mpg by horsepower class")
+```
+
+The above figure is the result of cutting `hp` into categories of 0-100, 100-200, 200-300 and then a fourth category for the outlier. We can see a negative correlation between `hp` and `mpg` for the low and med `hp` groups. For the high `hp` group, the `mpg` actually increases as the `hp` increases. It makes sense that a larger engine would be less efficient and likely power a larger car, all things that would reduce gas mileage. In order to shed some light on why the `mpg` increases for the high `hp` group I constructed a plot of `mpg` versus `weight`.
+There is a clear negative correlation between `weight` and `mpg`. 
+
+```{r}
+ggplot(mtcars1,aes(x=wt,y=mpg))+geom_point(aes(color=hpclass))+geom_smooth(method="lm",se=F)
+```
+
+
+There are only a few cars in the high `mpg` group and there is a lot more variability in their weights as shown in the boxplot below. I think that the increase in `mpg` as `hp` increases for the high `hp` class is due to a variety of factors including the ones mentioned above.
+
+As a next step it would interesting to investigate the relationship between `mpg` and the country the car is manufactured in to determine if certain countries produce on average higher `mpg` cars. Also it would be useful to group the cars based on class to comapre similar types of cars `mpg`.
+
+
+```{r}
+mtcars1%>%filter(between(hp,200,300))%>%select(carname,wt,hp,mpg,hpclass)
+mtcars1%>%filter(hpclass!="Maserati Bora")%>%ggplot(aes(y=wt,color=hpclass))+geom_boxplot()
+```
+
+ 

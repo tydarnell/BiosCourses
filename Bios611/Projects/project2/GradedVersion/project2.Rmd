@@ -1,0 +1,98 @@
+---
+title: "Project 2"
+author: "Ty Darnell"
+date: "October 18, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F,warning=F,message=F,echo=F)
+```
+
+```{r echo=F}
+source('createdata.R')
+source('cleandata.R')
+source('joindata.R')
+source('statsum.R')
+source('plots.R')
+source('functions.R')
+```
+
+
+#NCAA Men's College Baseketball Data 2017-2018 Season
+
+Source: sportsreference.com
+
+This is a data set of all 351 of the D1 teams. To start out with I looked at differences between the teams that made the NCAA tournament `ncaa`=1 and those that did not `ncaa`=0.
+
+SRS -- Simple Rating System
+A rating that takes into account average point differential and strength of schedule. The rating is denominated in points above/below average, where zero is average.
+
+SOS -- Strength of Schedule
+A rating of strength of schedule. The rating is denominated in points above/below 
+average, where zero is average. 
+
+Non-Division I games are excluded from both of the above ratings.
+
+The tables below gives the mean grouped by `NCAA` for Turnovers, Win-Loss Percentage, SOS, Three Point percentage, Field goal percentage, Free throw Percentage, Simple Rating System rating.
+
+```{r}
+kable(mean.not, col.names = "Mean", caption = "Teams that did not make NCAA Tournament",digits = 2)
+```
+
+
+```{r}
+kable(mean.in, col.names ="Mean", caption = "Teams that made the NCAA Tournament",digits = 2)
+```
+
+It is surprising that the mean turnovers, 3 point pecentage, field goal percentage and free throw percentage are fairly similar between the two groups. It makes sense that the win loss percentage and strength of schedule are higher for the 68 teams that made the tournament.
+
+##Strength of Schedule and Win Loss Percentage
+
+Looking at the teams that did not make the tournament, there is a somewhat strong positive association between strength of schedule and win loss percentage. It is certainly possible that having a tougher strength of schedule was a determining factor for some of the teams that did not recieve a tournament berth. 
+
+Looking at the teams that did make the tournament there is a very weak assocation between the two variables.
+
+
+
+
+```{r}
+plot1
+```
+
+
+##Distribution of Simple Rating Systems Ratings
+
+Looking at the SRS of the two groups we have the following quanitles:
+
+```{r}
+kable(quantile(Not_in_tourney$SRS),caption = "Not in Tournament",col.names="SRS Rating",digits=2)
+  kable(quantile(In_tourney$SRS),caption="In Tournament",col.names = "SRS Rating",digits=2)
+```
+
+
+```{r}
+plot2
+```
+
+There are some teams with below average (negative) SRS ratings that made the NCAA tournament. The main reason this occurred is because teams that win their conference tournaments automatically recieve a tournament berth.
+
+It is more difficult to explain why there are a several teams with high SRS ratings that did not make the tournament. Given that there are only 68 spots in the tournament and 351 teams, it is envitable that some teams with high SRS scores will be left out.
+
+
+In order to make since of this I looked at the top 10 SRS ratings of the group that did not make the tournament.
+
+##Top 10 Teams Left out of Tournament
+
+All of the teams have high SOS scores and are in highly competative conferences with the expection of Saint Mary's. They also have relatively high win loss percentages.
+These teams likely lost their spots to auto bid teams from less competative conferences.
+
+
+```{r}
+kable(first10out,digits=2,col.names= c("School","SRS","SOS","Win Loss % ","Conference"),caption = "SRS Top 10 Teams Out")
+```
+
+```{r}
+plot3
+```
+

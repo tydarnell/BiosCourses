@@ -1,0 +1,652 @@
+\documentclass[openany]{book}
+\usepackage[utf8]{inputenc}
+\title{R Notes}
+\author{Ty Darnell}
+\date{ }
+\usepackage[english]{babel}
+ \usepackage{graphicx}
+ \usepackage{float}
+ \graphicspath{ {} }
+ \usepackage{mathtools}
+ \usepackage{amsmath, amsthm, amssymb, amsfonts}
+ \usepackage{caption}
+ \usepackage{titlepic}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={R Notes},
+    pdfauthor={Ty Darnell},
+    bookmarksopen=true,
+}
+\begin{document}
+\titlepic{\includegraphics[width=\textwidth]{cover.png}}
+\maketitle
+\tableofcontents
+\begin{flushleft}
+\part{The Language}
+\chapter{Vectors}
+\section{Vectors}
+\textbf{Recycling}: The automatic lengthening of vectors in certain settings \medbreak
+\textbf{Filtering}: The extraction of subsets of vectors \medbreak
+\textbf{Vectorization}: Where functions are applied element-wise to vectors \medbreak
+You cannot insert or delete elements of a vector, you have to reassign the vector to accomplish this.
+\section{Creating Vectors}
+create vector: c(1,2,3,...) \medbreak
+seq(from,to,by) \medbreak
+\textbf{length.out} instead of by to specify how many numbers you want \medbreak
+\textbf{along.with} takes the length from the length of this argument \medbreak
+rep(x,times,each=1) \medbreak
+sort(x,decreasing=FALSE)\medbreak
+\section{Subsetting Vectors}
+use - remove indexes \medbreak
+$vec[-1]$ select all but first index \medbreak
+$vec[-length(vec)]$ select all but last index
+\section{Vectorized Operations}
+\textbf{Vectorized}: a function applied to a vector is actually applied individually to each element.\\
+The code can take a vector of values as input and manipulate each value in the vector at the same time.  \medbreak
+Vectorized operations can be simpler than a for loop \medbreak
+a*b\\
+a[1:7]*b[1:7] \medbreak
+\textbf{How to write vectorized code}:
+\begin{itemize}
+	\item Use vectorized functions to complete the sequential steps in your program
+	\item Use logical subsetting to handle parallel cases.\\
+	Try to manipulate every element in a case at once.
+\end{itemize}
+
+\chapter{Matrices and Arrays}
+\section{Matrix}
+$matrix(c(1,2,3,4,5,6),nrow=2, ncol=3,byrow=FALSE)$ \medbreak
+\textbf{Row and Column Bindings}: Use  rbind  or cbind  to create a matrix \medbreak
+\textbf{Matrix Dimensions}: dim \ nrow \ ncol \medbreak
+use $diag$ to find the values along the diagonal in a square matrix \medbreak
+use square brackets and a - to omit elements \medbreak
+\textbf{Transpose of Matrix}: $t(A)$ \medbreak
+use \textbf{diag} to create an identity matrix: $diag(3)$ is a 3 by 3 identity matrix \medbreak
+\textbf{Matrix Multiplication}: $A\%*\%B$ \medbreak
+***if a is $m\times n$ and B is $p\times q$,  where $n=p$. The result will be size $m\times q$. \medbreak
+\textbf{Matrix Inversion}: $solve(A)$ \ A must be square, nonsingular \medbreak
+\textbf{Determinant}: $det(A)$\medbreak
+\textbf{Cross Product}: $crossprod(A)$\medbreak
+\textbf{Outer Product}: $outer(x,y,"FUN")$ \medbreak
+\textbf{Eigen Values and Vectors}: $eigen(A)$
+\section{Array}
+A 3d array has 3 dimensions: row,column,layer \medbreak
+$array(data=1:10,dim=c(r,c,l))$ \medbreak
+each \textbf{layer} is a matrix with the row and column dimensions
+\chapter{Non-Numeric Values}
+\section{Logical Values}
+$any$ returns TRUE if any logicals are TRUE \medbreak
+$all$ returns TRUE if all logicals are TRUE \medbreak
+$\&$ and element-wise operator \medbreak
+$\&\&$ and single comparison \medbreak
+$|$ or element-wise operator \medbreak
+$||$ or single comparison \medbreak
+$!$ not \medbreak
+Short versions are meant for element-wise: return multiple logicals \medbreak
+Long versions are meant for single comparison: return a single logical value \medbreak
+\textit{The result of any logical operator is a logical value} \medbreak
+An \textbf{and} statement has a higher precedence than an \textbf{or} statement \medbreak
+\textbf{which} takes a logical vector and returns the indexes of the TRUE entries. \medskip
+$myvec[-which(myvec<0)]$ omits the negative entries \medbreak
+$which(A>25,arr.ind=T)$ gives row and column positions for a matrix \medbreak
+$arr.ind$ treats the object as a matrix or an array rather than a vector
+\section{Characters}
+R treats a string as a single entity. \medbreak
+Use $nchar(x)$ to return the number of characters \medbreak
+\textbf{concatenate}: use $cat$ or $paste$ \medbreak
+$cat$ outputs directly to the console but doesn't return anything \medbreak
+$paste$ returns the concatenated string as an object \medbreak
+$substr(x,start,stop)$ takes a string and extracts the part between two character positions (inclusive) \medbreak
+$sub(pattern, replacement, x)$ searches string for a smaller string pattern and replaces first instance \medbreak
+$gsub$ replaces every instance
+\section{Factors}
+Are used in categorical data \medbreak
+use $factor$ to convert to a factor \medbreak
+$factor(x,levels,ordered=T/F)$ \medbreak
+\textbf{levels}: possible values of the factor \medbreak
+use $levels$ to extract the levels as vector \medbreak
+use $cut$ to \textbf{bin} (group) data into categories \medbreak
+the right argument determines if boundary levels are on the left or right \medbreak
+include.lowest includes the highest or lowest value, depending on whether right is T or F \medbreak
+labels argument labels the categories \medbreak
+$cut(x,breaks,right=T/F,include.lowest=T/F,labels)$
+\chapter{Lists and Data Frames}
+\section{Lists}
+\textbf{Member Reference}: Use double brackets to retrieve items from a list \medbreak
+\textbf{List Slicing}: single brackets, allows you to select multiple items at once \medbreak
+\textbf{Names}: use $names(name vector)$ to name the elements of a list \medbreak
+Use the \textit{dollar operator} \$ to preform member referencing
+\section{Data Frames}
+All vectors in a data frame must be of equal length \medbreak
+use $data.frame()$ to create \medbreak
+each row in a DF is called a \textbf{record} \medbreak
+each column is a \textbf{variable} \medbreak
+R's default behavior for character vectors passed to a DF is to convert each variable into a factor \medbreak
+set $stringsAsFactors$ argument to FALSE to prevent this \medbreak
+add rows to DF using rbind add columns using cbind or dollar operator \medbreak
+\textbf{subsetting records}: $mydata\$sex=="M"$ returns T or F \medbreak
+$mydata[mydata\$sex=="M",]$ returns data for all variables for Males \medbreak
+use negative index to omit entries: $mydata[mydata\$sex=="M",-3]$ \medbreak
+also can use character vector of variable names to pick returned columns
+\chapter{Special Values, Classes and Coercion}
+\section{Special Values}
+\textbf{Infinity}: $Inf$ \medbreak
+$is.infinite()$ and $is.finite()$ \medbreak
+\textbf{NaN}: Not a number \medbreak
+$is.nan()$ \medbreak
+cannot use relational operators with NaN \medbreak
+\textbf{Which}: use $which()$ to convert logical values into index positions \medbreak
+use arr.ind argument of which to return values as an array
+\section{NA}
+\textbf{Not Available}: used for missing entries \medbreak
+$is.na()$ \medbreak
+identifies NA and NaN \medbreak
+$na.omit()$ deletes all NAs, also applies to NaNs if elements are numeric \medbreak
+\section{NULL}
+$NULL$ is used to explicitly define an empty entity different than a missing entity (NA) \medbreak
+$is.null$  use to check if the whole argument is null. True or False returned once.
+\section{Attributes}
+\textbf{attributes}: $attributes(x)$ returns a list of the explicit attributes of an object \medbreak
+can use the dollar operator to retrieve contents of attributes list \medbreak
+use dimnames argument with a matrix to name the rows and columns, this is an attribute \medbreak
+$attr(x,which="dim")$ to obtain specific attribute.
+\section{Classes}
+An object's \textbf{class} is an attribute. All objects identify with at least one class \medbreak
+Class identification is called \textbf{inheritance} \medbreak
+Elementary R objects such as vectors, matrices, and arrays are implicitly classed, meaning the class is not identified with $attributes()$ \medbreak
+You can always use $class()$to find the class of any object \medbreak
+$typeof()$ reports the type of data contained within an object \medbreak
+use \textit{is-dot} functions to determine if object is a specific class or data type. Operates on object itself, returns a single logical value
+\section{Coercion}
+Converting from one object or data type to another is called \textbf{coercion} \medbreak
+\textbf{Implicit coercion} occurs automatically when elements need to be converted to another type in order for an operation to complete. \medbreak
+\textbf{Explicit coercion} can be achieved using \textit{as-dot} functions \medbreak
+ex: $as.logical()$ or $as.numeric()$
+\chapter{Base R  Plotting}
+\section{Plot}
+\textbf{Plot}: takes in two vectors and opens a textit{graphics device} where it displays the result. If already open, R's default behavior is to refresh the device, overwriting with the new plot. \medbreak
+$plot(x,y)$ or $plot(mat)$ where mat is an nx2 matrix
+\section{Graphical Parameters}
+\begin{itemize}
+\item \textbf{type}: tells R how to plot the coordinates (ex: stand-alone points or joined by lines) 
+
+\item \textbf{main, xlab, ylab}: Options to include plot title, horizontal and vertical axis label
+
+\item \textbf{col}: colors to use for plotting points and lines. You can type in a number for the $col$ argument or type in the corresponding character string. Use $colors()$ to dsiplay color choices
+
+\item \textbf{pch}: point character, what character to use for plotting individual points, takes an integer value between 1 and 25 or you can specify a single character to use for each point.
+\item \textbf{cex}: character expansion, controls size of plotted characters, takes integer value, 1 is default.
+
+\item \textbf{lty}: line type, specifies the type of line to use to connect the points. Takes an integer value between 1 and 6.
+
+\item \textbf{lwd}: line width, controls thickness of plotted lines, takes integer value, 1 is default.
+
+\item \textbf{xlim, ylim}: provides limits for the horizontal and vertical range of the plotting region. Each requires a vector of length 2. $c(lower,upper)$
+
+\end{itemize}
+\section{Automatic Plot Types}
+To control plot type, specify a single character-valued option for the argument $type$ \medbreak
+\begin{itemize}
+\item "\textbf{p}" points only, the default value
+\item "\textbf{l}" lines
+\item "\textbf{b}" both points and lines
+\item "\textbf{o}" overplotting the points with lines, eliminates the gapes between points and lines
+\item "\textbf{n}" no points or lines, creating and empty plot. This can be useful for complicated plots that must be constructed in steps.
+\end{itemize}
+\section{Adding Points, Lines and Text to an Existing Plot}
+These functions will add to a plot without refreshing or clearing the window:
+\begin{itemize}
+\item \textbf{points} Adds points  $points(x[y>=5],y[y>=5])$
+
+\item \textbf{lines,abline,segments} Adds lines:
+\begin{itemize}
+\item \textbf{lines} $lines(x,y)$ Draws lines connecting coordinates in x and y.
+\item \textbf{abline} $abline(h=c(-5,5),col="red")$  Use h and v for horizontal and vertical.
+\item \textbf{segements} $segments(x0=c(5,15),y0=c(-5,5),x1=c(5,15),y1=c(5,5))$
+\end{itemize}
+
+\item \textbf{text} Writes text $text(x,y,labels="")$ text is centered on the coordinates provided
+
+\item \textbf{arrows} Adds arrows $arrows(x0,y0,x1,y1)$
+
+\item \textbf{legend} Adds a legend $legend(placement, legend=c(labels),pch=c(1,2),col=c(1,2)$
+\end{itemize}
+\chapter{Plotting with ggplot2}
+\section{Quick Plot}
+$qplot(x,y)$ Similar to base r $plot()$ \medbreak
+ggplot2 plots are stored as objects, they have an underlying, static representation until you change them. \medbreak
+\section{Geoms}
+\textbf{Geometric Modifiers}: geoms \medbreak
+$qplot(x,y,geom="blank")+geom_point()+geom_line()$ \medbreak
+Some arguments you can supply to geoms are: color, shape, linetype \medbreak
+ggplot2 is compatible with many of the base r graphical parameters. \medbreak
+type $??geom$ to obtain a list of geoms \medbreak
+\section{Aesthetic Mapping with Geoms}
+ A factor used to split a data set into categories is called a variable. You can use ggplot2 to map the variable to aesthetic values.\\
+ex: $qplot(x,y,color=var,shape=var)$ \medbreak
+use $aes$ inside a geom to override default mapping
+\section{ggplot}
+$ggplot(data=mpg)+geom_point(aes(x=displ,y=hwy))$
+\chapter{Reading and Writing Files}
+\section{Reading Files}
+use $data()$ to load a built in dataset \medbreak
+\textbf{Read Table} $read.table(file,header=T/F,sep="" ,na.strings="*" ,stringsAsFactors=T/F)$ \medbreak
+Use $setwd()$. Then all you need is the file name and extension as the file argument. \medbreak
+Use $list.files()$ to view textual output of the contents of any folder \medbreak
+$file.choose()$ opens up your folder and returns the path of the file you click on. Can use it for the file argument in read.table \medbreak
+\textbf{Read CSV} $read.csv(file,header=T/F,na.strings=, stringsAsFactors=T/F)$ \medbreak
+Use $scan()$ and $readLines()$ to parse files \medbreak
+$readLInes(con=connection,n=max lines to read)$
+\subsection{Web-Based Files}
+R can read files from a website with $read.table()$\\
+Use the URL address for the file argument
+\subsection{Other File Formats}
+$.dat$ files can be read using $read.table$, however they may contain extra information at the top that must be skipped using the $skip$ argument. \medbreak
+\textbf{skip}: number of lines at the top of the file that should be ignored
+
+\section{Writing Files}
+$\textbf{write.table}(x=datafile,file=newfile,sep="",na="",quote=T/F,row.names=T/F)$ \medbreak
+If you only supply a file name, it will be created in the working directory. \medbreak
+\textbf{quote} determines whether to encapsulate each non-numeric entry in double quotes. \medbreak
+\textbf{row.names} asks whether to include the row names of the data source. \medbreak
+\textbf{write.csv} is a shortcut version designed for $.csv$ files.
+\subsection{Plots and Graphics FIles}
+Use $jpeg()$ or $pdf()$ to create a file \medbreak
+Default width and height for pdf is inches, pixels in jpeg. \medbreak
+\textbf{Write a plot to a file:}
+\begin{enumerate}
+\item Create file: $jpeg(filename,height,width)$
+\item Create plot
+\item Close the file device: $dev.off()$
+\end{enumerate}
+\subsection{ggsave}
+$gg.save(filename)$ saves plot to a file.\\
+Put the extension in the filename ex: $"myplot.png"$ \medbreak
+\section{Ad Hoc Object Read/Write Operations}
+use $dput$ to write and $dget$ to read other kinds of R objects. \medbreak
+$dput(x,file)$ \quad $dget(file)$
+\part{Programming}
+\chapter{Calling Functions}
+\section{Environments}
+R enforces scoping rules with virtual \textbf{environments}- separate compartments where data structures and functions are stored. \medbreak
+\textbf{Global Environment}: The compartment set aside for user-defined objects. \medbreak
+$ls()$ lists all the objects, variables, and user-defined functions in the current global environment. \medbreak
+\textbf{Package Environment}: Each package environment represents several subenvironments that control different aspects of a search for a given object. \medbreak
+\textbf{Local Environments}: Each time a function is called, a new environment is created, called the local environment or lexical environment. This contains all the objects and variables created in and visible to the function. \medbreak
+\textbf{Partial Argument Matching}: You can abbreviate argument names to avoid typing out the full argument.
+\section{Ellipsis}
+You can make a function more flexible in the number of arguments it can accept by using the ellipsis (...) \medbreak
+\textbf{Two cases for ellipsis:}
+\begin{enumerate}
+\item The ellipsis is the first argument for functions like data.frame, c, and list. The ellipsis represents the main ingredients in this case. The contents of the ellipsis is used in the resulting object or output.
+
+\item It is the last argument for functions like plot. The ellipsis in this case is meant as a supplementary or potential repository of optional arguments. Used when the function calls other subfunctions that require additional arguments depending upon the originally supplied items.
+\end{enumerate}
+
+\chapter{Conditions and Loops}
+\section{Conditions}
+\subsection{if Statements}
+An \textbf{if} statement runs a block of code only if a certain condition is true \medbreak
+The \textbf{condition} is placed in parentheses after the if keyword. The code is in braces after the condition. \medbreak
+if(condition) \{\\
+\quad code to run\\
+\} \medbreak
+highlight code use command + enter to run selection \medbreak
+use option + command + (b,e,r) to run from the beginning to the current line, the current line to the end, run all code \medbreak
+$||$ or statement that produces a single logical result\\
+$\&\&$ and statement that produces single logical result
+\subsection{else Statements}
+use an \textbf{else} statement if you want something different to happen when the condition is FALSE \medbreak
+if(condition)\{\\
+\quad code to run if condition is TRUE\\
+\} else \{ \\
+\quad code to run if condition is FALSE\\
+\}
+\subsection{Using ifelse for Element-wise Checks}
+\textbf{ifelse} can perform vector-oriented check. Checks each element \medbreak
+$ifelse(test,yes,no)$
+\begin{itemize}
+\item \textbf{test} takes a logical-valued data structure
+\item \textbf{yes} provides the element to return if the condition is satisfied
+\item \textbf{no} gives the element to return if the condition is FALSE
+\end{itemize}
+\subsection{Nesting and Stacking Statements}
+You can nest if statements by putting them inside braces of preceding if \medbreak
+You can stack if statements using \textbf{else if} \medbreak
+\subsection{The switch Function}
+\textbf{switch}: EXPR is the object of interest, the remaining arguments provide the values or operations to carry out based on the value of EXPR. The final untagged value is the result if EXPR doesn't match any of the preceding items. \medbreak
+$switch(EXPR,val1,val2,else val)$ \medbreak
+Integer version of $switch$ works slightly differently, instead of using tags, the outcome is determined by positional matching
+\section{for Loops}
+for(loopindex in loopvector) \{\\
+\qquad do any code in here\\
+\}
+\subsection{Nesting for Loops}
+When a $for$ loop is nested in another $for$ loop, the inner loop is executed in full before the outer loop loopindex is incremented, at which point the inner loop is executed all over again.
+
+\section{while Loops}
+while(loopcondition) \{ \\
+\qquad do any code in here\\
+\} \medbreak
+A $while$ loop uses a single logical-valued loopcondition to control how many times it repeats. If the condition is TRUE, the code is executed then the loop condition is checked again. The loop terminates immediately once the condition is FALSE. \medbreak
+\section{Implicit Looping with apply}
+\textbf{apply} takes a function and applies it to each margin of an array. \medbreak
+$apply(X,MARGIN,FUN)$ \medbreak
+MARGIN = integer value of margin of X to operate on. \\
+The margin index follows the positional order of the dimensions for matrices and arrays. 1 always refers to row, 2 to columns, 3 to layers, 4 to blocks and so on. $margin=c(1,2)$ would apply to both rows and columns.
+\subsection{Other apply Functions}
+\textbf{tapply}: performs operations on subsets of the object of interest, where those subsets are defined in terms of one of more factor vectors. \\
+$tapply(factor vector,INDEX,function)$ \medbreak
+\textbf{lapply}: operates member by member on a list. Returns a list. \\
+$lapply(list,function)$ \medbreak
+\textbf{sapply}: returns same result as lapply but in array form. \\
+$sapply(list,function)$ \medbreak
+\textbf{vapply}: similar to $sapply$ \medbreak
+\textbf{mapply}: operates on multiple vectors or lists at once. \medbreak
+All of the apply functions allow for additional arguments to be passed to FUN, most do this via an ellipsis.
+\section{Other Control Flow Mechanisms}
+\subsection{Declaring break or next}
+Use \textbf{break} to preemptively terminate a loop. \medbreak
+Use \textbf{next} to advance to the next iteration and continue execution.
+\subsection{repeat}
+repeat\{ \\
+\qquad do any code in here\\
+\} \medbreak
+To stop repeating code inside the bracs you must use $break$ inside the braced area (usually with an if statement).
+\chapter{Writing Functions}
+\section{The function Command}
+functionname $<-$ function(arg1,arg2,arg3,...) \{ \\
+\qquad do any code in here when called\\
+\qquad return(returnobject)\\
+\} \medbreak
+When R encounters a \textbf{return} statement during execution, the function exits \medbreak
+If there's no $return$ statement inside a function, the function will end when the last line has been run and will return the most recently assigned object. \medbreak
+\section{Arguments}
+\textbf{lazy evaluation}: Expressions are evaluated only when they are needed. Arguments are accessed and used only at the point they appear in the function body. \medbreak
+\textbf{missing} checks the arguments of a function to see if all required arguments have been supplied. It takes a single argument tag and returns TRUE if the argument isn't found. \medbreak
+\section{Specialized Functions}
+\subsection{Helper Functions}
+\textbf{Helper function}: functions written and used specifically to facilitate the computations carried out by another function. \medbreak
+Can be \textbf{internally} or \textbf{externally} defined.
+\subsection{Disposable Functions}
+\textbf{Disposable or Anonymous functions}: function intended for use in a single instance without explicitly creating a new object in your global environment. \medbreak
+You can pass in a short, simple function as an argument.
+\subsection{Recursive Functions}
+\textbf{Recursion} is when a function calls itself. \medbreak
+An accessible stopping rule is critical to any recursive function. \medbreak
+Recursion is a good option when you don't know ahead of time how many times a function needs to be called to complete a task. Useful for sort and search algorithms.
+\chapter{Exceptions, Timings, and Visibility}
+\section{Exception Handling}
+When there's an unexpected problem during the execution of a function, R will notify you with either a \textbf{warning} or an \textbf{error}.
+\subsection{Formal Notifications: Errors and Warnings}
+\textbf{Error} forces the function to immediately terminate at the point it occurs. \medbreak
+\textbf{Warning} indicates that the function is being run in an atypical way but tries to work around the issue and continue executing. \medbreak
+Use $warning("message")$ issue a warning. \medbreak
+Use $stop("message")$ to throw an error \medbreak
+\subsection{Catching Errors with try Statements}
+Use a \textbf{try} statement to attempt a function call and check whether it produces an error. This prevents halting execution. \medbreak
+$try(function,silent=T/F)$ \medbreak
+\section{Progress and Timing}
+$Sys.time()$ tells you the current time \medbreak
+$proc.time()$ is more detailed \medbreak
+$system.time()$ times a single expression
+\section{Masking}
+\textbf{Masking}: one object or function will take precedence over the other and assume the object or function name, while the masked function must be called with an additional command. \medbreak
+You have to include the name of the package of the masked function in the call with a double colon.\\
+$base::sum(foo)$
+\subsection{Data Frame Variable Distinction}
+You can use:\\
+$attach(dataframe)$\\
+$detach(dataframe)$ \medbreak
+To attach and detach the dataframe to the search path. This saves you from typing dateframe\$var
+every time you want to access the variable.
+\part{Statistics, Probability, Math}
+\chapter{Elementary Statistics}
+\section{Summary Statistics}
+$table(data)$ lists the frequency of the data. Use this to find the mode(s). \medbreak
+mean, median, min, max, range all do exactly what you expect. \medbreak
+Set \textbf{na.rm} argument to TRUE to remove NAs and NaNs from data \medbreak
+Use \textbf{tapply} function to compute statistics group by a specific categorical variable. You could find the mean by category for example. \medbreak
+$table(data)/nrow(data)$ calculates proportions \medbreak
+$round(data,digits)$ \medbreak
+\textbf{quantile}: value computed from a collection of numeric measurements that indicates an observation's rank when compared to all the other observations. \medbreak
+$quantile(data,prob)$ \medbreak
+$summary(data)$ gives you the five-number summary \medbreak
+\textbf{Spread}: var, sd, IQR functions
+\subsection{Covariance and Correlation}
+\textbf{covariance} expresses how much two numeric variables change together and whether the relationship is positive or negative. \medbreak
+\textbf{correlation} identifies the direction and strength of any association. \medbreak
+$cov(xdata,ydata)$\\
+$cor(xdata,ydata)$
+\chapter{Basic Data Visualization}
+\section{Barplots }
+\textbf{stacked}: bars are split vertically \\
+\textbf{dodged}: bars are broken up and placed beside each other \medbreak
+$data.freq \to table(data\$var)$\\
+$barplot(data.freq,)$ \medbreak
+$qplot(factor(data\$var),geom="bar")$
+\section{Histogram}
+$hist(data\$var)$ \medbreak
+$qplot(data\$var)$
+\section{Boxplots}
+$boxplot(data\$var)$ \medbreak
+\section{ggpairs}
+Use to create matrix of plots\\
+$ggpairs(data,mapping=aes(col=var))$
+\chapter{Probability}
+$cumsum(data)$ cumulative sum \medbreak
+$sample(x,size,replace=T/F,prob)$
+\section{Common PMFs}
+Each distribution has four core R functions tied to it:
+\begin{itemize}
+\item \textbf{d}-function: (\textit{density}) provides specific mass or density function values
+\item \textbf{p}-function: (\textit{probability}) provides cumulative distribution probabilities
+\item \textbf{q}-function: (\textit{quantile}) provides quantiles
+\item \textbf{r}-function: (\textit{random}) provides random variate generation
+\end{itemize}
+\subsection{Binomial Distribution}
+$dbinom$, $pbinom$, $qbinom$, $rbinom$ \medbreak
+\begin{itemize}
+\item \textbf{dbinom}: provides mass function probabilities, $P(X=x)$\\
+$dbinom(x,size,prob)$
+\item \textbf{pbinom}: provides cumulative probability distribution, $P(X\leq x)$\\
+$pbinom(q,size,prob)$
+\item \textbf{pbinom}: provides inverse cumulative probability distribution (\textit{quantile function}) gives x such that $P(X\leq x)=p$\\
+$qbinom(p,size,1/6)$
+\item \textbf{rbinom}: used to generate any number of realizations of X given a specific binomial distribution.\\
+$rbinom(n,size,prob)$
+\end{itemize}
+\subsection{Poisson Distribution}
+$\lambda$ is the mean number of occurrences
+\begin{itemize}
+\item \textbf{dpois}: Provides the individual Poisson mass function probs, $P(X=x)$\\
+$dpois(x,lambda)$
+\item \textbf{ppois}: Provides the left cumulative probs, $P(X\leq x)$\\
+$ppois(q,lambda)$
+\item \textbf{qpois}: inverse of $ppois$\\
+$qpois(p,lambda)$
+\item \textbf{rpois}: produces random variates\\
+$rpois(n,lambda)$
+\end{itemize}
+\subsection{Other Mass Functions}
+\begin{itemize}
+\item \textbf{geometric}: \textit{dgeom, pgeom, qgeom, rgeom}\\
+parameters: prob
+\item \textbf{negative binomial}: \textit{dnbinom, pnbinom, qnbinom, rnbinom}\\
+parameters: size, prob
+\item \textbf{hypergeometric}: \textit{dhyper, phyper, qhyper, rhyper}\\
+parameters: m,n,k
+\item \textbf{multinomial}: \textit{dmultinom, rmultinom}\\
+parameters: size, prob
+\end{itemize}
+\section{Common PDFs}
+\subsection{Uniform}
+\begin{itemize}
+\item \textbf{dunif}: returns heights for any value within the defined interval \\ 
+$dunif(x,min,max)$
+\item \textbf{punif}: returns areas under the function\\
+ $punif(q,min,max)$
+\item \textbf{qunif}: $qunif(p,min,max)$
+\item \textbf{runif}: $runif(n,min,max)$
+\end{itemize}
+\subsection{Normal}
+\begin{itemize}
+\item \textbf{dnorm}: returns value of the normal curve at any x, $dnorm(xvals,mean,sd)$
+\item \textbf{pnorm}: returns left-side probabilities under the normal curve, $pnorm(q,mean,sd)$
+\item \textbf{qnorm}: returns quantile value, $qnorm(p,mean,sd)$
+\item \textbf{rnorm}: random variates of normal distribution, $rnorm(n,mean,sd)$
+\end{itemize}
+Use $qqnorm(data)$ to create a normal quantile-quantile plot \medbreak
+$qqline(data,col)$ adds the "optimal" line that the coordinates would lie along if the data were perfectly normal.
+\subsection{Student's t-distribution}
+\textit{dt, pt, qt, rt} \\
+first argument is x,q,p,n respectively. Second argument is df.
+\subsection{Exponential}
+$\lambda$ is the \textbf{rate} parameter of the distribution \medbreak
+\begin{itemize}
+\item $dexp(x,rate)$
+\item $pexp(q,rate)$
+\item $qexp(p,rate)$
+\end{itemize}
+\subsection{Other Density Functions}
+\begin{itemize}
+\item \textbf{chi-squared}: models sums of squared normal variates\\
+\textit{dchisq, pchisq, qchisq, rchisq} \\
+ first argument is x,q,p,n respectively. Second argument is df.
+\item \textbf{F-distribution}: used to model ratios of two chi-squared random variables\\
+\textit{df, pf, qf, rf}\\
+first argument is x,q,p,n respectively. Then df1, df2.
+\item \textbf{gamma distribution}: generalization of both the exponential and chi-squared distributions\\
+\textit{dgamma, pgamma, qgamma, rgamma}\\
+first argument is x,q,p,n respectively. Then shape and scale.
+\item \textbf{beta distribution} used in Bayesian modeling \\
+\textit{dbeta, pbeta, qbeta, rbeta}\\
+first argument is x,q,p,n respectively. Then shape1 and shape2
+\end{itemize}
+\chapter{Math}
+\section{Probability and Functions}
+\subsection{Functions}
+$f\, \texttt{<-}\, function(x)\; x^2$\\
+defines the function $f$ by $f(x)=x^2$\medbreak
+$if \, (x>0) \; x^2 \; else \; x^3$\\
+piecewise function
+\subsubsection{Plotting a Function}
+\begin{enumerate}
+\item \textbf{Provide dummy dataset}\\
+ $p \,\texttt{<-}\, ggplot(data.frame(x = c(0, 10)), aes(x))$
+ \item \textbf{Define Function}
+ \item $p + stat\_function(fun = fun.1)$
+\end{enumerate}
+\subsubsection{Plotting Multiple Functions}
+ $p + stat\_function(fun = fun.1, aes(color = "fun.1")) + stat\_function(fun = fun.2, aes(color = "fun.2"))+scale\_color\_manual(values = c("red", "blue"))$ \medbreak
+ Put function names as colors inside $aes()$ and \\
+ use $scale\_color\_maual(values=c(color1,color2))$\\
+ to create the legend with the desired colors.
+\subsection{Probability}
+$pbirthday(k)$ solves the birthday problem for $k$ people \medbreak
+$lfactorial(n)$ gives the $log(n!)$ \medbreak
+use $prod(25:21)$ to multiple all items in a vector
+\section{Set Operations}
+$union(x,y)$ \medbreak
+$intersection(x,y)$ \medbreak
+$setdiff(x,y)$ set difference, consisting of all elements of x that are not in y \medbreak
+$setequal(x,y)$ test for equality between x and y \medbreak
+c \%in\%in y membership, testing whether c is an element of the set y \medbreak
+$chose(n,k)$ Number of possible subsets of size k chosen from a set of size n \medbreak
+$is.element(el,set)$
+\section{Sample}
+$sample(c(x1,x2,...),size,replace=T/F)$ \medbreak
+Sample randomly reorders the elements passed as the first argument. \medbreak
+$replicate(n,experiment)$ simulates n runs of experiment
+\section{Calculus}
+$optimize(f,lower,upper,maximum=T/F)$ maximizes f numerically over an interval \medbreak
+$uniroot(f, lower,upper)$ searches numerically for a zero in f over an interval \medbreak
+\subsection{Derivative}
+$D(expression(x^n),"x")$ \medbreak
+use $expression$ to convert your function to an expression.
+\subsection{Integration}
+$integrate(f,lower,upper)$ \medbreak
+$integrate(function(x) \{1/((x+1)*sqrt(x))\},0,Inf)$
+ 
+\chapter{ggfortify}
+\section{ggdistribution}
+\textbf{ggdistribution} is a helper function to plot distributions using ggplot2 \medbreak
+$ggdistribution(func,data,distribution \ specfic \ arguments)$\medbreak
+$func$ is the distribution argument. \medbreak
+ex: for normal distribution:\\
+$ggdistribution(func=distributiondnorm,data,mean,sd)$\medbreak
+ex: binomial distribution:\\
+$ggdistribution(dbinom,x=seq(0,5),size=5,prob=1/2)$
+\section{autoplot density}
+$autoplot(density(rnorm(1:50)),fill='green')$
+\section{autoplot Diagnostics for Linear Models}
+$autoplot(lm(data.x~data.y,dataset))$
+\part{Data Transformation}
+\chapter{dplyr}
+\section{dplyr Basics}
+use $View()$ to see all o the columns \medbreak
+Five key dplyr functions:
+\begin{enumerate}
+\item \textbf{filter}: pick observations by their values
+\item \textbf{arrange}: reorder the rows
+\item \textbf{select}: pick variables by their names
+\item \textbf{mutate}: create new variables with functions of existing variables
+\item \textbf{summarize}: collapse many values down to a single summary
+\end{enumerate}
+These can all be used with $group\_by()$ which causes the function to operate group by group instead of on the whole dataset\medbreak
+All verbs work similarly, the first argument is a data frame, the subsequent arguments describe what to do with the data, and the result is a new data frame
+\section{Filter}
+$filter(flights,month==1,day==2)$ \medbreak
+second and subsequent arguments are the expressions that filter the data frame.\medbreak
+the \%in\% operator\\
+month \%in\% c(11,12) \medbreak
+$between(x,left,right)$ shortut for $x\geq$ left \& $x\leq$ right
+\section{arrange}
+$arrange(flights,year,month,day)$\medbreak
+sorts the data frame\medbreak
+Changes the order of of the rows, each additional column is used to break ties.\\
+Missing values are always sorted to the end.\medbreak
+use $desc()$ to reorder column in descending order
+\section{select}
+$select(flights,year,month,day)$\medbreak
+allows you to zoom in on the variables you're interested in\medbreak
+subsets the data frame \medbreak
+$select(flights,-(year:day))$ exclude columns \medbreak
+use $rename(flights,tail\_num=tailnum)$ to rename a variable
+\subsection{select Helper Functions}
+$starts\_with("abc")$ matches names that begin with "abc" \medbreak
+$ends\_with("xyz")$ matches names that end with "xyz" \medbreak
+$contains("ijk)$ matches names that contain "ijk" \medbreak
+$matches("")$ selects variables that match a regular expression \medbreak
+$num\_range("x",1:3)$ matches x1, x2, and x3 \medbreak
+$everything()$ all variables, use to move variables to the start of the data frame \medbreak
+$one\_of(flights,"arr\_delay")$ variables in character vector
+\section{mutate}
+$mutate(flights,gain=arr\_delay-dep\_delay)$ \medbreak
+Add new variables \medbreak
+use $transmute(flights,gain=arr\_delay-dep\_delay)$ if you only want to keep the new variables \medbreak
+\subsection{Creation Functions}
+Functions must be vectorized to use with $mutate()$ \medbreak
+arithmetic operators, modular arithmetic, logs, and logical comparisons all work \medbreak
+$lead()$ and $lag()$ allow you to refer to leading or lagging values \medbreak
+ranking functions such as $min\_rank()$
+\section{summarize}
+$summarize(flights,delay=mean(dep_delay,na.rm=T))$ \medbreak
+collapse a data frame into a single row \medbreak
+use $group\_by()$ with $summarize()$ to get \textbf{grouped summaries} \medbreak
+$group\_by(flights,year,month,day)$ gives you the average delay per date \medbreak
+use the pipe \%$>$\% to combine multiple operations \medbreak
+\textbf{count} $n()$ takes no arguments and returns the size of the current group \medbreak
+$sum(!is.na(x))$ count of nonmissing values \medbreak
+\textbf{Measures of position}: $first(x)$, $nth(x,2)$, $last(x)$ \medbreak
+$count(var)$ \medbreak
+use $ungroup()$ to remove grouping
+
+
+
+\end{flushleft}
+\end{document}

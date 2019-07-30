@@ -1,0 +1,84 @@
+---
+title: "Pre-lab 1"
+author: "Ty Darnell"
+date: "January 15, 2019"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=F, message=F)
+library(tidyverse)
+library(knitr)
+library(data.table)
+```
+
+# Problem 1
+
+ Death, retract consent, no longer met study qualification, moved
+ 
+# Problem 2
+
+Because you want all time at risk, the individuals lost to follow up still were at risk while they were in the study.
+
+# Problem 3
+
+```{r}
+dat=fread("epi1.csv")
+```
+
+
+# Problem 4
+
+```{r}
+prev=sum(dat$`ADVERT EXPOSURE`,na.rm=T)/length(dat$ID)
+
+```
+
+Prevalence = $\dfrac{269}{1000}$ = `r prev`
+
+Not everyone had information on this exposure, there were some missing values.
+
+# Problem 5
+
+## Part a
+
+risk = $\dfrac{88}{1000}=.088$
+
+## Part b
+
+1000-319 LTF =  681
+
+All the LTF were 0 for smoking cessation
+
+risk= $\dfrac{88}{681}$=`r 88/681`
+
+# Problem 6
+
+Rate of smoking cessation= $\dfrac{88}{453793}*540=\dfrac{88}{840.3574}$=.1047173 cases per 540 person days
+
+# Problem 7
+
+The numerator was 88 for all three measures, it was the denominator that made the difference between the three measures. The risk of smoking cessation including those lost to follow up was the lowest, this is because the numerator was 1000 vs 681 for the risk excluding those lost to follow. I calculated the rate of smoking cessation as cases per 540 person days since that was the length of the study. The rate of smoking cessastion per 540 person days was in between the two risks. The person hours is the sum of the hours each individual is at risk for smoking cessation before exiting the study/ study ending.  
+
+# Problem 8
+
+```{r}
+ad=dat%>%filter(`ADVERT EXPOSURE`==1)
+noad=dat%>%filter(`ADVERT EXPOSURE`==0)
+include_graphics("p8.png",dpi=100)
+```
+
+We do not know if individual with missing data had advert exposure or not therefore we cannot use their info to draw conclusions about advert exposure increasing smoking cessation.
+
+The risk of smoking cessation is higher for those with advert exposure so it does appear that the advertisement helps with smoking cessation.
+
+# Problem 9
+
+```{r}
+noltf=dat%>%filter(LTF==0)
+ad2=noltf%>%filter(`ADVERT EXPOSURE`==1)
+noad2=noltf%>%filter(`ADVERT EXPOSURE`==0)
+include_graphics("p9.png",dpi=100)
+```
+
+Excluding those LTF increases the risk estimates since none of those LTF quit smoking. Thus we are decreasing the denominator without changing the numerator. There is an even bigger difference in risk between those with advert exposure and those without. This more strongly suggests that the advertisement helps with smoking cessation.

@@ -1,0 +1,191 @@
+grad,race,gender,age,work,married,class,iphone,smoke,drink,exercise,fastfood,sleep,screentime
+1,Other,Female,NA,NA,NA,NA,1,4,3,3,3,4,2 hour and 27 minutes
+0,White,Female,NA,NA,NA,NA,1,3,4,3,0,0,4h 20m
+1,White,Female,NA,NA,NA,NA,1,4,3,2,4,4,3 hr 9 min
+1,Hispanic or Latino,Female,30,More than 20 hours per week,1,0,1,4,3,3,2,3,3 h 11 min
+0,White,Female,20,4-10 hours per week,0,1,1,4,3,4,3,3,"1 hour, 21 min"
+1,Asian or Pacific Islander,Female,29,More than 20 hours per week,0,1,1,4,4,0,2,3,3h28m
+1,White,Male,25,10-20 hours per week,0,1,0,4,3,3,2,2,6
+0,White,Female,21,10-20 hours per week,0,1,1,4,4,3,2,3,6
+0,White,Female,20,None,0,1,1,4,4,3,1,3,3
+1,Asian or Pacific Islander,Female,1,10-20 hours per week,0,0,0,4,3,1,2,3,1
+0,White,Female,21,None,0,1,1,4,4,3,2,3,5 hours 1 min
+1,White,Male,28,0-4 hours per week,0,0,1,4,2,2,2,4,3
+0,White,Other,21,10-20 hours per week,1,1,1,4,3,2,2,4,4 h 33m
+1,White,Male,34,More than 20 hours per week,1,0,1,4,4,0,2,2,4
+0,White,Female,19,10-20 hours per week,0,1,1,4,3,2,3,3,3:00
+1,White,Female,28,0-4 hours per week,0,0,1,4,3,3,3,4,5 h 30 m
+1,Hispanic or Latino,Female,NA,More than 20 hours per week,0,0,1,4,4,3,4,4,4 hours
+1,White,Female,28,10-20 hours per week,0,0,1,4,3,3,3,3,3 h 12 min
+1,Black or African American,Female,21,10-20 hours per week,0,1,1,4,3,2,3,3,1 hr 7 mi
+1,White,Female,25,More than 20 hours per week,0,1,1,0,3,3,3,4,4
+0,White,Female,19,0-4 hours per week,0,1,1,4,4,4,4,3,2 hrs 38 mins
+1,White,Female,24,More than 20 hours per week,0,NA,1,4,3,1,2,2,6
+1,White,Female,23,10-20 hours per week,0,1,1,4,3,3,3,3,3
+1,White,Female,28,More than 20 hours per week,0,0,1,4,3,3,4,3,2
+1,White,Male,26,4-10 hours per week,0,0,1,4,3,2,3,3,3 hrs 54 m
+1,White,Male,32,More than 20 hours per week,0,0,0,4,4,4,1,3,20
+1,Asian or Pacific Islander,Female,23,10-20 hours per week,0,1,0,4,4,3,2,4,2.5
+1,White,Male,25,10-20 hours per week,0,0,1,4,2,3,2,3,1 hour
+1,Asian or Pacific Islander,Male,24,More than 20 hours per week,0,NA,0,2,3,2,2,3,3
+0,Other,Male,21,0-4 hours per week,0,NA,0,2,4,4,0,3,3
+1,Asian or Pacific Islander,Female,22,4-10 hours per week,0,0,1,4,3,3,1,3,3
+1,Asian or Pacific Islander,Male,26,10-20 hours per week,0,1,1,4,4,3,2,3,2 hrs 20 min
+1,Asian or Pacific Islander,Male,28,More than 20 hours per week,0,1,1,4,4,1,3,3,1
+1,Asian or Pacific Islander,Male,NA,None,0,1,0,0,3,3,1,4,3
+1,Asian or Pacific Islander,Male,25,More than 20 hours per week,0,0,0,0,4,2,2,4,5 hours
+1,Asian or Pacific Islander,Male,25,0-4 hours per week,0,1,0,4,3,2,0,2,5
+1,Asian or Pacific Islander,Male,24,More than 20 hours per week,0,0,0,4,4,3,2,3,5
+1,Asian or Pacific Islander,Female,25,More than 20 hours per week,0,0,1,4,3,2,2,2,2 hr 45 min
+1,White,Female,30,More than 20 hours per week,1,1,1,4,3,4,4,3,1 h 30 min
+1,White,Other,25,10-20 hours per week,0,0,1,4,3,3,3,3,3 hours 27 minutes
+1,White,Female,28,More than 20 hours per week,1,0,1,4,3,3,3,4,5 hours
+1,White,Female,31,More than 20 hours per week,1,1,1,4,3,3,2,2,5h 2m
+1,Hispanic or Latino,Female,26.75,More than 20 hours per week,0,1,1,4,3,2,2,3,5 hrs 15 min
+1,White,Male,29,More than 20 hours per week,0,0,0,4,0,0,1,3,2
+1,White,Female,28,More than 20 hours per week,0,0,1,4,3,3,3,3,2 hours
+0,White,Female,25,More than 20 hours per week,0,0,0,4,3,0,4,4,3
+1,White,Female,31,More than 20 hours per week,1,0,1,4,3,3,2,4,1hr 9min
+1,White,Female,27,More than 20 hours per week,0,0,0,4,3,3,1,4,4
+1,White,Female,30,More than 20 hours per week,1,NA,1,4,3,3,4,3,2
+NA,White,Female,27,10-20 hours per week,1,1,1,4,3,2,2,3,3 hours 44 minutes
+NA,White,Female,25,None,0,1,1,4,3,2,3,3,2 hrs 1 min
+1,White,Female,26,More than 20 hours per week,0,NA,1,4,3,3,2,3,3:18
+1,White,Female,29,More than 20 hours per week,1,0,1,4,3,3,2,4,1 hour 9 min
+1,Asian or Pacific Islander,Female,28,0-4 hours per week,0,1,1,4,3,3,1,2,2 hrs 8 min
+1,Asian or Pacific Islander,Female,31,More than 20 hours per week,1,0,1,4,3,0,2,3,1.5
+1,Other,Female,29,None,1,NA,1,4,4,2,3,2,2 hours 16 min
+1,White,Female,27,None,0,0,1,4,3,4,3,4,4
+1,White,Male,58,More than 20 hours per week,0,0,0,4,3,3,3,3,6
+1,White,Female,25,None,1,1,1,4,3,2,4,3,5
+1,White,Female,27,More than 20 hours per week,0,0,1,4,4,0,3,4,2 hours and 6 minutes
+1,Asian or Pacific Islander,Female,27,10-20 hours per week,0,0,0,4,3,3,3,4,6
+1,White,NA,28,More than 20 hours per week,0,0,1,4,3,3,3,3,5
+1,Black or African American,Female,26,10-20 hours per week,0,0,1,4,3,3,1,3,6hrs 47mins
+1,White,Female,25,None,1,1,1,4,4,3,3,4,3 hours 36 min
+1,White,Female,28,More than 20 hours per week,0,0,1,4,3,3,3,4,1 hour 55 min
+1,Black or African American,Female,32,4-10 hours per week,0,0,1,4,3,3,2,3,5 hours 31 minutes
+1,White,Female,26,10-20 hours per week,0,0,1,4,3,4,4,3,2
+1,Asian or Pacific Islander,Male,29,None,0,1,0,4,4,3,2,4,1.5
+1,White,Female,32,More than 20 hours per week,0,1,1,4,2,2,2,3,4.5
+1,White,Male,31,More than 20 hours per week,1,1,1,4,3,3,3,3,3
+1,White,Female,26,More than 20 hours per week,0,1,1,4,3,2,2,3,3
+1,Other,Female,26,None,0,NA,1,4,3,4,3,2,one
+1,White,Female,25,None,0,1,0,4,3,3,3,3,2
+1,Hispanic or Latino,Female,26,10-20 hours per week,0,1,1,4,3,2,4,4,2
+1,White,Female,34,More than 20 hours per week,0,0,1,4,0,3,2,3,0.5 hours
+1,White,Male,29,4-10 hours per week,0,1,1,4,1,2,1,4,3:53
+1,White,Female,29,More than 20 hours per week,1,0,1,4,3,2,3,3,3 hrs 40 minutes
+1,White,Male,27,More than 20 hours per week,0,0,1,4,3,3,3,4,48 minutes
+1,White,Other,26,None,0,1,1,4,3,1,1,4,5h 33min
+1,White,Female,32,4-10 hours per week,1,1,1,4,4,2,3,2,4:33
+1,White,Female,26,More than 20 hours per week,1,0,1,4,3,3,3,4,2 hrs 31 min
+1,White,Female,25,None,0,1,1,4,3,3,3,4,5 hours 10 minutes
+1,Asian or Pacific Islander,Female,30,More than 20 hours per week,1,1,1,4,3,0,1,2,5
+1,White,Female,26,More than 20 hours per week,0,1,1,4,3,3,3,4,3
+1,White,Male,27,None,0,1,1,4,1,4,3,3,30 min
+1,Asian or Pacific Islander,Male,26,More than 20 hours per week,0,0,0,4,4,3,2,3,2
+1,White,Male,28,More than 20 hours per week,0,0,1,4,2,3,3,4,1
+1,White,Male,27,More than 20 hours per week,0,0,1,4,2,0,4,3,1h 56m
+1,Other,Male,34,More than 20 hours per week,0,1,1,3,2,4,2,4,1h6m
+1,White,Female,50,More than 20 hours per week,1,1,1,4,3,2,3,3,3 hours
+1,White,Female,37,None,0,0,1,4,3,3,3,1,3 hrs 30 min
+1,White,Female,26,10-20 hours per week,0,1,1,4,3,1,2,3,2
+1,White,Male,27,None,0,1,1,4,2,3,1,3,5
+1,Asian or Pacific Islander,Female,26,0-4 hours per week,0,0,1,4,4,1,2,4,4 hours
+1,Black or African American,Female,27,None,0,1,1,4,3,1,1,3,5 hours  46 mins
+1,White,Female,31,More than 20 hours per week,1,1,0,4,3,1,2,3,4
+1,White,Female,26,4-10 hours per week,0,NA,1,4,4,1,1,4,1hr 51m
+1,White,Male,25,None,0,1,0,4,4,2,1,3,2
+1,White,Male,30,More than 20 hours per week,0,NA,1,4,1,4,3,3,4 hrs 32 min
+0,Black or African American,Female,26,None,0,1,1,4,4,1,1,2,5h 55m
+1,White,Female,29,None,0,1,1,4,3,3,3,2,5h 29m
+1,Hispanic or Latino,Male,30,More than 20 hours per week,0,1,1,4,3,4,0,3,4
+1,White,Female,26,More than 20 hours per week,1,0,1,4,3,3,2,3,2.5
+1,Black or African American,Female,30,More than 20 hours per week,0,1,0,4,4,1,3,2,1
+1,White,Female,48,More than 20 hours per week,1,1,1,4,2,3,3,0,1
+1,White,Female,30,More than 20 hours per week,0,0,0,4,3,3,4,3,3
+1,White,Female,34,More than 20 hours per week,1,0,1,4,3,1,3,4,2 hours 1 min
+1,Black or African American,Female,30,More than 20 hours per week,0,0,1,4,3,3,4,3,3 hours 45min
+1,Hispanic or Latino,Female,27,None,0,NA,1,4,3,4,2,3,3
+1,Black or African American,Female,26,None,0,1,1,4,3,0,1,1,5
+1,White,Female,26,More than 20 hours per week,0,0,1,4,2,3,3,4,3h 21m
+1,White,Female,26,More than 20 hours per week,0,NA,1,4,3,4,4,2,1.5
+1,Asian or Pacific Islander,Female,27,10-20 hours per week,1,1,1,4,3,2,2,4,6
+1,Black or African American,Female,28,10-20 hours per week,0,0,1,4,4,3,1,3,3-4 hours/day
+1,White,Other,30,4-10 hours per week,0,1,1,4,3,3,4,3,2h 50m
+1,White,Female,27,10-20 hours per week,0,0,1,4,4,1,4,4,2 h 10 m
+1,White,Female,25,4-10 hours per week,0,0,0,4,3,1,2,3,2
+1,White,Female,33,More than 20 hours per week,0,0,0,4,4,3,3,4,1
+1,White,Female,30,More than 20 hours per week,0,NA,1,4,3,2,4,4,1hr 26min
+1,Black or African American,Female,25,0-4 hours per week,0,1,1,4,3,3,2,3,7 hours 50 min
+1,Other,Female,32,4-10 hours per week,0,0,1,4,3,3,2,4,10
+1,White,Male,28,None,0,0,1,4,2,2,2,3,2 hr 9 minutes
+1,White,Female,27,More than 20 hours per week,1,1,1,4,3,3,3,3,2
+1,Black or African American,Female,37,More than 20 hours per week,0,0,0,4,4,1,1,0,6-10
+1,White,Female,37,More than 20 hours per week,0,0,1,4,3,3,1,2,10
+1,White,Female,28,4-10 hours per week,0,0,0,4,3,3,4,3,1
+1,White,Female,34,More than 20 hours per week,0,0,1,4,3,3,3,2,4 hours
+NA,White,Female,26,10-20 hours per week,0,1,1,4,3,3,1,3,3 hours and 24 minutes
+0,White,Male,60,More than 20 hours per week,0,1,1,4,3,3,3,3,5
+1,Other,Female,26,More than 20 hours per week,0,0,1,4,4,3,4,4,3 hours and 35 minutes
+1,White,Female,26,10-20 hours per week,0,0,0,4,4,2,2,3,4-5
+1,White,Other,30,0-4 hours per week,1,1,1,4,3,4,3,4,0.75
+1,Hispanic or Latino,Female,28,More than 20 hours per week,0,NA,1,4,3,3,3,3,1
+1,White,Female,26,More than 20 hours per week,0,1,1,4,3,3,3,3,3 hours 30 minutes
+1,Asian or Pacific Islander,Male,22,More than 20 hours per week,0,NA,1,4,4,3,1,3,3h 31m
+1,Black or African American,Female,28,10-20 hours per week,1,0,1,4,3,3,1,3,4
+1,White,Male,29,More than 20 hours per week,1,0,1,4,3,4,2,3,38
+1,White,Female,26,4-10 hours per week,0,NA,1,4,2,4,3,3,2 hours 33 minutes
+1,White,Female,47,None,1,0,1,4,3,3,3,3,3:58
+1,White,Female,26,More than 20 hours per week,0,NA,1,4,4,3,2,4,1.5
+1,Black or African American,Male,33,None,0,1,1,4,3,3,0,3,4 hours
+1,Other,Male,27,More than 20 hours per week,0,0,0,4,3,3,4,4,2
+1,White,Female,35,More than 20 hours per week,1,0,1,4,4,4,2,3,2 hours
+1,White,Female,46,More than 20 hours per week,0,0,1,4,3,3,3,3,1-2
+1,White,Male,46,More than 20 hours per week,1,0,1,4,4,2,1,2,1:15
+1,White,Female,28,None,0,1,1,4,2,3,2,4,3.5
+1,White,Male,37,More than 20 hours per week,0,0,0,4,4,3,3,3,3 hours 30 minutes
+0,White,Female,26,None,0,1,1,4,3,1,3,3,12
+1,White,Female,39,None,1,1,1,4,3,1,2,3,2hrs 21 min
+1,White,Male,35,More than 20 hours per week,1,NA,0,4,4,0,4,2,0
+1,White,Female,34,More than 20 hours per week,1,1,1,4,3,2,2,4,4:30
+1,Asian or Pacific Islander,Female,59,More than 20 hours per week,1,0,1,4,4,4,3,3,1 hr 20 minutes
+1,White,Male,NA,None,1,NA,0,4,4,2,3,0,1.5 hours
+1,Hispanic or Latino,Female,35,0-4 hours per week,1,1,1,4,3,3,4,4,2.4
+0,White,Male,27,None,1,1,1,4,3,3,3,3,2hours and 24mins
+1,White,Female,28,10-20 hours per week,0,0,1,4,3,3,3,3,3h 17m
+1,White,NA,43,More than 20 hours per week,1,0,1,4,1,4,4,3,1:26
+1,White,Female,54,More than 20 hours per week,1,0,1,4,4,3,4,4,4
+1,White,Female,30,More than 20 hours per week,0,0,1,4,3,4,3,3,1hr
+1,White,Female,35,More than 20 hours per week,1,0,0,4,3,3,2,4,1
+1,White,Male,39,More than 20 hours per week,1,1,1,4,3,4,2,3,90
+1,White,Female,27,More than 20 hours per week,0,0,0,4,3,3,3,3,3
+1,White,Male,29,None,0,1,1,4,3,2,3,4,1.5
+1,White,Female,53,More than 20 hours per week,1,0,1,4,3,3,3,2,2
+1,Black or African American,Female,47,More than 20 hours per week,0,0,1,4,4,3,2,0,8
+1,Hispanic or Latino,Female,28,More than 20 hours per week,1,0,1,4,4,0,4,3,5h5m
+1,White,Female,28,More than 20 hours per week,0,0,1,4,3,3,1,3,3
+1,Hispanic or Latino,Female,29,10-20 hours per week,0,1,1,4,3,3,3,2," 1 hr, 37 minutes"
+1,White,Other,27,More than 20 hours per week,0,0,0,4,3,2,4,4,6
+1,White,Male,44,More than 20 hours per week,1,0,1,4,3,3,2,3,1
+0,White,Female,25,0-4 hours per week,1,1,1,4,3,3,2,3,3 hours and 54 minutes
+1,White,Female,32,0-4 hours per week,1,NA,1,4,3,3,4,4,1 h 47 min
+1,White,Female,21,None,0,1,1,4,3,0,3,3,2
+1,White,Female,27,More than 20 hours per week,1,0,1,4,3,3,3,3,4-6
+1,White,Female,26,4-10 hours per week,0,1,1,4,3,3,2,3,6 57
+1,White,Female,25,0-4 hours per week,0,NA,1,4,3,3,3,4,2
+1,Asian or Pacific Islander,Female,26,10-20 hours per week,0,0,0,4,4,3,2,2,4
+1,White,Female,27,More than 20 hours per week,0,NA,1,4,2,3,3,2,2 h 39 m
+1,Black or African American,Male,52,More than 20 hours per week,0,0,1,4,4,3,2,2,18
+1,Asian or Pacific Islander,Male,33,More than 20 hours per week,1,0,1,4,3,3,2,2,3 24
+1,White,Female,29,More than 20 hours per week,0,NA,0,4,3,3,2,3,2
+1,Other,Male,29,10-20 hours per week,1,1,1,4,4,1,2,3,3h 56m
+1,White,Female,30,More than 20 hours per week,1,1,1,4,4,1,2,3,3h and 3min
+1,White,Male,25,More than 20 hours per week,1,1,1,4,3,2,2,3,2hr 14m
+1,White,Female,28,0-4 hours per week,0,1,1,4,4,1,3,4,4
+1,Black or African American,Female,48,10-20 hours per week,0,1,1,4,4,3,2,0,1.5
+1,Black or African American,Female,35,10-20 hours per week,0,0,0,4,3,0,0,4,6
+1,White,Female,29,More than 20 hours per week,1,0,1,4,3,3,2,3,4 hours and 1 minute
+1,White,Female,38,More than 20 hours per week,1,0,1,4,3,0,1,1,2h
+1,White,Male,30,None,1,1,0,4,3,1,2,1,6

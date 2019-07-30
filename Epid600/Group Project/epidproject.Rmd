@@ -1,0 +1,75 @@
+---
+title: "Epid Project"
+author: "Ty Darnell"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  prettydoc::html_pretty:
+     theme: cayman
+     df_print: kable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+```{r,echo=F}
+library(data.table)
+library(tidyverse)
+library(modelr)
+library(knitr)
+library(matlib)
+library(ggfortify)
+library(linmod)
+library(RColorBrewer)
+library(cowplot)
+```
+
+
+```{r}
+dat=fread("epi.csv")
+```
+
+
+```{r}
+dat=dat%>%filter(!is.na(vars(Q8:Q13)))
+dat=dat%>%filter(!is.na(Q14_1_TEXT)|!is.na(Q15))
+dat=dat%>%select(-c(Q4,Q14))
+```
+
+
+```{r}
+dat=dat%>%rename(grad=Q1,race=Q2,gender=Q3,age=Q4_1_TEXT,work=Q5,married=Q6,class=Q7,iphone=Q8,smoke=Q9,drink=Q10,exercise=Q11,fastfood=Q12,sleep=Q13,ipst=Q14_1_TEXT,st=Q15)
+
+```
+
+
+```{r}
+dat=slice(dat,-1)
+```
+
+```{r}
+dat=slice(dat,-26)
+```
+
+
+```{r}
+dat2=dat%>%mutate(iphone=as.numeric(iphone=="Yes"),grad=as.numeric(grad=="Graduate"),married=as.numeric(married=="Currently Married"),class=as.numeric(as.numeric(class)>=12),smoke=case_when(smoke=="6-7 days a week"~0,smoke=="Once a week"~2,smoke=="Once a month"~3,smoke=="None"~4),drink=case_when(drink=="More than 21 drinks in a week"~0,drink=="14-21 drinks in a week"~1,drink=="7-14 drinks in a week"~2,drink=="1-7 drinks per week"~3,drink=="Never" ~4 ),exercise=case_when(exercise=="6-7 times a week"~4,exercise=="2-5 times a week"~3,exercise=="Once a week"~2,exercise=="Once a month"~1,exercise=="Never"~0),fastfood=case_when(fastfood=="6-7 times a week"~0,fastfood=="2-5 times a week"~1,fastfood=="Once a week"~2,fastfood=="Once a month"~3,fastfood=="Never"~4),sleep=case_when(sleep=="6-7 nights a week"~4,sleep=="2-5 nights a week"~3,sleep=="One night a week" ~2,sleep=="One night a month"~1,sleep=="Never"~0))
+```
+
+
+```{r}
+dat3=dat2%>%drop_na(iphone,smoke,drink,exercise,fastfood,sleep)
+```
+
+```{r}
+dat3$ipst[is.na(dat3$ipst)]=""
+```
+
+```{r}
+dat3$st[is.na(dat3$st)]=""
+```
+
+```{r}
+dat4=dat3%>%unite("screentime",c(ipst,st),sep="")
+```
+

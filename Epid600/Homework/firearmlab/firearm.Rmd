@@ -1,0 +1,34 @@
+---
+title: "Firearm Lab"
+author: "Ty Darnell"
+date: "February 6, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+```{r,include=F}
+library(tidyverse)
+library(knitr)
+
+etable=function(exposure,disease){
+  t=table(exposure,disease)[2:1,2:1]
+  rownames(t)=c('E+','E-')
+  colnames(t)=c('D+','D-')
+  kable(t)
+}
+```
+
+
+```{r,echo=F}
+a=c(97,5746)
+b=c(78,4358)
+tab=rbind(a,b)
+rownames(tab)=c('E+','E-')
+colnames(tab)=c('D+','D-')
+kable(tab)
+
+```
+

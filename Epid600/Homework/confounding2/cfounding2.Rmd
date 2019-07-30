@@ -1,0 +1,18 @@
+---
+title: "confounding2"
+author: "Ty Darnell"
+date: "February 27, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,warning=F,message=F)
+```
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(knitr)
+lin <- read_excel("Linxian.xlsx")
+```
+
