@@ -1,0 +1,31 @@
+U.S. Centers for Disease Control Study of Infant Birth Weight
+
+Source: These data are from Neuhaus and Kalbfleisch (1998) and are reported in Pan (2002) and Rabe-Hesketh and Skrondal (2008).
+
+References:
+
+Adams, M.M., Wilson, H.G., Casto, D.L., Berg, C.J., McDermott, J.M., Gaudino, J.A.,
+and McCarthy, B.J. (1997). Constructing reproductive histories by linking vital records.
+American Journal of Epidemiology, 145, 339--348.
+
+Neuhaus, J.M. and Kalbfleisch, J.D. (1998). Between- and within-cluster covariate effects in
+the analysis of clustered data. Biometrics, 54, 638-645.
+
+Pan, W. (2002). A note on the use of marginal likelihood and conditional likelihood in analyzing
+clustered data. American Statistician, 56, 171-174.
+
+Rabe-Hesketh, S. and Skrondal, A. (2008). Multilevel and Longitudinal Modeling Using Stata, 2nd ed.
+College Station, TX: Stata Press.
+
+
+Description:
+
+In a U.S. Centers for Disease Control study, conducted in the state of Georgia from 1980 to 1992, linked data 
+on live births to the same mother were obtained (Adams et al., 1997). This dataset contains a subset of data 
+restricted to 878 mothers for whom five births were identified.  
+The main variables of interest are maternal age (the mother's age at each birth) and infant birth weight. 
+Note that because each mother had five infant births, but at different maternal ages, maternal age is a within-subject 
+or time-varying covariate.
+
+Variable List: 
+Mother ID, Birth Order, Birth Weight (in grams), Maternal Age (years), Child ID

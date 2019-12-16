@@ -1,0 +1,504 @@
+1                                         The SAS System          17:13 Wednesday, August 21, 2019
+
+WARNING: One or more libraries specified in the concatenated library SASHELP 
+WARNING: do not exist.  These libraries were removed from the concatenation.
+NOTE: Copyright (c) 2016 by SAS Institute Inc., Cary, NC, USA. 
+NOTE: SAS (r) Proprietary Software 9.4 (TS1M6) 
+      Licensed to UNIVERSITY OF NORTH CAROLINA CHAPEL HILL - SFA T&R, Site 70022629.
+NOTE: This session is executing on the W32_10PRO  platform.
+
+
+
+NOTE: Analytical products:
+      
+      SAS/STAT 15.1
+      SAS/ETS 15.1
+      SAS/OR 15.1
+      SAS/IML 15.1
+      SAS/QC 15.1
+
+NOTE: Additional host information:
+
+ W32_10PRO WIN 10.0.17763  Workstation
+
+NOTE: SAS initialization used:
+      real time           0.23 seconds
+      cpu time            0.13 seconds
+      
+
+NOTE: AUTOEXEC processing beginning; file is C:\Progs\cmd\autoexec.sas.
+
+
+NOTE: AUTOEXEC processing completed.
+
+1          %let progname = n2iml.sas;
+2          %let pdfout   = n2iml.pdf;
+3          * xref:
+4          * input:
+5          * output:
+6          * does: - Introduction to IML
+7          **************************************************;
+8          title1 "&progname: Introduction to IML ";
+9          ods pdf file = "&pdfout";
+NOTE: Writing ODS PDF output to DISK destination "C:\bios\667\n2iml.pdf", printer "PDF".
+10         options nocenter errors=3;
+11         **************************************************;
+12         proc iml;
+NOTE: IML Ready
+13         
+14         a = {1 3 5};
+14       !                            * vector;
+15         b = {1 1 1, 1 2 4, 1 3 9};
+15       !                            * matrix;
+16         c = {1 7 5, 2 9 2, 3 3 3};
+16       !                            * matrix;
+17         pi = 4*atan(1);
+17       !                         * 3.141592...;
+18         print a  b  c  pi;
+19         
+20         r = 1:10;
+20       !                         * sequence of values;
+21         print r;
+22         r = do(1, 7, 2);
+22       !                         * sequence of values;
+23         print r;
+24         r = do(1, -7, -2);
+2 The SAS System                                               17:13 Wednesday, August 21, 2019
+
+24       !                         * sequence of values;
+25         print r;
+26         
+27         eye = i(5);
+27       !                         * the identity matrix;
+28         zeros = j(5, 3, 0);
+28       !                         * a matrix of 0's;
+29         ones = j(2, 4, 1);
+29       !                         * a matrix of 1's;
+30         print eye, zeros, ones;
+31         
+32         a   = a`;
+32       !                         * transpose (backward single quote);
+33         ba1 = b || a;
+33       !                         * 4th column <- a;
+34         ba2 = b // a`;
+34       !                         * 4th row <- a';
+35         b22 = b[2,2];
+35       !                         * one element;
+36         sub = b[1:2, 2:3];
+36       !                         * submatrix;
+37         bd  = block(b, c);
+37       !                         * block diagonal matrix;
+38         rep = repeat(c, 2, 3);
+38       !                         * repeat a matrix;
+39         print a, ba1, ba2, b22, sub, bd, rep;
+40         
+41         d1 = diag(c);
+41       !                         * extract the diagonal elements;
+42         d2 = diag(a);
+42       !                         * construct a diagonal matrix;
+43         print d1, d2;
+44         
+45         a1 = b+c;
+46         a2 = b-c;
+47         a3 = b*a;
+48         a4 = b#a;
+49         a5 = b/c;
+49       !                         * elementwise divide;
+50         a6 = b##2;
+50       !                         * elementwise power;
+51         a7 = (b=c);
+51       !                         * elementwise comparison;
+52         a8 = (b>c);
+52       !                         * elementwise >;
+53         print a1, a2, a3, a4, a5, a6, a7;
+54         
+55         a1 = exp(b);
+56         a2 = sqrt(b);
+57         x = solve(b, a);
+57       !                            * solve (b x = a) for x;
+58         eval = eigval(b);
+58       !                            * eigenvalues;
+59         call eigen(eval, evec, b);
+59       !                            * eigenvalues and eigenvectors;
+60         print x, eval, evec;
+61         
+62         show names;
+62       !                         * list all variables;
+63         
+64         seed = j(5, 3, 13579);
+64       !                         * seed matrix;
+65         u    = ranuni(seed);
+3 The SAS System                                               17:13 Wednesday, August 21, 2019
+
+65       !                         * random uniform(0,1);
+66         n    = rannor(seed);
+66       !                         * random N(0,1);
+67         print u, n;
+68         
+69         s = 0;
+70         do  i=1 to 10;
+70       !                s = s + i;
+70       !                           end;
+71         print s;
+72         
+73         x = do(0, 1, 0.1)`;
+74         y = x#x;
+75         print x y;
+76         
+77         x = round(ranuni(seed)*100);
+78         min1 = min(x);
+78       !                                 * min;
+79         min2 = x[><];
+79       !                                 * min;
+80         rowmin = x[,><];
+80       !                                 * row min;
+81         colmin = x[><,];
+81       !                                 * column min;
+82         print x, min1, min2, rowmin, colmin;
+83         
+84         i  = x[>:<];
+84       !                                 * index of min, row-major numbering;
+85         ir = x[,>:<];
+86         ic = x[>:<,];
+87         print i, ir, ic;
+88         
+89         max1 = max(x);
+89       !                                 * max;
+90         max2 = x[<>];
+90       !                                 * max;
+91         i    = x[<:>];
+91       !                                 * index of max;
+92         print max1, max2, i;
+93         
+94         xbar = x[:];
+94       !                                 * mean;
+95         rowmean= x[,:];
+95       !                                 * row mean;
+96         colmean= x[:,];
+96       !                                 * column mean;
+97         s = sum(x);
+98         cs= cusum(x);
+98       !                                 * cumulative sum, row-major;
+99         print xbar, rowmean, colmean, s, cs;
+NOTE: Exiting IML.
+NOTE: The PROCEDURE IML printed pages 1-5.
+NOTE: PROCEDURE IML used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.06 seconds
+      
+
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           0.39 seconds
+      cpu time            0.31 seconds
+      
+n2iml.sas: Introduction to IML                             17:13 Wednesday, August 21, 2019   1
+
+        a                             b                             c
+
+        1         3         5         1         1         1         1         7         5
+                                      1         2         4         2         9         2
+                                      1         3         9         3         3         3
+    pi
+
+3.1415927
+
+
+                          r
+          COL1      COL2      COL3      COL4      COL5
+
+ROW1         1         2         3         4         5
+
+                          r
+          COL6      COL7      COL8      COL9     COL10
+
+ROW1         6         7         8         9        10
+
+
+                   r
+
+        1         3         5         7
+
+
+                        r
+
+        1        -1        -3        -5        -7
+
+
+                       eye
+
+        1         0         0         0         0
+        0         1         0         0         0
+        0         0         1         0         0
+        0         0         0         1         0
+        0         0         0         0         1
+            zeros
+
+        0         0         0
+        0         0         0
+        0         0         0
+        0         0         0
+        0         0         0
+                  ones
+
+        1         1         1         1
+        1         1         1         1
+
+
+    a
+
+        1
+        3
+        5
+                  ba1
+
+        1         1         1         1
+        1         2         4         3
+        1         3         9         5
+n2iml.sas: Introduction to IML                             17:13 Wednesday, August 21, 2019   2
+
+             ba2
+
+        1         1         1
+        1         2         4
+        1         3         9
+        1         3         5
+   b22
+
+        2
+        sub
+
+        1         1
+        2         4
+                             bd
+
+        1         1         1         0         0         0
+        1         2         4         0         0         0
+        1         3         9         0         0         0
+        0         0         0         1         7         5
+        0         0         0         2         9         2
+        0         0         0         3         3         3
+                                           rep
+
+        1         7         5         1         7         5         1         7         5
+        2         9         2         2         9         2         2         9         2
+        3         3         3         3         3         3         3         3         3
+        1         7         5         1         7         5         1         7         5
+        2         9         2         2         9         2         2         9         2
+        3         3         3         3         3         3         3         3         3
+
+
+              d1
+
+        1         0         0
+        0         9         0
+        0         0         3
+              d2
+
+        1         0         0
+        0         3         0
+        0         0         5
+
+
+              a1
+
+        2         8         6
+        3        11         6
+        4         6        12
+              a2
+
+        0        -6        -4
+       -1        -7         2
+       -2         0         6
+    a3
+
+        9
+       27
+       55
+n2iml.sas: Introduction to IML                             17:13 Wednesday, August 21, 2019   3
+
+              a4
+
+        1         1         1
+        3         6        12
+        5        15        45
+              a5
+
+        1 0.1428571       0.2
+      0.5 0.2222222         2
+0.3333333         1         3
+              a6
+
+        1         1         1
+        1         4        16
+        1         9        81
+              a7
+
+        1         0         0
+        0         0         0
+        0         1         0
+
+
+    x
+
+       -1
+        2
+        0
+        eval
+
+ 10.60311         0
+1.2454379         0
+0.1514519         0
+             evec
+
+ 0.137729 0.8148068 0.6582045
+0.4307062 0.4975429 -0.732467
+0.8919209 -0.297558 0.1739492
+ SYMBOL     ROWS   COLS TYPE   SIZE
+ ------   ------ ------ ---- ------
+ a             3      1 num       8
+ a1            3      3 num       8
+ a2            3      3 num       8
+ a3            3      1 num       8
+ a4            3      3 num       8
+ a5            3      3 num       8
+ a6            3      3 num       8
+ a7            3      3 num       8
+ a8            3      3 num       8
+ b             3      3 num       8
+ b22           1      1 num       8
+ ba1           3      4 num       8
+ ba2           4      3 num       8
+ bd            6      6 num       8
+ c             3      3 num       8
+ d1            3      3 num       8
+ d2            3      3 num       8
+ eval          3      2 num       8
+ evec          3      3 num       8
+ eye           5      5 num       8
+ ones          2      4 num       8
+ pi            1      1 num       8
+ r             1      5 num       8
+ rep           6      9 num       8
+n2iml.sas: Introduction to IML                             17:13 Wednesday, August 21, 2019   4
+
+ sub           2      2 num       8
+ x             3      1 num       8
+ zeros         5      3 num       8
+  Number of symbols = 29  (includes those without values)
+
+
+
+              u
+
+0.6067356 0.8346698 0.2142524
+0.3742056 0.4414048 0.8171323
+0.1141922 0.8419042 0.1530819
+0.9072042 0.5268699  0.637811
+0.2413471 0.2993683 0.4269624
+              n
+
+0.2864134 -1.083946 -0.704913
+-0.319492 -0.074941 0.6570619
+0.7571326 -1.091164 1.7901618
+1.1415544 0.1449926 -0.390843
+-0.061229 -0.064641 -1.175541
+
+
+    s
+
+       55
+
+
+        x         y
+
+        0         0
+      0.1      0.01
+      0.2      0.04
+      0.3      0.09
+      0.4      0.16
+      0.5      0.25
+      0.6      0.36
+      0.7      0.49
+      0.8      0.64
+      0.9      0.81
+        1         1
+
+
+              x
+
+       51        78        15
+       19        48        34
+       52         3        25
+       90        73        71
+       74        21        36
+   min1
+
+        3
+   min2
+
+        3
+n2iml.sas: Introduction to IML                             17:13 Wednesday, August 21, 2019   5
+
+  rowmin
+
+       15
+       19
+        3
+       71
+       21
+            colmin
+
+       19         3        15
+
+
+    i
+
+        8
+    ir
+
+        3
+        1
+        2
+        3
+        2
+              ic
+
+        2         3         1
+
+
+   max1
+
+       90
+   max2
+
+       90
+    i
+
+       10
+
+
+   xbar
+
+       46
+ rowmean
+
+       48
+33.666667
+26.666667
+       78
+43.666667
+           colmean
+
+     57.2      44.6      36.2
+    s
+
+      690
+              cs
+
+       51       129       144
+      163       211       245
+      297       300       325
+      415       488       559
+      633       654       690
+

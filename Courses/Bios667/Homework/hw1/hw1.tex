@@ -1,0 +1,318 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{Bios 667 Homework 1}
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ta}{\theta}
+\newcommand{\qe}{ \ ?\ }
+\newcommand{\dt}{\pderiv{}{\ta}}
+\newcommand{\lt}[1]{\log(f(#1|\ta))}
+\newcommand{\lx}{\lambda(x)}
+\newcommand{\samp}{X_1,\dots,X_n \sim}
+\newcommand{\te}{\theta_1}
+\newcommand{\xm}{x_{(1)}}
+\newcommand{\sn}{(\sg^2)}
+\newcommand{\pow}{\B(\ta)}
+\newcommand{\hyp}[2]{H_0: #1 \text{ vs } H_1: #2}
+\newcommand{\pois}[2]{\dfrac{e^{-#1}{#1}^{#2}}{{#2}!}}
+\newcommand{\mlr}{\dfrac{f(x|\ta_2)}{f(x|\ta_1)}}
+\newcommand{\al}{\alpha}
+\newcommand{\bx}{\bar{x}}
+\newcommand{\by}{\bar{y}}
+\newcommand{\hu}{\hat{\mu}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+\section*{Problem 1}
+\begin{enumerate}[(a)]
+\item
+\begin{tabular}{l l l l l}
+\hline
+$i$ & group & n & Mean & SD\\
+\hline
+1 & Non-smoker & 21 & 3.78 & 1.79\\
+2 & Light smoker & 21 & 3.23 & 1.86\\
+3 & Heavy smoker & 21 & 2.59 &1.82\\
+\hline
+\end{tabular}\\
+$Y_{ij}$ denotes the lung function measure for the $j_{th}$ subject in the $i_{th}$ smoking group\\
+
+$K=3$ total number of smoking groups\\
+
+$N=63$ total number of subjects\\
+
+$H_0: \mu_1=\mu_2=\mu_3$ The lung function measure populations means are equal across the smoking groups.\\
+
+$H_1:$ The lung function measure population means are not equal across the smoking groups.\\
+
+$s^2_p = \dfrac{\sum_{i=1}^{3}(n_i-1)s_i^2}{\sum_{i=1}^{3}(n_i-1)}\approx 3.33$\\
+
+$\bar{Y} = \dfrac{\sum_{i=1}^{3}\sum_{j=1}^{n_i} Y_{ij} }{N}=3.2$\\
+
+Under $H_0: \hat{\sigma}^2=\dfrac{\sum_{i=1}^{3}n_i(\bar{Y}_i-\bar{Y})^2}{K-1}\approx 7.45$\\
+
+Under $H_0: F \equiv \dfrac{\hat{\sigma}^2}{s^2_p}\sim F_{K-1,N-K}$\\
+
+$F$ test statistic $=\dfrac{\hat{\sigma}^2}{s^2_p}\approx 2.24$\\
+
+Critical Region $C_{\alpha}=\{F:F>F_{2,60;1-\alpha}\}$\\
+
+Using $\alpha=.05$\\
+
+Quantile ${F^{-1}}_{2,60;.95} \approx 3.15$\\
+
+$2.24<3.14$ The test statistic is outiside of the critical region thus fail to reject $H_0$\\
+
+p-value $= 1-F_{2.24,2,60}\approx .12>.05$ The p-value is larger than $\alpha$\\
+
+Not enough evidence to reject the null hypothesis that the population means for lung function measure are equal across all smoking groups.\\
+
+\begin{tabular}{l l l l l l}
+	\textbf{Anova Table}\\
+	\hline
+	Source of Variation & SS & df & Mean Square & F & P-value \\ \hline
+	Among groups & 14.9 &  2 & $\hat{\sigma}^2=7.45$ & 2.24 & .12 \\
+	Within Groups & 199.8& 60 & $s^2_p=3.33$ \\ \hline
+	Total & 214.7 & $62$ \\ \hline
+\end{tabular}
+
+\pagebreak
+\item
+
+Constraint on model:  $\mu_i=\alpha_1+\alpha_2i$\\
+
+Using $\bar{y}_i$ to estimate $\mu_i$\\
+
+$\bar{y}_1=\alpha_1+\alpha_2*1$\\
+
+$\bar{y}_2=\alpha_1+\alpha_2*2$\\
+
+$\bar{y}_3=\alpha_1+\alpha_2*3$\\
+
+Using collapsed model to obtain $\hat{\alpha}_1$ and $\hat{\alpha}_2$\\
+$\bar{y}_i= [3.78,3.23,2.59]^T$  $i=[1,2,3]$\\
+Essence Matrix  $\left[\begin{array}{rr}
+1 & 1 \\ 
+1 & 2 \\ 
+1 & 3 \\ 
+\end{array}
+\right]$\\
+Grand mean= $\by=3.2 \quad \bx=2$\\
+
+$SXX=\sum(x_i-\bx)^2=2$\\ 
+$SXY=\sum(x_i-\bx)y_i=-1.19$\\
+$SYY=\sum(y_i-\by)^2=.7094$\\
+$\hat{\alpha}_2=\frac{SXY}{SXX}=\frac{-1.19}{2}=-.595$\\
+
+$\hat{\alpha}_1=\by-\hat{\alpha}_2 \bx=3.2-2*-.595=4.39$\\
+
+$\hat{\alpha}_1 = 4.39 \quad \hat{\alpha}_2 = -.595$\\
+$\tilde{RSS}=SYY-\hat{\alpha}_2^2 SXX=.00135$\\
+
+Actual Model: $y_{ij}=\alpha_1+\alpha_2*i+\epsilon_{ij}$\\
+
+In order to obtain the SE for the estimates of the actual model we will need to compute SSE of the actual model using $\tilde{RSS}$ from the collapsed model and $SS_{Within}$ from the anova table from part a.\\
+
+$SSE=SS_{Within}+63*\tilde{RSS}$\\
+
+$SSE=199.8+63*.00135= 199.8851$\\
+
+Then use SSE to compute $\hat{\sigma}^2$\\
+
+$\hat{\sigma}^2=SSE/(N-2)\approx 3.28$\\
+
+
+Next create an X matrix and calculate $(X^{'}X)^{-1}$\\
+
+$X_{63\times 2}=\left[
+\begin{array}{rr}
+1 & 1 \\ 
+\vdots & \vdots \\ 
+1 & 2 \\ 
+\vdots & \vdots \\ 
+1 & 3 \\ 
+\vdots & \vdots \\ 
+\end{array}
+\right]$\\
+
+$(X^{'}X)^{-1}=\left[
+\begin{array}{rr}
+0.1111 & -0.0476 \\ 
+-0.0476 & 0.0238 \\ 
+\end{array}
+\right]$\\
+
+
+Use the diagonal of $(X^{'}X)^{-1}$ matrix to obtain the standard error of the estimates\\
+
+Standard error of estimates=$\sqrt{\hat{\sigma}^2*(X^{'}X)^{-1}_{ii}}=[.60,.28]$\\
+
+$\hat{\sigma}^2\approx 3.28$\\
+
+\begin{tabular}{l l l}
+	\hline
+	& Estimate & Std Error\\
+	\hline
+	$\hat{\alpha_1}$ & 4.39 & .60 \\
+	$\hat{\alpha_2}$ & -.60 & .28 \\
+	\hline
+\end{tabular}
+
+\item
+$\mu_i=\beta_1+\beta_2i+\beta_3i^2$\\
+
+$H_0:\beta_2=\beta_3=0$\\
+
+since $\beta_2=\beta_3=0$ we have $\mu_i=\beta_1+ 0$\\
+
+Equivalent to testing $\mu_1=\mu_2=\mu_3 (=\beta_1)$\\
+
+This is the same as the test from part a\\
+
+Thus under $H_0: F \approx 2.24\sim F_{2,60}$\\
+
+Using $\alpha=.05$\\
+
+Critical Region $C_{\alpha}=\{F:F>F_{2,60;.95}\}$\\
+
+Quantile ${F^{-1}}_{2,60;.95} \approx 3.15$\\
+
+$2.24<3.14$ The test statistic is outiside of the critical region thus fail to reject $H_0$\\
+
+p-value $= 1-F_{2.24,2,60}\approx .12>.05$ The p-value is larger than $\alpha$\\
+
+Not enough evidence to reject the null hypothesis that the population means for lung function measure are equal across all smoking groups.
+\end{enumerate}
+
+
+\section*{Problem 2}
+	
+\begin{enumerate}[(a)]
+	
+	\item 
+\begin{multline*}\\
+\bx =2 \quad SXX=\sum(x_i-\bx)^2=6\\
+SXY=\sum(x_i-\bx)y_i=-y_1-y_2+2y_4\\
+\hb_2=\dfrac{SXY}{SXX}=(1/6)(-y_1-y_2+2y_4)\\
+\hb_1=\by-\hb_2 \bx\\
+\hb_1=(1/4)(y_1+y_2+y_3+y_4)-2*(1/6)(-y_1-y_2+2y_4)\\
+\hb_1=(1/4+1/3)y_1+(1/4+1/3)y_2+(1/4)y_3+(1/4-2/3)y_4\\
+=(7/12)y_1+(7/12)y_2+(1/4)y_3-(5/12)y_4\\
+\hb_1=.583y_1+.583y_2+.25y_3-.417y_4\\
+.583+.583+.25-.417=1\\
+\end{multline*}
+
+	\item 
+\begin{multline*}\\
+E(\hb_1)=(7/12)E(y_1)+(7/12)E(y_2)+(1/4)E(y_3)-(5/12)E(y_4)\\
+=(7/12)(1)+(7/12)(1)+(1/4)(2)-(5/12)(8)\\
+=20/12-40/12=-20/12\approx -1.667\\
+E(\hb_1)\approx -1.667\\
+\end{multline*}
+
+
+\item 
+\begin{multline*}\\
+Var(\hb_1)=Var[(7/12)y_1+(7/12)y_2+(1/4)y_3-(5/12)y_4]\\
+\text{Since } Cov(Y_i,Y_j)=0 \text{ we have:}\\
+Var(\hb_1)=(49/144)Var(y_1)+(49/144)Var(y_2)+(1/16)Var(y_3)+(25/144)Var(y_4)\\
+=(49/144)1+(49/144)2+(1/16)4+(25/144)5=\frac{77}{36}\approx 2.139\\
+Var(\hb_1)\approx 2.139\\
+\end{multline*}
+
+\item 
+\begin{multline*}\\
+\hb_2=\dfrac{SXY}{SXX}=(1/6)(-y_1-y_2+2y_4)\\
+=(-1/6)y_1+(-1/6)y_2+(1/3)y_4\\
+\hb_2=-.167y_1-.167y_2+.333y_4\\
+E(\hb_2)=E[(-1/6)y_1+(-1/6)y_2+(1/3)y_4]\\
+=(-1/6)*1+(-1/6)*1+(1/3)*8\\
+E(\hb_2)=2.333\\
+Var(\hb_2)=Var[(-1/6)y_1+(-1/6)y_2+(1/3)y_4]\\
+\text{Since } Cov(Y_i,Y_j)=0 \text{ we have:}\\
+Var(\hb_2)=(1/36)Var(y_1)+(1/36)Var(y_2)+(1/9)Var(y_2)\\
+=(1/36)*1+(1/36)*2+(1/9)*5=\frac{23}{36}\approx .639\\
+Var(\hb_2)\approx .639\\
+\end{multline*}
+
+\item 
+\begin{multline*}\\
+Var(\hb_1+\hb_2)=Var\left(\frac{1}{12}[7y_1+7y_2+3y_3-5y_4-2y_1-2y_2+4y_4]\right)\\
+=\frac{1}{144}Var(5y_1+5y_2+3y_3-y_4)\\
+\text{Since } Cov(Y_i,Y_j)=0 \text{ we have:}\\
+Var(\hb_1+\hb_2)=\frac{1}{144}(25Var(y_1)+25Var(y_2)+9Var(y_3)+Var(y_4))\\
+Var(\hb_1+\hb_2)=\frac{1}{144}(5*1+5*2+3*4-1*5)=\frac{11}{72}\\
+Cov(\hb_1,\hb_2)=(1/2)[Var(\hb_1)+Var(\hb_2)-Var(\hb_1+\hb_2)]\\
+Cov(\hb_1,\hb_2)=\frac{1}{2}\left(\frac{77}{36}+\frac{23}{36}-\frac{11}{72}\right)=\frac{189}{144}=1.3125\\
+\end{multline*}
+
+\item 
+\begin{multline*}\\
+\hu_i=\hb_1+\hb_2x_i\\
+\hu_3=\hb_1+\hb_2x_3=\hb_1+2\hb_2\\
+\hu_3=(7/12)y_1+(7/12)y_2+(1/4)y_3-(5/12)y_4+2[(-1/6)y_1+(-1/6)y_2+(1/3)y_4]\\
+=\frac{7-4}{12}y_1+\frac{7-4}{12}y_2+\frac{1}{4}y_3+\frac{8-5}{12}y_4=\frac{1}{4}y_1+\frac{1}{4}y_2+\frac{1}{4}y_3+\frac{1}{4}y_4\\
+\hu_3=\frac{1}{4}(y_1+y_2+y_3+y_4)\\
+E(\hu_3)=(1/4)E\left(y_1+y_2+y_3+y_4\right)\\
+=(1/4)[E(y_1)+E(y_2)+E(y_3)+E(y_4)]=\frac{1+1+2+8}{4}=3\\
+E(\hu_3)=3\\
+\end{multline*}
+
+\item 
+\begin{multline*}\\
+R_i=Y_i-\hu_i\\
+R_3=y_3-\hu_3=y_3-\frac{1}{4}(y_1+y_2+y_3+y_4)\\
+R_3=\frac{-1}{4}(y_1+y_2-3y_3+y_4)\\
+E(R_3)=E(y_3)-E(\hu_3)=2-3=-1\\
+E(R_3)=-1\\
+Var(R_3)=Var\left(\frac{-1}{4}(y_1+y_2-3y_3+y_4)\right)\\
+\text{Since } Cov(Y_i,Y_j)=0 \text{ we have:}\\
+Var(R_3)=\frac{1}{16}[Var(y_1)+y_2+9Var(y_3)+Var(y_4)]=\frac{1+2+9*4+5}{16}=\frac{11}{4}\\
+Var(R_3)=2.75\\
+E(R^2_3)=Var(R_3)+E(R_3)^2=2.75+3^2=11.75\\
+\end{multline*}
+
+
+\end{enumerate}
+
+
+\end{flushleft}
+\end{document}

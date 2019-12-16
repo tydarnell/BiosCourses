@@ -1,0 +1,75 @@
+---
+title: "667hw8"
+author: "Ty Darnell"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+```{r echo=F}
+library(tidyverse)
+library(data.table)
+library(knitr)
+library(nlme)
+library(xtable)
+library(reshape2)
+```
+
+```{r}
+dat=fread("exercise.dat")
+```
+
+```{r}
+blup=fread("t.txt")
+```
+
+```{r}
+blup1=blup%>%rename(intercept=par1,slope=par2)%>%arrange(id)
+```
+
+```{r}
+d=xtable(blup1,digits = 3)
+```
+
+```{r}
+i1=80.132
+i2=81.263
+s1=.117
+s2=.169
+blup2=blup%>%rename(intercept=par1,slope=par2)%>%arrange(id)%>%mutate(group=as.numeric(id>16)+1,intercept=case_when(group==1~intercept+i1,group==2~intercept+i2),slope=case_when(group==1~slope+s1,group==2~slope+s2))%>%select(-group)
+```
+
+```{r}
+d1=xtable(blup2,digits = 3)
+```
+
+```{r}
+dat1=dat%>%rename(day0=y1,day2=y2,day4=y3,day6=y4,day8=y5,day10=y6,day12=y7)
+```
+
+```{r}
+prg1=dat1%>%filter(program==1)%>%select(-c(id,program))%>%colMeans(na.rm=T)
+prg2=dat1%>%filter(program==2)%>%select(-c(id,program))%>%colMeans(na.rm=T)
+day=c(0,2,4,6,8,10,12)
+means=tibble(day,prg1,prg2)
+mudiff=prg2-prg1
+diff=tibble(day,mudiff)
+meandiff=xtable(diff)
+```
+
+```{r}
+mumelt = melt(means, id.var='day')
+mumelt=mumelt%>%rename(program=variable,mean=value)
+```
+
+
+```{r}
+meanplot=ggplot(data=mumelt,aes(x=day,y=mean))+geom_point()+geom_line(aes(linetype=program))+scale_x_discrete(limits=c(0,2,4,6,8,10,12))+ylim(79,83)+ggtitle("Mean strength over time by exercise program")
+```
+
+```{r}
+ggsave(filename="meanplot.png",plot=meanplot,width = 9,height=7,units="in")
+```
+

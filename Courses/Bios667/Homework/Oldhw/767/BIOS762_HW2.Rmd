@@ -1,0 +1,170 @@
+---
+title: "BIOS 767 HW 2"
+author: "Cheynna Crowley"
+date: "1/29/2019"
+output: pdf_document
+---
+
+
+###Question 11.3.1: Assuming a multinomial distribution for the ordinal response, fit the following proportional odds model relating mental impairment to life events(LE): 
+
+$$\log[\frac{P(Y_i \leq k)}{P(Y_i > k)}]=\alpha_k + \beta_1*{LE}_i$$
+
+$\pi_{h1}$=denotes the probability of well 'mental impairment'
+
+$\pi_{h2}$=denotes the probability of mild 'mental impairment' 
+
+$\pi_{h3}$=denotes the probability of moderate 'mental impairment' 
+
+$\pi_{h4}$=denotes the probability of impairment 'mental impairment'
+
+h=1,..,9 and j=1,2,3
+
+$\theta_{hj}$ represents the cumulative probabilities
+
+$\theta_{h1}$=Pr(well mental impairment)
+
+$\theta_{h2}$=Pr(well or mild mental impairment)
+
+$\theta_{h3}$=Pr(well,mild,or moderate mental impairment)
+
+The log odds of well or mild or moderate to impaired $logit(\theta_{h3})=\log[\frac{\pi_{h1}+\pi_{h2}+\pi_{h3}}{\pi_{h4}}]$
+
+
+###Question 11.3.2: What is the interpretation of the estimate of $\beta_1$?
+
+The odds of a mental impairment score less than or equal to j verses greater than j (for a j=1,2,3 that indexes the cumulative probabilities) decrease by a factor of exp(-0.2879) = 0.7498366 for every unit increase in the life event score.
+
+###Question 11.3.3: Construct a test of the null hypothesis of no effect of life events on the cumulative log odds of response. What conclusions do you draw about the effect of life events on mental impairment?
+
+$H_0: \beta_1=0$
+
+$H_1: \beta_1 \ne 0$
+
+By conducting a likelihood ratio test and looking at the type3 results, we see that the likelihood ratio statistic for life events is significant in our model ($\chi^2$=6.51, p-value=0.0107). This provides evidence that there is a significant effect of number of life events on the cumulative log odds of mental impairment (we reject $H_0$).  
+
+
+###Question 11.3.4: Based on the results from problem 11.3.1, estimate the odds ratio of a more favorable response for subjects with no life events (LE=0) relative to subjects with 6 life events (LE=6).
+
+The odds ratio for a well response, for subjects with no life events relative to subjects with 6 life events is $\frac{e^{\alpha_1}}{e^{\alpha_1 + 6*\beta_1}}=\frac{1}{e^{6*\beta_1}}$=1/exp(6*-0.2879)=5.626007
+
+###Question 11.3.5: The proportional odds model in Problem 11.3.1 makes the assumption of a common effect of life events ($\beta_1$) across the different cumulative logits. Provide a formal or informal assessment of the "proportionality assumption". What do you conclude?
+
+Score test for appropriateness for proportional odds assumption
+
+$H_0:\beta_k=\beta$ for all k
+
+$H_1:$ otherwise
+
+Our test statistics,$\chi^2_{2}=0.8865$, corresponds to a p-value of 0.6419 so we fail to reject the null hypothesis and conclude the proportional odds assumption holds.
+
+
+###Question 11.3.6: Redo the analysis in Problem 11.3.1, adjusting for the effect of SES: 
+
+$$\log[\frac{P(Y_i \le k)}{P(Y_i > k)}]= \alpha_k +\beta_1*LE_i+\beta_2*SES_i$$
+
+$\pi_{hi1}$=denotes the probability of well 'mental impairment'
+
+$\pi_{hi2}$=denotes the probability of mild 'mental impairment' 
+
+$\pi_{hi3}$=denotes the probability of moderate 'mental impairment' 
+
+$\pi_{hi4}$=denotes the probability of impairment 'mental impairment'
+
+h=1,..,9 and i=0,1  j=1,2,3
+
+$\theta_{hij}$ represents the cumulative probabilities
+
+$\theta_{hi1}$=Pr(well mental impairment)
+
+$\theta_{hi2}$=Pr(well or mild mental impairment)
+
+$\theta_{hi3}$=Pr(well,mild,or moderate mental impairment)
+
+The log odds of well or mild or moderate to impaired:
+$logit(\theta_{hi3})=\log[\frac{\pi_{hi1}+\pi_{hi2}+\pi_{hi3}}{\pi_{hi4}}]$
+
+
+###Question 11.3.7: Based on the results from Problem 11.3.6, what are the interpretations of the estimates of $\beta_1$ and $\beta_2$?
+
+$\beta_1$: Assuming SES is held constant, the odds of a mental impairment score less than or equal to j verses greater than j decrease by a factor of exp(-0.3189) = 0.73 for every unit increase in the life event score.
+
+$\beta_2$: Assuming life event is held constant, the odds of a mental impairment score less than or equal to j verses greater than j decrease by a factor of exp(1.1112) = 3.038002 for high socioeconomic status persons. 
+
+###Question 11.3.8: Construct a test of the null hypothesis of no effect of life events on the cumulative log odds of response, after adjusting for SES. What conclusions do you draw about the adjusted effect of life events on mental impairment?
+
+$H_0: \beta_1=0$
+
+$H_1: \beta_1 \ne 0$
+
+By conducting a likelihood ratio test and looking at the type3 results,  we see that the likelihood ratio statistic for life events is significant in our model ($\chi^2$=7.78, p-value=0.0053). This provides evidence that there is a significant effect of number of life events on the cumulative log odds of mental impairment (we reject $H_0$). 
+
+
+###Question 11.3.9: Combine the two adjacent categories, mild and moderate symptom formation, to form a three category ordinal response. With the three category ordinal response, redo the analysis in Problem 11.3.6:
+
+$$\log[\frac{P(Y_i \le k)}{P(Y_i > k)}]= \alpha_k +\beta_1*LE_i+\beta_2*SES_i$$
+
+$\pi_{hi1}$=denotes the probability of well 'mental impairment'
+
+$\pi_{hi2}$=denotes the probability of mild or moderate 'mental impairment' 
+
+$\pi_{hi3}$=denotes the probability of impairment 'mental impairment'
+
+h=1,..,9 and i=0,1 j=1,2
+
+$\theta_{hij}$ represents the cumulative probabilities
+
+$\theta_{hi1}$=Pr(well)
+
+$\theta_{hi2}$=Pr(well,mild,or moderate mental impairment)
+
+The log odds of well or mild or moderate to impaired:
+$logit(\theta_{hi2})=\log[\frac{\pi_{h1}+\pi_{h2}}{\pi_{hi3}}]$
+
+
+###Question 11.3.10:Compare and contrast the estimate of $\beta_1$ obtained from Problem 11.3.6. Does $\beta_1$ have the same interpretation in the model from Problem 11.3.9 as it does in the model from Problem 11.3.6.
+
+From 11.3.6, the $\beta_1$ estimate is -0.3189 with a standard error of 0.1210 and a corresponding p-value of 0.0084. From 11.3.9, the $\beta_1$ estimate is -0.3546 with a standard error of 0.1313 and a corresponding p-value of 0.0069. The interpretation is the same where they both correspond to the odds of a mental impairment score less than or equal to j verses greater than j decrease by a factor of exp($\beta_1$) for every unit increase in the life event score. It should be noted these are two different models so the estimates are not identical and not interchangeable between models as our cumulative probabilities we outlined above are different (our j's are different). To summarize below :
+
+**In 11.3.6, we defined**:
+
+$\pi_{hi1}$=denotes the probability of well 'mental impairment'
+
+$\pi_{hi2}$=denotes the probability of mild 'mental impairment' 
+
+$\pi_{hi3}$=denotes the probability of moderate 'mental impairment' 
+
+$\pi_{hi4}$=denotes the probability of impairment 'mental impairment'
+
+h=1,..,9 and i=0,1  j=1,2,3
+
+$\theta_{hij}$ represents the cumulative probabilities
+
+$\theta_{hi1}$=Pr(well mental impairment)
+
+$\theta_{hi2}$=Pr(well or mild mental impairment)
+
+$\theta_{hi3}$=Pr(well,mild,or moderate mental impairment)
+
+The log odds of well or mild or moderate to impaired:
+$logit(\theta_{hi3})=\log[\frac{\pi_{hi1}+\pi_{hi2}+\pi_{hi3}}{\pi_{hi4}}]$
+
+**And for 11.3.9, we defined:**
+
+$\pi_{hi1}$=denotes the probability of well 'mental impairment'
+
+$\pi_{hi2}$=denotes the probability of mild or moderate 'mental impairment' 
+
+$\pi_{hi3}$=denotes the probability of impairment 'mental impairment'
+
+h=1,..,9 and i=0,1 j=1,2
+
+$\theta_{hij}$ represents the cumulative probabilities
+
+$\theta_{hi1}$=Pr(well)
+
+$\theta_{hi2}$=Pr(well,mild,or moderate mental impairment)
+
+The log odds of well or mild or moderate to impaired:
+$logit(\theta_{hi2})=\log[\frac{\pi_{h1}+\pi_{h2}}{\pi_{hi3}}]$
+

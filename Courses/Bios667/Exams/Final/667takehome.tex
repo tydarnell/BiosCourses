@@ -1,0 +1,149 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{667 Take Home Final}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ta}{\theta}
+\newcommand{\qe}{ \ ?\ }
+\newcommand{\dt}{\pderiv{}{\ta}}
+\newcommand{\lt}[1]{\log(f(#1|\ta))}
+\newcommand{\lx}{\lambda(x)}
+\newcommand{\samp}{X_1,\dots,X_n \sim}
+\newcommand{\te}{\theta_1}
+\newcommand{\xm}{x_{(1)}}
+\newcommand{\sn}{(\sg^2)}
+\newcommand{\pow}{\B(\ta)}
+\newcommand{\hyp}[2]{H_0: #1 \text{ vs } H_1: #2}
+\newcommand{\pois}[2]{\dfrac{e^{-#1}{#1}^{#2}}{{#2}!}}
+\newcommand{\mlr}{\dfrac{f(x|\ta_2)}{f(x|\ta_1)}}
+\newcommand{\al}{\alpha}
+\newcommand{\bx}{\bar{x}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+\section*{Problem 1}
+M3 has the 3way interaction term $time_j*I(center2)*I(treatment)$\\
+LRT Test: comparing the full (M3) and reduced (M2) models in order to test the null hypothesis that the effect of treatment on changes over time in the subject-specific log odds of good respiratory status is the same in the two clinics.\\
+using $\alpha=.05$\\
+Full $-2\log L=567.7$\\
+Reduced $-2\log L=570.4$\\
+df $19-15=4$\\
+critical value $\chi^2=9.488$\\
+$\chi^2_{obs}=570.4-567.7=2.7<9.488$\\
+ p-value$=.609>\alpha$ Fail to reject $H_0$\\
+Conclude there is not enough evidence to suggest that the there is a statistically significant difference in the effect of treatment on changes over time in the subject-specific log odds of good respiratory status between the two clinics.
+\section*{Problem 2}
+M2 has the 2way interaction term $time_j*I(treatment)$\\
+LRT Test: comparing the full (M2) and reduced (M1) models in order to test the null hypothesis that treatment has no effect
+on changes over time in the subject-specific log odds of good respiratory status, adjusting for possible clinic effects.\\
+using $\alpha=.05$\\
+Full $-2\log L=591.3$
+Reduced $-2\log L=570.4$\\
+df $15-11=4$\\
+critical value $\chi^2=9.488$\\
+$\chi^2_{obs}=591.3-570.4=20.9>9.488$\\
+p-value $=.0003<\alpha$ Reject $H_0$\\
+Conclude there is evidence to suggest a statistically significant treatment effect on changes over time in the subject-specific log odds of good respiratory status, adjusting for possible clinic effects.\\
+\section*{Problem 3}
+$\sigma^2=6.179$\\
+attenuation factor= $\dfrac{1}{\sqrt{1+3\sg^2/\pi^2}}=.589$\\
+\begin{tabular}{cccc}
+	\hline
+	&M2 and M4 Estimates\\
+	\hline
+	Parameter & M2 Estimate & M4 Estimate&Observed Ratio M4/M2\\
+	\hline
+	int& -1.471&-.771&.524\\
+	t1 & .367&.202&.550\\
+	t2 &-.100&-.046&.460\\
+	t3 &.555 &.289&.521\\
+	t4 &-.281& -.127&.452\\
+	c2 &2.023 &1.103&.545\\
+	t1c2 &-.118&-.071&.602\\ 
+	t2c2 &-.778&-.437&.562\\
+	t3c2 &-.973&-.531&.546\\
+	t4c2 &.295 &.153&.519 \\
+	t1trt &1.685 &.892&.529\\
+	t2trt &2.598&1.389&.535 \\
+	t3trt &2.198  &1.195&.544\\
+	t4trt & 1.489&  .774&.520\\
+	\hline
+\end{tabular}\\
+\medbreak
+Since the approximate marginal coefficients are smaller in magnitude than the conditional coefficients, there appears to be an attenuation effect. The observed ratios (shown in the table above) and the approximation formula are similar in magnitude.\\
+\section*{Problem 4}
+Marginal probability of good respiratory
+status in clinic 1 at time 1 for a patient in the
+\textbf{placebo group}\\
+Simulating $\nu$ and taking the sample mean to obtain:\\
+$\mu_{i1}=E(\nu_{i1})=.355$\\
+Marginal probability of good respiratory
+status in clinic 1 at time 1 for a patient in the
+\textbf{active treatment group}\\
+$\mu_{i1}=E(\nu_{i1})=.574$\\
+\textbf{The fitted values from M4} for center1, time1 are:\\
+Active Treatment .580\\
+Placebo .361 \\
+The estimates from M2 are very similar to the fitted values from M4.
+\section*{Problem 5}
+Simulating $\nu$ and taking the sample mean\\
+$Var(Y_{ij})=E(\nu_{ij}(1-\nu_{ij}))+var(\nu_{ij})$=within+between\\
+$\dfrac{between}{total}=\dfrac{var(\nu_{ij})}{\mu_{ij}(1-\mu_{ij})}$\\
+Total Variance for Center1 time1 \textbf{Placebo}:\\
+$Var(Y_{i1})=.355(1-.355)=.229$\\
+within component=$.123$\\
+between component=$.229-.123=.106$\\
+$\dfrac{between}{total}=.106/.229=.463$\\
+Total Variance for Center1 time1 \textbf{Active Treatment}:\\
+$Var(Y_{i1})=.574(1-.574)=.245$\\
+within component=$.13$\\
+between component=$.245-.13=.115$\\
+$\dfrac{between}{total}=.115/.245=.469$
+\section*{Problem 6}
+Simulating $\nu_i0*\nu_i1$ and taking the sample mean\\
+Using M2 to estimate  $corr(Y_{i0},Y_{i1})$ for a subject in the placebo group in clinic 1\\
+$Var(Y_{i0})=.312*(1-.312)=.215$\\
+$Cov(Y{i0},Y_i1)=E(\nu_i0*\nu_i1)-\mu_{i0}\mu_{i1}=.213-(.312*.355)=.102$\\
+$corr(Y_{i0},Y_{i1})=\dfrac{Cov(Y{i0},Y_i1)}{\sqrt{Var(Y_{i0})*Var(Y_{i1})}}=.102/(\sqrt{.215*.229})=.46$\\
+Using model M2, we obtain an estimate of $corr(Y_{i0},Y_{i1})=.46$ for a subject in the placebo group in clinic 1.
+\end{flushleft}
+\end{document}

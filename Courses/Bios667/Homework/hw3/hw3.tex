@@ -1,0 +1,149 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{667 Homework 3}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ta}{\theta}
+\newcommand{\qe}{ \ ?\ }
+\newcommand{\dt}{\pderiv{}{\ta}}
+\newcommand{\lt}[1]{\log(f(#1|\ta))}
+\newcommand{\lx}{\lambda(x)}
+\newcommand{\samp}{X_1,\dots,X_n \sim}
+\newcommand{\te}{\theta_1}
+\newcommand{\xm}{x_{(1)}}
+\newcommand{\sn}{(\sg^2)}
+\newcommand{\pow}{\B(\ta)}
+\newcommand{\hyp}[2]{H_0: #1 \text{ vs } H_1: #2}
+\newcommand{\pois}[2]{\dfrac{e^{-#1}{#1}^{#2}}{{#2}!}}
+\newcommand{\mlr}{\dfrac{f(x|\ta_2)}{f(x|\ta_1)}}
+\newcommand{\al}{\alpha}
+\newcommand{\bx}{\bar{x}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+\section*{Problem 1}
+\subsection*{iml02.sas}
+
+The variable group identies what treatment group each child is in, either the succimer (A) or the placebo group (P)\medbreak
+
+The variable lead0 is the child's baseline lead level in micrograms/dL. The variables lead1,lead4, and lead6 are the child's lead level after 1, 4, and 6 weeks in the study. \medbreak
+
+A variable y1 is created with all the lead readings for the succimer group. \medbreak
+
+A variable y0 is created with all the lead readings for the placebo group. \medbreak
+
+The sample sizes are 50 children for each group.\medbreak
+
+Two sample mean vectors are created, ybar0 and ybar1 for the placebo group and succimer group respectively. These vectors contain the treatment group mean lead level in micrograms/dL for each week. The sample mean for the succimer group drops by almost 50\% from baseline to the reading after the first week. It then increases over the duration of the study. The lead levels in the placebo group drop slightly at each reading over the course of the study. \medbreak
+
+A sample covariance matrix is created for each treatment group s0 and s1. Two sample standard deviation vectors are created using the squareroot of the diagonal of the particular treatment groups sample covariance matrix. They are sd0 and sd1 for the placebo group and succimer group respectively. These vectors contain the treatment group standard deviation for each week. The standard deviation of the placebo group does not change dramatically over the readings while the standard deviations of the succimer group increase by over 50\% from baseline to week one and continue to increase over the course of the study. \medbreak
+
+The group sample sizes, sample mean vectors, sample standard deviation vectors and sample covariance matrices are printed for each group.
+
+\subsection*{iml03.sas}
+Variables for the sample size $n=50$ and the standard deviation $\sigma=2$ are created\medbreak
+
+A column vector $\B$ of 3 ones is created.
+
+Three column vectors of length 50 are created: $x_1$, a the intercept which is all ones, $x_2$ a column of $\frac{1}{50}$ through $\frac{50}{50}$, and $x_3$, a column of $0,1,0,1,\dots$.
+An X matrix is created out of the three column vectors.
+
+A 50 by 1 matrix y is created where $y=X\B+\sigma*\text{random number vector}$ The random number vector is of length 50. \medbreak
+
+A matrix $xy$ is which consists of X with the column y at the end. The first column is the intercept, the second column is the dose, the 3rd column is the group and the 4th column is y. A data set A is then created from the matrix xy \medbreak
+
+The parameter estimates $\hb$ are calculated by taking the inverse of $X^{T}X$ and matrix multiplying it by $X^{T}y$ \medbreak
+
+A linear regression is then run on the data, and an Anova table is printed in the output along with a table of Parameter estimates, with degrees of freedom, standard error, a t statistic, and a p-value. The parameter estimates in this table match up to those calculated using matrix operations which is to be expected. A table containing the square root of the mean square error, $R^2$ and Adjusted $R^2$, the dependent mean and the coefficient of variation is also printed. \medbreak
+Fit diagnostic graphs are plotted. They include: the residuals plotted against the fitted values, the studentized residuals against the fitted values, the studentized residuals against the leverage, the residuals against the quantiles, the y values against the fitted values, cooks distance is plotted for each observation, the residuals are fit with a normal distribution curve and a histogram. A side by side plot of the residuals by dose and by group is also printed. \medbreak
+
+\section*{Problem 11.2}
+\begin{enumerate}
+\item
+The person time at risk is 2 weeks for everyone in our model \medbreak
+Fitting a log linear regression model using the placebo group as the reference group and assuming a Poisson distribution for the counts of epileptic seizures.\medbreak
+ $\hb_1=2.0794 \quad se(\hb_1)=.0668$\\
+ $\hb_2=-.1711 \quad se(\hb_2)=.0962$ \medbreak
+ 
+$\ln(\hat{\mu_i})=2.0794+-.1771*Treatment_i$
+\item
+$\B_1$ is the log expected number of epileptic seizures when $Treatment_i=0$ (Placebo group)\\
+$\B_2$ is the change in the log expected number of epileptic seizures from the placebo group to the active treatment group (progabide group).
+\item 
+ $exp(\B_2)$can be interpreted as the rate ratio even though we did not divide by the person time at risk, this would cancel out when taking the following ratio.\medbreak $\dfrac{(\mu_i|progabide)}{(\mu_i|placebo)}$ \medbreak
+  $exp(\B_2)\approx .8377$\\
+From the model progabide appears to reduce the number of epileptic seizures by a factor of .8377
+\item
+Rate ratio comparing progabide to placebo: .8377\\ 
+95\% confidence interval for the rate ratio, comparing progabide to placebo:\\
+$(\exp(-.3599),\exp(.01733))=(.6977,1.018)$\\
+Since the confidence interval includes the null value 1, the results are not significant.
+\item 
+Fitting a log linear regression model adjusting for the effect of baseline age of the patient, using the placebo group as the reference group and assuming a Poisson distribution for the counts of epileptic seizures.\medbreak
+$\hb_1=2.5046 \quad se(\hb_1)=.2105$\\
+$\hb_2=-.1797 \quad se(\hb_2)=.0962$\\
+$\hb_3=-.0148 \quad se(\hb_3)=.007$\medbreak
+$\ln(\hat{\mu_i})=2.5046+-.1797*Treatment_i+-.0148*age_i$ \medbreak
+\item
+age-adjusted rate ratio comparing progabide to placebo=$\exp(\hb_1)=.8355$\medbreak
+95\% CI for age-adjusted rate ratio comparing progabide to placebo\\
+$(\exp(-.3686),\exp(.0092))=(.6917,1.0092)$
+\item
+The pearson chi-square statistic, $Q_p$, divided by its degrees of freedom is 12.8814. This is an indication of overdispersion since we expect the ratio of $Q_p/df$ to be close to one.\\
+ $Q_p/df$  gives us the scaling factor for overdispersion $\phi$\medbreak
+$Q_p=721.3566 \quad df=56 \quad \hat{\phi}=12.8814$ 
+Since the estimated scale parameter for overdispersion $\hat{\phi}$ affects the standard errors only, the parameter estimates are the same as in 11.2.5. The standard errors are different.\\
+Multipling the standard errors from 11.2.5 by $\sqrt{p}$ gives us the new standard errors taking in account overdispersion.
+$\hb_1=2.5046 \quad se(\hb_1)=.7557$\\
+$\hb_2=-.1797 \quad se(\hb_2)=.3459$\\
+$\hb_3=-.0148 \quad se(\hb_3)=.0251$\medbreak
+$\ln(\hat{\mu_i})=2.5046+-.1797*Treatment_i+-.0148*age_i$ \medbreak
+\item
+age-adjusted rate ratio comparing progabide to placebo, taking into account overdispersion= .8355
+95\% CI: $(\exp(-0.8576),\exp(0.4982))=(.4242,1.6458)$\medbreak
+\end{enumerate}
+
+\end{flushleft}
+\end{document}
+$\B_1$ is the log expected number of epileptic seizures when $Treatment_i=0$ (Placebo group) and age is 0. The intercept is not meaningful in this model since age=0 is impractical for this study.\\
+$\B_2$ is the change in the log expected number of epileptic seizures from the placebo group to the active treatment group (progabide group) when age is held constant.\\
+$\B_3$ is the change in the log expected number of epileptic seizures for a one unit increase in age when treatment is held constant.\\

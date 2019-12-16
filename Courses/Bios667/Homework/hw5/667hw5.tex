@@ -1,0 +1,143 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{667 Homework 5}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ta}{\theta}
+\newcommand{\qe}{ \ ?\ }
+\newcommand{\dt}{\pderiv{}{\ta}}
+\newcommand{\lt}[1]{\log(f(#1|\ta))}
+\newcommand{\lx}{\lambda(x)}
+\newcommand{\samp}{X_1,\dots,X_n \sim}
+\newcommand{\te}{\theta_1}
+\newcommand{\xm}{x_{(1)}}
+\newcommand{\sn}{(\sg^2)}
+\newcommand{\pow}{\B(\ta)}
+\newcommand{\hyp}[2]{H_0: #1 \text{ vs } H_1: #2}
+\newcommand{\pois}[2]{\dfrac{e^{-#1}{#1}^{#2}}{{#2}!}}
+\newcommand{\mlr}{\dfrac{f(x|\ta_2)}{f(x|\ta_1)}}
+\newcommand{\al}{\alpha}
+\newcommand{\bx}{\bar{x}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+\section*{Problem 1}
+\begin{enumerate}[(a)]
+\item
+The study does not appear to be randomized. While the group means are the same at $Y_{i1}$, the group variances at $Y_{i1}$ are not the same. Randomization would mean the group means and variances are the same at baseline.
+\item
+\begin{multline*}\\
+E(D_i;xi)=\alpha_1+\alpha_2 x_i\\
+E(D_i|x_i=0)=\alpha_1=-10\\
+E(D_i|x_i=1)=\alpha_1+\alpha_2=-20\\
+\alpha_2=-20--10=-10\\
+\alpha_1=-10 \quad \alpha_2=-10\\
+Var(D_i|x_i=0)=20+30-2*10=30\\
+Var(D_i|x_i=1)=40+30-2*20=30\\
+\end{multline*}
+\item
+$\alpha_2$ is the difference between the group mean differences from baseline to time 2
+\item
+\begin{multline*}\\
+E(D_i|Y_{i1};x_i)=E(Y_{i2}-Y_{i1}|Y_{i1};x_i)\\
+=E(Y_{i2}|Y_{i1};x_i)-Y_{i1}\\
+Y_{i2}|Y_{i1}\sim N(u_2+\frac{\sg_{12}}{\sg_{11}}(Y_1-\mu_1),\Sigma^*)\\
+E(Y_{i2}|Y_{i1};x_i)-Y_{i1}=u_2+\frac{\sg_{12}}{\sg_{11}}(Y_1-\mu_1)-Y_{i1} \text{ (for each group separately)}\\
+E(D_i|Y_{i1};x_i=0)=40+\frac{10}{20}(Y_{i1}-50)-Y_{i1}=15-.5Y_{i1}\\
+E(D_i|Y_{i1};x_i=1)=30+\frac{20}{40}(Y_{i1}-50)-Y_{i1}=5-.5Y_{i1}\\
+\end{multline*}
+\item
+$E(D_i|Y_{i1};x_i)=(15-Y_{i1})+[(5-15)+(-.5+.5)Y_{i1}]x_i$\\
+$=15-.5Y_{i1}-10x_i$
+\pagebreak
+\item
+\begin{multline*}\\
+E(Y_{i2}|Y_{i1};x_i)=\mu_2+\frac{\sg_{12}}{\sg_{11}}(Y_1-\mu_1) \text{ (for each group separately)}\\
+E(Y_{i2}|Y_{i1};x_i=0)=40+.5(Y_{i1}-50)=15+.5Y_{i1}\\
+E(Y_{i2}|Y_{i1};x_i=1)=30+.5(Y_{i1}-50)=5+.5Y_{i1}\\
+E(Y_{i2}|Y_{i1};x_i)=(15+.5Y_{i1})+[(5-15)+(.5-.5)Y_{i1}]x_i\\
+=15+.5Y_{i1}-10x_i\\
+\end{multline*}
+\item
+$Var(D_i|Y_{i1};x_i)=Var(Y_{i2}-Y_{i1}|Y_{i1};x_i)$\\
+$=Var(Y_{i2}|Y_{i1};x_i)+Var(Y_{i1}|Y_{i1};x_i)-2Cov([Y_{i2}|Y_{i1};x_i],Y_{i1}|Y_{i1};x_i])$\\
+$=Var(Y_{i2}|Y_{i1};x_i)+0+0$\\
+Thus $Var(Y_{i2}|Y_{i1};x_i)=Var(D_i|Y_{i1};x_i)$
+\item
+Since the interaction term $x_i*Y_{i1}$ is 0, the assumption of parallel lines holds
+\item
+The OLS estimate of $\beta_2$ will be an unbiased estimate of $\alpha_2$ since the group means are the same at baseline. 
+\item
+\begin{multline*}\\
+Var(D_i|Y_{i1};x_i)=Var(Y_{i2}|Y_{i1};x_i)\\
+Y_{i2}|Y_{i1};x_i\sim N(\mu^*,\sg_{22}-\frac{\sg_{12}^2}{\sg_{11}})\\
+Var(Y_{i2}|Y_{i1};x_i=0)=30-\frac{10^2}{20}=25\\
+Var(Y_{i2}|Y_{i1};x_i=1)=30-\frac{20^2}{40}=20\\
+\end{multline*}
+\item
+\begin{multline*}\\
+\text{using } n_0=n_1=1\\
+Var(D_i|x_i=0)=30\\
+Var(D_i|x_i=1)=30\\
+\text{Variance not adjusting for baseline}=V_0/1+V_1/1=60\\
+Var(D_i|Y_i;x_i=0)=25\\
+Var(D_i|Y_i;x_i=1)=20\\
+\text{Variance adjusting for baseline}=V_0/1+V_1/1=45\\
+\text{Efficiency Ratio }=\text{Var not adj for baseline}/\text{Var adj baseline}=60/45=1.333\\
+\text{There is a } 33.33\% \text{ gain in efficiency brought about by adjusting for baseline}\\
+\end{multline*}
+\end{enumerate}
+\section*{Problem 2}
+The sample size is 1000 as defined by the variable n\medbreak
+A mean column vector $\mu$ is created of length 4\medbreak
+A covariance matrix, $\Sigma$ is created which is 4x4 and it does not have homogeneous variance. $\Sigma$ is symmetric and positive definite.\medbreak
+Cholesky decomposition is preformed on the covariance matrix, resulting in the upper Cholesky root of the covariance matrix, $U_{4\times 4}$ an upper triangular matrix, with each value rounded to the nearest tenth. Since $\Sigma$ is positive definite, all values of U will be positive.\\
+The transpose of U is the lower Cholesky root and thus multiplying $U^{T}U$ results a matrix equivalent to the covariance matrix $\Sigma$.\medbreak
+A simulation is then run creating a random seed matrix which is $1000\times 4$\\
+A random standard normal variable is used to generate a random matrix and is multiplied by U, resulting in a matrix $Z_{1000 \times 4}$\medbreak
+A sample response matrix $y_{1000 \times 4}$ is simulated by adding z and a matrix of 1000 repeated rows of the transpose of the mean vector. The dimensions of the repeated mean matrix are $1000\times 4$\medbreak
+$\bar{y}$, sample mean column vector of length 4 is created by taking the transpose of the mean of the simulated sample response matrix y.\\
+The mean vector mu and the sample mean vector $\bar{y}$ are printed side by side and the values are similar.\medbreak
+A sample covariance matrix $s_{4\times 4}$ is created by taking the covariance of the simulated sample response matrix.\medbreak
+The covariance matrix and the simulated sample covariance matrix are printed and the sample covariance matrix slight larger values for the variances. The covariances in the sample covariance matrix are larger than in $\Sigma$. This difference is more pronounced than that of the variances.
+\end{flushleft}
+\end{document}

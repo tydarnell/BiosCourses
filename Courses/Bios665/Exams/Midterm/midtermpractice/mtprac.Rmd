@@ -1,0 +1,182 @@
+---
+title: "mtprac"
+author: "Ty Darnell"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+library(epitools)
+library(DescTools)
+```
+
+```{r include=F}
+ctab=function(a,b,c,d){
+  tab=as.table(matrix(c(a,b,c,d),nrow=2,byrow = T))
+  tab
+}
+```
+
+
+```{r}
+tarray=function(tab1,tab2){
+  array(c(tab1,tab2),dim=c(2,2,2))
+}
+```
+
+
+
+```{r include=F}
+cioddsr=function(ecases,enoncases,uecases,uenoncases){
+  a=ecases
+  b=enoncases
+  c=uecases
+  d=uenoncases
+  or=(a/c)*(d/b)
+  se=sqrt(1/a+1/b+1/c+1/d)
+  z=c(-1.96,1.96)
+  ci=exp(log(or)+z*se)
+  c("Odds Ratio"=or,"95 CI"=ci)
+}
+```
+
+
+```{r}
+c1=ctab(63,37,45,55)
+c2=ctab(29,6,17,13)
+ca=array(data=c(c1,c2),dim=c(2,2,2))
+```
+
+```{r}
+mantelhaen.test(ca)
+```
+
+
+```{r}
+vmh=function(r1,r2,c1,c2,n){
+  (r1*r2*c1*c2)/(n^2*(n-1))
+}
+```
+
+```{r}
+pc=function(p){
+  p*(1-p)
+}
+
+ps=function(p1,p2,za,zb,k){
+  pb=(p1+k*p2)/(k+1)
+  pcb=pc(pb)
+  pc1=pc(p1)
+  pc2=pc(p2)
+  d=k*(p1-p2)^2
+  num=(za*sqrt((k+1)*pcb)+zb*sqrt(k*pc1+pc2))^2
+  n1r=(num/d)*1.1
+  n1=ceiling(n1r)
+  n2=k*n1
+  paste("raw n1=",n1r,"n1=",n1,"n2=",n2,"total=",n1+n2)
+}
+```
+
+```{r}
+psc=function(p1,p2,za,zb,k){
+  pb=(p1+k*p2)/(k+1)
+  pcb=pc(pb)
+  pc1=pc(p1)
+  pc2=pc(p2)
+  d=k*(p1-p2)^2
+  num=(za*sqrt((k+1)*pcb)+zb*sqrt(k*pc1+pc2))^2
+  np=(num/d)
+  n1r=np+(k+1)/(k*abs(p1-p2))
+  n1=ceiling(n1r)
+  n2=k*n1
+  paste("raw n1=",n1r,"n1=",n1,"n2=",n2,"total=",n1+n2)
+}
+```
+
+
+```{r}
+psa=function(p1,p2,za,zb,k){
+  pb=(p1+k*p2)/(k+1)
+  pcb=pc(pb)
+  pc1=pc(p1)
+  pc2=pc(p2)
+  d=k*(p1-p2)^2
+  num=(za*sqrt((k+1)*pcb)+zb*sqrt(k*pc1+pc2))^2
+  np=(num/d)
+  n1r=(np/4)*(1+sqrt(1+(2*(k+1))/(np*k*abs(p1-p2))))^2
+  n1=ceiling(n1r)
+  n2=k*n1
+  paste("raw n1=",n1r,"n1=",n1,"n2=",n2,"total=",n1+n2)
+}
+```
+
+
+```{r}
+chyper=function(r1,r2,n11,n21){
+  n=r1+r2
+  c1=n11+n21
+  choose(r1,n11)*choose(r2,n21)/choose(n,c1)
+}
+```
+
+
+```{r}
+chyper2=function(n11){
+  n=979
+  c1=4
+  r1=117
+  r2=862
+  n21=4-n11
+  choose(r1,n11)*choose(r2,n21)/choose(n,c1)
+}
+```
+
+```{r}
+i=0:4
+chyper2(i)
+```
+
+```{r}
+meana=function(a,cs,n){
+sum(a*cs/n)
+}
+
+qs=function(f1,ua,va,n,r1){
+  (f1-ua)^2/(va*((n-r1)/(r1*(n-1))))
+}
+```
+
+```{r}
+em=function(a,b,c,d){
+r1=a+b
+r2=c+d
+c1=a+c
+c2=b+d
+n=c1+c2
+m11=(r1*c1)/n
+m12=(r1*c2)/n
+m21=(r2*c1)/n
+m22=(r2*c2)/n
+ctab(m11,m12,m21,m22)
+}
+
+bday=function(x,y){
+a=as.vector(matrix(x,nrow=2,byrow=T))
+b=as.vector(matrix(y,nrow=2,byrow=T))
+}
+```
+
+
+```{r}
+taba=ctab(33,47,45,51)
+tabb=ctab(56,136,240,840)
+tabc=ctab(29,47,4,13)
+ar=array(c(taba,tabb,tabc),dim=c(2,2,3))
+```
+
+```{r}
+mantelhaen.test(ar,correct = F)
+```
+

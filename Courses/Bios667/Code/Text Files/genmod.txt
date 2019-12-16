@@ -1,0 +1,79 @@
+
+                                  SAS proc genmod
+                                  ===============
+
+
+MODEL Statement Options:
+
+AGGREGATE=  Specifies the subpopulations
+ALPHA=      Sets the confidence coefficient
+CICONV=     Sets the convergence criterion for profile likelihood confidence intervals
+CL          Displays confidence limits for predicted values
+CODING=     Uses effect coding for all classification variables
+CONVERGE=   Sets the convergence criterion
+CONVH=      Sets the relative Hessian convergence criterion
+CORRB       Displays the parameter estimate correlation matrix
+COVB        Displays the parameter estimate covariance matrix
+DIAGNOSTICS Displays case deletion diagnostic statistics
+DIST=       Specifies the built-in probability distribution
+EXACTMAX    Names a variable used for performing an exact Poisson regression
+EXPECTED    Computes covariances and associated statistics using the expected Fisher
+            information matrix
+ID=         Displays the values of variable in the input data set in the OBSTATS table
+INITIAL=    Sets initial values for parameter estimates
+INTERCEPT=  Initializes the intercept term
+ITPRINT     Displays the iteration history for all iterative processes
+LINK=       Specifies the link function
+LOGNB       Computes the maximum likelihood estimate and confidence limits for k
+            (on the log scale then transformed)
+LRCI        Computes two-sided confidence intervals for the partially likelihood function
+MAXITER=    Sets the maximum allowable number of iterations for all iterative computation
+            processes
+NOINT       Requests that no intercept term
+NOLOGNB     Computes the maximum likelihood estimate and confidence limits for k
+            (directly on the scale of k)
+NOSCALE     Holds the scale parameter fixed
+OBSTATS     Displays an additional table of statistics
+OFFSET=     Specifies a variable in the input data set to be used as an offset
+PREDICTED   Displays predicted values and associated statistics
+RESIDUALS   Displays residuals and standardized residuals
+SCALE=      Sets the value used for the scale
+SCORING=    Computes the Hessian matrix using the Fisher scoring method
+SINGULAR=   Sets the tolerance for testing singularity
+TYPE1       Performs a Type 1 analysis
+TYPE3       Computes statistics for Type 3 contrasts
+WALD        Requests Wald statistics for Type 3 contrasts
+WALDCI      Computes two-sided Wald confidence intervals
+XVARS       Includes the regression variables in the OBSTATS table
+
+
+
+REPEATED Statement Options:
+
+ALPHAINIT=  Specifies initial values for log odds ratio regression parameters
+CONVERGE=   Specifies the convergence criterion for GEE parameter estimation
+CORRB       Displays the estimated correlation matrix
+CORRW       Displays the estimated working correlation matrix
+COVB        Displays the estimated covariance matrix
+ECORRB      Displays the estimated empirical correlation matrix
+ECOVB       Displays the estimated empirical covariance matrix
+INITIAL=    Specifies initial values of the regression parameters estimation
+INTERCEPT=  Specifies either an initial or a fixed value of the intercept
+LOGOR=      Specifies the regression structure of the log odds ratio
+MAXITER=    Specifies the maximum number of iterations
+MCORRB      Displays the estimated model-based correlation matrix
+MCOVB       Displays the estimated model-based covariance matrix
+MODELSE     Displays an analysis of parameter estimates table
+PRINTMLE    Displays an analysis of maximum likelihood parameter estimates table
+RUPDATE=    Specifies the number of iterations between updates of the working correlation matrix
+SORTED      Groups by subject and sorts within subject
+SUBCLUSTER= Specifies a variable defining subclusters
+SUBJECT=    Identifies a different subject, or cluster
+TYPE=       Specifies the working correlation matrix structure
+V6CORR      Uses the SAS Version 6 method of computing normalized Pearson chisquare
+WITHIN=     Specifies the order of measurements within subjects
+YPAIR=      Specifies the pairs of responses
+ZDATA=      Specifies the full z matrix
+ZROW=       Specifies the rows of the z matrix
+
+

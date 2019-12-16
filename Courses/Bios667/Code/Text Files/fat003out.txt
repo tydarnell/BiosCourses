@@ -1,0 +1,91 @@
+Linear mixed-effects model fit by REML
+ Data: fat 
+       AIC      BIC    logLik
+  6140.431 6165.147 -3065.216
+
+Random effects:
+ Formula: ~1 | id
+        (Intercept) Residual
+StdDev:    6.040189 3.690209
+
+Fixed effects: pbf ~ time + I(time * time) 
+                   Value Std.Error  DF  t-value p-value
+(Intercept)    22.328614 0.5035296 877 44.34419       0
+time            1.451595 0.0548105 877 26.48389       0
+I(time * time)  0.202625 0.0202535 877 10.00446       0
+ Correlation: 
+               (Intr) time  
+time           -0.004       
+I(time * time) -0.213 -0.093
+
+Standardized Within-Group Residuals:
+         Min           Q1          Med           Q3          Max 
+-2.704309894 -0.662748042 -0.008198611  0.620283914  4.638952075 
+
+Number of Observations: 1039
+Number of Groups: 160 
+
+#--------------------------------------------------------------------------------------------------
+
+Linear mixed-effects model fit by REML
+ Data: fat 
+       AIC      BIC    logLik
+  6077.807 6112.409 -3031.903
+
+Random effects:
+ Formula: ~1 + time | id
+ Structure: General positive-definite, Log-Cholesky parametrization
+            StdDev    Corr  
+(Intercept) 6.1496290 (Intr)
+time        0.7321257 -0.268
+Residual    3.3002344       
+
+Fixed effects: pbf ~ time + I(time * time) 
+                   Value Std.Error  DF  t-value p-value
+(Intercept)    22.299743 0.5074243 877 43.94694       0
+time            1.461803 0.0785519 877 18.60938       0
+I(time * time)  0.199068 0.0216263 877  9.20489       0
+ Correlation: 
+               (Intr) time  
+time           -0.188       
+I(time * time) -0.178 -0.124
+
+Standardized Within-Group Residuals:
+        Min          Q1         Med          Q3         Max 
+-2.63437236 -0.60344063 -0.01458343  0.59983923  3.32585183 
+
+Number of Observations: 1039
+Number of Groups: 160 
+
+#-------------------------------------------------------------------------------------------
+
+Linear mixed-effects model fit by REML
+ Data: fat 
+       AIC      BIC    logLik
+  6071.136 6120.567 -3025.568
+
+Random effects:
+ Formula: ~1 + time + I(time * time) | id
+ Structure: General positive-definite, Log-Cholesky parametrization
+               StdDev   Corr         
+(Intercept)    6.464590 (Intr) time  
+time           0.755721 -0.164       
+I(time * time) 0.150303 -0.565 -0.233
+Residual       3.207047              
+
+Fixed effects: pbf ~ time + I(time * time) 
+                   Value Std.Error  DF  t-value p-value
+(Intercept)    22.318370 0.5308570 877 42.04215       0
+time            1.477498 0.0812967 877 18.17413       0
+I(time * time)  0.192729 0.0252979 877  7.61840       0
+ Correlation: 
+               (Intr) time  
+time           -0.109       
+I(time * time) -0.404 -0.245
+
+Standardized Within-Group Residuals:
+         Min           Q1          Med           Q3          Max 
+-2.738864950 -0.597757602  0.007404605  0.606396944  3.225505216 
+
+Number of Observations: 1039
+Number of Groups: 160 

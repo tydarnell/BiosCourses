@@ -1,0 +1,24 @@
+Clinical Trial of Patients with Insomnia.
+
+Source: Table 11.4 in Chapter 11 of Agresti (2002).
+Reprinted with permission of John Wiley & Sons, Inc.
+
+Reference: Agresti, A. (2002). Categorical Data Analysis}, 2nd ed. Hoboken, NJ: Wiley.
+
+
+Description:
+
+In a clinical trial of patients with insomnia (Francom, Chuang-Stein and Landis, 1989), patients were randomized to receive either a
+hypnotic drug or placebo.An ordinal response, denoting patients' reported time (in minutes) to fall asleep after going to bed
+was recorded at baseline and after two weeks of treatment. The four-level ordinal response is coded 
+1: < 20 minutes, 2: 20-30 minutes, 3: 30-60 minutes, 4: > 60 minutes. 
+
+Reference:  Francom, S.F, Chuang-Stein, C. and Landis, J.R. (1989). A log-linear model for ordinal data
+to characterize differential change among treatments. Statistics in Medicine, 8, 571-582.
+
+ 
+Variable List:
+ID, 
+Treatment Group (0=placebo, 1=hypnotic drug), 
+Occasion (0=baseline, 1=2 weeks post-baseline),
+Outcome (1: < 20 minutes, 2: 20-30 minutes, 3: 30-60 minutes, 4: > 60 minutes). 

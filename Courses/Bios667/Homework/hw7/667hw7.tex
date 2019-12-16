@@ -1,0 +1,263 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{667 Homework 7}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ta}{\theta}
+\newcommand{\qe}{ \ ?\ }
+\newcommand{\dt}{\pderiv{}{\ta}}
+\newcommand{\lt}[1]{\log(f(#1|\ta))}
+\newcommand{\lx}{\lambda(x)}
+\newcommand{\samp}{X_1,\dots,X_n \sim}
+\newcommand{\te}{\theta_1}
+\newcommand{\xm}{x_{(1)}}
+\newcommand{\sn}{(\sg^2)}
+\newcommand{\pow}{\B(\ta)}
+\newcommand{\hyp}[2]{H_0: #1 \text{ vs } H_1: #2}
+\newcommand{\pois}[2]{\dfrac{e^{-#1}{#1}^{#2}}{{#2}!}}
+\newcommand{\mlr}{\dfrac{f(x|\ta_2)}{f(x|\ta_1)}}
+\newcommand{\al}{\alpha}
+\newcommand{\bx}{\bar{x}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+\section*{Problem 13.1}
+\subsection*{Part 0}
+\begin{multline*}\\
+\textbf{Simple Statistics}\\
+\text{Clinic 1, Active Treatment}\\
+\begin{array}{llll}
+\hline
+Visit & N & Mean & SD\\
+\hline
+0 & 27 & 0.33 & 0.48 \\ 
+1 & 27 & 0.52 & 0.51 \\ 
+2 & 27 & 0.59 & 0.50 \\ 
+3 & 27 & 0.63 & 0.49 \\ 
+4 & 27 & 0.44 & 0.51 \\ 
+\hline
+\end{array}\\
+\text{Clinic 1, Placebo}\\
+\begin{array}{llll}
+\hline
+Visit & N & Mean & SD\\
+\hline
+0 & 29 & 0.31 & 0.47 \\ 
+1 & 29 & 0.41 & 0.50 \\ 
+2 & 29 & 0.34 & 0.48 \\ 
+3 & 29 & 0.41 & 0.50 \\ 
+4 & 29 & 0.31 & 0.47 \\ 
+\hline
+\end{array}\\
+\text{Clinic 2, Active Treatment}\\
+\begin{array}{llll}
+\hline
+Visit & N & Mean & SD\\
+\hline
+0 & 27 & 0.56 & 0.51 \\ 
+1 & 27 & 0.85 & 0.36 \\ 
+2 & 27 & 0.81 & 0.40 \\ 
+3 & 27 & 0.81 & 0.40 \\ 
+4 & 27 & 0.78 & 0.42 \\ 
+\hline
+\end{array}\\
+\text{Clinic 2, Placebo}\\
+\begin{array}{llll}
+\hline
+Visit & N & Mean & SD\\
+\hline
+0 & 28 & 0.61 & 0.50 \\ 
+1 & 28 & 0.57 & 0.50 \\ 
+2 & 28 & 0.43 & 0.50 \\ 
+3 & 28 & 0.50 & 0.51 \\ 
+4 & 28 & 0.57 & 0.50 \\ 
+\hline
+\end{array}\\
+\textbf{Covariance Matrices}\\
+\text{Clinic 1, Active Treatment}\\
+\left[\begin{array}{rrrrr}
+0.23 & 0.17 & 0.10 & 0.13 & 0.08 \\ 
+0.17 & 0.26 & 0.10 & 0.12 & 0.07 \\ 
+0.10 & 0.10 & 0.25 & 0.11 & 0.15 \\ 
+0.13 & 0.12 & 0.11 & 0.24 & 0.09 \\ 
+0.08 & 0.07 & 0.15 & 0.09 & 0.26 \\  
+\end{array}\right]\\\\
+\text{Clinic 1, Placebo}\\
+\left[\begin{array}{rrrrr}
+0.23 & 0.17 & 0.10 & 0.13 & 0.08 \\ 
+0.17 & 0.26 & 0.10 & 0.12 & 0.07 \\ 
+0.10 & 0.10 & 0.25 & 0.11 & 0.15 \\ 
+0.13 & 0.12 & 0.11 & 0.24 & 0.09 \\ 
+0.08 & 0.07 & 0.15 & 0.09 & 0.26 \\ 
+\end{array}\right]\\
+\text{Clinic 2, Active Treatment}\\
+\left[\begin{array}{rrrrr}
+0.26 & 0.09 & 0.03 & 0.07 & 0.05 \\ 
+0.09 & 0.13 & 0.05 & 0.05 & 0.08 \\ 
+0.03 & 0.05 & 0.16 & 0.12 & 0.07 \\ 
+0.07 & 0.05 & 0.12 & 0.16 & 0.07 \\ 
+0.05 & 0.08 & 0.07 & 0.07 & 0.18 \\  
+\end{array}\right]\\
+\text{Clinic 2, Placebo}\\
+\left[\begin{array}{rrrrr}
+0.26 & 0.09 & 0.03 & 0.07 & 0.05 \\ 
+0.09 & 0.13 & 0.05 & 0.05 & 0.08 \\ 
+0.03 & 0.05 & 0.16 & 0.12 & 0.07 \\ 
+0.07 & 0.05 & 0.12 & 0.16 & 0.07 \\ 
+0.05 & 0.08 & 0.07 & 0.07 & 0.18 \\ 
+\end{array}\right]\\
+\end{multline*}
+\subsection*{Part 1}
+Model for the log odds that respiratory status is classified as good\\
+Assuming separate pairwise log odds ratios among the five binary responses\\
+where $i=0$ is the placebo (reference) and $i=1$ is the active treatment\\
+$j=0,1,2,3,4$ for the $j_{th}$ occasion time 0 (baseline) is the reference \\
+Under the constraint that the treatment groups have the same mean at time 0 we have $\beta_0=\gamma_{0j}=\gamma_{i0}=0$\\
+$\eta_{ij}=\mu+\beta_jI(\text{time}_j)+\gamma_{ij}I(\text{time}_j)*I(\text{treatment}_i)$\\
+\begin{multline*}\\
+\begin{array}{ccc}
+\hline
+Parameter & estimate & \hat{se}\\
+\hline
+\hat{\mu}& -.199 & .191\\
+\hat{\beta_1}& .151 &.262\\
+\hat{\beta_2}& -.274 &.282\\
+\hat{\beta_3}&.012&.263 \\
+\hat{\beta_4}& -.058&.257 \\
+\hat{\gamma_{11}}&.838&.337\\
+\hat{\gamma_{12}}&1.347& .380\\
+\hat{\gamma_{13}}&1.154&.361\\
+\hat{\gamma_{14}}&.718&.355\\
+\hline
+\end{array}\\
+\text{Treatment effect}=\boldsymbol{\delta}=(\gamma_{11},\gamma_{12},\gamma_{13},\gamma_{14})^T\\
+\boldsymbol{\delta} \text{ represents the treament effect on changes in the log odds that respiratory status is classified as good}\\
+\text{Testing the null hypothesis
+of no effect of treatment on changes in the log odds that respiratory status}\\ 
+\text{is classified as good based on the empirical standard errors}\\
+\text{Wald } \chi^2 \text{ Test}\\
+H_0: \boldsymbol{\delta}=0\\
+H_1: \boldsymbol{\delta}\neq 0\\
+\chi^2=16.91 \text{ with } df=4\\
+\text{p-value}=.002<.05 \text{Thus reject } H_0\\
+\end{multline*}
+\subsection*{Part 2}
+Since the null hypothesis was rejected that there is evidence to suggest a statistically significant effect of treatment on changes in the log odds that respiratory status is classified as good
+\subsection*{Part 3a}
+Model for the log odds that respiratory status is classified as good\\
+$\eta_{ijk}=\mu+\beta_j+\alpha_k+\gamma_{ij}+\tau_{jk}+\lambda_{ijk}$\\
+where $i=0$ is the placebo (reference) and $i=1$ is the active treatment\\
+$j=0,1,2,3,4$ for the $j_{th}$ occasion time 0 (baseline) is the reference \\
+$k=1,2$ is the $k_{th}$ center with center 1 as the reference\\
+\begin{multline*}\\
+\text{Treatment effect}=\boldsymbol{\delta}=(\lambda_{112},\lambda_{122},\lambda_{132},\lambda_{142})^T\\
+\boldsymbol{\delta} \text{ represents the treament effect on changes in the log odds that respiratory status is classified as good}\\
+\begin{array}{ccc}
+\hline
+Parameter & estimate & \hat{se}\\
+\hline
+\hat{\lambda_{112}}&1.203&.759\\
+\hat{\lambda_{122}}&.862&.803\\
+\hat{\lambda_{132}}&.749&.761\\
+\hat{\lambda_{142}}&.507&.773\\
+\hline
+\end{array}\\
+\text{Testing if the effect of treatment is the same in the two clincs}\\
+\text{Wald } \chi^2 \text{ Test}\\
+H_0: \boldsymbol{\delta}=0 \text{ (The treament effect is the samin in the two clinics)}\\
+H_1: \boldsymbol{\delta}\neq 0\\
+\chi^2=3.10 \text{ with } df=4\\
+\text{p-value}=.541>.05 \text{ Thus fail to reject } H_0\\
+\end{multline*}
+Since we failed to reject the null hypothesis there is not enough evidence to suggest a statistically significant difference in  effect of treatment between the two clinics on changes in the log odds that respiratory status is classified as good
+\subsection*{Part 3b}
+We drop the 3 variable interactions since the results from part a showed it was non-significant.\\
+Model for the log odds that respiratory status is classified as good\\
+$\eta_{ijk}=\mu+\beta_j+\alpha_k+\gamma_{ij}+\tau_{jk}$\\
+where $i=0$ is the placebo (reference) and $i=1$ is the active treatment\\
+$j=0,1,2,3,4$ for the $j_{th}$ occasion time 0 (baseline) is the reference \\
+$k=1,2$ is the $k_{th}$ center with center 1 as the reference\\
+\begin{multline*}\\
+\begin{array}{ccc}
+\hline
+Parameter & estimate & \hat{se}\\
+\hline
+\hat{\mu}& -.771&.289\\
+\hat{\beta_1}&.202&.295\\
+\hat{\beta_2}& -.046&.330\\
+\hat{\beta_3}&.289&.297\\
+\hat{\beta_4}&-.127&.356\\
+\hat{\alpha_2}&1.103&.400\\
+\hat{\gamma_{11}}&.892&.348\\
+\hat{\gamma_{12}}&1.389&.389\\
+\hat{\gamma_{13}}&1.195&.368\\
+\hat{\gamma_{14}}&.774&.380\\
+\hat{\tau_{12}}&-.071&.417\\
+\hat{\tau_{22}}&-.437&.470\\
+\hat{\tau_{32}}&-.531&.428\\
+\hat{\tau_{42}}&.153&.461\\
+\hline
+\end{array}\\
+\end{multline*}
+$\hat{\mu}$ is the log odds ratio of good respiratory status at baseline for the placebo group at center 1.\\
+$\hat{\beta_j}$ the difference in the log odds ratio of good respiratory status at occasion j relative to baseline for patients receiving placebo at center 1.\\
+$\hat{\alpha_2}$ is the difference in the log odds ratio of good respiratory status for patients at center 2 compared to center 1\\
+$\hat{\gamma_{1j}}$ is the interaction effect of treatment and time on the log odds ratio of good respiratory status.\\
+$\hat{\tau_{j2}}$ is the interaction effect of time and center 2 on the log odds ratio of good respiratory status.\\
+\subsection*{Part 4}
+Table of estimated probabilities that respiratory status is classified as good as a function of both time and treatment group clinic
+\begin{multline*}\\
+\begin{array}{ccccc}
+\hline
+ Time &  \text{Clinic 1} & & \text{Clinic 2}\\
+  & Placebo & Active & Placebo &Active\\
+ \hline
+ 0 &.316 &.316& .582 &.582\\
+ 1 & .361&.580&.614&.795\\
+ 2&.306&.639&.614&.775\\
+ 3&.382&.671&.522&.783\\
+ 4&.289&.589&.469&.756\\
+ \hline
+\end{array}\\
+\end{multline*}
+Based on the table it appears that the treatment has an effect on the probability good respiratory status within in each clinic, but it does not appear that clinic has a significant effect on the probability good respiratory status
+\end{flushleft}
+\end{document}

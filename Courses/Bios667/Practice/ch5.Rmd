@@ -1,0 +1,169 @@
+---
+title: "ch5"
+author: "Ty Darnell"
+
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+
+```{r}
+library(tidyverse)
+library(knitr)
+library(pracma)
+library(matlib)
+library(nlme)
+library(reshape2)
+library(data.table)
+library(car)
+```
+
+```{r}
+ds <- fread("tlc.dat")
+ds=ds%>%mutate(baseline=week0)
+```
+
+
+# section 5.4
+
+```{r}
+tlclong <- reshape(ds, idvar="id", varying=c("week0","week1","week4","week6"), 
+                   v.names="y", timevar="time", time=1:4, direction="long")
+
+```
+
+
+```{r}
+tlclong1=tlclong
+attach(tlclong1)
+group=factor(group,levels =c("P","A"))
+week <- time
+
+week[time==1] <- 0
+week[time==2] <- 1
+week[time==3] <- 4
+week[time==4] <- 6
+```
+
+
+```{r}
+interaction.plot(week, group, y, type="b", pch=c(19,21), ylim=c(10, 30), 
+ xlab="Time (in weeks)", ylab="Blood Lead Levels", 
+ main="Plot of Mean Response Profiles in the Placebo & Succimer Groups",col=c(2,4))
+```
+
+
+```{r}
+week.f <- factor(week, c(0,1,4,6))
+model <- gls(y ~ group*week.f, corr=corSymm(form= ~ time | id), weights = varIdent(form = ~ 1 | week.f))
+```
+
+
+```{r}
+summary(model)
+```
+
+
+```{r}
+anova.gls(model,type="marginal")
+```
+
+# section 5.7
+
+## Analysis of Response Profiles assuming Equal Mean Response at Baseline 
+
+```{r}
+tlclong2 <- subset(tlclong, time > 1)
+attach(tlclong2)
+```
+
+
+```{r}
+week <- time
+week[time==2] <- 1
+week[time==3] <- 4
+week[time==4] <- 6
+time <- time - 1
+week.f <- factor(week, c(1,4,6))
+change <- y - baseline
+cbaseline <- baseline - 26.406
+```
+
+
+```{r}
+model <- gls(y ~ I(week.f==1) + I(week.f==4) + I(week.f==6)+
+I(week.f==1 & group=="A") + I(week.f==4 & group=="A") + 
++I(week.f==6 & group=="A"), corr=corSymm(form= ~ time | id), 
+weights = varIdent(form = ~ 1 | week.f))
+
+```
+
+
+```{r}
+summary(model)
+```
+
+```{r}
+model1 <- gls(y ~ I(week.f==1) + I(week.f==4) + I(week.f==6)+I(week.f==1 & group=="A") + I(week.f==4 & group=="A") + I(week.f==6 & group=="A"), corr=corSymm(form= ~ time | id), 
+weights = varIdent(form = ~ 1 | week.f), method="ML")
+
+model2 <- gls(y ~ I(week.f==1) + I(week.f==4) + I(week.f==6), corr=corSymm(form= ~ time | id), 
+weights = varIdent(form = ~ 1 | week.f), method="ML")
+```
+
+
+```{r}
+anova(model1,model2)
+```
+
+## Analysis of Response Profiles of Changes in Response from Baseline
+
+```{r}
+model <- gls(change ~ group*week.f, corr=corSymm(form= ~ time | id), 
+weights = varIdent(form = ~ 1 | week.f))
+summary(model)
+```
+
+```{r}
+model1 <- gls(change ~ group*week.f, corr=corSymm(form= ~ time | id),
+weights = varIdent(form = ~ 1 | week.f),method="ML")
+
+model2 <- gls(change ~ week.f, corr=corSymm(form= ~ time | id),
+weights = varIdent(form = ~ 1 | week.f),method="ML")
+```
+
+
+```{r}
+anova(model1,model2)
+```
+
+
+## Analysis of Response Profiles of Adjusted Changes in Response from Baseline
+
+```{r}
+model <- gls(change ~ cbaseline + group*week.f, 
+corr=corSymm(form= ~ time | id),
+weights = varIdent(form = ~ 1 | week.f))
+summary(model)
+```
+
+```{r}
+model1 <- gls(change ~ cbaseline + group*week.f, 
+corr=corSymm(form= ~ time | id),
+weights = varIdent(form = ~ 1 | week.f),method="ML")
+
+model2 <- gls(change ~ cbaseline + week.f, 
+corr=corSymm(form= ~ time | id),
+weights = varIdent(form = ~ 1 | week.f),method="ML")
+```
+
+
+```{r}
+anova(model1,model2)
+
+ 
+```
+

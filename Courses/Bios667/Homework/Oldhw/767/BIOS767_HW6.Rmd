@@ -1,0 +1,155 @@
+---
+title: "BIOS767 HW 6"
+author: "Cheynna Crowley"
+date: "3/22/2019"
+output: pdf_document
+---
+
+
+###14.1.1: First, consider a marginal model for the log odds of moderate or severe onycholysis. Using GEE, fit a model that assumes linear trends for the log odds over time, with a common intercept for the two treatment groups but different slopes: logit[E($Y_{ij}$)]=$\beta_1$+$\beta_2$Month$_{ij}$+$\beta_3$Treatment$_i$ x Month$_{ij}$. Assume 'exchangeable' log odds ratios (or 'exchangeable' correlations, if available software does not permit the within-subject association to be parameterized in terms of log odds ratios) for the association among the repeated binary responses.
+
+Model: logit[E($Y_{ij}$)]=$\beta_1$+$\beta_2$Month$_{ij}$+$\beta_3$Treatment$_i$ x Month$_{ij}$
+
+i=1,...,294 j=1,...,$n_i$
+
+|Parameter | Estimate | Standard Error |
+|----------|----------|----------------|
+| $\beta_1$| -0.5209  | 0.1215         |
+| $\beta_2$| -0.1712  | 0.0275         |
+|$\beta_3$ | -0.0757  | 0.0456         |
+| $\alpha$ | 3.2294   | 0.2901         |
+
+###14.1.2: What is the interpretation of $\beta_2$ in this model?
+
+$\beta_2$=-0.1712 
+
+$\beta_2$ is the change in log odds of moderate or severe degree of toenail onycholyisis (P(Y=1)) per month increase for subjects in the Itraconazole group. 
+
+###14.1.3: What is the interpretation $\beta_3$ in this model?
+
+$\beta_3$=-0.0757  
+
+$\beta_3$ is the change in the log odds of moderate or severe degree of toenail onycholysis (P(Y=1)) at month 1 between subjects receiving Itraconazole and subjects receiving Terbinafine.
+
+###14.1.4: From the results of the analysis for Problem 14.1.1, what conclusions do you draw about the effect of treatment on changes in the log odds of moderate or severe onycholysis over time? Provide results that support your conclusions.
+
+$H_0:\beta_3=0$
+
+Since our hypothesis is testing the effect of $\beta_3$ on the model, a Wald test is appropriate from the estimates.
+
+$\chi_{stat}^2=2.80$
+
+p-value=0.0972
+
+Decision: Fail to reject $H_0$
+
+Conclusion: The difference in the log odds of moderate or severe degree of onycholysis at month 1 between subjects receiving Itraconazole and subjects receiving Terbinafine is not significant. 
+
+###14.1.5: Next consider a generalized linear mixed model, with randomly varying intercepts, for the patient-specific log odds of moderate or severe onycholysis. Using maximum likelihood (ML), fit a model with linear trends for the log odds over time and allow the slopes to depend on treatment group: logit[E($Y_{ij}|b_i$)]=($\beta_1+b_i$)+$\beta_2$Month$_{ij}$+$\beta_3$Treatment$_i$ x Month$_{ij}$, where, given $b_i$, $Y_{ij}$ is assumed to have a Bernoulli distribution. Assume that $b_i \sim N(0,\sigma_b^2).$ For consistency in grading the homeworks, please use 20 quadrature points in 14.1.5.
+
+Model: logit[E($Y_{ij}|b_i$)]=($\beta_1+b_i$)+$\beta_2$Month$_{ij}$+$\beta_3$Treatment$_i$ x Month$_{ij}$
+
+i=1,...,294 j=1,...,$n_i$
+
+$b_i$, $Y_{ij}$ is assumed to have a Bernoulli distribution.
+
+$b_i \sim N(0,\sigma_b^2).$
+
+Quadrature points=20
+
+|Parameter     | Estimate | Standard Error |
+|--------------|----------|----------------|
+| $\beta_1$    | -1.6971  | 0.3283         |
+| $\beta_2$    | -0.3883  | 0.04325        |
+|$\beta_3$     | -0.1424  | 0.06490        |
+| $\sigma^2_b$ | 16.0121  | 0.29972        |
+
+
+###14.1.6: What is the estimate of $\sigma_b^2$? Give an interpretation to the magnitude of the estimated variance?
+
+The estimate of $\sigma^2_b$= 16.0121. This reflects that between subject variance is relatively large for moderate or severe onycholysis at baseline.
+
+###14.1.7: What is the interpretation of the estimate of $\beta_2$?
+
+$\hat{\beta}_2$ is an estimate of the change in log odds of moderate or severe onycholysis for each 1 month increase in time for an individual in the Itraconazole treatment group.
+
+###14.1.8: What is the interpretation of the estimate of $\beta_3$?
+
+$\hat{\beta}_3$ is an estimate of the difference in the change in log odds of moderate or severe onycholysis at 1 month between an individual assigned Terbinafine and an individual assigned Itraconazole where both individuals have the same baseline value for a moderate or severe onycholysis.
+
+###14.1.9: Compare and contrast the estimates of $\beta_3$ from the marginal and mixed effects models. Why might they differ?
+
+|Model     | $\beta_3$| Standard Error |
+|----------|----------|----------------|
+| Marginal | -0.0757  | 0.0456         |
+| Mixed    | -0.1424  | 0.06490        |
+
+It should be noted that we expected these estimates to not be equal since the two models are modeling different things. $\beta_3$ in the marginal model is the difference in the log odds of moderate or severe degree of onycholysis at month 1 between subjects receiving Itraconazole and subjects receiving Terbinafine. $\beta_3$ in the mixed model is an estimate of the difference in the change in log odds of moderate or severe onycholysis at 1 month between an individual assigned Terbinafine and an individual assigned Itraconazole treatment group where both individuals have the same value for a moderate or severe onycholysis at baseline. 
+
+
+###14.1.10: Repeat the analysis from Problem 14.1.5 sequentially increasing the number of quadrature points used. Compare the estimates and standard errors of the model parameters when the number of quadrature points is 2,5,10,20,30, and 50. Do the results depend on the number of quadrature points?
+
+| Q pts  | $\hat{\beta_1}$ | se($\hat{\beta_1}$) | $\hat{\beta_2}$ | se($\hat{\beta_2}$) | $\hat{\beta_3}$ | se($\hat{\beta_3}$) | $\hat{\sigma_b}$ | se($\hat{\sigma_b}$)|  
+|--------|-----------------|---------------------|-----------------|---------------------|-----------------|---------------------|------------------|---------------------|
+|  2     | -1.4915         | 0.2722              |-0.3606          | 0.03961             | -0.1303         | 0.05892             |10.5305           | 1.6140              | 
+|  5     |-1.5213          |0.2943               |-0.3798          |0.04224              |-0.1387          |0.06287              |13.6155           |2.4833               |
+|  10    | -1.7190         |0.3476               |-0.3907          |0.04380              |-0.1432          |0.06535              |16.4887           |3.4316               |
+|  20    | -1.6971         |0.3283               |-0.3883          |0.04325              |-0.1424          |0.06490              |16.0121           |2.9972               |
+|  30    |-1.6979          |0.3304               |-0.3885          |0.04332              |-0.1424          |0.06494              |16.0468           |3.0525               |
+|  50    |-1.6972          |0.3298               |-0.3885          |0.04330              |-0.1424          |0.06493              |16.0349           |3.0395               |
+
+
+
+Yes the results depend on the number of quadrature points until after about qpoints=20 and then after around quadrature points=20 the estimates differ slightly.
+
+
+###14.1.11 For a subject in the Terbinafine group compute estimates of the marginal probability of moderate or severe onycholysis at 4 and 48 weeks and the correlation between those time points. Compute two sets of estimates; one based on the marginal model in 14.1.1 and the other based on the mixed model in 14.1.5. Further, based on the mixed model in 14.1.5, estimate the ICC at 4 weeks and at 48 weeks. Repeat for a subject in the Itraconazole group. Organize the estimates in a table. Comment. [Note: The ICC here is the ICC based on the observed response, not the one based on only latent variables (page 417 in the textbook)].
+
+
+Mixed Model Estimates:
+
+Using: 
+
+|Parameter     | Estimate | Standard Error |
+|--------------|----------|----------------|
+| $\beta_1$    | -1.6971  | 0.3283         |
+| $\beta_2$    | -0.3883  | 0.04325        |
+|$\beta_3$     | -0.1424  | 0.06490        |
+| $\sigma^2_b$ | 16.0121  | 0.29972        |
+
+
+Result:
+
+| TRT       | Month    | $\sigma^2_T$ | $\sigma^2_W$ |$\sigma^2_B$ | ICC  | $\rho$  | OR        |
+|-----------|----------|--------------|--------------|-------------|------|---------|-----------|
+| 0         | 1        | 0.217        | 0.081        | 0.136       | 0.627| 0.599   |24.2722    |
+| 0         | 4        | 0.177        | 0.069        | 0.109       | 0.612|         |           |
+| 1         | 1        | 0.213        | 0.080        | 0.133       | 0.625| 0.577   | 26.466    |
+| 1         | 4        | 0.156        | 0.062        | 0.094       | 0.602|         |           |
+
+
+
+
+Marginal Model Estimates:
+
+Using: 
+
+|Parameter | Estimate | Standard Error |
+|----------|----------|----------------|
+| $\beta_1$| -0.5209  | 0.1215         |
+| $\beta_2$| -0.1712  | 0.0275         |
+|$\beta_3$ | -0.0757  | 0.0456         |
+| $\alpha$ | 3.2294   | 0.2901         |
+
+
+Results:
+
+| TRT       | Month    | $\sigma^2_T$ | $\sigma^2_W$ | $\sigma^2_B$ | ICC  | $\rho$  | OR        |
+|-----------|----------|--------------|--------------|--------------|------|---------|-----------|
+| 0         | 1        | 0.238        | 0.154        | 0.084        | 0.353| 0.344   | 4.61      |
+| 0         | 4        | 0.216        | 0.142        | 0.074        | 0.342|         |           |
+| 1         | 1        | 0.235        | 0.152        | 0.083        | 0.351| 0.336   | 4.69      |
+| 1         | 4        | 0.198        | 0.132        | 0.066        | 0.332|         |           |
+
+
+I do not think I did this correctly since the OR differ so much between the two estimates. Also, I do not think it's valid to compare in this way since the beta estimates refer to different models and are interpreted differently.

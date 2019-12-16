@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{667 Homework 2}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ta}{\theta}
+\newcommand{\qe}{ \ ?\ }
+\newcommand{\dt}{\pderiv{}{\ta}}
+\newcommand{\lt}[1]{\log(f(#1|\ta))}
+\newcommand{\lx}{\lambda(x)}
+\newcommand{\samp}{X_1,\dots,X_n \sim}
+\newcommand{\te}{\theta_1}
+\newcommand{\xm}{x_{(1)}}
+\newcommand{\sn}{(\sg^2)}
+\newcommand{\pow}{\B(\ta)}
+\newcommand{\hyp}[2]{H_0: #1 \text{ vs } H_1: #2}
+\newcommand{\pois}[2]{\dfrac{e^{-#1}{#1}^{#2}}{{#2}!}}
+\newcommand{\mlr}{\dfrac{f(x|\ta_2)}{f(x|\ta_1)}}
+\newcommand{\al}{\alpha}
+\newcommand{\bx}{\bar{x}}
+\newcommand{\x}{\boldsymbol{X}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+\section*{Problem 1}
+The program defines the number of rows n to be 10 and creates 3 column vectors with n rows where $x_1$ is the intercept column (a column of all ones), $x_2$ is the numbers 1 through n and $x_3$ is the square of each element in $x_2$. The 3 column vectors are then printed together in a table in the output.\medbreak
+
+A matrix $\x_{10\times 3}$ is created using the 3 column vectors and then printed in the output\medbreak
+
+a variable p is created which is the number of columns in $\x$, 3\medbreak
+
+$\x^T\x$ using matrix multiplication of the transpose of $\x$ and $\x$\medbreak
+
+The inverse of this result is then calculated and matrix multiplication is used to multiple it by the transpose of $\x$ to obtain $(\x^T\x)^{-1}\x^T$\medbreak
+
+The hat matrix, h is obtained by matrix multiplication of $\x$ and $(\x^T\x)^{-1}\x^T$. This is a 10 by 10 matrix which makes sense because the $\x$ matrix has 10 rows\medbreak
+
+The vector of the row sums of the hat matrix (rowsums) is created by summing each row. Each element of this vector is 1. The row sum vector is then summed to obtain the sum of the hat matrix. This is a scalar and equals 10 which is the number of rows in $\x$. Also since the hat matrix is symmetric, the row sums equal the column sums, which all equal 1.\medbreak
+
+The diagonal of the hat matrix is taken and used to create a vector, dh. The diagonal elements of the hat matrix, $h_{ii}$, are called the leverages. Each diagonal element, $h_{ii}$, is between 0 and 1 inclusive. For a model with an intercept term and a full rank X matrix, $\sum_{i=1}^{n}h_{ii}=p$ Thus the sum of the diagonal is 3 which is the same as the sum of squares. This is because the hat matrix is idempotent and $h_{ii}=h_{ii}^2+\sum_{i\neq j}^{n} h^2_{ij}=\sum_{j=1}^{n} h^2_{ij}$ That is the row sum of squares is equal to the diagonal element of that particular row. Thus summing the diagonal elements is equal to summing the row sum of squares. \medbreak
+
+The dimensions of the design matrix $\x$ are printed in the output along with the hat matrix, a table of: the sum of the diagonal of the hat matrix, the sum of the hat matrix, and the sum of squares.\medbreak
+
+A table of the row sums vector, the diagonal of the hat matrix , and the row sum of squares are also printed in the output.\medbreak
+
+
+
+\end{flushleft}
+\end{document}

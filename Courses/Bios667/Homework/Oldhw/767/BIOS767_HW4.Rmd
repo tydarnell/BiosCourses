@@ -1,0 +1,168 @@
+---
+title: "BIOS 767 HW 4"
+author: "Cheynna Crowley"
+date: "2/19/2019"
+output: pdf_document
+---
+
+
+###Question 13.2.1: Construct a test of the null hypothesis of no effect of treatment on changes in the log seizure rate based on the empirical standard errors.
+
+Our Model:  $log(Y_{ij})=log(t)+\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\beta_3x_{i3}+\beta_4x_{i4}+\beta_5x_{i5}+\beta_6x_{i6}+\beta_7x_{i7}+\beta_8x_{i8}+\beta_9x_{i9}$
+
+where: 
+
+log(t)=log time in weeks (offset)
+
+$x_{i1}$=I(time=1)
+
+$x_{i2}$=I(time=2)
+
+$x_{i3}$=I(time=3)
+
+$x_{i4}$=I(time=4)
+
+$x_{i5}$=I(treatment=1)
+
+$x_{i6}$=I(time=1 & treatment=1)
+
+$x_{i7}$=I(time=2 & treatment=1)
+
+$x_{i8}$=I(time=3 & treatment=1)
+
+$x_{i9}$=I(time=4 & treatment=1)
+
+$H_0$: Equal slopes at each time point between treatment and control
+
+$H_0: \beta_7=\beta_8=\beta_9=0$
+
+$H_1$: otw
+
+
+|Parameter          |Estimate| Standard Error| 95% Confidence Limits | Z   |Pvalue | 
+|-------------------|--------|---------------|-----------------------|-----|-------|
+|Intercept          |1.3476  | 0.1574        |(1.0392,1.6560)        |8.56 | <.0001| 
+|time 1             |0.1954  |0.1345         |(-0.0682,0.4590)       |1.45 | 0.1463| 
+|time 2             |0.0738  |0.1018         |(-0.1257,0.2732)       |0.72 | 0.4685| 
+|time 3             |0.1324  |0.2697         |(-0.3961,0.6609)       |0.49 |0.6235 | 
+|time 4             |0.0387  |0.1018         |(-0.1608,0.2381)       |0.38 |0.7038 |
+|treatment 1        |0.0275  |0.2218         |(-0.4072,0.4622)       |0.12 |0.9012 |
+|time 1 *treatment  |-0.1142 | 0.2887        |(-0.6800,0.4517)       |-0.40| 0.6925| 
+|time 2 *treatment  |-0.0115 | 0.1759        |(-0.3562,0.3332)       |-0.07| 0.9477| 
+|time 3 *treatment  |-0.1052 | 0.3310        |(-0.7540,0.5436)       |-0.32| 0.7506| 
+|time 4 *treatment  |-0.1986 | 0.2032        |(-0.5970,0.1997)       |-0.98| 0.3284| 
+
+Contrast Results:
+
+|Contrast         |DF | Chi-Square| PValue| Type|
+|-----------------|---|-----------|-------|-----|
+|B7=B8=B9=0       | 4 |1.74       |0.7835 |Wald | 
+
+
+By conducting a Wald Test from GEE, we found that the contrast corresponded to a $\chi_{obs,df=4}^2=1.74$ with a pvalue of 0.7835. Thus we fail to reject the null hypothesis and conclude that there is not significant evidence that the log-seizure rate differs by treatment group.  
+
+###Question 13.2.2: What conclusions do you draw about the effect of treatment on changes in the log seizure rate?
+
+As stated in 13.2.1, that there is not significant evidence that the log-seizure rate differs by treatment group.  
+
+
+###Question 13.2.3: Repeat the analysis for Problem 13.2.1 using Ptime (instead of time as a categorical variable with five levels). Construct a test of the null hypothesis of no effect of treatment on changes in the log seizure rate based on the empirical standard errors.
+
+Our Model:  $log(Y_{ij})=log(t)+\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\beta_3x_{i3}$
+
+where:
+
+log(t)=log time in weeks (offset)
+
+$x_{i1}$=ptime=I(post-baseline)
+
+$x_{i2}$=treatment=I(treatment=1)
+
+$x_{i3}$=ptime*treatment=I(post-baseline)xI(treatment=1)
+
+$H_0:\beta_3=0$
+
+$H_1$: otw
+
+|Parameter          |Estimate| Standard Error| 95% Confidence Limits | Z   |Pvalue | 
+|-------------------|--------|---------------|-----------------------|-----|-------|
+|Intercept          |1.1213  |0.4794         |(0.1817,2.0608)        |2.34 | 0.0193| 
+|ptime              |0.1244  |0.1245         |(-0.1197,0.3685)       |1.00 |0.3179 |
+|treatment          |0.0718  |0.5673         |(-1.0401,1.1837)       |0.13 |0.8993 |
+|ptime*treatment    |-0.1150 |0.2509         |(-0.6067,0.3768)       |-0.46|0.6468 |
+
+
+Contrast Results:
+
+|Contrast         |DF | Chi-Square| PValue| Type|
+|-----------------|---|-----------|-------|-----|
+|B3=0             | 1 |0.21       |0.6468 |Wald | 
+
+
+By conducting a Wald Test from GEE, we found that the contrast corresponded to a $\chi_{obs,df=1}^2=0.21$ with a p-value of 0.6468. So we fail to reject the null hypothesis and conclude that the interaction of ptime and treatment is not significant (there is no effect of treatment on the changes in log seizure rate)
+
+
+###Question 13.2.4: From the results of the analysis for Problem 13.2.3, what conclusions do you draw about the effect of treatment on changes in log seizure rate?
+
+As stated in 13.2.3, there is no significant difference between the rate of change of baseline measures and post-baseline measures between treatment groups. 
+
+###Question 13.2.5: Repeat all of the analyses in Problems 13.2.1 to 13.2.4, excluding all of the repeated count data from patient 49. When the data from patient 49 are excluded, what conclusions do you draw about the effect of treatment on changes in the log seizure rate?
+
+
+**Repeat of 13.2.1**
+
+$H_0: \beta_7=\beta_8=\beta_9=0$
+
+$H_1$: otw
+
+
+|Parameter          |Estimate| Standard Error | 95% Confidence Limits | Z   |Pvalue | 
+|-------------------|--------|----------------|-----------------------|-----|-------|
+|Intercept          |1.348   |0.157           |(1.039 ,1.656)         |8.56 |<.0001 |
+|time 1             |0.195   |0.135           |(-0.068 ,0.459)        |1.45 |0.146  |
+|time 2             |0.074   |0.102           |(-0.126 ,0.273)        |0.72 |0.469  |
+|time 3             |0.132   |0.270           |(-0.396 ,0.661)        |0.49 |0.624  |
+|time 4             |0.039   |0.102           |(-0.161 ,0.238)        |0.38 |0.704  |
+|treatment          |-0.107  |0.194           |(-0.487 ,0.273)        |-0.55|0.582  |
+|time*treatment     |-0.431  |0.209           |(-0.841 ,-0.021)       |-2.06| 0.040 | 
+|time*treatment     |-0.131  |0.171           |(-0.465 ,0.203)        |-0.77| 0.443 | 
+|time*treatment     |-0.275  |0.331           |(-0.922 ,0.373)        |-0.83| 0.406 | 
+|time*treatment     |-0.390  |0.162           |(-0.708 ,-0.072)       |-2.41| 0.016 | 
+
+Contrast Results:
+
+
+|Contrast         |DF | Chi-Square| PValue| Type|
+|-----------------|---|-----------|-------|-----|
+|B7=B8=B9=0       | 4 |7.86       |0.097  |Wald | 
+
+
+
+By conducting a Wald Test from GEE, we found that the contrast corresponded to a $\chi_{obs,df=4}^2=7.86$ with a pvalue of 0.0967. Thus we fail to reject the null hypothesis and conclude that there is not significant evidence that the log-seizure rate differs by treatment group.
+
+
+**Repeat of 13.2.3**
+
+$H_0:\beta_3=0$
+
+$H_1$: otw
+
+
+|Parameter          |Estimate| Standard Error| 95% Confidence Limits | Z   |Pvalue | 
+|-------------------|--------|---------------|-----------------------|-----|-------|
+|Intercept          |1.3312  |0.1611         |(1.0154,1.6470)        |8.26 |<.0001 |
+|ptime              |0.1141  |0.0926         |(-0.0675,0.2956)       |1.23 |0.2181 | 
+|treatment          |-0.1021 |0.1959         |(-0.4860,0.2819)       |-0.52| 0.6023| 
+|ptime*treatment    |-0.3167 |0.1494         |(-0.6096,-0.0239)      |-2.12| 0.0340| 
+
+
+
+Contrast Results:
+
+|Contrast         |DF | Chi-Square| PValue| Type|
+|-----------------|---|-----------|-------|-----|
+|B3=0             |1  |4.49       | 0.0340| Wald| 
+
+
+By conducting a Wald Test from GEE, we found that the contrast corresponded to a $\chi_{obs,df=1}^2=4.49$ with a p-value of 0.0340. Thus we reject the null hypothesis and conclude that the interaction of ptime and treatment is significant (there is a treatment effect on the changes in log seizure rate).
+

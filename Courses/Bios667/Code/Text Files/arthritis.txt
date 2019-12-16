@@ -1,0 +1,23 @@
+Arthritis Clinical Trial
+
+Source: Bombardier et al. (1986).
+
+Reference:
+
+Bombardier, C., Ware, J., Russell, I.J., Larson, M., Chalmers, A. and Read, J.L. (1986). Auranofin therapy and quality of life in patients 
+with rheumatoid arthritis. Results of a multicenter trial. American Journal of Medicine, 81, 565-578.
+
+Description:
+
+Data are from a clinical trial comparing auranofin therapy (3 mg of oral gold, twice daily) and placebo for the treatment of rheumatoid 
+arthritis (Bombardier et al., 1986). In this six-month, randomized, double-blind trial, 303 patients with classic or definite rheumatoid arthritis
+were randomized to one of the two treatment groups and followed over time.
+The outcome variable is a global impression scale (Arthritis Categorical Scale) measued at baseline (month 0), month 2, month 4, and month 6.
+This is a self-assessment of a patient's current arthritis, measured on a 5-level ordinal scale: (1) very good, (2) good, (3) fair, (4) poor, and (5) very poor.
+Baseline data on this outcome variable are available for 303 of the patients who participated in this trial; follow-up data at 6 months are available for 
+294 patients.
+
+
+Variable List:
+ID, Treatment (0=placebo, 1=auranofin therapy), baseline age (years), Arthritis Categorical Scale month 0, Arthritis Categorical Scale month 2, 
+Arthritis Categorical Scale month 4, Arthritis Categorical Scale month 6.

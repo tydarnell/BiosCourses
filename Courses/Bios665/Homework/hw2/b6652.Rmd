@@ -1,0 +1,103 @@
+---
+title: "hw2"
+author: "Benjana Guraziu"
+date: "9/23/2019"
+output: html_document
+---
+
+## 1a
+
+```{r}
+library(tidyverse)
+library(lmtest)
+
+data_1 <- tibble(treatment = as_factor(c("h", "h","h", "h",  "l", "l",  "l", "l", "p", "p", "p", "p")), 
+                 gender = as_factor(c("m", "m", "f", "f", "m", "m", "f", "f", "m", "m", "f", "f")),
+                 response = c(0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1), 
+                 counts = c(16, 32, 21, 37, 16, 49, 27, 27, 34, 22, 39, 15))
+
+data_1$treatment <- relevel(data_1$treatment, ref="p")
+data_1$gender <- relevel(data_1$gender, ref="m")
+
+# counts = c(16, 32, 21, 37, 16, 49, 27, 27, 34, 22, 39, 15)
+
+# 
+# data_2 <- tibble(treatment = as.numeric(gl(3,4)),
+#                  gender = as.numeric(gl(2,2,12)),
+#                  response = c(0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1), 
+#                  counts = c(16, 32, 21, 37, 16, 49, 27, 27, 34, 22, 39, 15))
+
+# data_1 <- matrix(c(16, 32, 
+#                  21, 37, 
+#                  16, 49, 
+#                  27, 27,
+#                  34, 22,
+#                  39, 15), 
+#                  byrow = TRUE, ncol = 2)
+
+fit_1 <- glm(response ~ treatment*gender, data = data_1, family = binomial, weights = counts)
+
+##wrong
+# fit_2 <- glm(response ~ treatment*gender, data = data_2, family = binomial, weights = counts)
+
+summary(fit_1)
+# summary(fit_2)
+
+fit_2 <- glm(response ~ treatment + gender, data = data_1, family = binomial, weights = counts)
+summary(fit_2)
+
+##likelihood ratio test to test interaction terms
+
+lrtest(fit_1, fit_2)
+```
+
+```{r}
+##low dose vs high dose
+
+data_1_2 <- data_1
+data_1_2$treatment <- relevel(data_1_2$treatment, ref="h")
+
+fit_3 <- glm(response ~ treatment + gender, data = data_1_2, family = binomial, weights = counts)
+summary(fit_3)
+
+```
+
+## 2
+
+```{r}
+data_2 <- tibble(region = as_factor(c("e", "e","e","e","e","e", "w", "w","w","w","w","w")), 
+                 stress = as_factor(c("l", "l", "m", "m", "h", "h", "l", "l", "m", "m", "h", "h")),
+                 response = c(1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0), 
+                 counts = c(53,20,109,97,85,76,51,37,67,59,118,92))
+
+data_2$region <- relevel(data_2$region, ref="e")
+data_2$stress <- relevel(data_2$stress, ref="l")
+
+fit_q2_1 <- glm(response ~ region + stress, data = data_2, family = binomial, weights = counts)
+summary(fit_q2_1)
+
+
+data_2_2 <- data_2
+data_2_2$stress <- relevel(data_2_2$stress, ref="m")
+
+fit_q2_2 <- glm(response ~ region + stress, data = data_2_2, family = binomial, weights = counts)
+summary(fit_q2_2)
+```
+
+
+```{r}
+fit_q2_1 <- glm(response ~ region + stress, data = data_2, family = binomial, weights = counts)
+summary(fit_q2_1)
+
+fit_q2_3 <- glm(response ~ region*stress, data = data_2, family = binomial, weights = counts)
+summary(fit_q2_3)
+
+##likelihood ratio test to test interaction terms
+
+lrtest(fit_q2_3, fit_q2_1)
+```
+        -159.743	            -157.872
+
+
+
+

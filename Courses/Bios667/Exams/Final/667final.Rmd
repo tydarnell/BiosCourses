@@ -1,0 +1,19 @@
+---
+title: "667final"
+author: "Ty Darnell"
+
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+```{r echo=F}
+library(tidyverse)
+library(data.table)
+library(knitr)
+library(nlme)
+library(xtable)
+library(reshape2)
+```

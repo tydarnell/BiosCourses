@@ -1,0 +1,146 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{667 Midterm 2}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ta}{\theta}
+\newcommand{\qe}{ \ ?\ }
+\newcommand{\dt}{\pderiv{}{\ta}}
+\newcommand{\lt}[1]{\log(f(#1|\ta))}
+\newcommand{\lx}{\lambda(x)}
+\newcommand{\samp}{X_1,\dots,X_n \sim}
+\newcommand{\te}{\theta_1}
+\newcommand{\xm}{x_{(1)}}
+\newcommand{\sn}{(\sg^2)}
+\newcommand{\pow}{\B(\ta)}
+\newcommand{\hyp}[2]{H_0: #1 \text{ vs } H_1: #2}
+\newcommand{\pois}[2]{\dfrac{e^{-#1}{#1}^{#2}}{{#2}!}}
+\newcommand{\mlr}{\dfrac{f(x|\ta_2)}{f(x|\ta_1)}}
+\newcommand{\al}{\alpha}
+\newcommand{\bx}{\bar{x}}
+\newcommand{\ya}{Y_{i1}}
+\newcommand{\yb}{Y_{i2}}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+\section*{Problem 1}
+In a longitudinal study where we have repeated measurements on each subject we need special methods to account for the correlation within subjects. If we incorrectly assume independence and ignore correlation we can end up underestimating the probability of a type 1 error in a hypothesis test or overestimate coverage probability when constructing a confidence interval. Thus we require special statistical techniques to obtain valid statistical inferences.\\
+Also, in order to achieve greater precision and more efficient estimates, special methods are needed to account for the within subject correlation. For example when estimating a mean, we could give each subject a weight in order to account for the within subject correlation. The optimal weight is 1/variance: $\frac{n_i}{1+(n_i-1)\rho}$\\
+where $\rho$ is the within subject correlation and $n_i$ is the number of observations for the $i_{th}$ subject
+\section*{Problem 2}
+\begin{multline*}\\
+P(Y=0)=.3 \quad P(Y=1)=.4 \quad P(Y=2)=.3\\
+\mu=E(Y)=.3(0)+.4(1)+.3(2)=1\\
+Var(Y)=E(Y^2)-E(Y)^2\\
+E(Y^2)=0^2*.3+1^2*.4+2^2*.3=1.6 \quad E(Y)^2=1^2=1\\
+Var(Y)=1.6-1=.6\\
+\text{Y takes values in } [0,m] \text{ where } m=2\\
+Y \text{exhibits extra binomial variation if: } Var(Y)>\mu(1-\mu/m)\\
+\text{If the random variable Y has a larger variance than its theoretical distribution, we have over dispersion}\\
+\text{In this case we are comparing Y to a binomial distribution, } Binomial(m,p) \text{ where } m=2, \ p=\mu/m=1/2\\
+Var(Y)=.6 \quad \mu(1-\mu/m)=1(1-1/2)=.5 \quad .6>.5\\
+\text{Since } Var(Y)> \mu(1-\mu/m), \text{ Y exhibits extra binomial variation}\\
+\end{multline*}
+\section*{Problem 3}
+\begin{enumerate}[(a)]
+\item False
+\item True
+\item False
+\item True
+\item False
+\item False
+\end{enumerate}
+\section*{Problem 4}
+Since the distribution of response is multivariate normal\\
+and $\beta$ and $\theta$ are functionally unrelated\\
+We have orthogonal parameters which means that $\hat{cov}(\hb_M,\hth_M)=0$ matrix\\
+Which is why SAS does not computed this estimate
+\section*{Problem 5}
+\begin{enumerate}[(a)]
+\item
+\begin{multline*}\\
+E(\yb)=.2 \quad E(\ya)=.1 \quad Var(\yb)=.2*.8=.16 \quad Var(\ya)=.1*.9=.09 \quad Corr(\ya,\yb)=.4\\
+E(\yb|\ya)=\gamma_1+\gamma_2 \ya\\
+E(\yb)=E(E(\yb|\ya))=E(\gamma_1+\gamma_2 \ya)=\gamma_1+.1\gamma_2=.2\\
+\gamma_1=.2-.1\gamma2\\
+E(\yb|\ya=1)=\gamma_1+\gamma_2 \quad E(\yb|\ya=0)=\gamma_1\\
+Cov(\ya,\yb)=Corr(\ya,\yb)\sqrt{Var(\ya)Var(\yb)}=.4/\sqrt(.09*.16)=.048\\
+E(\ya \yb)=P(\yb=1,\ya=1)=P(\yb=1|\ya=1)P(\ya=1)=.1(\gamma_1+\gamma_2)\\
+E(\ya \yb)=Cov(\ya,\yb)+E(\ya)E(\yb)=.048+.1(.2)=.068\\
+.068=.1(\gamma_1+\gamma_2)\\
+\gamma_1+\gamma_2=.068/.1=.68\\
+.68=.2-.1\gamma2+\gamma_2\\
+\gamma_2=.48/.9=8/15\approx .5333 \\
+\gamma_1=.68-8/15\approx .1467\\
+P(\yb=1|\ya=1)=.68 \quad P(\yb=1|\ya=0)\approx.147 \\
+\end{multline*}
+\item
+\begin{multline*}\\
+Var(\yb)=.16 \quad P(\yb=1|\ya=1)=.68 \quad P(\yb=1|\ya=0)=.1467\\
+Var(\yb|\ya=0)=P(\yb=1|\ya=0)*(1-P(\yb|\ya=0))=.68*.32=.2176>.16\\
+Var(\yb|\ya=1)=P(\yb=1|\ya=1)*(1-P(\yb|\ya=0))=.1467*.8533\approx.1252<.16\\
+Var(\yb|\ya=1)<Var(Y) \text{ (reduction)}\\
+Var(\yb|\ya=0)>Var(Y) \text{ (inflation)}\\
+\text{Therefore conditioning on } \ya \text{ is not guarenteed to reduce the variance of } \yb\\
+\text{since if } \ya=1 \text{ the conditional variance is larger than the marginal variance of } \yb\\ 
+\end{multline*}
+\item
+\begin{multline*}\\
+\text{From part a we know } P(\yb=1,\ya=1)=.068\\
+\text{Using this and the marginal probabilities to fill out the following 2x2 table of probabilities}\\
+.2-.068=.132 \quad .9-.132=.768 \quad .8-.768=.032\\
+\begin{array}{c|c|c|c}
+&\yb=0 &\yb=1 &\\
+\hline
+\ya=0&.768&.132&.9\\
+\hline
+\ya=1&.032&.068&.1\\
+\hline
+&.8&.2&1
+\end{array}\\
+\text{Using the 2x2 table to calculate the odds ratio that represents}\\
+\text{a measure of dependence between } \ya \text{ and } \yb\\
+\text{Odds Ratio }=\dfrac{.768*.068}{.032*.132}=12.36364\approx 12.364\\
+\end{multline*}
+\end{enumerate}
+\end{flushleft}
+\end{document}

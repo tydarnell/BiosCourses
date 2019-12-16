@@ -1,0 +1,13 @@
+Student question:
+
+I was wondering if you could help clarify when to use the  (1) Wald 95% CI without correction, (2) the continuity-corrected Wald 95%CI, (3) the Newcombe corrected  95%CI, (4) the Miettenen-Nurminem 95%CI and (5) exact method. 
+ 
+Instructor response: 
+
+For slide 24, the use of the continuity correction is not strictly necessary, but it is invoked for illustrative purposes.  Also, slide 25 illustrates that the continuity corrected lower limit for a single proportion can be somewhat closer to the null than an exact confidence limit for a single proportion, with this implying that the exact limits would be more useful than a continuity corrected interval for a single proportion. Additionally, the continuity corrected Wald 95% CI almost always provides at least 95% coverage whereas the uncorrected Wald 95% CI can provide somewhat less than 95% coverage for situations where its use might seem appropriate.
+
+The continuity corrected Newcombe method would typically be preferred to the continuity corrected Wald method because it is typically narrower than the continuity corrected Wald method, with both such intervals providing at least 95% coverage.
+
+The Miettenen-Nurminem method is sometimes viewed as more theoretically appealing than the continuity corrected Newcombe method, and it sometimes provides a somewhat narrower confidence interval than the continuity corrected Newcombe method. Also, both methods typically provide the intended coverage; and the Miettenen-Nurminem method tends to provide the intended coverage without a continuity correction. Although a continuity corrected version of the Miettenen-Nurminem method is available in principle, it is not currently available in SAS to our knowledge. 
+
+In summary, the continuity corrected Newcombe method and the Miettenen-Nurminem method would typically be the preferred methods, particularly if some of the counts in the 2x2 table were as small as 2 or 3 (but not 0 or 1). If all of the counts are very large in the sense of being at least 50, the Wald 95% CI without correction would typically be as useful as any of the other methods, particularly because the continuity corrected Newcombe method converges to the Wald method without correction as the counts become very large as is evident in slide 20. 

@@ -1,0 +1,50 @@
+**********************************************;
+***             Fieller's formula          ***;
+***                 IML code               ***;
+**********************************************;
+
+proc iml;
+  use estimate;
+  start fieller;
+  title 'Confidence Intervals';
+  use estimate;
+  read all into beta where (_type_='PARMS');
+  beta=beta`;
+  read all into cov where (_type_='COV');
+  ratio=(k`*beta)/(h`*beta);
+  expratio=exp(ratio);
+  a=(h`*beta)**2-(3.84)*(h`*cov*h);
+  b=2*(3.84*(k`*cov*h)-(k`*beta)*(h`*beta));
+  c=(k`*beta)**2-(3.84)*(k`*cov*k);
+  disc=((b**2-4*a*c));
+  if (disc <= 0 | a <= 0) then do;
+    print "Confidence Interval Cannot Be Computed", ratio;
+    stop;
+  end;
+  sroot=sqrt(disc);
+  l_b=((-b)-sroot)/(2*a);
+  u_b=((-b)+sroot)/(2*a);
+  exp_l_b=exp(l_b);
+  exp_u_b=exp(u_b);
+  interval=l_b||u_b;
+  exp_int=exp_l_b||exp_u_b;
+  lname={"L_BOUND","U_BOUND"};
+  k_prime=k`;
+  h_prime=h`;
+  print "95% Confidence Interval for Ratio Based on Fieller",
+        k_prime, h_prime, ratio, interval[colname=lname];
+  print "95% Confidence Interval for exp(Ratio) Based on Fieller",
+        k_prime, h_prime, expratio, exp_int[colname=lname];
+  finish fieller;
+  k={1 -1 0}`;
+  h={0 0 1}`;
+  run fieller;
+  k={-1 0 0}`;
+  h={ 0 0 1}`;
+  run fieller;
+  k={0 -1 0}`;
+  h={0  0 1}`;
+  run fieller;
+
+
+  

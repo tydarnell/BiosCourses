@@ -1,0 +1,126 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\graphicspath{ {} }
+\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{caption}
+\usepackage{bm}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Ty Darnell}
+\lhead{667 Homework 4}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+\newcommand{\cd}{\overset{d}{\to}}
+\newcommand{\cp}{\overset{p}{\to}}
+\newcommand{\B}{\beta}
+\newcommand{\e}{\epsilon}
+\newcommand{\limn}{\lim_{n\to \infty}}
+\newcommand{\lm}{\lambda}
+\newcommand{\sg}{\sigma}
+\newcommand{\hb}{\hat{\beta}}
+\newcommand{\sumn}{\sum_{i=1}^{n}}
+\newcommand{\hth}{\hat{\theta}}
+\newcommand{\lra}{\Leftrightarrow}
+\newcommand{\prodn}{\prod_{i=1}^{n}}
+\newcommand{\dll}[1]{\dfrac{\partial\ell}{\partial{#1}}}
+\newcommand{\mle}{\hat{\theta}_{MLE}}
+\newcommand{\mm}{\hat{\theta}_{MM}}
+\newcommand{\sumx}{\sum_{i=1}^{n}x_i}
+\newcommand{\ta}{\theta}
+\newcommand{\qe}{ \ ?\ }
+\newcommand{\dt}{\pderiv{}{\ta}}
+\newcommand{\lt}[1]{\log(f(#1|\ta))}
+\newcommand{\lx}{\lambda(x)}
+\newcommand{\samp}{X_1,\dots,X_n \sim}
+\newcommand{\te}{\theta_1}
+\newcommand{\xm}{x_{(1)}}
+\newcommand{\sn}{(\sg^2)}
+\newcommand{\pow}{\B(\ta)}
+\newcommand{\hyp}[2]{H_0: #1 \text{ vs } H_1: #2}
+\newcommand{\pois}[2]{\dfrac{e^{-#1}{#1}^{#2}}{{#2}!}}
+\newcommand{\mlr}{\dfrac{f(x|\ta_2)}{f(x|\ta_1)}}
+\newcommand{\al}{\alpha}
+\newcommand{\bx}{\bar{x}}
+\newcommand{\ra}{\Rightarrow}
+\allowdisplaybreaks
+\begin{document}
+\begin{flushleft}
+
+\section*{Problem 1}
+$Y\sim Bernoulli(\mu)$\\
+$p(y|\mu)=\mu^y(1-\mu^y) \quad y\in \{0,1\} \quad 0<\mu<1$\\
+$P(Y=1)=\mu=1-P(Y=0)$\\
+$\mu^y(1-\mu^y)=\left(\frac{\mu}{1-\mu}\right)^y(1-\mu)$\\
+Getting the distribution in the form of an exponential family:\\ 
+$p(y|\ta)=h(y)\exp\left\{\ta T(y)-k(\ta)\right\}$\\
+$\ta=\log\left\{\frac{\mu}{1-\mu}\right\}$\\
+$e^{\ta}=\frac{\mu}{1-\mu}\Rightarrow \mu=\frac{1}{1+e^{-\ta}}$\\
+$p(y|\mu)=\exp\left\{y\log\left(\frac{\mu}{1-\mu}\right)+\log(1-\mu)\right\}$ where the range of y does not depend on $\mu$\\
+Thus the distribution belong to the exponential family of distributions.\\
+$p(y|\ta)=\exp\left\{\ta y-\log(1+e^{-\ta})\right\}$\\
+Where $\ta$ is the canonical parameter, $y$ is the canonical statistic, and $k(\ta)=\log(1+e^{-\ta})$ is the cumulant function.\\
+canonical link function: $\log(\frac{\mu}{1-\mu})=\ta$\\
+$Var(y)=k^{\prime \prime}(\ta)=\frac{e^{-\ta}}{(1+e^{-\ta})^2}$\\
+$\frac{e^{-\ta}}{(1+e^{-\ta})^2}=\frac{(1-\mu)/\mu}{[1+(1-\mu)/\mu]^2}=\mu(1-\mu)$\\
+$V(\mu)=\mu(1-\mu)$\\
+
+Deviance: $D(y,\hat{\mu})=-2\left[y\log(\mu)+(1-y)\log(1-\mu)\right]$
+
+\section*{Problem 2}
+$Var(Y_i)=1 \quad cov(Y_i,Y_j)=\rho, i\neq j \ -1/(n-1)<\rho<1$\\
+covariance matrix $\Sigma=aI+bJ$\\
+Since $Var(Y_i)=1, \quad a+b=1$\\
+Since covariance=$\rho$, $b=\rho$\\
+Then $a=1-\rho$\\
+The weight matrix $W=\Sigma^{-1}=cI+dJ$\\
+$\Sigma*\Sigma^{-1}=I \Rightarrow [(1-\rho)I+\rho J]*[cI+dJ]=I$\\
+$=(1-\rho)cI+(1-\rho)dJ+\rho cJ+d\rho nJ=I$\\
+$=[(1-\rho)d+\rho c+\rho dn]J+(1-\rho)cI=I$\\
+Then $(1-\rho)c=1 \Rightarrow c=1/(1-\rho)$\\
+And $(1-\rho)d+\rho c+\rho dn=0$\\
+Plugging in $c=1/(1-\rho)$ we have:\\
+$(1-\rho)d+\rho [1/(1-\rho)]+\rho dn=0$\\
+Solving for d we have:\\
+$d=\dfrac{-\rho}{(1-\rho)(1+\rho(n-1))}$\\
+The $n\times n$ covariance matrix has the form of: $\begin{bmatrix}
+1 & \rho & \dots & \rho\\
+\rho & 1 & \rho & \dots\\
+\rho & \rho & 1 & \dots\\
+\dots & \dots & \dots & \dots\\
+\end{bmatrix}$\medbreak
+The $n\times n$ weight matrix has the form:
+ $\begin{bmatrix}
+c+d & d & \dots & d\\
+d & c+d & d & \dots\\
+d & d & c+d & \dots\\
+\dots & \dots & \dots & \dots\\
+\end{bmatrix}$\\
+Since Variance is all one and the covariances are all homogeneous $\rho$ the weights would all be the same thus the OLS estimates and WLS estimates are equivalent. That is we have homoscedasity. OLS seeks to minimize residuals and produce the smallest possible standard errors. OLS gives equal weight to all observations and one of the assumptions of OLS is homoscedasity. With heteroscadesity observations with larger disturbances have more effect than other observations. Weighted least squares seeks to weight down these larger disturbances, hence the weight matrix. However with homoscadestiy, all of the weights will be the same thus OLS and WLS estimates are equivalent
+\section*{Problem 11.2}
+\subsection*{Part 7}
+Adjusting for overdispersion affects the standard errors only, the parameter estimates are the same as in 11.2.5. The standard errors are different.\\
+Using a robust variance estimator to adjust for overdispersion.\\
+$\hb_1=2.5046 \quad se(\hb_1)=.5974$\\
+$\hb_2=-.1797 \quad se(\hb_2)=.3317$\\
+$\hb_3=-.0148 \quad se(\hb_3)=.0209$\medbreak
+$\ln(\hat{\mu_i})=2.5046+-.1797*Treatment_i+-.0148*age_i$ 
+\subsection*{Part 8}
+$\exp(-.1797)=.8355$ is the age-adjusted rate ratio comparing progabide to placebo, taking into account overdispersion\\
+95\% CI: $(\exp(-0.8299,\exp(0.4704))=(.4361,1.601)$
+\end{flushleft}
+\end{document}

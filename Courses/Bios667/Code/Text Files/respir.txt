@@ -1,0 +1,32 @@
+Data from a clinical trial comparing two treatments for a respiratory illness.
+
+
+Source: Chapter 15 (Respiratory Data) of Stokes, Davis and Koch (1995). 
+Reproduced with permission of SAS Institute, Inc., Cary, NC.
+
+Reference: Stokes, M.E., Davis, C.S. and Koch, G.G. (1995). 
+Categorical Data Analysis using the SAS System. Cary, NC: SAS Institute, Inc.
+
+
+Description:
+
+The data are from a clinical trial of patients with respiratory
+illness, where 111 patients from two different clinics were randomized
+to receive either placebo or an active treatment. Patients were
+examined at baseline and at four visits during treatment. At each
+examination, respiratory status (categorized as 1 = good, 0 = poor) 
+was determined. 
+
+
+Variable List:
+
+Subject ID, 
+Clinic (1,2), 
+Treatment (A=Active, P=Placebo), 
+Baseline Response, 
+Visit 1 Response, 
+Visit 2 Response, 
+Visit 3 Response, 
+Visit 4 Response.
+
+Note: Response (1=Good Response, 0=Poor Response)

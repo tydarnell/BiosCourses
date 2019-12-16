@@ -1,0 +1,31 @@
+
+Subsample (N=100) of data on Blood Lead Levels from the 
+Treatment of Lead Exposed Children (TLC) Trial.
+
+
+Source: Data courtesy of Dr. George G. Rhoads (Chair, TLC Steering Committee).
+
+Reference: Treatment of Lead-exposed Children (TLC) Trial Group. (2000).
+Safety and Efficacy of Succimer in Toddlers with Blood Lead Levels of 
+20-44 µg/dL.  Pediatric Research, 48, 593-599.
+
+
+Description: 
+
+The Treatment of Lead-Exposed Children (TLC) trial was a placebo-controlled, 
+randomized study of succimer (a chelating agent) in children with blood 
+lead levels of 20-44 micrograms/dL.
+These data consist of four repeated measurements of blood lead 
+levels obtained at baseline (or week 0), week 1, week 4, and 
+week 6 on 100 children who were randomly assigned to chelation treatment 
+with succimer or placebo.
+
+
+Variable List: 
+
+Each row of the data set contains the following 6 variables:
+
+ID, Treatment Group, Lead Level Week 0, Lead Level Week 1, 
+Lead Level Week 4, Lead Level Week 6. 
+
+

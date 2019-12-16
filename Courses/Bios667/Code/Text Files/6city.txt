@@ -1,0 +1,16 @@
+Program     : Does
+===========================================================
+6city01A.sas : GEE, working correlation: indep, exch, ar(1), unstructured
+6city01B.sas : using "freq count"  (fails for unstructured)
+6city02.sas : GEE, unstructured corr & O.R.
+6city03.sas : Transitional models
+6city04.sas : Mixed models
+6city05.sas : glimmix
+6city06.sas : Random-effect variance depends on MS status
+6city07.sas : profile likelihood and Wald CI's for \sigma^2
+6city08.sas : Express the random effect U as sigma*Z
+6city09.sas : Conditional lilkelihood
+6city11.sas : Proc nlmixed, Warning about "replicate" with "empirical"
+
+
+

@@ -1,0 +1,149 @@
+---
+title: "665final"
+author: "Ty Darnell"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+```{r,echo=F}
+library(knitr)
+library(survival)
+library(tidyverse)
+```
+
+# Part 1
+
+# 1
+
+Without using a formal statistical model, provide an estimate of the common odds ratio and its 95%
+confidence interval for the effect of pooled treatment (high dose + low dose) vs. placebo on the
+severity of the adverse event, dichotomized as (none or mild) vs. (moderate or severe), when
+controlling for sex.
+
+The Common odds ratio is 2.146 with a 95% CI $(1.370,3.361)$ 
+
+Subjects with in the pooled treatment group have 2.146 times the odds of having a moderate or severe adverse event (vs none or mild) compared to the odds of a subject in the placebo group, when controlling for sex.
+
+# 2
+
+Without using a formal statistical model, statistically test the null hypothesis that the effect of pooled
+treatment (high dose + low dose) vs. placebo on the dichotomized severity of the adverse event ̶
+(none or mild) vs. (moderate or severe) ̶ is the same for each sex. Provide a sentence explaining
+your results.
+
+
+# 3 
+
+Under minimal assumptions, conduct a statistical test to determine whether there is a difference in
+the proportion of moderate or severe adverse event (vs. none or mild) among the three treatment
+groups, controlling for sex. For this problem, you should consider the treatment groups as nominal.
+Write a sentence to interpret your findings.
+
+# 4
+
+Under minimal assumptions, conduct a statistical test to determine whether there is a trend in the
+proportion of moderate or severe adverse event (vs. none or mild) across the ordered treatment
+groups, controlling for sex. Write a sentence to interpret your findings.
+
+# 5
+
+Under minimal assumptions, conduct a statistical test to assess the association of pooled treatment
+(high dose + low dose) vs. placebo with the severity of adverse event (all four ordered levels managed
+as distinct), controlling for sex. Justify your method. If you determine that p < 0.05, discuss whether
+pooled treatment is associated with greater severity or lesser severity of the adverse event.
+
+# 6
+
+Under minimal assumptions, conduct a statistical test to determine whether there is a progressive
+location shift in the severity of the adverse event (as distinct levels) across high dose, low dose, and
+placebo, controlling for sex. In a sentence, interpret your findings.
+
+
+# 7
+
+Report the Spearman rank correlation coefficients and corresponding 95% confidence intervals
+separately by sex as measures of association for pooled treatment (high dose + low dose) versus
+placebo with the severity of adverse event (as distinct levels). Write a sentence indicating whether
+men or women exhibit a stronger association, and briefly justify your finding.
+
+# 8
+
+Report the Spearman rank correlation coefficients and corresponding 95% confidence intervals
+separately by sex as measures of association for ordered treatment groups with severity of the adverse
+event (as distinct levels). Write a sentence indicating whether men or women exhibit a stronger
+association, and briefly justify your finding.
+
+# 9 
+
+Separately within each treatment group, test the association between sex and severity of the adverse
+event (as ordered distinct levels). Also, assess such association under minimal assumptions, and
+controlling for treatment groups. Write a sentence to interpret your results.
+
+# 10
+
+Mathematically specify a logistic regression model for the dichotomous response of (moderate or
+severe) adverse event (vs. none or mild), with main effects for treatment (as distinct levels and
+considered as nominal, treating placebo as the reference) and sex (treating men as the reference).
+State assumptions, and mathematically define all variables in the model. Interpret all model
+parameters. Determine the goodness of fit for this model.
+
+# 11
+
+Using the model from Problem 10, provide estimates and corresponding 95% confidence intervals
+for the odds ratios of high dose vs. placebo and of low dose vs. placebo for (moderate or severe)
+adverse event compared to (none or mild).
+
+# 12
+
+Using the model from Problem 10, perform a statistical test of whether the treatment groups differ
+with respect to the (moderate or severe) adverse event (i.e., the overall treatment effect). Provide the
+test statistic, indicate the number of degrees of freedom, and determine statistical significance
+through its p-value. If this overall effect is statistically significant, test each pairwise treatment
+comparison at the α=0.05 level, and indicate which treatment groups are significantly better than
+others. (Note: you do not need to address any adjustment to the type I error for multiple comparisons
+for this problem.)
+
+# 13
+
+Using your model from Problem 10, what are the respective model-predicted probabilities for
+(moderate or severe) adverse event and for (none or mild) adverse event for men on high dose and
+also for women on placebo?
+
+# 14
+
+Mathematically specify a proportional odds regression model for ‘more’ vs. ‘less’ severity of the
+adverse event, with main effects for treatment (as distinct levels and considered as nominal, treating
+placebo as the reference) and sex (treating men as the reference). State assumptions, and
+mathematically define all variables in the model. Interpret all model parameters. Determine the
+goodness of fit for this model, including the test for proportional odds. If the proportional odds
+assumption is not supported, investigate and briefly describe your findings regarding the potential
+reason for this.
+
+# 15 
+
+Using the model from Problem 14 that assumes proportional odds, provide estimates and
+corresponding 95% confidence intervals for the odds ratios of high dose vs. placebo and of low dose
+vs. placebo for (severe or moderate) adverse event compared to (none or mild).
+
+# 16
+
+Using the model from Problem 14 that assumes proportional odds, what are the respective model-
+predicted probabilities for none, mild, moderate, and severe adverse event for men on low dose?
+
+# 17
+
+Mathematically specify a generalized logit model for all levels of severity of adverse event (treating
+‘none’ as the reference), with main effects for treatment (as distinct levels and considered as nominal,
+treating placebo as the reference) and sex (treating men as the reference). State assumptions, and
+mathematically define all variables in the model. Interpret all model parameters.
+
+# 18
+
+Using your model from Problem 17, provide estimates and corresponding 95% confidence intervals
+for the odds ratios of high dose vs. placebo and of low dose vs. placebo for each severity level
+compared to ‘none’. Compare and contrast these results to those found in Problem 15.
+
+# Part 2

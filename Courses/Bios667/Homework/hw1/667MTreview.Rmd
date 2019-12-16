@@ -1,0 +1,119 @@
+---
+title: "667 midterm review"
+author: "Ty Darnell"
+date: "10/8/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+```{r}
+library(tidyverse)
+library(data.table)
+library(pracma)
+library(matlib)
+library(alr4)
+library(knitr)
+```
+
+```{r}
+dat=Forbes
+y=dat$lpres
+x=dat$bp
+n=17
+```
+
+```{r}
+xbar=sum(x)/17
+ybar=sum(y)/17
+sxx=sum((x-xbar)*x)
+syy=sum((y-ybar)*y)
+sxy=sum((x-xbar)*y)
+tab=c("xbar"=xbar,"ybar"=ybar,"sxx"=sxx,"syy"=syy,"sxy"=sxy)
+tab
+```
+
+```{r}
+sdx=sqrt(sxx/(n-1))
+sdy=sqrt(syy/(n-1))
+scov=sxy/(n-1)
+rxy=scov/(sdx*sdy)
+tab1=c("sdx"=sdx,"sdy"=sdy,"sample cov"=scov,"rxy"=rxy)
+tab1
+```
+
+```{r}
+b1=sxy/sxx
+b0=ybar-b1*xbar
+yhat=b0+b1*x
+ehat=y-yhat
+rss=syy-sxy^2/sxx
+sighat=rss/(n-2)
+sehat=sqrt(sighat)
+tab2=c("b0"=b0,"b1"=b1,"rss"=rss,"sigma hat"=sighat,"se hat"=sehat)
+tab2
+```
+
+```{r}
+varb1=sighat/sxx
+varb0=sighat*(1/n+xbar^2/sxx)
+seb1=sqrt(varb1)
+seb0=sqrt(varb0)
+tab3=c("var b1"=round(varb1,5),"var b0"=round(varb0,5),"se b1"=round(seb1,5),"se b0"=round(seb0,5))
+tab3
+```
+
+```{r}
+tb0=(b0+35)/seb0
+tb1=b1/seb1
+tab4=c("t b0"=tb0,"t b1"=tb1)
+tab4
+```
+
+```{r}
+pvalb0=2*pt(q = tb0,df=n-2)
+pvalb0
+```
+
+```{r}
+ssreg=sxy^2/sxx
+ssreg
+syy-rss
+r2=ssreg/syy
+r2
+```
+```{r}
+x1=matrix(c(rep(1,17),x),nrow=17)
+y1=as.matrix(y)
+xx=t(x1)%*%x1
+xxn=inv(xx)
+xy=t(x1)%*%y1
+bhat=xxn%*%xy
+eh=y1-x1%*%bhat
+rss1=t(eh)%*%eh
+sigh=rss1/(n-2)
+```
+
+```{r}
+sigh=as.numeric(sigh)
+varh=round(diag(xxn*sigh),5)
+```
+
+```{r}
+fuel=fuel2001
+fuel=fuel%>%mutate(dlic=Drivers/Pop*1000,Fuel=1000 * FuelC/Pop)
+d=model.matrix(Fuel~Tax+dlic+Income+log(Miles)-1,data=fuel)
+x=model.matrix(Fuel~Tax+dlic+Income+log(Miles),data=fuel)
+```
+
+```{r}
+xx=inv(t(x)%*%x)
+```
+
+```{r}
+mod=lm(Fuel~Tax+dlic+Income+log(Miles),data=fuel)
+summary(mod)
+```
+

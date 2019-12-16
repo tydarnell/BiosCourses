@@ -1,0 +1,56 @@
+---
+title: "hw3r"
+author: "Ty Darnell"
+date: "9/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+```{r}
+library(matlib)
+library(data.table)
+library(tidyverse)
+```
+
+```{r}
+tlc=fread("tlc.dat")
+```
+
+```{r}
+y1=tlc%>%filter(group=="A")%>%select(-c(id,group))
+y0=tlc%>%filter(group=="P")%>%select(-c(id,group))
+y1bar=colMeans(y1)
+y0bar=colMeans(y0)
+s0=cov(y0)
+s1=cov(y1)
+sd1=sqrt(diag(s1))
+sd0=sqrt(diag(s0))
+```
+
+# Problem 11.2
+
+```{r}
+sei=fread("seizure.dat")
+```
+
+
+```{r}
+mod1=glm(y ~ treatment, family="poisson", data=sei)
+summary(mod1)
+```
+
+```{r}
+mod2=glm(y~treatment+age,family="poisson", data=sei)
+summary(mod2)
+```
+
+```{r}
+p=sqrt(12.8814)
+.2105*p
+.0964*p
+.007*p
+```
+

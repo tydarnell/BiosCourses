@@ -1,0 +1,25 @@
+---
+title: "667hw7"
+author: "Ty Darnell"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+```{r echo=F}
+library(tidyverse)
+library(data.table)
+library(knitr)
+library(nlme)
+```
+
+```{r}
+resp=fread("respir.dat")
+```
+
+```{r}
+
+```
+

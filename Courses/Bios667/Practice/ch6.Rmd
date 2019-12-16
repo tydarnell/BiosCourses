@@ -1,0 +1,102 @@
+---
+title: "ch6"
+author: "Ty Darnell"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,message=F,warning=F)
+```
+
+
+```{r}
+library(tidyverse)
+library(knitr)
+library(pracma)
+library(matlib)
+library(nlme)
+library(reshape2)
+library(data.table)
+```
+
+# Section 6.5
+
+```{r}
+dat <- fread("smoking.txt")
+colnames(dat)=c("id","smoker","time","fev1")
+```
+
+## Linear Trend Model (REML Estimation) 
+
+```{r}
+attach(dat)
+year <- time
+year[time==0] <- 1
+year[time==3] <- 2
+year[time==6] <- 3
+year[time==9] <- 4
+year[time==12] <- 5
+year[time==15] <- 6
+year[time==19] <- 7
+```
+
+
+```{r}
+model <- gls(fev1 ~ smoker*time, corr=corSymm(form= ~ year | id), weights = varIdent(form = ~ 1 | year))
+summary(model)
+```
+
+## Linear Trend Model (ML Estimation) 
+
+```{r}
+model1 <- gls(fev1 ~ smoker*time, corr=corSymm(form= ~ year | id), 
+weights = varIdent(form = ~ 1 | year),method="ML" )
+summary(model1)
+```
+
+## Quadratic Trend Model (ML Estimation) 
+
+```{r}
+timesqr=time*time
+model2 <- gls(fev1 ~ smoker*time + smoker*timesqr, 
+corr=corSymm(form= ~ year | id), 
+weights = varIdent(form = ~ 1 | year),method="ML")
+summary(model2)
+```
+
+```{r}
+anova(model2,model1)
+```
+
+
+## Piecewise Linear Model (REML Estimation) TLC data
+
+```{r}
+ds <- fread("tlc.dat")
+tlclong <- reshape(ds, idvar="id", varying=c("week0","week1","week4","week6"), 
+                   v.names="y", timevar="time", time=1:4, direction="long")
+tlclong1=tlclong
+attach(tlclong1)
+week <- time
+week[time==1] <- 0
+week[time==2] <- 1
+week[time==3] <- 4
+week[time==4] <- 6
+```
+
+
+```{r}
+week1 <- (week-1)*I(week>=1)
+trt.week <- week*I(group=="A") 
+trt.week1 <- week1*I(group=="A")
+```
+
+```{r}
+model <- gls(y ~ week + week1 + trt.week + trt.week1, 
+corr=corSymm(form= ~ time | id), 
+weights = varIdent(form = ~ 1 | time))
+summary(model)
+```
+
+
+

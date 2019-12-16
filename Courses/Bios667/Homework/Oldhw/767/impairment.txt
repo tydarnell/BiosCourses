@@ -1,0 +1,24 @@
+Alachua County Study of Mental Impairment.
+
+Source: Table 3.3 in Chapter 3 of Agresti (2010).
+Reprinted with permission of John Wiley & Sons, Inc.
+
+Reference: Agresti, A. (2010). Analysis of Ordinal Categorical Data, 
+2nd ed. Hoboken, NJ: Wiley.
+
+
+Description:
+
+In a study of mental health conducted on a random sample of 40 adult residents of Alachua County, Florida,
+mental impairment was measured on a 4-level ordinal scale with 4 categories (well, mild symptom formation, moderate
+symptom formation, impaired). 
+A goal of the study was to relate mental impairment to several covariates, including an index of life events and 
+socio-economic status (SES). The life events (LE) index is a composite measure of the number and severity of important life
+events that occurred within the past three years (e.g., birth of a child, new job, divorce, death of a family member). 
+SES is measured as binary (low, high).
+
+ 
+Variable List:
+
+Subject ID, Life Events, SES (0=low, 1=high), Mental impairment (1=well, 2=mild symptom formation, 3=moderate
+symptom formation, 4=impaired).

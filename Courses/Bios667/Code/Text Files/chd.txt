@@ -1,0 +1,26 @@
+
+Data on risk factors for coronary heart disease (CHD).
+
+
+Source: Table 12.18 (page 482) of Selvin (1995).
+Reprinted with permission of Brooks/Cole, a division of Thomson Learning:
+www.thomsonrights.com.
+
+Reference: Selvin, S. (1995). Practical Biostatistical Methods. 
+Belmont, CA: Wadsworth Publishing Company.
+
+
+Description:
+
+The data arise from a prospective study of potential risk factors for 
+coronary heart disease (CHD).  The study observed 3154 men aged 40-50 
+for an average of 8 years and recorded the incidence of cases of CHD. The
+potential risk factors included smoking, blood pressure, and personality/behaviour 
+type. 
+
+
+Variable List:
+
+Smoking (0,10,20,30), Blood Pressure (0 < 140, 1 >= 140), Behavior (1=Type A, 0=Type B),
+Count of Cases of CHD, Person Years of Follow-up.
+

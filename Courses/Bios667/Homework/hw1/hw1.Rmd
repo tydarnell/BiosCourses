@@ -1,0 +1,209 @@
+---
+title: "Bios 667 Homework 1"
+author: "Ty Darnell"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F,message=F,warning=F)
+```
+
+```{r}
+library(tidyverse)
+library(matlib)
+library(knitr)
+library(kableExtra)
+```
+
+# Problem 1
+
+## Part a
+
+```{r}
+i=c(1,2,3)
+group=c("Non-smoker","Light smoker","Heavy smoker")
+n=c(21,21,21)
+Mean=c(3.78,3.23,2.59)
+SD=c(1.79,1.86,1.82)
+smoke=tibble(i,group,n,Mean,SD)
+```
+
+```{r}
+kable(smoke,format='latex', booktabs = T)%>%collapse_rows(columns = 1)
+```
+
+$Y_{ij}$ denotes the lung function measure for the $j_{th}$ subject in the $i_{th}$ smoking group
+
+$K=3$ total number of smoking groups
+
+$N=63$ total number of subjects
+
+$H_0: \mu_1=\mu_2=\mu_3$ The lung function measure populations means are equal across the smoking groups.
+
+$H_1:$ The lung function measure population means are not equal across the smoking groups.
+
+$s^2_p = \dfrac{\sum_{i=1}^{3}(n_i-1)s_i^2}{\sum_{i=1}^{3}(n_i-1)}\approx 3.33$
+
+$\bar{Y} = \dfrac{\sum_{i=1}^{3}\sum_{j=1}^{n_i} Y_{ij} }{N}=3.2$
+
+Under $H_0: \hat{\sigma}^2=\dfrac{\sum_{i=1}^{3}n_i(\bar{Y}_i-\bar{Y})^2}{K-1}\approx 7.45$
+
+
+Under $H_0: F \equiv \dfrac{\hat{\sigma}^2}{s^2_p}\sim F_{K-1,N-K}$
+
+$F$ test statistic $=\dfrac{\hat{\sigma}^2}{s^2_p}\approx 2.24$
+
+Critical Region $C_{\alpha}=\{F:F>F_{2,60;1-\alpha}\}$
+
+Using $\alpha=.05$
+
+Quantile ${F^{-1}}_{2,60;.95} \approx 3.15$
+
+$2.24<3.14$ The test statistic is outiside of the critical region thus fail to reject $H_0$
+
+p-value $= 1-F_{2.24,2,60}\approx .12>.05$ The p-value is larger than $\alpha$
+
+Not enough evidence to reject the null hypothesis that the population means for lung function measure are equal across all smoking groups.
+
+
+\begin{tabular}{l l l l l l}
+\textbf{Anova Table}\\
+\hline
+Source of Variation & SS & df & Mean Square & F & P-value \\ \hline
+Among groups & 14.9 &  2 & $\hat{\sigma}^2=7.45$ & 2.24 & .12 \\
+Within Groups & 199.8& 60 & $s^2_p=3.33$ \\ \hline
+Total & 214.7 & $62$ \\ \hline
+\end{tabular}
+
+## Part b
+
+Constraint on model:  $\mu_i=\alpha_1+\alpha_2i$
+
+Using $\bar{y}_i$ to estimate $\mu_i$
+
+$\bar{y}_1=\alpha_1+\alpha_2*1$
+
+$\bar{y}_2=\alpha_1+\alpha_2*2$
+
+$\bar{y}_3=\alpha_1+\alpha_2*3$
+
+$\bar{y}_i= [3.78,3.23,2.59]$  $i=[1,2,3]$
+
+Essence Matrix  $\left[\begin{array}{rr}
+  1 & 1 \\ 
+  1 & 2 \\ 
+  1 & 3 \\ 
+  \end{array}
+\right]$
+
+Run least squares regression on $\bar{y}_i \sim \alpha_1+ \alpha_2i$ to obtain the coffiecient estimates. 
+
+```{r}
+y=c(3.78,3.23,2.59)
+x=1:3
+mod=lm(y~x)
+m=summary(mod)
+estimates=c(4.39,-.595,.00135)
+```
+
+$\hat{\alpha_1}=4.39$
+
+$\hat{\alpha_2}=-.595$
+
+Use estimates to obtian Residual Sum of Squares of the collapsed model $(\tilde{RSS})$. 
+
+$\tilde{RSS}=\sum_{i=1}^{3}(\bar{y}_i-\alpha_1-\alpha_2*i)^2=.00135$
+
+Actual Model: $y_{ij}=\alpha_1+\alpha_2*i+\epsilon_{ij}$
+
+In order to obtain the SE for the estimates of the actual model we will need to compute SSE of the actual model using $SS_{Within}$ from the anova table from part a.
+
+$SSE=SS_{Within}+63*\tilde{RSS}$
+
+$SSE=199.8+63*.00135= 199.8851$
+
+Then use SSE to compute $\hat{\sigma}^2$
+
+$\hat{\sigma}^2=SSE/(N-2)\approx 3.28$
+
+```{r}
+x=matrix(c(rep(1,63),rep(1,21),rep(2,21),rep(3,21)),63,2)
+xx=inv(t(x)%*%x)
+```
+
+Next create an X matrix and calculate $(X^{'}X)^{-1}$
+
+$X_{63\times 2}=\left[
+ \begin{array}{rr}
+  1 & 1 \\ 
+  \vdots & \vdots \\ 
+  1 & 2 \\ 
+  \vdots & \vdots \\ 
+  1 & 3 \\ 
+  \vdots & \vdots \\ 
+  \end{array}
+\right]$
+
+$(X^{'}X)^{-1}=\left[
+ \begin{array}{rr}
+  0.1111 & -0.0476 \\ 
+  -0.0476 & 0.0238 \\ 
+  \end{array}
+\right]$
+
+```{r}
+sg=3.28
+ve=sg*diag(xx)
+se=sqrt(ve)
+```
+
+Use the diagonal of $(X^{'}X)^{-1}$ matrix to obtain the standard error of the estimates
+
+Standard error of estimates=$\sqrt{\hat{\sigma}^2*(X^{'}X)^{-1}_{ii}}=[.60,.28]$
+
+$\hat{\sigma}^2\approx 3.28$
+
+\begin{tabular}{l l l}
+\hline
+ & Estimate & Std Error\\
+\hline
+$\hat{\alpha_1}$ & 4.39 & .60 \\
+$\hat{\alpha_2}$ & -.60 & .28 \\
+\hline
+\end{tabular}
+
+\newpage
+
+## Part c
+
+$\mu_i=\beta_1+\beta_2i+\beta_3i^2$
+
+$H_0:\beta_2=\beta_3=0$
+
+since $\beta_2=\beta_3=0$ we have $\mu_i=\beta_1+ 0$
+
+Equivalent to testing $\mu_1=\mu_2=\mu_3 (=\beta_1)$
+
+This is the same as the test from part a
+
+Thus under $H_0: F \approx 2.24\sim F_{2,60}$
+
+Using $\alpha=.05$
+
+Critical Region $C_{\alpha}=\{F:F>F_{2,60;.95}\}$
+
+Quantile ${F^{-1}}_{2,60;.95} \approx 3.15$
+
+$2.24<3.14$ The test statistic is outiside of the critical region thus fail to reject $H_0$
+
+p-value $= 1-F_{2.24,2,60}\approx .12>.05$ The p-value is larger than $\alpha$
+
+Not enough evidence to reject the null hypothesis that the population means for lung function measure are equal across all smoking groups.
+
+
+```{r}
+x=c(1,1,2,4)
+xb=sum(x)/4
+sxx=sum((x-xb)^2)
+```
+

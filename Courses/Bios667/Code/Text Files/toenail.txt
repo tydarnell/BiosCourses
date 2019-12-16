@@ -1,0 +1,36 @@
+
+Multicenter study comparing two oral antifungal treatments for toe-nail infection.
+
+
+Source: Data courtesy of Novoartis, Belgium
+(http://www.blackwellpublishing.com/rss/datasets/C4827r.txt)
+
+Reference: De Backer, M., De Vroey, C., Lesaffre, E., Scheys, I., and De Keyser, P. (1998).
+Twelve weeks of continuous oral therapy for toenail onychomycosis caused by dermatophytes: 
+A double-blind comparative trial of terbinafine 250 mg/day versus itraconazole 200 mg/day.
+Journal of the American Academy of Dermatology, 38, 57-63.
+
+See also: Lesaffre, E. and Spiessens, B. (2001). On the effect of the number of quadrature 
+points in a logistic random-effects model: An example. Journal of the Royal Statistical 
+Society, Series C, 50, 325-335.
+
+
+Description:
+
+The data are from a randomized, double-blind, parallel-group, multicenter
+study comparing two oral antifungal treatments (Itraconazole and Terbinafine)
+for toe-nail infection. Patients were evaluated for the degree of onycholysis
+(the degree of separation of the nail plate from the nail-bed) at baseline 
+(week 0) and at weeks 4, 8, 12, 24, 36, and 48 thereafter. The onycholysis 
+outcome variable is binary (none or mild versus moderate or severe). The
+binary outcome was evaluated on 294 patients comprising a total of
+1908 measurements. 
+
+The variable Month denotes the exact timing of measurements in
+months. The variable Visit denotes the visit number (visit numbers
+1-7 correspond to scheduled visits at 0, 4, 8, 12, 24, 36, and
+48 weeks).
+
+
+Variable List: Subject ID, Response (0=none or mild, 1=moderate or severe), 
+Treatment (0=Itraconazole, 1=Terbinafine), Month, Visit.

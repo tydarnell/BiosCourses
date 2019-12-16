@@ -1,0 +1,26 @@
+
+Subset of Data from Exercise Therapy Study.
+
+
+Source: Adapted from Table (Output) 6.1 (page 176) of Freund, Littell and Spector (1986). 
+Reproduced with permission of SAS Institute, Inc., Cary, NC.
+
+Reference: Freund, R.J., Littell, R.C. and Spector, P.C. (1986). 
+SAS Systems for Linear Models, Cary, NC: SAS Institute Inc.
+
+
+Description:
+
+The data are from a study of exercise therapies, where 37 patients 
+were assigned to one of two weightlifting programs. In the first program (treatment 1), 
+the number of repetitions was increased as subjects became stronger. In the
+second program (treatment 2), the number of repetitions was fixed but the amount 
+of weight was increased as subjects became stronger. Measures of strength were taken
+at baseline (day 0), and on days 2, 4, 6, 8, 10, and 12.
+
+
+Variable List:
+
+ID, PROGRAM (1=Repetitions Increase; 2=Weights Increase), Response at Time 1,
+Response at Time 2, Response at Time 3, Response at Time 4, Response at Time 5,
+Response at Time 6, Response at Time 7.
